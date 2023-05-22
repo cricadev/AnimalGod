@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1 class="text-contAccent font-Noto text-Display">ANIMALGOD</h1>
-    <toggle-theme></toggle-theme>
+    <nuxt-layout>
+      <nuxt-page class=""></nuxt-page>
+    </nuxt-layout>
   </div>
 </template>
