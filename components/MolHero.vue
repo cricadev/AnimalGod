@@ -88,39 +88,43 @@ const slidesHero = [
 
 <style lang="scss">
 .carousel__pagination {
-  padding: 4px;
+  transform: translateY(-50%);
+  padding-bottom: 100px;
 }
 .carousel__pagination-button {
-  @apply bg-contAccent-50;
+  @apply bg-darkContThird;
   border-radius: 50%;
-  transform: scaleY(1.2) scaleX(0.6);
+  transform: scaleY(0.8) scaleX(0.5);
 
   &:hover {
-    @apply bg-contAccent-500;
+    @apply bg-contComplement;
     transition: 0.2s all ease-in;
   }
 }
 .carousel__pagination-button:hover::after {
-  @apply bg-contAccent-500;
+  @apply bg-contComplement;
   transition: 0.2s all ease-in;
 }
 .carousel__pagination-button::after {
-  @apply bg-contAccent-50;
+  @apply bg-darkContThird;
   border-radius: 50%;
   &:hover {
-    @apply bg-contAccent-500;
+    @apply bg-contComplement;
     transition: 0.2s all ease-in;
   }
 }
 .carousel__pagination-button--active {
-  @apply bg-contAccent-500;
-  transform: scaleY(1.4) scaleX(0.8);
+  @apply bg-contComplement;
+  transform: scaleY(0.8) scaleX(0.5);
 
   border-radius: 50%;
 }
 .carousel__pagination-button--active::after {
-  @apply bg-contAccent-500;
+  @apply bg-contComplement;
 
   border-radius: 50%;
+}
+.carousel__pagination-item {
+  width: 0.8rem;
 }
 </style>

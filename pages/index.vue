@@ -3,6 +3,7 @@
 <template>
   <div class="">
     <mol-hero></mol-hero>
+    <search-hero></search-hero>
   </div>
 </template>
 

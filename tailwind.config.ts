@@ -4,6 +4,19 @@ module.exports = {
   darkMode: "class",
   theme: {
     colors: {
+      contComplement: {
+        DEFAULT: "#1713C1",
+        50: "#E6E5FF",
+        100: "#CCC9FF",
+        200: "#9993FF",
+        300: "#666CFF",
+        400: "#3336FF",
+        500: "#1713C1",
+        600: "#100F95",
+        700: "#0A0A63",
+        800: "#050531",
+        900: "#000000",
+      },
       contAccent: {
         DEFAULT: "#0059E0",
         50: "#E6F0FF",
