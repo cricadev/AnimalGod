@@ -35,7 +35,7 @@ const slidesHero = [
   <div>
     <Carousel :autoplay="2000" :wrap-around="true">
       <Slide
-        class="bg-contAccent h-[70vh] w-full relative overflow-auto"
+        class="bg-contAccent h-[70vh] w-full relative overflow-hidden"
         v-for="slide in slidesHero"
         :key="slide.content"
       >

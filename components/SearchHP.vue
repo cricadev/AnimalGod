@@ -56,7 +56,7 @@
           },
         },
         appearance: {
-          gray: 'border-0 bg-contText-50 dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-md shadow-sm  focus:ring-2 focus:ring-primary-500 dark:focus:ring-contAccent-400 placeholder:text-contInactive dark:placeholder:text-contInactive',
+          gray: 'border-0 bg-[#f8f8f8] dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-md shadow-sm  focus:ring-2 focus:ring-primary-500 dark:focus:ring-contAccent-400 placeholder:text-contInactive dark:placeholder:text-contInactive',
         },
         icon: {
           base: 'text-darkContText dark:text-darkContText',

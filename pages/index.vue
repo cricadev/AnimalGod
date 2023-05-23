@@ -2,8 +2,10 @@
 
 <template>
   <div class="">
-    <mol-hero></mol-hero>
-    <search-hero></search-hero>
+    <hero-HP></hero-HP>
+    <search-HP></search-HP>
+    <cards-HP></cards-HP>
+    <cta-cards-HP></cta-cards-HP>
   </div>
 </template>
 

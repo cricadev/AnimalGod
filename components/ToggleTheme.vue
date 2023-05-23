@@ -39,7 +39,7 @@ console.log(colorMode.preference);
 
 <style>
 body {
-  background-color: #fff;
+  background-color: #f8f8f8;
   color: rgba(0, 0, 0, 0.8);
 }
 .dark body {
