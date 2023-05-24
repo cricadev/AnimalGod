@@ -16,14 +16,14 @@ const cardsHP = [
 
 <template>
   <div
-    class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-8 overflow-hidden mx-auto px-10"
+    class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10"
   >
     <div
       class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-start-1 col-end-2"
     >
       <nuxt-img
         src="/tobyDogCard.png"
-        class="absolute bottom-0 right-0 skew-x-12"
+        class="absolute bottom-0 -right-4 skew-x-12"
         width="100%"
         height="100%"
       ></nuxt-img>

@@ -28,7 +28,7 @@ const colorMode = useColorMode();
         icon="i-mdi-menu"
         size="xl"
         square
-        color=""
+        color="contAccent"
         variant="ghost"
       />
 
