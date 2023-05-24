@@ -4,6 +4,8 @@ module.exports = {
   darkMode: "class",
   theme: {
     colors: {
+      transparent: "transparent",
+      current: "currentColor",
       contComplement: {
         DEFAULT: "#1713C1",
         50: "#E6E5FF",

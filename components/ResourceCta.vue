@@ -37,7 +37,7 @@ const slidesResources = [
       :key="slide.content"
     >
       <div
-        class="z-40 mx-5 text-center bottom-24 text-darkContText-50 dark:text-darkContText-50"
+        class="z-40 mx-5 text-center bottom-24 text-darkBg dark:text-darkContText"
       >
         <h2 class="font-sans font-bold text-Heading2sm">
           {{ slide.title }}
