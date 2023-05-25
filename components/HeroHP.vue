@@ -10,7 +10,7 @@ const slidesHero = [
     content:
       "The animal shelter website is a place where people can go to adopt animals that need homes. They can also find information on how to care for their new pet, and how to make sure that their pet is healthy and happy.",
     kind: "Pug",
-    image: "/heroDog.png",
+    image: "/v1685029473/heroDog_xdelwc.png",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const slidesHero = [
     content:
       "The animal shelter website is committed to finding a home for every pet, and to helping people make the best decisions for their new furry family member.",
     kind: "American Bobtail",
-    image: "/catHero.png",
+    image: "/v1685029472/catHero_aaok1q.png",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const slidesHero = [
     content:
       "We believe that every animal regardless of their age, health, or temperament deserves a chance at a happy and healthy life, and we'll do everything in our power to make that happen.",
     kind: "Autralian Kelpie",
-    image: "/shepardHero.png",
+    image: "/v1685029473/shepardHero_rcg3ik.png",
   },
 ];
 </script>
@@ -41,19 +41,22 @@ const slidesHero = [
       >
         <div class="flex flex-col items-center justify-center h-full">
           <nuxt-img
-            src="/circle.png"
+            provider="cloudinary"
+            src="/v1685029473/circleHero_ybk8m3.png"
             width="100%"
             height="100%"
             class="absolute top-0 left-0 z-40"
           ></nuxt-img>
           <nuxt-img
+            provider="cloudinary"
             :src="slide.image"
             width="100%"
             height="100%"
             class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-60%] z-20"
           ></nuxt-img>
           <nuxt-img
-            src="/circleHeroBlue.png"
+            provider="cloudinary"
+            src="/v1685029473/circleHeroBlue_j0v27w.png"
             width="100%"
             height="100%"
             class="absolute bottom-0 left-0 z-[5]"
