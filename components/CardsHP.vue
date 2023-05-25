@@ -22,18 +22,21 @@ const cardsHP = [
       class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-start-1 col-end-2"
     >
       <nuxt-img
-        src="/tobyDogCard.png"
+        provider="cloudinary"
+        src="/tobyDogCard_zhban3.png"
         class="absolute bottom-0 -right-4 skew-x-12"
         width="100%"
         height="100%"
       ></nuxt-img>
       <nuxt-img
+        provider="cloudinary"
         src="/circleCyanCard.png"
         width="100%"
         height="100%"
         class="absolute bottom-0 left-0 skew-x-12"
       ></nuxt-img>
       <nuxt-img
+        provider="cloudinary"
         src="/circleCard.png"
         width="100%"
         height="100%"
@@ -45,24 +48,28 @@ const cardsHP = [
     >
       <!-- Add your second card here -->
       <nuxt-img
+        provider="cloudinary"
         src="/catCard.png"
         width="100%"
         height="100%"
         class="absolute bottom-0 right-0 skew-x-12"
       ></nuxt-img>
       <nuxt-img
+        provider="cloudinary"
         src="/mediumCircleCard.png"
         width="100%"
         height="100%"
         class="absolute bottom-0 left-0 skew-x-12"
       ></nuxt-img>
       <nuxt-img
+        provider="cloudinary"
         src="/smallCircleCard.png"
         width="50%"
         height="50%"
         class="absolute top-8 right-8 skew-x-12"
       ></nuxt-img>
       <nuxt-img
+        provider="cloudinary"
         src="/curveCard.png"
         width="50%"
         height="50%"
