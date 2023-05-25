@@ -11,13 +11,13 @@
         active: 'bg-transparent',
         inactive: 'bg-transparent',
         container: {
-          base: 'pointer-events-none relative inline-block h-8 w-8 rounded-full bg-white  transform ring-0 transition ease-in-out duration-200',
+          base: 'pointer-events-none relative inline-block h-8 w-8 rounded-full bg-transparent  transform ring-0 transition ease-in-out duration-200',
           active: 'translate-x-0',
           inactive: 'translate-x-0',
         },
         icon: {
-          on: 'h-8 w-8 text-darkContText-500 dark:text-darkContText-500',
-          off: 'h-8 w-8 text-darkBg-500',
+          on: 'h-8 w-8  bg-Bg ',
+          off: 'h-8 w-8  bg-darkBg',
         },
       }"
     />
