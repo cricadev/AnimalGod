@@ -27,6 +27,15 @@
 <script setup>
 const colorMode = useColorMode();
 
+onMounted(() => {
+  if (colorMode.preference === "system") {
+    if (colorMode.value === "dark") {
+      active.value = true;
+    } else {
+      active.value = false;
+    }
+  }
+});
 const active = ref(true);
 
 const toggle = () => {

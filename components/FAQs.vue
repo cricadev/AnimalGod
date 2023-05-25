@@ -210,6 +210,9 @@ onMounted(() => {
           size: {
             xl: 'text-Captionsm',
           },
+          padding: {
+            xl: 'px-8 py-3',
+          },
           color: {
             contAccent: {
               solid:
