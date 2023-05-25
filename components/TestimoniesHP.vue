@@ -52,7 +52,10 @@ With a tail-wagging jump into our arms, Lea and Ty confirmed we were there for t
         v-html="slide.title"
         class="font-sans font-bold text-Heading2sm relative z-10"
       ></h2>
-      <span></span>
+      <span
+        class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter"
+        >{{ slide.date }}</span
+      >
       <div class="relative h-[30%] w-full grid grid-cols-5 grid-rows-6 z-10">
         <nuxt-img
           :src="slide.image"

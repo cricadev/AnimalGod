@@ -5,11 +5,11 @@
     <UButton
       size="xl"
       label="Meet Them"
-      color="blue"
+      color="contAccent"
       variant="solid"
       :ui="{
         color: {
-          blue: {
+          contAccent: {
             solid:
               'shadow-sm  text-darkContText dark:text-white bg-contAccent hover:bg-contAccent-700 disabled:bg-white dark:bg-contAccent dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
           },

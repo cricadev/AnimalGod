@@ -22,6 +22,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "flowbite": "^1.6.5",
     "sass": "^1.62.1",
     "vue3-carousel": "^0.3.1"
   }

@@ -8,6 +8,7 @@
     <cta-cards-HP></cta-cards-HP>
     <resource-cta></resource-cta>
     <testimonies-HP></testimonies-HP>
+    <FAQs></FAQs>
   </div>
 </template>
 
