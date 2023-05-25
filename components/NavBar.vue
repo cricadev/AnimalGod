@@ -6,14 +6,16 @@ const colorMode = useColorMode();
 <template>
   <div class="flex items-center justify-between w-full h-16">
     <nuxt-img
-      src="/animal_god.png"
+      provider="cloudinary"
+      src="/v1685029472/animal_god_olvlho.png"
       v-if="colorMode.preference !== 'light'"
       width="100%"
       height="35"
       class="p-5"
     ></nuxt-img>
     <nuxt-img
-      src="/dark-animal_god.png"
+      provider="cloudinary"
+      src="/v1685029473/dark-animal_god_cloaku.png"
       width="100%"
       height="35"
       class="p-5"
