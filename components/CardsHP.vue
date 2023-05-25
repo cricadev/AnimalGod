@@ -23,21 +23,21 @@ const cardsHP = [
     >
       <nuxt-img
         provider="cloudinary"
-        src="/tobyDogCard_zhban3.png"
+        src="/v1685029473/tobyDogCard_zhban3.png"
         class="absolute bottom-0 -right-4 skew-x-12"
         width="100%"
         height="100%"
       ></nuxt-img>
       <nuxt-img
         provider="cloudinary"
-        src="/circleCyanCard.png"
+        src="/v1685029472/circleCyanCard_lxm5wo.png"
         width="100%"
         height="100%"
         class="absolute bottom-0 left-0 skew-x-12"
       ></nuxt-img>
       <nuxt-img
         provider="cloudinary"
-        src="/circleCard.png"
+        src="/v1685029472/circleCard_pchnrb.png"
         width="100%"
         height="100%"
         class="absolute top-0 right-0 skew-x-12"
@@ -49,28 +49,28 @@ const cardsHP = [
       <!-- Add your second card here -->
       <nuxt-img
         provider="cloudinary"
-        src="/catCard.png"
+        src="/v1685029472/catCard_rcrjqb.png"
         width="100%"
         height="100%"
         class="absolute bottom-0 right-0 skew-x-12"
       ></nuxt-img>
       <nuxt-img
         provider="cloudinary"
-        src="/mediumCircleCard.png"
+        src="/v1685029473/mediumCircleCard_a6ucac.png"
         width="100%"
         height="100%"
         class="absolute bottom-0 left-0 skew-x-12"
       ></nuxt-img>
       <nuxt-img
         provider="cloudinary"
-        src="/smallCircleCard.png"
+        src="/v1685029473/smallCircleCard_eh8sva.png"
         width="50%"
         height="50%"
         class="absolute top-8 right-8 skew-x-12"
       ></nuxt-img>
       <nuxt-img
         provider="cloudinary"
-        src="/curveCard.png"
+        src="/v1685029473/curveCard_saubup.png"
         width="50%"
         height="50%"
         class="absolute top-1/2 translate-y-[-50%] right-0 skew-x-12"

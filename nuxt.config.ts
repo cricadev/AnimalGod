@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   ui: { icons: ["mdi"] },
   image: {
     cloudinary: {
-      baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/v1685029473",
+      baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/",
     },
   },
 });
