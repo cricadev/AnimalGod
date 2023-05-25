@@ -4,6 +4,8 @@
   <div>
     <nav-bar></nav-bar>
     <slot />
+
+    <Footer></Footer>
   </div>
 </template>
 

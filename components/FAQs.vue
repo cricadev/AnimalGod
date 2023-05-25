@@ -38,7 +38,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="bg-contSecond dark:bg-darkContSecond mb-12 p-10">
+  <div class="bg-contSecond dark:bg-darkContSecond p-10">
     <h1 class="font-bold font-Inter text-Heading2sm mb-16">FAQs</h1>
     <div id="accordion-collapse" data-accordion="collapse">
       <h2 id="accordion-collapse-heading-1">

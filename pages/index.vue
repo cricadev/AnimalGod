@@ -9,6 +9,7 @@
     <resource-cta></resource-cta>
     <testimonies-HP></testimonies-HP>
     <FAQs></FAQs>
+    <tip></tip>
   </div>
 </template>
 
