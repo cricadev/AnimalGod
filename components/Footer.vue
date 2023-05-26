@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const colorMode = useColorMode();
+</script>
 
 <template>
   <div
@@ -8,10 +10,18 @@
       class="flex flex-col items-center justify-center gap-9 col-start-1 col-end-4 row-start-1 row-end-3"
     >
       <nuxt-img
+        v-if="colorMode.preference !== 'light'"
         provider="cloudinary"
         src="/v1685029472/animal_god_olvlho.png"
         height="50"
         width="160"
+      ></nuxt-img>
+      <nuxt-img
+        provider="cloudinary"
+        src="/v1685029473/dark-animal_god_cloaku.png"
+        height="50"
+        width="160"
+        v-else
       ></nuxt-img>
 
       <p class="text-Captionsm leading-none text-center">
@@ -187,7 +197,7 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .nav-title {
   @apply text-Body1sm font-semibold mb-6;
 }
