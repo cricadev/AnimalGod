@@ -1,26 +1,30 @@
 <script setup>
 const isOpen = ref(false);
 const colorMode = useColorMode();
+
+// grab nav-item class element and add active class when the route matches the href
 </script>
 
 <template>
   <div class="flex items-center justify-between w-full h-16">
-    <nuxt-img
-      provider="cloudinary"
-      src="/v1685029472/animal_god_olvlho.png"
-      v-if="colorMode.preference !== 'light'"
-      width="100%"
-      height="35"
-      class="p-5"
-    ></nuxt-img>
-    <nuxt-img
-      provider="cloudinary"
-      src="/v1685029473/dark-animal_god_cloaku.png"
-      width="100%"
-      height="35"
-      class="p-5"
-      v-else
-    ></nuxt-img>
+    <nuxt-link to="/">
+      <nuxt-img
+        provider="cloudinary"
+        src="/v1685029472/animal_god_olvlho.png"
+        v-if="colorMode.preference !== 'light'"
+        width="100%"
+        height="35"
+        class="p-5"
+      ></nuxt-img>
+      <nuxt-img
+        provider="cloudinary"
+        src="/v1685029473/dark-animal_god_cloaku.png"
+        width="100%"
+        height="35"
+        class="p-5"
+        v-else
+      ></nuxt-img
+    ></nuxt-link>
 
     <div class="flex place-items-center burguer-menu">
       <ToggleTheme></ToggleTheme>
@@ -174,7 +178,11 @@ const colorMode = useColorMode();
             <div class="flex flex-col justify-center items-center">
               <p class="nav-title">Adopt</p>
               <ul class="flex justify-center items-center flex-col gap-2">
-                <li><a href="#" class="nav--item">About adoption</a></li>
+                <li>
+                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
+                    >About adoption</nuxt-link
+                  >
+                </li>
                 <li><a href="#" class="nav--item">Meet them</a></li>
                 <li><a href="#" class="nav--item">Succesful cases</a></li>
               </ul>
@@ -209,7 +217,11 @@ const colorMode = useColorMode();
 .nav-title {
   @apply text-base font-medium mb-2;
 }
+
 .nav--item {
   @apply text-Captionlg font-regular text-contInactive;
+}
+.router-link-active {
+  @apply border-b border-contAccent pb-1;
 }
 </style>
