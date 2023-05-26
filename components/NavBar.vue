@@ -1,8 +1,15 @@
 <script setup>
 const isOpen = ref(false);
 const colorMode = useColorMode();
+const route = useRoute();
 
-// grab nav-item class element and add active class when the route matches the href
+// after every route enter toggle the isOpen boolean to false
+watch(
+  () => route.path,
+  () => {
+    isOpen.value = false;
+  }
+);
 </script>
 
 <template>
@@ -183,8 +190,16 @@ const colorMode = useColorMode();
                     >About adoption</nuxt-link
                   >
                 </li>
-                <li><a href="#" class="nav--item">Meet them</a></li>
-                <li><a href="#" class="nav--item">Succesful cases</a></li>
+                <li>
+                  <nuxt-link to="/adopt/meet-them" class="nav--item"
+                    >Meet them</nuxt-link
+                  >
+                </li>
+                <li>
+                  <nuxt-link to="/adopt/succesful-cases" class="nav--item"
+                    >Succesful cases</nuxt-link
+                  >
+                </li>
               </ul>
             </div>
             <p class="nav-title">Tips</p>

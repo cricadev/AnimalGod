@@ -42,7 +42,7 @@ With a tail-wagging jump into our arms, Lea and Ty confirmed we were there for t
 </script>
 
 <template>
-  <Carousel :wrap-around="true" class="mx-5 mb-12">
+  <Carousel :wrap-around="true">
     <Slide
       class="dark:bg-contAccent bg-contAccent h-[80vh] w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText"
       v-for="slide in slidesResources"
