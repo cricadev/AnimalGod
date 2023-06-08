@@ -526,7 +526,7 @@
     </div>
 
     <!-- RESULTS -->
-    <div class="flex justify-center items-center flex-col h-screen">
+    <div class="flex justify-center items-center flex-col h-[65vh] mx-5">
       <div class="my-12 flex flex-col justify-center items-center text-center">
         <span
           class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"
@@ -543,7 +543,7 @@
       </div>
       <Carousel
         ref="myCarousel"
-        class="h-screen"
+        class=""
         :start-slide="currentSlide"
         @slide-end="onSlideEnd"
         :wrap-around="true"
@@ -559,16 +559,16 @@
             :key="animal.name"
           >
             <h6
-              class="row-start-3 row-end-4 capitalize bottom-2 z-50 text-Heading6lg font-bold font-Inter tracking-widest"
+              class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center"
             >
               {{ animal.name }}
             </h6>
             <nuxt-img
               provider="cloudinary"
-              :src="animal.meetImage"
-              class="row-span-full col-span-full object-cover object-center z-0"
-              width="150"
-              height="150"
+              :src="'/q_100' + animal.meetImage"
+              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
+              width="100%"
+              height="100%"
             ></nuxt-img>
             <div
               class="absolute h-[40%] w-full z-10 bottom-0 left-0"

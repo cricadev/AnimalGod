@@ -1,6 +1,5 @@
 {
   "animalGroups": [
-    
     [
       {
         "name": "toby",
@@ -29,6 +28,19 @@
         "hex": "EFAF52"
       },
       {
+        "name": "sky",
+        "type": "cat",
+        "breed": "persian",
+        "size": "medium",
+        "age": 2,
+        "gender": "male",
+        "personality": "playful",
+        "goodWith": ["cats", "dogs", "children"],
+        "activityLevel": "high",
+        "meetImage": "/v1685578058/skyMD_dxy9fb.png",
+        "hex": "EA5D31"
+      },
+      {
         "name": "pixie",
         "type": "dog",
         "breed": "golden retriever",
@@ -40,7 +52,9 @@
         "activityLevel": "medium",
         "meetImage": "/v1685578058/pixieMD_ue3cr7.png",
         "hex": "8FDDDB"
-      },
+      }
+    ],
+    [
       {
         "name": "boo",
         "type": "cat",
@@ -53,9 +67,7 @@
         "activityLevel": "high",
         "meetImage": "/v1685578057/booMD_zkchks.png",
         "hex": "EA5D31"
-      }
-    ],
-    [
+      },
       {
         "name": "sammy",
         "type": "dog",
@@ -70,7 +82,7 @@
         "hex": "3EB7CF"
       },
       {
-        "name": "toby",
+        "name": "Milly",
         "type": "dog",
         "breed": "labrador",
         "size": "medium",
@@ -79,24 +91,12 @@
         "personality": "friendly",
         "goodWith": ["dogs", "cats", "children"],
         "activityLevel": "high",
-        "meetImage": "/v1685578058/tobyMD_yubbiv.png",
-        "hex": "00C57D"
+        "meetImage": "/v1685578058/milyMD_x6rfa9.png",
+        "hex": "FFD835"
       },
+
       {
-        "name": "cooper",
-        "type": "cat",
-        "breed": "siamese",
-        "size": "small",
-        "age": 3,
-        "gender": "female",
-        "personality": "independent",
-        "goodWith": ["cats", "adults"],
-        "activityLevel": "low",
-        "meetImage": "/v1685578057/cooperMD_gugvdw.png",
-        "hex": "EFAF52"
-      },
-      {
-        "name": "pixie",
+        "name": "Fiona",
         "type": "dog",
         "breed": "golden retriever",
         "size": "large",
@@ -105,8 +105,8 @@
         "personality": "loyal",
         "goodWith": ["dogs", "children"],
         "activityLevel": "medium",
-        "meetImage": "/v1685578058/pixieMD_ue3cr7.png",
-        "hex": "8FDDDB"
+        "meetImage": "/v1685578057/fionaMD_esrthr.png",
+        "hex": "F3A3B0"
       }
     ]
   ]
