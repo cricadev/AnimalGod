@@ -1,6 +1,6 @@
 <template>
-  <!-- HERO -->
   <div class="flex flex-col">
+    <!-- HERO -->
     <div
       class="h-[20vh] w-full bg-contAccent grid place-items-center relative overflow-hidden"
     >
@@ -38,6 +38,7 @@
         class="absolute bottom-0 left-0 z-20"
       ></nuxt-img>
     </div>
+    <!-- SEARCH -->
     <div class="flex mx-5 relative bottom-8 z-50">
       <UInput
         appearance="gray"
@@ -193,6 +194,8 @@
         }"
       />
     </div>
+
+    <!-- banner try this test -->
     <div
       class="relative h-[15vh] overflow-hidden mx-5 rounded-md bg-contSecond dark:bg-darkContSecond"
     >
@@ -270,6 +273,7 @@
       ></div>
     </div>
 
+    <!-- BBUTTONS FILTER -->
     <div class="flex justify-between mx-5 items-center">
       <USelectMenu
         placeholder="Animal"
@@ -495,12 +499,12 @@
           color: {
             contAccent: {
               solid:
-                'shadow-sm   dark:text-white bg-darkContThird hover:bg-darkContThird-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-darkContThird/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
+                'shadow-sm text-contSecond dark:text-darkContSecond   bg-darkContThird hover:bg-darkContThird-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-darkContThird/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
             },
           },
           variant: {
             solid:
-              'shadow-sm text-darkContSecond bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
+              'shadow-sm text-contSecond dark:text-darkContSecond bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
             outline:
               'ring-1 ring-inset ring-current text-{color}-500 dark:text-{color}-400 hover:bg-{color}-50 dark:hover:bg-{color}-950 focus-visible:ring-2 focus-visible:ring-{color}-500 dark:focus-visible:ring-{color}-400',
             soft: 'text-{color}-500 dark:text-{color}-400 bg-{color}-50 hover:bg-{color}-100 dark:bg-{color}-950 dark:hover:bg-{color}-900 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-{color}-500 dark:focus-visible:ring-{color}-400',
@@ -520,14 +524,82 @@
         }"
       />
     </div>
+
+    <!-- RESULTS -->
+    <div class="flex justify-center items-center flex-col h-screen">
+      <div class="my-12 flex flex-col justify-center items-center text-center">
+        <span
+          class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"
+          >20 results</span
+        >
+        <h4 class="text-Heading4sm font-bold font-Inter mb-1">
+          Black cats are less likely to be adopted
+        </h4>
+        <p class="text-Footer font-regular text-contInactive leading-none mx-8">
+          In a study of shelters in Colorado, solid black cats took an average
+          of 26.55 days to be adopted compared to 20.64 days for their non-black
+          counterparts.
+        </p>
+      </div>
+      <Carousel
+        ref="myCarousel"
+        class="h-screen"
+        :start-slide="currentSlide"
+        @slide-end="onSlideEnd"
+        :wrap-around="true"
+      >
+        <Slide
+          class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
+          v-for="(group, index) in animalGroups"
+          :key="index"
+        >
+          <div
+            class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+            v-for="animal in group"
+            :key="animal.name"
+          >
+            <h6
+              class="row-start-3 row-end-4 capitalize bottom-2 z-50 text-Heading6lg font-bold font-Inter tracking-widest"
+            >
+              {{ animal.name }}
+            </h6>
+            <nuxt-img
+              provider="cloudinary"
+              :src="animal.meetImage"
+              class="row-span-full col-span-full object-cover object-center z-0"
+              width="150"
+              height="150"
+            ></nuxt-img>
+            <div
+              class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+              :style="`background: linear-gradient(0deg, #${animal.hex} 0%, rgba(0, 0, 0, 0) 100%);`"
+            ></div>
+          </div>
+        </Slide>
+
+        <template #addons>
+          <Pagination />
+        </template>
+      </Carousel>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Carousel, Pagination, Slide } from "vue3-carousel";
+
+import "vue3-carousel/dist/carousel.css";
+
+import animals from "~/db/animals.json";
+
+const animalGroups = ref(animals.animalGroups);
+const currentSlide = ref(0);
+
+const onSlideEnd = () => {
+  currentSlide.value += 1;
+};
 const selectMenu = ref(null);
-onMounted(() => {
-  console.log(selectMenu.value);
-});
+
 const people = [
   {
     id: "dog",
@@ -547,5 +619,15 @@ const selected = ref(people[0]);
 <style lang="scss" scoped>
 button:has(+ .label-selected) {
   background-color: blue !important;
+}
+.carousel__slide {
+  scroll-snap-stop: auto;
+  flex-shrink: 0;
+  margin: 0;
+  position: relative;
+
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 </style>

@@ -44,7 +44,7 @@ const slidesResources = [
         </h2>
         <p class="mt-4 font-sans font-regular text-Body1sm">
           {{ slide.content }}
-        </p>
+        </p> 
       </div>
       <UButton
         size="xl"

@@ -1,0 +1,113 @@
+{
+  "animalGroups": [
+    
+    [
+      {
+        "name": "toby",
+        "type": "dog",
+        "breed": "labrador",
+        "size": "medium",
+        "age": 14,
+        "gender": "male",
+        "personality": "friendly",
+        "goodWith": ["dogs", "cats", "children"],
+        "activityLevel": "high",
+        "meetImage": "/v1685578058/tobyMD_yubbiv.png",
+        "hex": "00C57D"
+      },
+      {
+        "name": "cooper",
+        "type": "cat",
+        "breed": "siamese",
+        "size": "small",
+        "age": 3,
+        "gender": "female",
+        "personality": "independent",
+        "goodWith": ["cats", "adults"],
+        "activityLevel": "low",
+        "meetImage": "/v1685578057/cooperMD_gugvdw.png",
+        "hex": "EFAF52"
+      },
+      {
+        "name": "pixie",
+        "type": "dog",
+        "breed": "golden retriever",
+        "size": "large",
+        "age": 6,
+        "gender": "male",
+        "personality": "loyal",
+        "goodWith": ["dogs", "children"],
+        "activityLevel": "medium",
+        "meetImage": "/v1685578058/pixieMD_ue3cr7.png",
+        "hex": "8FDDDB"
+      },
+      {
+        "name": "boo",
+        "type": "cat",
+        "breed": "persian",
+        "size": "medium",
+        "age": 2,
+        "gender": "male",
+        "personality": "playful",
+        "goodWith": ["cats", "dogs", "children"],
+        "activityLevel": "high",
+        "meetImage": "/v1685578057/booMD_zkchks.png",
+        "hex": "EA5D31"
+      }
+    ],
+    [
+      {
+        "name": "sammy",
+        "type": "dog",
+        "breed": "poodle",
+        "size": "small",
+        "age": 8,
+        "gender": "male",
+        "personality": "affectionate",
+        "goodWith": ["dogs", "adults"],
+        "activityLevel": "low",
+        "meetImage": "/v1685578058/sammyMD_gkhyxi.png",
+        "hex": "3EB7CF"
+      },
+      {
+        "name": "toby",
+        "type": "dog",
+        "breed": "labrador",
+        "size": "medium",
+        "age": 14,
+        "gender": "male",
+        "personality": "friendly",
+        "goodWith": ["dogs", "cats", "children"],
+        "activityLevel": "high",
+        "meetImage": "/v1685578058/tobyMD_yubbiv.png",
+        "hex": "00C57D"
+      },
+      {
+        "name": "cooper",
+        "type": "cat",
+        "breed": "siamese",
+        "size": "small",
+        "age": 3,
+        "gender": "female",
+        "personality": "independent",
+        "goodWith": ["cats", "adults"],
+        "activityLevel": "low",
+        "meetImage": "/v1685578057/cooperMD_gugvdw.png",
+        "hex": "EFAF52"
+      },
+      {
+        "name": "pixie",
+        "type": "dog",
+        "breed": "golden retriever",
+        "size": "large",
+        "age": 6,
+        "gender": "male",
+        "personality": "loyal",
+        "goodWith": ["dogs", "children"],
+        "activityLevel": "medium",
+        "meetImage": "/v1685578058/pixieMD_ue3cr7.png",
+        "hex": "8FDDDB"
+      }
+    ]
+  ]
+}
