@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Carousel, Navigation, Slide } from "vue3-carousel";
 
-import "vue3-carousel/dist/carousel.css";
-
 const slidesResources = [
   {
     id: 1,
@@ -85,19 +83,9 @@ With a tail-wagging jump into our arms, Lea and Ty confirmed we were there for t
       </span>
     </Slide>
     <template #addons>
-      <Navigation />
+      <Navigation
+        class="navigation-testimonies bg-transparent text-darkContText"
+      />
     </template>
   </Carousel>
 </template>
-
-<style lang="scss">
-.carousel__prev,
-.carousel__next {
-  @apply bg-transparent text-darkContText;
-}
-
-.carousel__prev:hover,
-.carousel__next:hover {
-  @apply bg-transparent text-darkContText;
-}
-</style>

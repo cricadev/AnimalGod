@@ -3,7 +3,7 @@
 <template>
   <div class="">
     <hero-HP></hero-HP>
-    <search-HP></search-HP>
+    <search-HP class="mx-5 relative bottom-36"></search-HP>
     <cards-HP></cards-HP>
     <cta-cards-HP></cta-cards-HP>
     <resource-cta></resource-cta>
@@ -12,5 +12,3 @@
     <tip></tip>
   </div>
 </template>
-
-<style></style>

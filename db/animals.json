@@ -12,6 +12,7 @@
         "goodWith": ["dogs", "cats", "children"],
         "activityLevel": "high",
         "meetImage": "/v1685578058/tobyMD_yubbiv.png",
+        "carouselImages": [],
         "hex": "00C57D"
       },
       {
@@ -39,7 +40,7 @@
         "activityLevel": "high",
         "meetImage": "/v1685578058/skyMD_dxy9fb.png",
         "hex": "EA5D31"
-      },
+         },
       {
         "name": "pixie",
         "type": "dog",
@@ -109,5 +110,26 @@
         "hex": "F3A3B0"
       }
     ]
+  ],
+  "animalDataByName": [
+    {
+      "name": "toby",
+      "type": "dog",
+      "breed": "labrador",
+      "size": "medium",
+      "age": 14,
+      "gender": "male",
+      "personality": "friendly",
+      "goodWith": ["dogs", "cats", "children"],
+      "activityLevel": "high",
+      "meetImage": "/v1685578058/tobyMD_yubbiv.png",
+      "hex": "00C57D",
+      "carouselImages": [
+        "/v1686344458/TobyGallery00_ifoyml.png",
+        "/v1686344458/TobyGallery01_e8qu90.png",
+        "/v1686344458/TobyGallery02_jnhpf9.png",
+        "/v1686344458/TobyGallery03_i0lhvb.png"
+      ]
+    }
   ]
 }

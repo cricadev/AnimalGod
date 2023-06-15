@@ -27,4 +27,8 @@ export default defineNuxtConfig({
       baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/",
     },
   },
+  components: [
+    { path: "~/components/MeetThem", prefix: "MeetThem" },
+    "~/components",
+  ],
 });

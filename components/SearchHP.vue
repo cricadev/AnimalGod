@@ -1,16 +1,26 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="mx-5 relative bottom-36">
+  <div>
     <UInput
       icon="i-heroicons-magnifying-glass-20-solid"
-      appearance="gray"
+      color="white"
+      variant="outline"
       size="xl"
       trailing
       placeholder="Search"
       :ui="{
         base: 'relative block w-full disabled:cursor-not-allowed disabled:opacity-75 focus:outline-none',
         custom: '',
+        color: {
+          white:
+            'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-md shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive',
+        },
+        variant: {
+          outline:
+            'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-md shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive border-2 border-contAccent dark:border-contAccent',
+        },
+
         size: {
           '2xs': 'text-xs',
           xs: 'text-xs',
@@ -55,9 +65,7 @@
             xl: 'pr-12',
           },
         },
-        appearance: {
-          gray: 'border-0 bg-[#f8f8f8] dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-md shadow-sm  focus:ring-2 focus:ring-primary-500 dark:focus:ring-contAccent-400 placeholder:text-contInactive dark:placeholder:text-contInactive',
-        },
+
         icon: {
           base: 'text-darkContText dark:text-darkContText',
           size: {

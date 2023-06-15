@@ -69,7 +69,8 @@ const colorMode = useColorMode();
       </p>
       <div class="flex flex-row justify-center items-center w-full">
         <UInput
-          appearance="gray"
+          color="white"
+          variant="outline"
           size="sm"
           placeholder="Email"
           class=""
@@ -120,9 +121,15 @@ const colorMode = useColorMode();
                 xl: 'pr-12',
               },
             },
-            appearance: {
-              gray: 'border-0 bg-[#f8f8f8] dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm  focus:ring-2 focus:ring-primary-500 dark:focus:ring-contAccent-400 placeholder:text-contInactive dark:placeholder:text-contInactive',
+            color: {
+              white:
+                'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive',
             },
+            variant: {
+              outline:
+                'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive border-2 border-contAccent dark:border-contAccent',
+            },
+
             icon: {
               base: 'text-darkContText dark:text-darkContText',
               size: {

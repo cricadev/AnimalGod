@@ -1,55 +1,48 @@
-<script setup lang="ts">
-import { Carousel, Pagination, Slide } from "vue3-carousel";
-
-const slidesResources = [
-  {
-    id: 1,
-    title:
-      " 6.3 million companion animals enter U.S animal shelters nationwide every year",
-    content:
-      "Aproximately 3.1 million are dgos and 3.2 million are cats. We estimate that the number of dogs and cats entering U.S shelters anually has declined from approximately 7.2 million in 2011. The biggest decline was in dogs (from 3.9million to 3.1 million)",
-    cta: "Learn more",
-  },
-  {
-    id: 2,
-    title: "Each year 920,000 shelter animals are euthanized",
-    content:
-      "The number of dogs and cats euthanized in U.S shelters annuallly has declined from approximately 2.6 million in 2011. This decline can be partially explained by an increase in the percentageof animals adopted and the number of stray animals successfully returned to their owners.",
-    cta: "Learn more",
-  },
-  {
-    id: 3,
-    title: "78 million dogs and 85.5 million cats are owned in the U.S",
-    content:
-      "Approximately 44% of all households in the United States have a dog, and 35% have a cat.",
-    cta: "Learn more",
-  },
-];
-</script>
-
 <template>
-  <Carousel :autoplay="2000" :wrap-around="true">
-    <Slide
-      class="dark:bg-darkContSecond bg-contSecond h-[50vh] w-full relative overflow-hidden flex flex-col gap-4"
-      v-for="slide in slidesResources"
-      :key="slide.content"
+  <div
+    class="relative h-[15vh] overflow-hidden mx-5 rounded-md bg-contSecond dark:bg-darkContSecond"
+  >
+    <nuxt-img
+      provider="cloudinary"
+      src="/e_grayscale/v1685128552/heroAboutAdoption_ak3i5i.png"
+      height="100%"
+      width="100%"
+      class="absolute bottom-2 left-0"
+    ></nuxt-img>
+    <nuxt-img
+      provider="cloudinary"
+      src="/v1685129859/groupCircleTopAboutAdoption_nlcpko.png"
+      height="100%"
+      width="100%"
+      class="absolute top-0 right-0"
+    ></nuxt-img>
+    <nuxt-img
+      provider="cloudinary"
+      src="/v1685129859/circleAboutAdoption_mscnaz.png"
+      height="100%"
+      width="100%"
+      class="absolute bottom-0 left-0"
+    ></nuxt-img>
+    <h2
+      class="line-clamp-1 w-full text-Heading6sm font-bold text-center absolute bottom-8 z-50"
     >
-      <div
-        class="z-40 mx-5 text-center bottom-24 text-darkBg dark:text-darkContText flex flex-col gap-4 mb-4"
-      >
-        <h2 class="font-sans font-bold text-Heading2sm leading-tight">
-          {{ slide.title }}
-        </h2>
-        <p class="mt-4 font-sans font-regular text-Body1sm leading-tight">
-          {{ slide.content }}
-        </p>
-      </div>
+      Do you wanna know what’s your perfect breed?
+    </h2>
+    <div
+      class="flex flex-col items-center justify-center absolute bottom-0 z-20 left-1/2 translate-x-[-50%] gap-2 mb-2"
+    >
       <UButton
         size="xl"
-        :label="slide.cta"
+        label="Try this test"
         color="contAccent"
         variant="solid"
         :ui="{
+          size: {
+            xl: 'text-[.55rem]',
+          },
+          padding: {
+            xl: 'px-3 py-1 text-center justify-center',
+          },
           color: {
             contAccent: {
               solid:
@@ -77,8 +70,9 @@ const slidesResources = [
           },
         }"
       />
-    </Slide>
-
-    <template #addons> </template>
-  </Carousel>
+    </div>
+    <div
+      class="absolute h-[40%] w-full bg-gradient-to-t from-contSecond dark:from-darkContSecond z-10 bottom-0 left-0 to-transparent"
+    ></div>
+  </div>
 </template>

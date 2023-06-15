@@ -40,8 +40,8 @@ watch(
         @click="isOpen = true"
         icon="i-mdi-menu"
         size="xl"
-        square
         color="contAccent"
+        square
         variant="ghost"
       />
 
@@ -149,7 +149,7 @@ watch(
           <UButton
             size="xl"
             label="Forgot password?"
-            color="none"
+            color="contAccent.none"
             variant="none"
             :ui="{
               size: {
@@ -202,8 +202,10 @@ watch(
                 </li>
               </ul>
             </div>
-            <p class="nav-title">Tips</p>
-            <p class="nav-title">About us</p>
+            <li class="nav-title">
+              <nuxt-link to="/tips">Tips</nuxt-link>
+            </li>
+            <li class="nav-title">About us</li>
           </div>
           <div
             class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]"
@@ -230,7 +232,7 @@ watch(
 </template>
 <style lang="scss" scoped>
 .nav-title {
-  @apply text-base font-medium mb-2;
+  @apply text-base font-medium mb-2 list-none;
 }
 
 .nav--item {

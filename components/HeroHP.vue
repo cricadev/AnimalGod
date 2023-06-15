@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Carousel, Pagination, Slide } from "vue3-carousel";
 
-import "vue3-carousel/dist/carousel.css";
-
 const slidesHero = [
   {
     id: 1,
@@ -88,46 +86,3 @@ const slidesHero = [
     </Carousel>
   </div>
 </template>
-
-<style lang="scss">
-.carousel__pagination {
-  transform: translateY(-50%);
-  padding-bottom: 100px;
-}
-.carousel__pagination-button {
-  @apply bg-darkContThird;
-  border-radius: 50%;
-  transform: scaleY(0.8) scaleX(0.5);
-
-  &:hover {
-    @apply bg-contComplement;
-    transition: 0.2s all ease-in;
-  }
-}
-.carousel__pagination-button:hover::after {
-  @apply bg-contComplement;
-  transition: 0.2s all ease-in;
-}
-.carousel__pagination-button::after {
-  @apply bg-darkContThird;
-  border-radius: 50%;
-  &:hover {
-    @apply bg-contComplement;
-    transition: 0.2s all ease-in;
-  }
-}
-.carousel__pagination-button--active {
-  @apply bg-contComplement;
-  transform: scaleY(0.8) scaleX(0.5);
-
-  border-radius: 50%;
-}
-.carousel__pagination-button--active::after {
-  @apply bg-contComplement;
-
-  border-radius: 50%;
-}
-.carousel__pagination-item {
-  width: 0.8rem;
-}
-</style>

@@ -1,8 +1,8 @@
 <template>
   <div>
     <UToggle
-      icon-on="i-mdi-weather-night"
-      icon-off="i-mdi-white-balance-sunny"
+      on-icon="i-mdi-weather-night"
+      off-icon="i-mdi-white-balance-sunny"
       :model-value="active"
       @update:model-value="toggle"
       class="mr-3"
@@ -16,8 +16,8 @@
           inactive: 'translate-x-0',
         },
         icon: {
-          on: 'h-8 w-8  bg-Bg ',
-          off: 'h-8 w-8  bg-darkBg',
+          on: 'h-8 w-8  bg-Bg i-mdi-weather-night ',
+          off: 'h-8 w-8  bg-darkBg i-mdi-white-balance-sunny',
         },
       }"
     />
