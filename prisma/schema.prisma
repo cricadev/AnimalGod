@@ -1,0 +1,26 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "darwin-arm64"]
+    output        = "../node_modules/.prisma/client"
+}
+
+model Pet {
+    id             Int      @id @default(autoincrement())
+    name           String
+    type           String
+    breed          String
+    size           String
+    age            Int
+    gender         String
+    personality    String
+    goodWith       String[]
+    activityLevel  String
+    meetImage      String
+    hex            String
+    carouselImages String[]
+}

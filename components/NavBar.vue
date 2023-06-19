@@ -2,7 +2,7 @@
 const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
-
+const user = useSupabaseUser();
 // after every route enter toggle the isOpen boolean to false
 watch(
   () => route.path,
@@ -10,6 +10,18 @@ watch(
     isOpen.value = false;
   }
 );
+
+const supaAuth = useSupabaseAuthClient().auth;
+
+const logout = async () => {
+  const { error } = await supaAuth.signOut();
+  if (error) {
+    console.log(error);
+  } else {
+    return navigateTo("/");
+  }
+};
+console.log(user.value.user_metadata);
 </script>
 
 <template>
@@ -76,111 +88,163 @@ watch(
         <div
           class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond"
         >
-          <UButton
-            size="xl"
-            label="Log in"
-            color="contAccent"
-            variant="solid"
-            :ui="{
-              size: {
-                xl: 'text-body1lg font-medium font-Inter  justify-center',
-              },
-              padding: {
-                xl: 'px-8 py-3  mx-4',
-              },
-              color: {
-                contAccent: {
-                  solid:
-                    'shadow-sm  text-darkContText  bg-contAccent hover:bg-contAccent-700 disabled:bg-white dark:bg-contAccent dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
-                },
-              },
-              variant: {
-                solid:
-                  'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
-              },
-              icon: {
-                base: 'flex-shrink-0',
-                size: {
-                  '2xs': 'h-3.5 w-3.5',
-                  xs: 'h-4 w-4',
-                  sm: 'h-4 w-4',
-                  md: 'h-5 w-5',
-                  lg: 'h-5 w-5',
-                  xl: 'h-6 w-6',
-                },
-              },
-            }"
-          />
-          <UButton
-            size="xl"
-            label="Sign up"
-            color="contAccent"
-            variant="solid"
-            :ui="{
-              size: {
-                xl: 'text-body1lg font-medium font-Inter  justify-center',
-              },
-              padding: {
-                xl: 'px-8 py-3  mx-4',
-              },
-              color: {
-                contAccent: {
-                  solid:
-                    'shadow-sm  text-Bg dark:text-darkBg bg-darkContThird hover:bg-contAccent-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
-                },
-              },
-              variant: {
-                solid:
-                  'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
-              },
-              icon: {
-                base: 'flex-shrink-0',
-                size: {
-                  '2xs': 'h-3.5 w-3.5',
-                  xs: 'h-4 w-4',
-                  sm: 'h-4 w-4',
-                  md: 'h-5 w-5',
-                  lg: 'h-5 w-5',
-                  xl: 'h-6 w-6',
-                },
-              },
-            }"
-          />
-          <UButton
-            size="xl"
-            label="Forgot password?"
-            color="contAccent.none"
-            variant="none"
-            :ui="{
-              size: {
-                xl: 'text-body1lg font-medium font-Inter  justify-center',
-              },
-              padding: {
-                xl: 'px-8 py-3  mx-4',
-              },
-              color: {
-                contAccent: {
-                  none: 'shadow-sm  text-Bg bg-transparent  bg-darkContThird hover:bg-contAccent-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
-                },
-              },
-              variant: {
-                none: 'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
-              },
-              icon: {
-                base: 'flex-shrink-0',
-                size: {
-                  '2xs': 'h-3.5 w-3.5',
-                  xs: 'h-4 w-4',
-                  sm: 'h-4 w-4',
-                  md: 'h-5 w-5',
-                  lg: 'h-5 w-5',
-                  xl: 'h-6 w-6',
-                },
-              },
-            }"
-          />
-          <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
+          <div class="flex flex-col gap-2 mx-5" v-if="!user">
+            <nuxt-link to="/login" class="">
+              <UButton
+                size="xl"
+                label="Log in"
+                color="contAccent"
+                variant="solid"
+                block
+                :ui="{
+                  size: {
+                    xl: 'text-body1lg font-medium font-Inter  justify-center',
+                  },
+                  padding: {
+                    xl: 'px-8 py-3',
+                  },
+                  color: {
+                    contAccent: {
+                      solid:
+                        'shadow-sm  text-darkContText  bg-contAccent hover:bg-contAccent-700 disabled:bg-white dark:bg-contAccent dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
+                    },
+                  },
+                  variant: {
+                    solid:
+                      'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
+                  },
+                  icon: {
+                    base: 'flex-shrink-0',
+                    size: {
+                      '2xs': 'h-3.5 w-3.5',
+                      xs: 'h-4 w-4',
+                      sm: 'h-4 w-4',
+                      md: 'h-5 w-5',
+                      lg: 'h-5 w-5',
+                      xl: 'h-6 w-6',
+                    },
+                  },
+                }"
+              />
+            </nuxt-link>
+            <nuxt-link to="/signup" class="">
+              <UButton
+                size="xl"
+                label="Sign up"
+                color="contAccent"
+                variant="solid"
+                block
+                :ui="{
+                  size: {
+                    xl: 'text-body1lg font-medium font-Inter  justify-center',
+                  },
+                  padding: {
+                    xl: 'px-8 py-3  ',
+                  },
+                  color: {
+                    contAccent: {
+                      solid:
+                        'shadow-sm  text-Bg dark:text-darkBg bg-darkContThird hover:bg-contAccent-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
+                    },
+                  },
+                  variant: {
+                    solid:
+                      'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
+                  },
+                  icon: {
+                    base: 'flex-shrink-0',
+                    size: {
+                      '2xs': 'h-3.5 w-3.5',
+                      xs: 'h-4 w-4',
+                      sm: 'h-4 w-4',
+                      md: 'h-5 w-5',
+                      lg: 'h-5 w-5',
+                      xl: 'h-6 w-6',
+                    },
+                  },
+                }"
+              />
+            </nuxt-link>
 
+            <UButton
+              size="xl"
+              label="Forgot password?"
+              color="contAccent.none"
+              variant="none"
+              :ui="{
+                size: {
+                  xl: 'text-body1lg font-medium font-Inter  justify-center',
+                },
+                padding: {
+                  xl: 'px-8 py-3 ',
+                },
+                color: {
+                  contAccent: {
+                    none: 'shadow-sm  text-Bg bg-transparent  bg-darkContThird hover:bg-contAccent-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
+                  },
+                },
+                variant: {
+                  none: 'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
+                },
+                icon: {
+                  base: 'flex-shrink-0',
+                  size: {
+                    '2xs': 'h-3.5 w-3.5',
+                    xs: 'h-4 w-4',
+                    sm: 'h-4 w-4',
+                    md: 'h-5 w-5',
+                    lg: 'h-5 w-5',
+                    xl: 'h-6 w-6',
+                  },
+                },
+              }"
+            />
+            <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
+          </div>
+          <div class="flex flex-col gap-2 mx-5" v-else>
+            <!-- Profile login, avatar, notification status, name of the adoption-->
+            <h2>Pet adoption in progress</h2>
+            <pre>{{ user }}</pre>
+            <UButton
+              @click="logout"
+              size="xl"
+              label="Log out"
+              color="contAccent"
+              variant="solid"
+              block
+              :ui="{
+                size: {
+                  xl: 'text-body1lg font-medium font-Inter  justify-center',
+                },
+                padding: {
+                  xl: 'px-8 py-3  ',
+                },
+                color: {
+                  contAccent: {
+                    solid:
+                      'shadow-sm  text-Bg dark:text-darkBg bg-darkContThird hover:bg-contAccent-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
+                  },
+                },
+                variant: {
+                  solid:
+                    'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
+                },
+                icon: {
+                  base: 'flex-shrink-0',
+                  size: {
+                    '2xs': 'h-3.5 w-3.5',
+                    xs: 'h-4 w-4',
+                    sm: 'h-4 w-4',
+                    md: 'h-5 w-5',
+                    lg: 'h-5 w-5',
+                    xl: 'h-6 w-6',
+                  },
+                },
+              }"
+            />
+
+            <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
+          </div>
           <div class="flex flex-col justify-center items-center gap-12">
             <div class="flex flex-col justify-center items-center">
               <p class="nav-title">Adopt</p>
@@ -205,6 +269,10 @@ watch(
             <li class="nav-title">
               <nuxt-link to="/tips">Tips</nuxt-link>
             </li>
+            <li class="nav-title">
+              <nuxt-link to="/protected">Protected</nuxt-link>
+            </li>
+
             <li class="nav-title">About us</li>
           </div>
           <div

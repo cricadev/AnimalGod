@@ -1,6 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxt/devtools", "@nuxthq/ui", "@nuxt/image"],
+  modules: [
+    "@nuxt/devtools",
+    "@nuxthq/ui",
+    "@nuxt/image",
+    "@nuxtjs/supabase",
+    "@pinia/nuxt",
+  ],
   colorMode: {
     preference: "system", // default value of $colorMode.preference
     fallback: "dark", // fallback value if not system preference found

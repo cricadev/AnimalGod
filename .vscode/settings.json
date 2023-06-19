@@ -1,4 +1,8 @@
 {
+  "editor.formatOnSave": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#1c6acf",
     "activityBar.background": "#1c6acf",
