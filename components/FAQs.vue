@@ -11,8 +11,7 @@ onMounted(() => {
   const lastButton = document.querySelector(
     "#button-accordion-collapse-heading-1.last-button"
   );
-  console.log(lastAccordion);
-  console.log(lastButton);
+
   // Check if the last accordion is hidden
   if (lastAccordion.classList.contains("hidden")) {
     // Add the border-b-2 class to the last button

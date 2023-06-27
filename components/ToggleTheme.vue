@@ -43,7 +43,7 @@ const toggle = () => {
   colorMode.preference = active.value ? "dark" : "light";
 };
 
-console.log(colorMode.preference);
+
 </script>
 
 <style>

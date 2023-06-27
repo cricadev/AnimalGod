@@ -21,7 +21,6 @@ const logout = async () => {
     return navigateTo("/");
   }
 };
-console.log(user.value.user_metadata);
 </script>
 
 <template>

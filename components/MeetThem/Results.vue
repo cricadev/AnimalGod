@@ -32,7 +32,7 @@
           class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
           v-for="animal in group"
           :key="animal.name"
-          :to="`/adopt/meet-them/${animal.name.toLowerCase()}`"
+          :to="`/adopt/meet-them/${animal.name?.toLowerCase()}`"
         >
           <h6s
             class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond"

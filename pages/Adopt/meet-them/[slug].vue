@@ -36,7 +36,7 @@
         <template #addons>
           <Navigation class="slug-navigation" />
         </template>
-      </Carousel> 
+      </Carousel>
     </div>
   </div>
 </template>
@@ -50,7 +50,7 @@ const carouselImages = computed(() => {
     return animal.carouselImages;
   });
 });
-console.log(carouselImages);
+
 const currentSlide = ref(0);
 
 const onSlideEnd = () => {
