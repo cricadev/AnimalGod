@@ -165,39 +165,9 @@ const logout = async () => {
               />
             </nuxt-link>
 
-            <UButton
-              size="xl"
-              label="Forgot password?"
-              color="contAccent.none"
-              variant="none"
-              :ui="{
-                size: {
-                  xl: 'text-body1lg font-medium font-Inter  justify-center',
-                },
-                padding: {
-                  xl: 'px-8 py-3 ',
-                },
-                color: {
-                  contAccent: {
-                    none: 'shadow-sm  text-Bg bg-transparent  bg-darkContThird hover:bg-contAccent-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
-                  },
-                },
-                variant: {
-                  none: 'shadow-sm  bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
-                },
-                icon: {
-                  base: 'flex-shrink-0',
-                  size: {
-                    '2xs': 'h-3.5 w-3.5',
-                    xs: 'h-4 w-4',
-                    sm: 'h-4 w-4',
-                    md: 'h-5 w-5',
-                    lg: 'h-5 w-5',
-                    xl: 'h-6 w-6',
-                  },
-                },
-              }"
-            />
+            <nuxt-link to="/forgot-password" class="text-center"
+              >Forgot password?</nuxt-link
+            >
             <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
           </div>
           <div class="flex flex-col gap-2 mx-5" v-else>
