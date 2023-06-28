@@ -61,17 +61,19 @@
             variant="solid"
           />
           <UButton
-            type="submit"
+            icon="i-material-symbols-arrow-forward-ios"
             size="xl"
             label="Forgot password?"
             color="third"
             variant="link"
             class="self-end text-contInactive"
             trailing
+            @click="forgotPassword"
           />
         </div>
-        <!-- SEPARATOR OR -->
       </form>
+
+      <!-- SEPARATOR OR -->
       <div
         class="row-start-5 row-end-7 w-full text-center justify-center flex flex-col"
       >
@@ -109,7 +111,7 @@
             />
           </form>
         </div>
-        <nuxt-link class="text-contInactive mt-4 text-Heading6sm">
+        <nuxt-link to="/signup" class="text-contInactive mt-4 text-Heading6sm">
           Not a member?
           <strong class="text-contAccent">Sign up</strong>
         </nuxt-link>
@@ -122,14 +124,6 @@
 definePageMeta({
   middleware: ["unauthenticated"],
   layout: "auth",
-});
-
-const email = ref(null);
-const handleEmail = () => {
-  console.log("sapo");
-};
-onMounted(() => {
-  watch(email.value, handleEmail);
 });
 
 const supaAuth = useSupabaseAuthClient().auth;
@@ -165,6 +159,17 @@ const loginWithFB = async (e) => {
     console.log(error);
   } else {
     return await navigateTo("/protected");
+  }
+};
+
+const forgotPassword = async () => {
+  const { error } = await supaAuth.resetPasswordForEmail(credentials.email, {
+    redirectTo: "http://localhost:3000/forgot-password",
+  });
+  if (error) {
+    console.log(error);
+  } else {
+    navigateTo("/forgot-password");
   }
 };
 </script>

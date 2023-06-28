@@ -105,7 +105,7 @@ export default defineAppConfig({
       background: "bg-white dark:bg-gray-900",
       border: "border border-gray-300 dark:border-gray-700",
       ring: "focus-visible:ring-2 focus-visible:ring-{color}-500 dark:focus-visible:ring-{color}-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900",
-      label: "font-regular text-[#5C6D82] text-Footer ",
+      label: "font-regular text-[#5C6D82] text-Footer",
       required: "text-red-500 dark:text-red-400",
       help: "text-gray-500 dark:text-gray-400",
       default: {
