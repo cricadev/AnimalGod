@@ -21,6 +21,9 @@ dependencies:
     version: 0.3.1(vue@3.3.4)
 
 devDependencies:
+  '@iconify-json/logos':
+    specifier: ^1.1.33
+    version: 1.1.33
   '@iconify-json/mdi':
     specifier: ^1.1.52
     version: 1.1.52
@@ -35,7 +38,7 @@ devDependencies:
     version: 1.0.0-rc.1
   '@nuxthq/ui':
     specifier: npm:@nuxthq/ui-edge@latest
-    version: /@nuxthq/ui-edge@2.4.1-28131075.8399ffe(vue@3.3.4)(webpack@5.83.1)
+    version: /@nuxthq/ui-edge@2.5.0-28131622.2451541(vue@3.3.4)(webpack@5.83.1)
   '@nuxtjs/color-mode':
     specifier: ^3.3.0
     version: 3.3.0
@@ -935,6 +938,12 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
+  /@iconify-json/logos@1.1.33:
+    resolution: {integrity: sha512-XHnob/dyib1oCaHZV0yRLXUfGQAr46pTuO/Y+jx9ImVBVb5jyZfJ+PLgro5pp8fyQkXWV2vq7pdR0yP5s4gcvg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
   /@iconify-json/mdi@1.1.52:
     resolution: {integrity: sha512-tLzpFcmoGw1/jHcl+BshUd4bqvP4755OUluaARsuKskTp2aIPIAkRQOhzJGpry9CZ0i82z0alq4HrKrp9uvj4A==}
     dependencies:
@@ -1459,8 +1468,8 @@ packages:
       - vue-tsc
     dev: true
 
-  /@nuxthq/ui-edge@2.4.1-28131075.8399ffe(vue@3.3.4)(webpack@5.83.1):
-    resolution: {integrity: sha512-fZsicyG3pW6tYJcM3KuoloB7TD49Caa4XrVJiUQrSmiPn3KQqWGqxsJeOVQ9CWQ1AiUdvIXxsVaBMtVZbwwFqw==}
+  /@nuxthq/ui-edge@2.5.0-28131622.2451541(vue@3.3.4)(webpack@5.83.1):
+    resolution: {integrity: sha512-YhL3sGvNiZHb++7HeD0MuL6c9HCR2pDfzpEhWhX0W8p6fLnpR1mBKCZRSn9W5rAA0oglF3xHe3GHH7R5H0/40w==}
     engines: {node: '>=v16.14.0'}
     dependencies:
       '@egoist/tailwindcss-icons': 1.1.0(tailwindcss@3.3.2)

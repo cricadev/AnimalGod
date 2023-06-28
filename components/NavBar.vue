@@ -203,7 +203,16 @@ const logout = async () => {
           <div class="flex flex-col gap-2 mx-5" v-else>
             <!-- Profile login, avatar, notification status, name of the adoption-->
             <h2>Pet adoption in progress</h2>
-            <pre>{{ user }}</pre>
+            <!--
+               <nuxt-img
+              width="50"
+              height="50"
+              class="rounded-full"
+              :src="user.identities[1].identity_data?.avatar_url"
+            ></nuxt-img>
+            <pre>{{ user.identities[1].identity_data?.avatar_url }}</pre>
+            -->
+
             <UButton
               @click="logout"
               size="xl"
