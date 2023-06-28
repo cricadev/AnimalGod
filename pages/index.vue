@@ -1,4 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: "AnimalGod",
+  meta: [
+    {
+      name: "description",
+      content:
+        "AnimalGod is a platform for animal lovers to share their stories, pets and experiences.",
+    },
+  ],
+});
+</script>
 
 <template>
   <div class="">
