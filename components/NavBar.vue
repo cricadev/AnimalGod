@@ -278,7 +278,7 @@ const logout = async () => {
               <nuxt-link to="/tips">Tips</nuxt-link>
             </li>
             <li class="nav-title">
-              <nuxt-link to="/protected">Protected</nuxt-link>
+              <nuxt-link to="/profile">Profile</nuxt-link>
             </li>
 
             <li class="nav-title">About us</li>

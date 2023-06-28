@@ -21,20 +21,14 @@
         <h1
           class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold leading-none"
         >
-          Password Recovery
+          Update Your Password
         </h1>
-        <h6 class="text-contAccent text-Heading6sm font-semibold tracking-wide">
-          Password Recovery as a shelter
-        </h6>
       </div>
       <form
         v-if="!isFormSubmitted"
-        @submit.prevent="forgotPassword"
+        @submit.prevent="updatePassword"
         class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col gap-2"
       >
-        <h2 class="font-bold leading-tight">
-          You'll receive an email to recover your password.
-        </h2>
         <div class="input-container">
           <input
             type="email"
@@ -46,17 +40,30 @@
           <label for="input" class="label text-contInactive">Email</label>
           <div class="underline"></div>
         </div>
-
+        <div class="input-container">
+          <input
+            type="password"
+            id="password"
+            v-model="credentials.password"
+            required
+            ref="password"
+          />
+          <label for="input" class="label text-contInactive">Password</label>
+          <div class="underline"></div>
+        </div>
         <UButton
           type="submit"
           size="providers"
-          label="Submit"
+          label="Update"
           color="primary"
           variant="solid"
         />
       </form>
       <div class="text-center" v-else>
-        <h2 class="font-bold leading-tight">Email sent</h2>
+        <h2 class="font-bold leading-tight">
+          Password updated now redirecting
+          
+        </h2>
       </div>
     </div>
   </div>
@@ -67,25 +74,25 @@ definePageMeta({
   middleware: ["unauthenticated"],
   layout: "auth",
 });
-const isFormSubmitted = ref(false);
-const supaAuth = useSupabaseAuthClient().auth;
 
+const supaAuth = useSupabaseAuthClient().auth;
+const isFormSubmitted = ref(false);
 const credentials = reactive({
   email: "",
   password: "",
 });
-const forgotPassword = async () => {
-  const { error, data } = await supaAuth.resetPasswordForEmail(
-    credentials.email,
-    {
-      redirectTo: "http://localhost:3000/profile/update",
-    }
-  );
+
+const updatePassword = async () => {
+  const { error } = await supaAuth.updateUser({
+    email: credentials.email,
+    password: credentials.password,
+  });
   if (error) {
     console.log(error);
   } else {
-    console.log("Email sent");
+    console.log("Password updated");
     isFormSubmitted.value = true;
+    navigateTo("/profile")
   }
 };
 </script>

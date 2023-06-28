@@ -15,13 +15,13 @@
       class="absolute top-20 left-0 z-1"
     ></nuxt-img>
     <div
-      class="grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10"
+      class="flex flex-col gap-4 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-8 px-8 relative z-10"
     >
-      <div class="titles row-start-1 row-end-2">
+      <div class="titles row-start-1 row-end-2 flex flex-col gap-2">
         <h1 class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold">
           Sign up
         </h1>
-        <div class="flex text-Heading6sm font-bold">
+        <div class="flex text-Heading6sm font-bold justify-between gap-4">
           <h6>Create an account</h6>
           <h6
             class="text-contAccent text-Heading6sm font-semibold tracking-wide"
@@ -38,6 +38,7 @@
           <input
             type="email"
             id="email"
+            name="email"
             v-model="credentials.email"
             required
             ref="email"
@@ -49,6 +50,7 @@
           <input
             type="password"
             id="password"
+            name="password"
             v-model="credentials.password"
             required
           />
@@ -56,25 +58,30 @@
           <div class="underline"></div>
         </div>
         <div class="flex gap-4 justify-center items-center">
-          <select class="w-full" name="pets" id="pet-select">
-            <option value="">Country</option>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
-            <option value="hamster">Hamster</option>
-            <option value="parrot">Parrot</option>
-            <option value="spider">Spider</option>
-            <option value="goldfish">Goldfish</option>
-          </select>
+          <div class="input-container">
+            <select class="w-full" required name="country" id="country">
+              <option value=""></option>
+              <option value="usa">USA</option>
+              <option value="colombia">Colombia</option>
+              <option value="peru">Peru</option>
+              >
+            </select>
+            <label for="country" class="label">Country</label>
+            <div class="underline"></div>
+          </div>
 
-          <input
-            placeholder="1"
-            type="tel"
-            id="phone"
-            name="phone"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            required
-            class="w-full"
-          />
+          <div class="input-container">
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              required
+              class="w-full"
+            />
+            <label for="input" class="label">Phone</label>
+            <div class="underline"></div>
+          </div>
         </div>
         <div class="flex flex-col gap-2 mt-4">
           <UCheckbox
@@ -178,7 +185,7 @@ const loginWithGoogle = async (e) => {
   if (error) {
     console.log(error);
   } else {
-    return await navigateTo("/protected");
+    return await navigateTo("/profile");
   }
 };
 const loginWithFB = async (e) => {
@@ -188,7 +195,7 @@ const loginWithFB = async (e) => {
   if (error) {
     console.log(error);
   } else {
-    return await navigateTo("/protected");
+    return await navigateTo("/profile");
   }
 };
 </script>
@@ -201,7 +208,9 @@ const loginWithFB = async (e) => {
 }
 
 .input-container input[type="email"],
-.input-container input[type="password"] {
+.input-container input[type="password"],
+.input-container input[type="tel"],
+.input-container select {
   width: 100%;
   border: none;
   border-bottom: 2px solid #afafaf;
@@ -224,7 +233,11 @@ const loginWithFB = async (e) => {
 .input-container input[type="email"]:focus ~ .label,
 .input-container input[type="email"]:valid ~ .label,
 .input-container input[type="password"]:focus ~ .label,
-.input-container input[type="password"]:valid ~ .label {
+.input-container input[type="password"]:valid ~ .label,
+.input-container input[type="tel"]:focus ~ .label,
+.input-container input[type="tel"]:valid ~ .label,
+.input-container select:focus ~ .label,
+.input-container select:valid ~ .label {
   top: -20px;
   font-size: 16px;
   @apply text-contInactive;
@@ -245,7 +258,11 @@ const loginWithFB = async (e) => {
 .input-container input[type="email"]:focus ~ .underline,
 .input-container input[type="email"]:valid ~ .underline,
 .input-container input[type="password"]:focus ~ .underline,
-.input-container input[type="password"]:valid ~ .underline {
+.input-container input[type="password"]:valid ~ .underline,
+.input-container input[type="tel"]:focus ~ .underline,
+.input-container input[type="tel"]:valid ~ .underline,
+.input-container select:focus ~ .underline,
+.input-container select:valid ~ .underline {
   transform: scaleX(1);
 }
 
@@ -253,6 +270,12 @@ const loginWithFB = async (e) => {
   @apply text-[##98e958] bg-[#98e958];
 }
 .input-container input[type="email"]:valid ~ .underline {
+  @apply text-[##98e958] bg-[#98e958];
+}
+.input-container input[type="tel"]:valid ~ .underline {
+  @apply text-[##98e958] bg-[#98e958];
+}
+.input-container select:valid ~ .underline {
   @apply text-[##98e958] bg-[#98e958];
 }
 </style>

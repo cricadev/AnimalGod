@@ -60,16 +60,11 @@
             color="primary"
             variant="solid"
           />
-          <UButton
-            icon="i-material-symbols-arrow-forward-ios"
-            size="xl"
-            label="Forgot password?"
-            color="third"
-            variant="link"
-            class="self-end text-contInactive"
-            trailing
-            @click="forgotPassword"
-          />
+          <nuxt-link
+            class="text-right font-bold text-Heading6sm text-contInactive mt-2"
+            to="/forgot-password"
+            >Forgot password?
+          </nuxt-link>
         </div>
       </form>
 
@@ -138,7 +133,7 @@ const login = async () => {
   if (error) {
     console.log(error);
   } else {
-    return await navigateTo("/protected");
+    return await navigateTo("/profile");
   }
 };
 const loginWithGoogle = async (e) => {
@@ -148,7 +143,7 @@ const loginWithGoogle = async (e) => {
   if (error) {
     console.log(error);
   } else {
-    return await navigateTo("/protected");
+    return await navigateTo("/profile");
   }
 };
 const loginWithFB = async (e) => {
@@ -158,18 +153,7 @@ const loginWithFB = async (e) => {
   if (error) {
     console.log(error);
   } else {
-    return await navigateTo("/protected");
-  }
-};
-
-const forgotPassword = async () => {
-  const { error } = await supaAuth.resetPasswordForEmail(credentials.email, {
-    redirectTo: "http://localhost:3000/forgot-password",
-  });
-  if (error) {
-    console.log(error);
-  } else {
-    navigateTo("/forgot-password");
+    return await navigateTo("/profile");
   }
 };
 </script>
