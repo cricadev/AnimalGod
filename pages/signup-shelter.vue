@@ -23,12 +23,11 @@
         </h1>
         <div class="flex text-Heading6sm font-bold justify-between gap-4">
           <h6>Create an account</h6>
-
-          <nuxt-link
+          <h6
             class="text-contAccent text-Heading6sm font-semibold tracking-wide"
-            to="/signup-shelter"
-            >Sign up as a shelter</nuxt-link
           >
+            Sign up as a shelter
+          </h6>
         </div>
       </div>
 
@@ -197,7 +196,7 @@ const credentials = reactive({
   phone: "",
   terms: false,
   notifications: false,
-  isShelter: false,
+  isShelter: true,
 });
 
 const signup = async () => {

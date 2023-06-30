@@ -43,7 +43,12 @@ const logout = async () => {
         v-else
       ></nuxt-img
     ></nuxt-link>
-
+    <UButton
+      v-if="user?.user_metadata?.isShelter"
+      size="xl"
+      label="Register animal"
+      color="secondary"
+    />
     <div class="flex place-items-center burguer-menu">
       <ToggleTheme></ToggleTheme>
 

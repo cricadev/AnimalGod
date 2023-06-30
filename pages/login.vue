@@ -21,36 +21,51 @@
         <h1 class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold">
           Log in
         </h1>
-        <h6 class="text-contAccent text-Heading6sm font-semibold tracking-wide">
-          Log in as a shelter
-        </h6>
+        <nuxt-link
+          class="text-contAccent text-Heading6sm font-semibold tracking-wide"
+          to="/login-shelter"
+          >Log in as a shelter</nuxt-link
+        >
       </div>
+
       <form
         @submit.prevent="login"
-        class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col"
+        class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col relative"
       >
+        <div
+          v-if="errorMessage !== ''"
+          class="bg-Bg z-10 w-full h-16 absolute bottom-12 dark:text-darkBg text-[#A81717] font-bold grid place-items-center"
+        >
+          {{ errorMessage }}
+        </div>
         <div class="input-container">
           <input
             type="email"
             id="email"
             v-model="credentials.email"
             required
-            ref="email"
+            autocomplete="email"
           />
           <label for="input" class="label text-contInactive">Email</label>
           <div class="underline"></div>
         </div>
+
         <div class="input-container">
           <input
             type="password"
             id="password"
             v-model="credentials.password"
             required
+            autocomplete="current-password"
           />
           <label for="input" class="label">Password</label>
           <div class="underline"></div>
         </div>
+
         <UCheckbox label="Remember this password next time" />
+        <div
+          class="bg-transparent rounded-md shadow-sm w-full h-8 absolute -top-4 text-Bg"
+        ></div>
 
         <div class="flex flex-col mt-8">
           <UButton
@@ -128,10 +143,18 @@ const credentials = reactive({
   password: "",
 });
 
+const errorMessage = ref("");
+
 const login = async () => {
   const { error } = await supaAuth.signInWithPassword(credentials);
   if (error) {
-    console.log(error);
+    console.log(error.message);
+    errorMessage.value = error.message;
+    setTimeout(() => {
+      errorMessage.value = "";
+    }, 3000);
+
+    credentials.password = "";
   } else {
     return await navigateTo("/profile");
   }
@@ -141,7 +164,11 @@ const loginWithGoogle = async (e) => {
     provider: "google",
   });
   if (error) {
-    console.log(error);
+    console.log(error.message);
+    errorMessage.value = error.message;
+    setTimeout(() => {
+      errorMessage.value = "";
+    }, 3000);
   } else {
     return await navigateTo("/profile");
   }
@@ -192,7 +219,7 @@ const loginWithFB = async (e) => {
 .input-container input[type="password"]:valid ~ .label {
   top: -20px;
   font-size: 16px;
-  @apply text-contInactive;
+  @apply text-contInactive ring-0;
 }
 
 .input-container .underline {

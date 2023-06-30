@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const user = useSupabaseUser();
 const cardsHP = [
   {
     figure1: "/circleCard.png",
@@ -12,10 +13,43 @@ const cardsHP = [
     pet: "/tobyDogCard.png",
   },
 ];
+const boxes = [
+  {
+    icon: "material-symbols:award-star-outline",
+    title: "01",
+    description: "The biggest intermediary!",
+  },
+  {
+    icon: "solar:global-bold",
+    title: "02",
+    description: "Worldwide scope",
+  },
+  {
+    icon: "material-symbols:sound-detection-dog-barking",
+    title: "03",
+    description: "+15,000 adopted animals",
+  },
+  {
+    icon: "material-symbols:home",
+    title: "04",
+    description: "+800 registered animal shelters",
+  },
+];
 </script>
 
 <template>
+  <div class="" v-if="user?.user_metadata?.isShelter">
+    <div
+      class="h-64 w-32 mx-auto rounded-md bg-darkContSecond flex flex-col justify-center items-center text-center my-16"
+      v-for="box in boxes"
+    >
+      <Icon :name="box.icon"></Icon>
+      <h1>{{ box.title }}</h1>
+      <p>{{ box.description }}</p>
+    </div>
+  </div>
   <div
+    v-else
     class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10"
   >
     <div

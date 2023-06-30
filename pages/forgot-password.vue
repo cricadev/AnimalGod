@@ -41,7 +41,7 @@
             id="email"
             v-model="credentials.email"
             required
-            ref="email"
+            autocompletef="email"
           />
           <label for="input" class="label text-contInactive">Email</label>
           <div class="underline"></div>

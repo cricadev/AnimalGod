@@ -11,6 +11,23 @@
         "there is no name available for this provider"
       }}
     </h3>
+    <h4 class="text-Heading4sm">
+      Country: {{ capitalizeFirstLetter(user.user_metadata?.country) }}
+    </h4>
+
+    <h4 class="text-Heading4sm">
+      Notifications:
+      {{ user.user_metadata?.notifications ? "Enabled" : "Disabled" }}
+    </h4>
+
+    <h4 class="text-Heading4sm">
+      Phone: {{ user.user_metadata?.phone || "N/A" }}
+    </h4>
+
+    <h4 class="text-Heading4sm">
+      Terms: {{ user.user_metadata?.terms ? "Accepted" : "Not Accepted" }}
+    </h4>
+
     <nuxt-img
       :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'"
       width="100"
@@ -28,4 +45,9 @@ definePageMeta({
 });
 
 const user = useSupabaseUser();
+const capitalizeFirstLetter = (s) =>
+  s
+    .split(" ")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ");
 </script>
