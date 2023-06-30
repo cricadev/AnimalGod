@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Carousel, Navigation, Slide } from "vue3-carousel";
-
+const user = useSupabaseUser();
 const slidesResources = [
   {
     id: 1,
@@ -37,13 +37,61 @@ With a tail-wagging jump into our arms, Lea and Ty confirmed we were there for t
     pet: "Lea & Ty",
   },
 ];
+const shelterSlides = [
+  {
+    id: 1,
+    title: `Kris and Molly found <span class="text-darkContThird">AnimalGod</span> and here’s what they say`,
+    image: "/v1688158665/shelterPicture_mdyo6p.png",
+    cover: "/v1688158664/shelterLogo_xzs4ip.png",
+    content:
+      "Vestibulum eu quam nec neque pellentesque efficitur id eget nisl. Proin porta est convallis lacus blandit pretium sed non enim. Maecenas lacinia non orci at aliquam. Donec finibus, urna bibendum ultricies laoreet, augue eros luctus sapien, ut euismod leo tortor ac enim. ",
+    tag: "CUDDLE BUDIES",
+    date: "9/18/22",
+    pet: "CUDDLE BUDIES",
+  },
+  {
+    id: 2,
+    title: `Mary found  <span class="text-darkContThird">AnimalGod</span>, and here’s what she says`,
+    image: "/v1688158715/shelterPicture_gvetko.png",
+    cover: "/v1688158714/shelterLogo_xhl86s.png",
+    content:
+      "Vestibulum eu quam nec neque pellentesque efficitur id eget nisl. Proin porta est convallis lacus blandit pretium sed non enim. Maecenas lacinia non orci at aliquam. Donec finibus, urna bibendum ultricies laoreet, augue eros luctus sapien, ut euismod leo tortor ac enim. ",
+    tag: "NEW ARRIVAL",
+    date: "9/19/22",
+    pet: "NEW ARRIVAL",
+  },
+  {
+    id: 3,
+    title: `Jane and Lily found  <span class="text-darkContThird">AnimalGod</span>,  and here’s what they say`,
+    image: "/v1688158744/shelterPicture_snxhvr.png",
+    cover: "/v1688158744/shelterLogo_qv2eg1.png",
+    content:
+      "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed euismod, sapien vel bibendum bibendum, sapien velit bibendum sapien, vel bibendum sapien velit bibendum sapien.",
+    tag: "SUCCESS STORY",
+    date: "9/20/22",
+    pet: "SUCCESS STORY",
+  },
+  {
+    id: 4,
+    title: `Leslie found <span class="text-darkContThird">AnimalGod</span>, and here’s what she says  `,
+    image: "/v1688158776/shelterPicture_pp8w6h.png",
+    cover: "/v1688158776/shelterLogo_uwnwxw.png",
+    content:
+      "Vestibulum eu quam nec neque pellentesque efficitur id eget nisl. Pro",
+    tag: "SUCCESS STORY",
+    date: "9/20/22",
+    pet: "SUCCESS STORY",
+  },
+];
 </script>
 
 <template>
   <Carousel :wrap-around="true">
     <Slide
       class="dark:bg-contAccent bg-contAccent h-[80vh] w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText"
-      v-for="slide in slidesResources"
+      v-for="slide in user?.user_metadata?.isShelter
+        ? shelterSlides
+        : slidesResources"
       :key="slide.content"
     >
       <h2

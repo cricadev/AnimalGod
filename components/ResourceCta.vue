@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Carousel, Pagination, Slide } from "vue3-carousel";
-
+const user = useSupabaseUser();
 const slidesResources = [
   {
     id: 1,
@@ -25,13 +25,46 @@ const slidesResources = [
     cta: "Learn more",
   },
 ];
+const shelterSlides = [
+  {
+    id: 1,
+    title: "The new animal shelter website has been a great success! ",
+    content:
+      " We've had over 1,000 unique visitors in the first week, and our adoption rates have increased by 20%. We're very pleased with the results!",
+    cta: "Learn more",
+  },
+  {
+    id: 2,
+    title:
+      "Many of the animals adopted from the shelter are adopted within a few days of being listed on the website",
+    content:
+      "This is because the site is very user-friendly and the dogs are listed in an easy-to-search format. Furthermore, the site includes a wealth of information about each animal, such as photos, videos, and descriptions of their personality and behavior. This makes it simple for prospective adopters to find the ideal match for their family",
+    cta: "Learn more",
+  },
+  {
+    id: 3,
+    title:
+      "More than 800 animal shelters have been helped through the use of AnimalGod",
+    content:
+      "There is no definitive success rate, but it is clear that the website has been helpful in connectingshelters with much-needed resources.",
+    cta: "Learn more",
+  },
+];
 </script>
 
 <template>
   <Carousel :autoplay="2000" :wrap-around="true">
     <Slide
-      class="dark:bg-darkContSecond bg-contSecond h-[50vh] w-full relative overflow-hidden flex flex-col gap-4"
-      v-for="slide in slidesResources"
+      class="h-[50vh] w-full relative overflow-hidden flex flex-col gap-4"
+      :class="{
+        'bg-Bg dark:bg-darkBg': user && user?.user_metadata?.isShelter,
+        'bg-contSecond dark:bg-darkContSecond':
+          user && !user?.user_metadata?.isShelter,
+        'dark:bg-darkContSecond bg-contSecond': !user,
+      }"
+      v-for="slide in user?.user_metadata?.isShelter
+        ? shelterSlides
+        : slidesResources"
       :key="slide.content"
     >
       <div
@@ -44,39 +77,7 @@ const slidesResources = [
           {{ slide.content }}
         </p>
       </div>
-      <UButton
-        size="xl"
-        :label="slide.cta"
-        color="contAccent"
-        variant="solid"
-        :ui="{
-          color: {
-            contAccent: {
-              solid:
-                'shadow-sm  text-darkContText dark:text-white bg-contAccent hover:bg-contAccent-700 disabled:bg-white dark:bg-contAccent dark:hover:bg-contAccent/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400',
-            },
-          },
-          variant: {
-            solid:
-              'shadow-sm text-white dark:text-gray-900 bg-{color}-500 hover:bg-{color}-600 disabled:bg-{color}-500 dark:bg-{color}-400 dark:hover:bg-{color}-500 dark:disabled:bg-{color}-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-{color}-500 dark:focus-visible:outline-{color}-400',
-            outline:
-              'ring-1 ring-inset ring-current text-{color}-500 dark:text-{color}-400 hover:bg-{color}-50 dark:hover:bg-{color}-950 focus-visible:ring-2 focus-visible:ring-{color}-500 dark:focus-visible:ring-{color}-400',
-            soft: 'text-{color}-500 dark:text-{color}-400 bg-{color}-50 hover:bg-{color}-100 dark:bg-{color}-950 dark:hover:bg-{color}-900 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-{color}-500 dark:focus-visible:ring-{color}-400',
-            link: 'text-{color}-500 hover:text-{color}-600 dark:text-{color}-400 dark:hover:text-{color}-500 underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-{color}-500 dark:focus-visible:ring-{color}-400',
-          },
-          icon: {
-            base: 'flex-shrink-0',
-            size: {
-              '2xs': 'h-3.5 w-3.5',
-              xs: 'h-4 w-4',
-              sm: 'h-4 w-4',
-              md: 'h-5 w-5',
-              lg: 'h-5 w-5',
-              xl: 'h-6 w-6',
-            },
-          },
-        }"
-      />
+      <UButton size="xl" :label="slide.cta" color="primary" variant="solid" />
     </Slide>
 
     <template #addons> </template>
