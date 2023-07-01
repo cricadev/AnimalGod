@@ -23,7 +23,8 @@ const logout = async () => {
 };
 const items = [
   {
-    label: "Getting Started",
+    label: user.value?.user_metadata?.name || "",
+    description: user.value?.email || "",
     icon: "i-heroicons-information-circle",
     defaultOpen: false,
     slot: "getting-started",
@@ -181,6 +182,117 @@ const items = [
           class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond"
         >
           <div class="flex flex-col gap-2 mx-5">
+            <UAccordion
+              :items="items"
+              :ui="{
+                wrapper: 'w-full flex flex-col gap-y-2',
+                item: {
+                  base: '',
+                  size: 'text-sm',
+                  color: 'text-gray-500 dark:text-gray-400',
+                  padding: 'py-2',
+                },
+                transition: {
+                  enterActiveClass:
+                    'overflow-hidden transition-[height] duration-200 ease-out',
+                  leaveActiveClass:
+                    'overflow-hidden transition-[height] duration-200 ease-out',
+                },
+                default: {
+                  openIcon: 'i-heroicons-chevron-down-20-solid',
+                  closeIcon: '',
+                  variant: 'soft',
+                },
+              }"
+            >
+              <template #default="{ item, index, open }">
+                <UButton
+                  color="gray"
+                  variant="ghost"
+                  class="border-b border-gray-200 dark:border-gray-700"
+                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }"
+                >
+                  <template #leading>
+                    <div class="flex w-full h-16 justify-start items-center">
+                      <div
+                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1"
+                      >
+                        <nuxt-img
+                          :src="
+                            user.user_metadata?.avatar_url ??
+                            'https://picsum.photos/100/100'
+                          "
+                          width="100"
+                          height="100"
+                          class="rounded-xl"
+                        />
+                      </div>
+                      <div class="flex flex-col text-start">
+                        <h3>{{ item.label }}</h3>
+                        <span> in process</span>
+                      </div>
+                    </div>
+                  </template>
+
+                  <template #trailing>
+                    <UIcon
+                      name="i-heroicons-chevron-right-20-solid"
+                      class="w-5 h-5 ms-auto transform transition-transform duration-200"
+                      :class="[open && 'rotate-90']"
+                    />
+                  </template>
+                </UButton>
+              </template>
+              <template #item="{ item }">
+                <p class="italic text-gray-900 dark:text-white text-center">
+                  {{ item.description }}
+                </p>
+              </template>
+
+              <template #getting-started>
+                <div class="flex flex-col justify-center items-center gap-1">
+                  <NuxtLink
+                    to="/getting-started"
+                    class="flex items-end gap-1.5 font-bold text-xl text-gray-900 dark:text-white"
+                  >
+                    <Logo
+                      class="w-8 h-8 text-primary-500 dark:text-primary-400"
+                    />
+
+                    <span class="hidden sm:block">NuxtLabs</span
+                    ><span class="sm:text-primary-500 dark:sm:text-primary-400"
+                      >UI</span
+                    >
+                  </NuxtLink>
+
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Fully styled and customizable components for Nuxt.
+                  </p>
+                </div>
+              </template>
+
+              <template #installation="{ description }">
+                <div
+                  class="flex flex-col justify-center items-center gap-1 mb-4"
+                >
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    Installation
+                  </h3>
+                  <p class="text-sm text-gray-500 dark:text-gray-400">
+                    Install <code>@nuxthq/ui</code> dependency to your project:
+                  </p>
+                  <p>
+                    {{ description }}
+                  </p>
+                </div>
+
+                <div class="flex flex-col items-center">
+                  <code>$ npm install @nuxtlabs/ui</code>
+                  <code>$ nnpm install -D @nuxthq/ui</code>
+                  <code>$ pnpm i -D @nuxthq/ui</code>
+                </div>
+              </template>
+            </UAccordion>
             <!-- Profile login, avatar, notification status, name of the adoption-->
             <h2>Toby has been registered</h2>
             <UButton
@@ -280,16 +392,26 @@ const items = [
                   :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }"
                 >
                   <template #leading>
-                    <div
-                      class="w-6 h-6 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1"
-                    >
-                    
-                  </div>
+                    <div class="flex w-full h-16 justify-start items-center">
+                      <div
+                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1"
+                      >
+                        <nuxt-img
+                          :src="
+                            user.user_metadata?.avatar_url ??
+                            'https://picsum.photos/100/100'
+                          "
+                          width="100"
+                          height="100"
+                          class="rounded-xl"
+                        />
+                      </div>
+                      <div class="flex flex-col text-start">
+                        <h3>{{ item.label }}</h3>
+                        <span> in process</span>
+                      </div>
+                    </div>
                   </template>
-
-                  <span class="truncate"
-                    >{{ index + 1 }}. {{ item.label }}</span
-                  >
 
                   <template #trailing>
                     <UIcon

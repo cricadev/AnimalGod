@@ -42,7 +42,19 @@
         >
           {{ errorMessage }}
         </div>
-
+        <div class="input-container">
+          <input
+            type="name"
+            id="name"
+            name="name"
+            v-model="credentials.name"
+            required
+            ref="name"
+            autocomplete="name"
+          />
+          <label for="input" class="label text-contInactive">Name</label>
+          <div class="underline"></div>
+        </div>
         <div class="input-container">
           <input
             type="email"
@@ -191,6 +203,7 @@ definePageMeta({
 const supaAuth = useSupabaseAuthClient().auth;
 const errorMessage = ref("");
 const credentials = reactive({
+  name: "",
   email: "",
   password: "",
   country: "",
@@ -206,6 +219,7 @@ const signup = async () => {
     password: credentials.password,
     options: {
       data: {
+        name: credentials.name,
         country: credentials.country,
         phone: credentials.phone,
         terms: credentials.terms,
@@ -257,6 +271,7 @@ const loginWithFB = async (e) => {
 .input-container input[type="email"],
 .input-container input[type="password"],
 .input-container input[type="tel"],
+.input-container input[type="name"],
 .input-container select {
   width: 100%;
   border: none;
@@ -284,7 +299,9 @@ const loginWithFB = async (e) => {
 .input-container input[type="tel"]:focus ~ .label,
 .input-container input[type="tel"]:valid ~ .label,
 .input-container select:focus ~ .label,
-.input-container select:valid ~ .label {
+.input-container select:valid ~ .label,
+.input-container input[type="name"]:focus ~ .label,
+.input-container input[type="name"]:valid ~ .label {
   top: -20px;
   font-size: 16px;
   @apply text-contInactive;
@@ -308,6 +325,8 @@ const loginWithFB = async (e) => {
 .input-container input[type="password"]:valid ~ .underline,
 .input-container input[type="tel"]:focus ~ .underline,
 .input-container input[type="tel"]:valid ~ .underline,
+.input-container input[type="name"]:focus ~ .underline,
+.input-container input[type="name"]:valid ~ .underline,
 .input-container select:focus ~ .underline,
 .input-container select:valid ~ .underline {
   transform: scaleX(1);
@@ -323,6 +342,9 @@ const loginWithFB = async (e) => {
   @apply bg-[#98e958];
 }
 .input-container select:valid ~ .underline {
+  @apply bg-[#98e958];
+}
+.input-container input[type="name"]:valid ~ .underline {
   @apply bg-[#98e958];
 }
 </style>
