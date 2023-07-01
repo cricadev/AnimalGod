@@ -64,7 +64,6 @@
 
 <script setup>
 definePageMeta({
-  middleware: ["unauthenticated"],
   layout: "auth",
 });
 const isFormSubmitted = ref(false);
