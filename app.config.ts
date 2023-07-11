@@ -58,6 +58,8 @@ export default defineAppConfig({
           ghost:
             "text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
           link: "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 underline-offset-4 hover:underline focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
+          outline:
+            "ring-1 ring-inset ring-contAccent dark:bg-Bg bg-darkBg text-Bg dark:text-darkBg",
         },
         black: {},
         toggle: {

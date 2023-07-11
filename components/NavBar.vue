@@ -252,7 +252,7 @@ const items = [
               <template #getting-started>
                 <div class="flex flex-col justify-center items-center gap-1">
                   <ul
-                    class="flex flex-col justify-center items-center gap-1 text-center text-contInactive"
+                    class="flex flex-col justify-center items-center gap-1 text-center text-darkContText"
                   >
                     <li>
                       <nuxt-link to="/profile"> Profile </nuxt-link>
@@ -262,16 +262,7 @@ const items = [
                         Forgot password?
                       </nuxt-link>
                     </li>
-                    <li>
-                      <UButton
-                        @click="logout"
-                        size="xl"
-                        label="Log out"
-                        color="third"
-                        variant="link"
-                        block
-                      />
-                    </li>
+                    <li @click="logout">Log out</li>
                   </ul>
                 </div>
               </template>
@@ -298,16 +289,6 @@ const items = [
                 </div>
               </template>
             </UAccordion>
-            <!-- Profile login, avatar, notification status, name of the adoption-->
-            <h2>Toby has been registered</h2>
-            <UButton
-              @click="logout"
-              size="xl"
-              label="Log out"
-              color="primary"
-              variant="solid"
-              block
-            />
 
             <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
           </div>
@@ -435,25 +416,40 @@ const items = [
 
               <template #getting-started>
                 <div class="flex flex-col justify-center items-center gap-1">
-                  <NuxtLink
-                    to="/getting-started"
-                    class="flex items-end gap-1.5 font-bold text-xl text-gray-900 dark:text-white"
-                  >
-                    <Logo
-                      class="w-8 h-8 text-primary-500 dark:text-primary-400"
+                  <div class="flex flex-col gap-2 w-full">
+                    <UButton
+                      size="xl"
+                      label="Contact shelter"
+                      color="primary"
+                      variant="solid"
+                      block
+                      class="py-3"
                     />
-
-                    <span class="hidden sm:block">NuxtLabs</span
-                    ><span class="sm:text-primary-500 dark:sm:text-primary-400"
-                      >UI</span
-                    >
-                  </NuxtLink>
-
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Fully styled and customizable components for Nuxt.
-                  </p>
-                </div>
-              </template>
+                    <UButton
+                      size="xl"
+                      label="Cancel application"
+                      color="secondary"
+                      variant="outline"
+                      class="py-3"
+                      block
+                    />
+                    <button></button><button></button>
+                  </div>
+                  <ul
+                    class="flex flex-col justify-center items-center gap-1 text-center text-darkContText"
+                  >
+                    <li>
+                      <nuxt-link to="/profile"> Profile </nuxt-link>
+                    </li>
+                    <li>
+                      <nuxt-link to="/forgot-password">
+                        Forgot password?
+                      </nuxt-link>
+                    </li>
+                    <li @click="logout">Log out</li>
+                  </ul>
+                </div></template
+              >
 
               <template #installation="{ description }">
                 <div
@@ -478,15 +474,6 @@ const items = [
               </template>
             </UAccordion>
             <!-- Profile login, avatar, notification status, name of the adoption-->
-            <h2>Pet adoption in progress</h2>
-            <UButton
-              @click="logout"
-              size="xl"
-              label="Log out"
-              color="primary"
-              variant="solid"
-              block
-            />
 
             <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
           </div>
