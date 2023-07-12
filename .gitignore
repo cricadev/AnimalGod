@@ -10,3 +10,4 @@ dist
 assets/images
 # Local Netlify folder
 .netlify
+.vercel

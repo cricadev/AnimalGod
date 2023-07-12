@@ -7,7 +7,9 @@ export default defineNuxtConfig({
     "@nuxtjs/supabase",
     "@pinia/nuxt",
     "nuxt-icon",
+    "@nuxtjs/prismic",
   ],
+
   colorMode: {
     preference: "system", // default value of $colorMode.preference
     fallback: "dark", // fallback value if not system preference found
@@ -18,6 +20,7 @@ export default defineNuxtConfig({
     classSuffix: "",
     storageKey: "nuxt-color-mode",
   },
+
   // Defaults options
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
@@ -29,13 +32,19 @@ export default defineNuxtConfig({
   },
 
   ui: { icons: ["mdi", "logos", "material-symbols"] },
+
   image: {
     cloudinary: {
       baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/",
     },
   },
+
   components: [
     { path: "~/components/MeetThem", prefix: "MeetThem" },
     "~/components",
   ],
+
+  prismic: {
+    endpoint: "animalgod",
+  },
 });

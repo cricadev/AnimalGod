@@ -1,0 +1,5 @@
+{
+  "repositoryName": "animalgod",
+  "adapter": "@slicemachine/adapter-nuxt",
+  "libraries": ["./slices"]
+}
