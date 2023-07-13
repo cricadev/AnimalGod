@@ -21,23 +21,22 @@ const { data: pet } = await useAsyncData("pet", async () => {
     throw createError({ statusCode: 404, message: "Page not found" });
   }
 });
-onMounted(() => {
-  useHead({
-    title: pet.data.meta_title,
+console.log(pet.value);
 
-    meta: [
-      {
-        hid: "description",
-        name: "description",
-        content: pet.data.meta_description,
-      },
-      {
-        hid: "og:image",
-        property: "og:image",
-        content: pet.data.meta_image,
-      },
-    ],
-  });
+useHead({
+  title: pet.value.data.meta_title,
+
+  meta: [
+    {
+      hid: "description",
+      name: "description",
+      content: pet.value.data.meta_description,
+    },
+    {
+      hid: "og:image",
+      property: "og:image",
+      content: pet.value.data.meta_image.url,
+    },
+  ],
 });
-console.log(pet);
 </script>
