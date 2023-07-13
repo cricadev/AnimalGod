@@ -1,0 +1,33 @@
+{
+  "id": "carousel_meet",
+  "type": "SharedSlice",
+  "name": "CarouselMeet",
+  "description": "CarouselMeet",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "name": {
+          "type": "StructuredText",
+          "config": {
+            "label": "name",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,strong,em,hyperlink,image,embed,list-item,o-list-item,rtl"
+          }
+        }
+      },
+      "items": {
+        "petimage": {
+          "type": "Image",
+          "config": { "label": "petImage", "constraint": {}, "thumbnails": [] }
+        }
+      }
+    }
+  ]
+}

@@ -65,7 +65,7 @@ const items = [
         @click="isOpen = true"
         icon="i-mdi-menu"
         size="xl"
-        color="contAccent"
+        color="primary"
         square
         variant="ghost"
       />
@@ -131,21 +131,19 @@ const items = [
           <div class="flex flex-col justify-center items-center gap-12">
             <div class="text-center flex flex-col justify-center items-center">
               <li class="nav-title">
-                <nuxt-link to="/adopt">Adopt</nuxt-link>
+                <nuxt-link>Adopt</nuxt-link>
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
+                  <nuxt-link to="/about-adoption" class="nav--item"
                     >About adoption</nuxt-link
                   >
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/meet-them" class="nav--item"
-                    >Meet them</nuxt-link
-                  >
+                  <nuxt-link to="/pets" class="nav--item">Meet them</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/succesful-cases" class="nav--item"
+                  <nuxt-link to="/succesful-cases" class="nav--item"
                     >Succesful cases</nuxt-link
                   >
                 </li>
@@ -303,17 +301,17 @@ const items = [
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
+                  <nuxt-link to="/about-adoption" class="nav--item"
                     >Meet and Great</nuxt-link
                   >
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
+                  <nuxt-link to="/about-adoption" class="nav--item"
                     >Adoption day</nuxt-link
                   >
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
+                  <nuxt-link to="/about-adoption" class="nav--item"
                     >Answer questions</nuxt-link
                   >
                 </li>
@@ -484,17 +482,15 @@ const items = [
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
+                  <nuxt-link to="/about-adoption" class="nav--item"
                     >About adoption</nuxt-link
                   >
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/meet-them" class="nav--item"
-                    >Meet them</nuxt-link
-                  >
+                  <nuxt-link to="/pets" class="nav--item">Meet them</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/succesful-cases" class="nav--item"
+                  <nuxt-link to="/succesful-cases" class="nav--item"
                     >Succesful cases</nuxt-link
                   >
                 </li>

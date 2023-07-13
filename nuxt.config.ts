@@ -46,5 +46,13 @@ export default defineNuxtConfig({
 
   prismic: {
     endpoint: "animalgod",
+    clientConfig: {
+      routes: [
+        {
+          type: "pet",
+          path: "/pet/:uid",
+        },
+      ],
+    },
   },
 });

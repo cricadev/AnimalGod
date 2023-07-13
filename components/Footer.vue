@@ -68,7 +68,9 @@ const colorMode = useColorMode();
         We’ll send you a nice letter once per week. No spam.
       </p>
       <div class="flex flex-row justify-center items-center w-full">
-        <UInput
+        <!--
+
+          <UInput
           color="white"
           variant="outline"
           size="sm"
@@ -159,6 +161,7 @@ const colorMode = useColorMode();
             },
           }"
         />
+        
         <UButton
           size="sm"
           label="Subscribe"
@@ -199,6 +202,7 @@ const colorMode = useColorMode();
             },
           }"
         />
+        -->
       </div>
     </div>
   </div>

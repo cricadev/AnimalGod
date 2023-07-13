@@ -1,0 +1,23 @@
+{
+  "id": "new_slice",
+  "type": "SharedSlice",
+  "name": "NewSlice",
+  "description": "NewSlice",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "image": {
+          "type": "Image",
+          "config": { "label": "Image", "constraint": {}, "thumbnails": [] }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
