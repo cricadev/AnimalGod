@@ -2,10 +2,13 @@
 
 import type * as prismic from "@prismicio/client";
 
-type Simplify<T> = {
-  [KeyType in keyof T]: T[KeyType];
-};
-/** Content for pet documents */
+type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
+
+type PetDocumentDataSlicesSlice = CarouselMeetSlice;
+
+/**
+ * Content for pet documents
+ */
 interface PetDocumentData {
   /**
    * Slice Zone field in *pet*
@@ -14,10 +17,9 @@ interface PetDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: pet.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
+   * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<PetDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<PetDocumentDataSlicesSlice>
   /**
    * Meta Description field in *pet*
    *
@@ -25,10 +27,10 @@ interface PetDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: pet.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
   meta_description: prismic.KeyTextField;
+
   /**
    * Meta Image field in *pet*
    *
@@ -36,10 +38,10 @@ interface PetDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: pet.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
+   * - **Documentation**: https://prismic.io/docs/field#image
    */
   meta_image: prismic.ImageField<never>;
+
   /**
    * Meta Title field in *pet*
    *
@@ -47,28 +49,28 @@ interface PetDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: pet.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   meta_title: prismic.KeyTextField;
 }
-/**
- * Slice for *pet → Slice Zone*
- *
- */
-type PetDocumentDataSlicesSlice = CarouselMeetSlice;
+
 /**
  * pet document from Prismic
  *
  * - **API ID**: `pet`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
+ * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
 export type PetDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PetDocumentData>, "pet", Lang>;
-/** Content for pets documents */
+
+type PetsDocumentDataSlicesSlice = never;
+
+/**
+ * Content for pets documents
+ */
 interface PetsDocumentData {
   /**
    * Slice Zone field in *pets*
@@ -77,10 +79,9 @@ interface PetsDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: pets.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
+   * - **Documentation**: https://prismic.io/docs/field#slices
    */
-  slices: prismic.SliceZone<PetsDocumentDataSlicesSlice>;
+  slices: prismic.SliceZone<PetsDocumentDataSlicesSlice>
   /**
    * Meta Description field in *pets*
    *
@@ -88,10 +89,10 @@ interface PetsDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: pets.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
   meta_description: prismic.KeyTextField;
+
   /**
    * Meta Image field in *pets*
    *
@@ -99,10 +100,10 @@ interface PetsDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: pets.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
+   * - **Documentation**: https://prismic.io/docs/field#image
    */
   meta_image: prismic.ImageField<never>;
+
   /**
    * Meta Title field in *pets*
    *
@@ -110,47 +111,42 @@ interface PetsDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: pets.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
+   * - **Documentation**: https://prismic.io/docs/field#key-text
    */
   meta_title: prismic.KeyTextField;
 }
-/**
- * Slice for *pets → Slice Zone*
- *
- */
-type PetsDocumentDataSlicesSlice = never;
+
 /**
  * pets document from Prismic
  *
  * - **API ID**: `pets`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
+ * - **Documentation**: https://prismic.io/docs/custom-types
  *
  * @typeParam Lang - Language API ID of the document.
  */
 export type PetsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<PetsDocumentData>, "pets", Lang>;
+
 export type AllDocumentTypes = PetDocument | PetsDocument;
+
 /**
- * Primary content in CarouselMeet → Primary
- *
+ * Primary content in *CarouselMeet → Primary*
  */
-interface CarouselMeetSliceDefaultPrimary {
+export interface CarouselMeetSliceDefaultPrimary {
   /**
    * name field in *CarouselMeet → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: carousel_meet.primary.name
-   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-   *
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   name: prismic.RichTextField;
 }
+
 /**
- * Item in CarouselMeet → Items
- *
+ * Primary content in *CarouselMeet → Items*
  */
 export interface CarouselMeetSliceDefaultItem {
   /**
@@ -159,189 +155,186 @@ export interface CarouselMeetSliceDefaultItem {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: carousel_meet.items[].petimage
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
+   * - **Documentation**: https://prismic.io/docs/field#image
    */
   petimage: prismic.ImageField<never>;
 }
+
 /**
  * Default variation for CarouselMeet Slice
  *
  * - **API ID**: `default`
- * - **Description**: `Default`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type CarouselMeetSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<CarouselMeetSliceDefaultPrimary>,
   Simplify<CarouselMeetSliceDefaultItem>
 >;
+
 /**
  * Slice variation for *CarouselMeet*
- *
  */
 type CarouselMeetSliceVariation = CarouselMeetSliceDefault;
+
 /**
  * CarouselMeet Shared Slice
  *
  * - **API ID**: `carousel_meet`
- * - **Description**: `CarouselMeet`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: CarouselMeet
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type CarouselMeetSlice = prismic.SharedSlice<
   "carousel_meet",
   CarouselMeetSliceVariation
 >;
+
 /**
- * Primary content in HeroMeet → Primary
- *
+ * Primary content in *HeroMeet → Primary*
  */
-interface HeroMeetSliceDefaultPrimary {
+export interface HeroMeetSliceDefaultPrimary {
   /**
    * Heading field in *HeroMeet → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_meet.primary.heading
-   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-   *
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   heading: prismic.RichTextField;
+
   /**
    * Description field in *HeroMeet → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_meet.primary.description
-   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-   *
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   description: prismic.RichTextField;
 }
+
 /**
  * Default variation for HeroMeet Slice
  *
  * - **API ID**: `default`
- * - **Description**: `Default`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type HeroMeetSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<HeroMeetSliceDefaultPrimary>,
   never
 >;
+
 /**
  * Slice variation for *HeroMeet*
- *
  */
 type HeroMeetSliceVariation = HeroMeetSliceDefault;
+
 /**
  * HeroMeet Shared Slice
  *
  * - **API ID**: `hero_meet`
- * - **Description**: `HeroMeet`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: HeroMeet
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type HeroMeetSlice = prismic.SharedSlice<
   "hero_meet",
   HeroMeetSliceVariation
 >;
+
 /**
- * Primary content in NewSlice → Primary
- *
+ * Primary content in *NewSlice → Primary*
  */
-interface NewSliceSliceDefaultPrimary {
+export interface NewSliceSliceDefaultPrimary {
   /**
    * Image field in *NewSlice → Primary*
    *
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: new_slice.primary.image
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
+   * - **Documentation**: https://prismic.io/docs/field#image
    */
   image: prismic.ImageField<never>;
 }
+
 /**
  * Default variation for NewSlice Slice
  *
  * - **API ID**: `default`
- * - **Description**: `Default`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type NewSliceSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<NewSliceSliceDefaultPrimary>,
   never
 >;
+
 /**
  * Slice variation for *NewSlice*
- *
  */
 type NewSliceSliceVariation = NewSliceSliceDefault;
+
 /**
  * NewSlice Shared Slice
  *
  * - **API ID**: `new_slice`
- * - **Description**: `NewSlice`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: NewSlice
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type NewSliceSlice = prismic.SharedSlice<
   "new_slice",
   NewSliceSliceVariation
 >;
+
 /**
- * Primary content in TextBlock → Primary
- *
+ * Primary content in *TextBlock → Primary*
  */
-interface TextBlockSliceDefaultPrimary {
+export interface TextBlockSliceDefaultPrimary {
   /**
    * title field in *TextBlock → Primary*
    *
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: text_block.primary.title
-   * - **Documentation**: https://prismic.io/docs/core-concepts/rich-text-title
-   *
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   title: prismic.RichTextField;
 }
+
 /**
  * Default variation for TextBlock Slice
  *
  * - **API ID**: `default`
- * - **Description**: `Default`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type TextBlockSliceDefault = prismic.SharedSliceVariation<
   "default",
   Simplify<TextBlockSliceDefaultPrimary>,
   never
 >;
+
 /**
  * Slice variation for *TextBlock*
- *
  */
 type TextBlockSliceVariation = TextBlockSliceDefault;
+
 /**
  * TextBlock Shared Slice
  *
  * - **API ID**: `text_block`
- * - **Description**: `TextBlock`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
+ * - **Description**: TextBlock
+ * - **Documentation**: https://prismic.io/docs/slice
  */
 export type TextBlockSlice = prismic.SharedSlice<
   "text_block",
   TextBlockSliceVariation
 >;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -349,32 +342,26 @@ declare module "@prismicio/client" {
       options?: prismic.ClientConfig
     ): prismic.Client<AllDocumentTypes>;
   }
+
   namespace Content {
     export type {
-      PetDocumentData,
-      PetDocumentDataSlicesSlice,
       PetDocument,
-      PetsDocumentData,
-      PetsDocumentDataSlicesSlice,
+      PetDocumentData,
       PetsDocument,
+      PetsDocumentData,
       AllDocumentTypes,
-      CarouselMeetSliceDefaultPrimary,
-      CarouselMeetSliceDefaultItem,
-      CarouselMeetSliceDefault,
-      CarouselMeetSliceVariation,
       CarouselMeetSlice,
-      HeroMeetSliceDefaultPrimary,
-      HeroMeetSliceDefault,
-      HeroMeetSliceVariation,
+      CarouselMeetSliceVariation,
+      CarouselMeetSliceDefault,
       HeroMeetSlice,
-      NewSliceSliceDefaultPrimary,
-      NewSliceSliceDefault,
-      NewSliceSliceVariation,
+      HeroMeetSliceVariation,
+      HeroMeetSliceDefault,
       NewSliceSlice,
-      TextBlockSliceDefaultPrimary,
-      TextBlockSliceDefault,
-      TextBlockSliceVariation,
+      NewSliceSliceVariation,
+      NewSliceSliceDefault,
       TextBlockSlice,
+      TextBlockSliceVariation,
+      TextBlockSliceDefault,
     };
   }
 }

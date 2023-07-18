@@ -32,7 +32,7 @@
           class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
           v-for="animal in group"
           :key="animal.name"
-          :to="`/pet/${animal.name?.toLowerCase()}`"
+          :to="localePath(`/pet/${animal.name?.toLowerCase()}`)"
         >
           <h6s
             class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond"
@@ -65,7 +65,7 @@
 import { Carousel, Pagination, Slide, Navigation } from "vue3-carousel";
 
 import animals from "~/db/animals.json";
-
+const localePath = useLocalePath();
 const animalGroups = ref(animals.animalGroups);
 const currentSlide = ref(0);
 

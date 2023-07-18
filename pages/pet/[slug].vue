@@ -8,12 +8,15 @@
 
 <script setup>
 import { components } from "~/slices";
+const { locale, t } = useI18n();
 
 const { client } = usePrismic();
 const route = useRoute();
-
+console.log(locale.value);
 const { data: pet } = await useAsyncData("pet", async () => {
-  const document = await client.getByUID("pet", route.params.slug);
+  const document = await client.getByUID("pet", route.params.slug, {
+    lang: `${locale.value}-${locale.value}`,
+  });
 
   if (document) {
     return document;

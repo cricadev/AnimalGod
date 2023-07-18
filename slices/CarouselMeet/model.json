@@ -4,6 +4,7 @@
   "name": "CarouselMeet",
   "description": "CarouselMeet",
   "variations": [
+    
     {
       "id": "default",
       "name": "Default",

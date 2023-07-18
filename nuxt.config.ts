@@ -8,8 +8,28 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "nuxt-icon",
     "@nuxtjs/prismic",
+    "@nuxtjs/i18n",
   ],
+  i18n: {
+    vueI18n: "./i18n.config.ts",
+    locales: [
+      {
+        code: "en",
+        iso: "en-US",
+      },
+      {
+        code: "es",
+        iso: "es-ES",
+      },
+      {
+        code: "fr",
+        iso: "fr-FR",
+      },
+    ],
+    defaultLocale: "en",
 
+    // if you are using custom path, default
+  },
   colorMode: {
     preference: "system", // default value of $colorMode.preference
     fallback: "dark", // fallback value if not system preference found
