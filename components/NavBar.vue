@@ -1,10 +1,11 @@
 <script setup>
 const localePath = useLocalePath();
+
 const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
 const user = useSupabaseUser();
-// after every route enter toggle the isOpen boolean to false
+// after every route enter  the isOpen boolean to false
 watch(
   () => route.path,
   () => {
@@ -35,7 +36,7 @@ const items = [
 
 <template>
   <div class="flex items-center justify-between w-full h-16">
-    <nuxt-link to="/">
+    <nuxt-link :to="`${localePath('/')}`">
       <nuxt-img
         provider="cloudinary"
         src="/v1685029472/animal_god_olvlho.png"
@@ -106,7 +107,7 @@ const items = [
           class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond"
         >
           <div class="flex flex-col gap-3 mx-5">
-            <nuxt-link :to="localePath('/login')" class="">
+            <nuxt-link :to="`${localePath('login')}`" class="">
               <UButton
                 size="xl"
                 label="Log in"
@@ -115,7 +116,7 @@ const items = [
                 block
               />
             </nuxt-link>
-            <nuxt-link :to="localePath('/signup')" class="">
+            <nuxt-link :to="`${localePath('signup')}`" class="">
               <UButton
                 size="xl"
                 label="Sign up"
@@ -125,7 +126,9 @@ const items = [
               />
             </nuxt-link>
 
-            <nuxt-link :to="localePath('/forgot-password')" class="text-center"
+            <nuxt-link
+              :to="`${localePath('forgot-password')}`"
+              class="text-center"
               >Forgot password?</nuxt-link
             >
             <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
@@ -139,19 +142,19 @@ const items = [
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
                   <nuxt-link
-                    :to="localePath('/about-adoption')"
+                    :to="`${localePath('about-adoption')}`"
                     class="nav--item"
                     >About adoption</nuxt-link
                   >
                 </li>
                 <li>
-                  <nuxt-link :to="localePath('/pets')" class="nav--item"
+                  <nuxt-link :to="`${localePath('pets')}`" class="nav--item"
                     >Meet them</nuxt-link
                   >
                 </li>
                 <li>
                   <nuxt-link
-                    :to="localePath('/succesful-cases')"
+                    :to="`${localePath('succesful-cases')}`"
                     class="nav--item"
                     >Succesful cases</nuxt-link
                   >
@@ -159,10 +162,10 @@ const items = [
               </ul>
             </div>
             <li class="nav-title">
-              <nuxt-link :to="localePath('/tips')">Tips</nuxt-link>
+              <nuxt-link :to="`${localePath('tips')}`">Tips</nuxt-link>
             </li>
             <li class="nav-title">
-              <nuxt-link :to="localePath('/about-us')">About us</nuxt-link>
+              <nuxt-link :to="`${localePath('about-us')}`">About us</nuxt-link>
             </li>
           </div>
           <div
@@ -262,10 +265,12 @@ const items = [
                     class="flex flex-col justify-center items-center gap-1 text-center text-darkContText"
                   >
                     <li>
-                      <nuxt-link to="/profile"> Profile </nuxt-link>
+                      <nuxt-link :to="`${localePath('profile')}`">
+                        Profile
+                      </nuxt-link>
                     </li>
                     <li>
-                      <nuxt-link to="/forgot-password">
+                      <nuxt-link :to="`${localePath('forgot-password')}`">
                         Forgot password?
                       </nuxt-link>
                     </li>
@@ -302,30 +307,30 @@ const items = [
 
           <div class="flex flex-col justify-center items-center gap-12">
             <li class="nav-title">
-              <nuxt-link :to="localePath('/requests')">Requests</nuxt-link>
+              <nuxt-link :to="`${localePath('requests')}`">Requests</nuxt-link>
             </li>
             <div class="text-center flex flex-col justify-center items-center">
               <li class="nav-title">
-                <nuxt-link :to="localePath('/tips')">Calendar</nuxt-link>
+                <nuxt-link :to="`${localePath('tips')}`">Calendar</nuxt-link>
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
                   <nuxt-link
-                    :to="localePath('/about-adoption')"
+                    :to="`${localePath('about-adoption')}`"
                     class="nav--item"
                     >Meet and Great</nuxt-link
                   >
                 </li>
                 <li>
                   <nuxt-link
-                    :to="localePath('/about-adoption')"
+                    :to="`${localePath('about-adoption')}`"
                     class="nav--item"
                     >Adoption day</nuxt-link
                   >
                 </li>
                 <li>
                   <nuxt-link
-                    :to="localePath('/about-adoption')"
+                    :to="`${localePath('about-adoption')}`"
                     class="nav--item"
                     >Answer questions</nuxt-link
                   >
@@ -333,7 +338,7 @@ const items = [
               </ul>
             </div>
             <li class="nav-title">
-              <nuxt-link :to="localePath('/about-us')">About us</nuxt-link>
+              <nuxt-link :to="`${localePath('about-us')}`">About us</nuxt-link>
             </li>
           </div>
           <div
@@ -452,12 +457,12 @@ const items = [
                     class="flex flex-col justify-center items-center gap-1 text-center text-darkContText"
                   >
                     <li>
-                      <nuxt-link :to="localePath('/profile')">
+                      <nuxt-link :to="`${localePath('profile')}`">
                         Profile
                       </nuxt-link>
                     </li>
                     <li>
-                      <nuxt-link :to="localePath('/forgot-password')">
+                      <nuxt-link :to="`${localePath('forgot-password')}`">
                         Forgot password?
                       </nuxt-link>
                     </li>
@@ -500,19 +505,19 @@ const items = [
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
                   <nuxt-link
-                    :to="localePath('/about-adoption')"
+                    :to="`${localePath('about-adoption')}`"
                     class="nav--item"
                     >About adoption</nuxt-link
                   >
                 </li>
                 <li>
-                  <nuxt-link :to="localePath('/pets')" class="nav--item"
+                  <nuxt-link :to="`${localePath('pets')}`" class="nav--item"
                     >Meet them</nuxt-link
                   >
                 </li>
                 <li>
                   <nuxt-link
-                    :to="localePath('/successful-cases')"
+                    :to="`${localePath('successful-cases')}`"
                     class="nav--item"
                     >Succesful cases</nuxt-link
                   >
@@ -520,10 +525,10 @@ const items = [
               </ul>
             </div>
             <li class="nav-title">
-              <nuxt-link :to="localePath('/tips')">Tips</nuxt-link>
+              <nuxt-link :to="`${localePath('tips')}`">Tips</nuxt-link>
             </li>
             <li class="nav-title">
-              <nuxt-link :to="localePath('/about-us')">About us</nuxt-link>
+              <nuxt-link :to="`${localePath('about-us')}`">About us</nuxt-link>
             </li>
           </div>
           <div

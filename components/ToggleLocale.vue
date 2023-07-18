@@ -1,8 +1,6 @@
 <script setup>
-const { locale, t } = useI18n();
-const { path } = useRoute();
+const { locale } = useI18n();
 
-console.log(path.value);
 watch(
   () => locale.value,
   (newLocale) => {
@@ -19,7 +17,7 @@ watch(
         <option value="fr">fr</option>
         <option value="es">es</option>
       </select>
-      <p>{{ t("welcome") }}</p>
+      <p>{{ $t("welcome") }}</p>
     </form>
   </div>
 </template>

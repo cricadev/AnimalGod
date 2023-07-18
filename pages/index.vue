@@ -1,7 +1,4 @@
 <script setup lang="ts">
-const { locale } = useI18n();
-
-
 useHead({
   title: "AnimalGod",
   meta: [
