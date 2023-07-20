@@ -32,9 +32,14 @@ const slidesHero = [
 ];
 
 const route = useRoute();
+const { locale, t } = useI18n();
 
 const { data: homepage } = await useAsyncData("homepage", async () => {
-  const document = await client.getSingle("homepage");
+  const document = await client.getSingle("homepage", {
+    lang: `${locale.value}-${
+      locale.value.toUpperCase() === "EN" ? "US" : locale.value.toUpperCase()
+    }`,
+  });
 
   if (document) {
     return document;
@@ -46,7 +51,6 @@ const { data: homepage } = await useAsyncData("homepage", async () => {
 
 <template>
   <div>
-   
     <slice-zone
       wrapper="main"
       :components="components"
