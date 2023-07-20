@@ -1,15 +1,37 @@
 <script setup lang="ts">
+const { client } = usePrismic();
+
+const route = useRoute();
+const { locale, t } = useI18n();
+const user = useSupabaseUser();
+
+const { data: homepage } = await useAsyncData("homepage", async () => {
+  const document = await client.getSingle("homepage", {
+    lang: `${locale.value}-${
+      locale.value.toUpperCase() === "EN" ? "US" : locale.value.toUpperCase()
+    }`,
+  });
+
+  if (document) {
+    return document;
+  } else {
+    throw createError({ statusCode: 404, message: "Page not found" });
+  }
+});
+
 useHead({
-  title: "AnimalGod",
+  title: homepage.value.data.meta_title,
   meta: [
     {
       name: "description",
-      content:
-        "AnimalGod is a platform for animal lovers to share their stories, pets and experiences.",
+      content: homepage.value.data.meta_description,
+    },
+    {
+      property: "og:image",
+      content: homepage.value.data.meta_image.url,
     },
   ],
 });
-const user = useSupabaseUser();
 </script>
 
 <template>
