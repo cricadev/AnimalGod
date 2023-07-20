@@ -12,10 +12,13 @@ const { locale, t } = useI18n();
 
 const { client } = usePrismic();
 const route = useRoute();
+console.log(route);
 console.log(locale.value);
 const { data: pet } = await useAsyncData("pet", async () => {
   const document = await client.getByUID("pet", route.params.slug, {
-    lang: `${locale.value}-${locale.value}`,
+    lang: `${locale.value}-${
+      locale.value.toUpperCase() === "EN" ? "US" : locale.value.toUpperCase()
+    }`,
   });
 
   if (document) {

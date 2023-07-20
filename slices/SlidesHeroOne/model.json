@@ -1,0 +1,54 @@
+{
+  "id": "slides_hero_one",
+  "type": "SharedSlice",
+  "name": "SlidesHeroOne",
+  "description": "SlidesHeroOne",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {},
+      "items": {
+        "uid": {
+          "type": "Text",
+          "config": { "label": "uid", "placeholder": "" }
+        },
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "label": "title",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "heading2"
+          }
+        },
+        "content": {
+          "type": "StructuredText",
+          "config": {
+            "label": "content",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph"
+          }
+        },
+        "image": {
+          "type": "Image",
+          "config": { "label": "image", "constraint": {}, "thumbnails": [] }
+        },
+        "kind": {
+          "type": "StructuredText",
+          "config": {
+            "label": "kind",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "single": "paragraph"
+          }
+        }
+      }
+    }
+  ]
+}

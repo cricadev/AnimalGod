@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { Carousel, Pagination, Slide } from "vue3-carousel";
+import { components } from "~/slices";
+
+const { client } = usePrismic();
 
 const slidesHero = [
   {
@@ -27,62 +30,27 @@ const slidesHero = [
     image: "/v1685029473/shepardHero_rcg3ik.png",
   },
 ];
+
+const route = useRoute();
+
+const { data: homepage } = await useAsyncData("homepage", async () => {
+  const document = await client.getSingle("homepage");
+
+  if (document) {
+    return document;
+  } else {
+    throw createError({ statusCode: 404, message: "Page not found" });
+  }
+});
 </script>
 
 <template>
   <div>
-    <Carousel :autoplay="2000" :wrap-around="true">
-      <Slide
-        class="bg-contAccent h-[70vh] w-full relative overflow-hidden"
-        v-for="slide in slidesHero"
-        :key="slide.content"
-      >
-        <div class="flex flex-col items-center justify-center h-full">
-          <nuxt-img
-            provider="cloudinary"
-            src="/v1685029473/circleHero_ybk8m3.png"
-            width="100%"
-            height="100%"
-            class="absolute top-0 left-0 z-40"
-          ></nuxt-img>
-          <nuxt-img
-            provider="cloudinary"
-            :src="slide.image"
-            width="100%"
-            height="100%"
-            class="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-60%] z-20"
-          ></nuxt-img>
-          <nuxt-img
-            provider="cloudinary"
-            src="/v1685029473/circleHeroBlue_j0v27w.png"
-            width="100%"
-            height="100%"
-            class="absolute bottom-0 left-0 z-[5]"
-          ></nuxt-img>
-          <div
-            class="absolute z-40 mx-5 text-center bottom-24 text-darkContText-50 dark:text-darkContText-50"
-          >
-            <h2 class="font-sans font-bold text-Heading2sm">
-              {{ slide.title }}
-            </h2>
-            <p class="mt-4 font-sans font-regular text-Body1sm">
-              {{ slide.content }}
-            </p>
-          </div>
-          <span
-            class="absolute bottom-0 right-0 z-[31] font-extrabold text-right text-[#0955C9] text-[7rem] leading-none"
-          >
-            {{ slide.kind }}
-          </span>
-          <div
-            class="absolute h-[50%] w-full bg-gradient-to-t from-contAccent z-30 bottom-0 left-0 to-transparent via-contAccent"
-          ></div>
-        </div>
-      </Slide>
-
-      <template #addons>
-        <Pagination />
-      </template>
-    </Carousel>
+   
+    <slice-zone
+      wrapper="main"
+      :components="components"
+      :slices="homepage.data.slices"
+    />
   </div>
 </template>

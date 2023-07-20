@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     "@nuxtjs/prismic",
     "@nuxtjs/i18n",
   ],
+  devtools: {
+    enabled: false,
+  },
 
   i18n: {
     vueI18n: "./i18n.config.ts",

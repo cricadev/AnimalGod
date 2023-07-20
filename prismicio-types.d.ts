@@ -4,6 +4,72 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type HomepageDocumentDataSlicesSlice = SlidesHeroOneSlice;
+
+/**
+ * Content for homepage documents
+ */
+interface HomepageDocumentData {
+  /**
+   * Slice Zone field in *homepage*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<HomepageDocumentDataSlicesSlice>
+  /**
+   * Meta Description field in *homepage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: homepage.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *homepage*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: homepage.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+
+  /**
+   * Meta Title field in *homepage*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: homepage.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_title: prismic.KeyTextField;
+}
+
+/**
+ * homepage document from Prismic
+ *
+ * - **API ID**: `homepage`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type HomepageDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<HomepageDocumentData>,
+    "homepage",
+    Lang
+  >;
+
 type PetDocumentDataSlicesSlice = CarouselMeetSlice;
 
 /**
@@ -128,7 +194,7 @@ interface PetsDocumentData {
 export type PetsDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<PetsDocumentData>, "pets", Lang>;
 
-export type AllDocumentTypes = PetDocument | PetsDocument;
+export type AllDocumentTypes = HomepageDocument | PetDocument | PetsDocument;
 
 /**
  * Primary content in *CarouselMeet → Primary*
@@ -291,6 +357,91 @@ export type NewSliceSlice = prismic.SharedSlice<
 >;
 
 /**
+ * Primary content in *SlidesHeroOne → Items*
+ */
+export interface SlidesHeroOneSliceDefaultItem {
+  /**
+   * uid field in *SlidesHeroOne → Items*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slides_hero_one.items[].uid
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  uid: prismic.KeyTextField;
+
+  /**
+   * title field in *SlidesHeroOne → Items*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slides_hero_one.items[].title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.TitleField;
+
+  /**
+   * content field in *SlidesHeroOne → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slides_hero_one.items[].content
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  content: prismic.RichTextField;
+
+  /**
+   * image field in *SlidesHeroOne → Items*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slides_hero_one.items[].image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
+
+  /**
+   * kind field in *SlidesHeroOne → Items*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: slides_hero_one.items[].kind
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  kind: prismic.RichTextField;
+}
+
+/**
+ * Default variation for SlidesHeroOne Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SlidesHeroOneSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  Simplify<SlidesHeroOneSliceDefaultItem>
+>;
+
+/**
+ * Slice variation for *SlidesHeroOne*
+ */
+type SlidesHeroOneSliceVariation = SlidesHeroOneSliceDefault;
+
+/**
+ * SlidesHeroOne Shared Slice
+ *
+ * - **API ID**: `slides_hero_one`
+ * - **Description**: SlidesHeroOne
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type SlidesHeroOneSlice = prismic.SharedSlice<
+  "slides_hero_one",
+  SlidesHeroOneSliceVariation
+>;
+
+/**
  * Primary content in *TextBlock → Primary*
  */
 export interface TextBlockSliceDefaultPrimary {
@@ -345,6 +496,8 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      HomepageDocument,
+      HomepageDocumentData,
       PetDocument,
       PetDocumentData,
       PetsDocument,
@@ -359,6 +512,9 @@ declare module "@prismicio/client" {
       NewSliceSlice,
       NewSliceSliceVariation,
       NewSliceSliceDefault,
+      SlidesHeroOneSlice,
+      SlidesHeroOneSliceVariation,
+      SlidesHeroOneSliceDefault,
       TextBlockSlice,
       TextBlockSliceVariation,
       TextBlockSliceDefault,
