@@ -1,59 +1,30 @@
 <template>
   <div class="h-screen w-screen bg-contAccent py-12 px-8">
-    <nuxt-img
-      provider="cloudinary"
-      src="/v1685029473/circleHero_ybk8m3.png"
-      width="100%"
-      height="100%"
-      class="absolute top-12 left-0 z-[2]"
-    ></nuxt-img>
-    <nuxt-img
-      provider="cloudinary"
-      src="/v1685029473/circleHeroBlue_j0v27w.png"
-      width="100%"
-      height="100%"
-      class="absolute top-20 left-0 z-1"
-    ></nuxt-img>
-    <div
-      class="gap-16 grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10"
-    >
+    <nuxt-img provider="cloudinary" src="/v1685029473/circleHero_ybk8m3.png" width="100%" height="100%"
+      class="absolute top-12 left-0 z-[2]"></nuxt-img>
+    <nuxt-img provider="cloudinary" src="/v1685029473/circleHeroBlue_j0v27w.png" width="100%" height="100%"
+      class="absolute top-20 left-0 z-1"></nuxt-img>
+    <div class="gap-16 grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10">
       <div class="titles row-start-1 row-end-2">
-        <h1
-          class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold leading-none"
-        >
+        <h1 class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold leading-none">
           Password Recovery
         </h1>
         <h6 class="text-contAccent text-Heading6sm font-semibold tracking-wide">
           Password Recovery as a shelter
         </h6>
       </div>
-      <form
-        v-if="!isFormSubmitted"
-        @submit.prevent="forgotPassword"
-        class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col gap-2"
-      >
+      <form v-if="!isFormSubmitted" @submit.prevent="forgotPassword"
+        class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col gap-2">
         <h2 class="font-bold leading-tight">
           You'll receive an email to recover your password.
         </h2>
         <div class="input-container">
-          <input
-            type="email"
-            id="email"
-            v-model="credentials.email"
-            required
-            autocompletef="email"
-          />
+          <input type="email" id="email" v-model="credentials.email" required autocompletef="email" />
           <label for="input" class="label text-contInactive">Email</label>
           <div class="underline"></div>
         </div>
 
-        <UButton
-          type="submit"
-          size="providers"
-          label="Submit"
-          color="primary"
-          variant="solid"
-        />
+        <UButton type="submit" size="providers" label="Submit" color="primary" variant="solid" />
       </form>
       <div class="text-center" v-else>
         <h2 class="font-bold leading-tight">Email sent</h2>
@@ -67,7 +38,7 @@ definePageMeta({
   layout: "auth",
 });
 const isFormSubmitted = ref(false);
-const supaAuth = useSupabaseAuthClient().auth;
+const supaAuth = useSupabaseClient().auth;
 
 const credentials = reactive({
   email: "",
@@ -117,10 +88,10 @@ const forgotPassword = async () => {
   @apply text-contInactive;
 }
 
-.input-container input[type="email"]:focus ~ .label,
-.input-container input[type="email"]:valid ~ .label,
-.input-container input[type="password"]:focus ~ .label,
-.input-container input[type="password"]:valid ~ .label {
+.input-container input[type="email"]:focus~.label,
+.input-container input[type="email"]:valid~.label,
+.input-container input[type="password"]:focus~.label,
+.input-container input[type="password"]:valid~.label {
   top: -20px;
   font-size: 16px;
   @apply text-contInactive;
@@ -138,17 +109,18 @@ const forgotPassword = async () => {
   @apply text-contInactive;
 }
 
-.input-container input[type="email"]:focus ~ .underline,
-.input-container input[type="email"]:valid ~ .underline,
-.input-container input[type="password"]:focus ~ .underline,
-.input-container input[type="password"]:valid ~ .underline {
+.input-container input[type="email"]:focus~.underline,
+.input-container input[type="email"]:valid~.underline,
+.input-container input[type="password"]:focus~.underline,
+.input-container input[type="password"]:valid~.underline {
   transform: scaleX(1);
 }
 
-.input-container input[type="password"]:valid ~ .underline {
+.input-container input[type="password"]:valid~.underline {
   @apply text-[##98e958] bg-[#98e958];
 }
-.input-container input[type="email"]:valid ~ .underline {
+
+.input-container input[type="email"]:valid~.underline {
   @apply text-[##98e958] bg-[#98e958];
 }
 </style>

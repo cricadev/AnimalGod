@@ -10,8 +10,9 @@ watch(
     isOpen.value = false;
   }
 );
+console.log()
 
-const supaAuth = useSupabaseAuthClient().auth;
+const supaAuth = useSupabaseClient().auth;
 
 const logout = async () => {
   const { error } = await supaAuth.signOut();

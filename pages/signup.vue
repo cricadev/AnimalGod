@@ -200,7 +200,7 @@ definePageMeta({
   layout: "auth",
 });
 
-const supaAuth = useSupabaseAuthClient().auth;
+const supaAuth = useSupabaseClient().auth;
 const errorMessage = ref("");
 const credentials = reactive({
   name: "",

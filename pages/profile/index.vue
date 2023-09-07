@@ -28,12 +28,13 @@
       Terms: {{ user.user_metadata?.terms ? "Accepted" : "Not Accepted" }}
     </h4>
 
-    <nuxt-img
-      :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'"
-      width="100"
-      height="100"
-      class="rounded-full"
-    />
+    <h4 class="text-Heading4sm">
+      Is Shelter: {{ user.user_metadata?.isShelter ? "Yes" : "No" }}
+    </h4>
+
+
+    <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="100" height="100"
+      class="rounded-full" />
 
     <pre class="dark:text-Bg text-darkBg">{{ user }}</pre>
   </div>
