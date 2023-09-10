@@ -38,4 +38,12 @@ export default defineNuxtConfig({
     { path: "~/components/MeetThem", prefix: "MeetThem" },
     "~/components",
   ],
+  supabase: {
+
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      exclude: ["/"],
+    }
+  }
 });

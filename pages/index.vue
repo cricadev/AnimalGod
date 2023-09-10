@@ -10,6 +10,8 @@ useHead({
   ],
 });
 const user = useSupabaseUser();
+
+
 </script>
 
 <template>
