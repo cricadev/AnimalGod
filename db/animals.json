@@ -11,7 +11,7 @@
         "personality": "friendly",
         "goodWith": ["dogs", "cats", "children"],
         "activityLevel": "high",
-        "meetImage": "/v1685578058/tobyMD_yubbiv.png",
+        "meetImage": "/tobyMD_yubbiv.png",
         "carouselImages": [],
         "hex": "00C57D"
       },
@@ -25,7 +25,7 @@
         "personality": "independent",
         "goodWith": ["cats", "adults"],
         "activityLevel": "low",
-        "meetImage": "/v1685578057/cooperMD_gugvdw.png",
+        "meetImage": "/cooperMD_gugvdw.png",
         "hex": "EFAF52"
       },
       {
@@ -38,7 +38,7 @@
         "personality": "playful",
         "goodWith": ["cats", "dogs", "children"],
         "activityLevel": "high",
-        "meetImage": "/v1685578058/skyMD_dxy9fb.png",
+        "meetImage": "/skyMD_dxy9fb.png",
         "hex": "EA5D31"
          },
       {
@@ -51,7 +51,7 @@
         "personality": "loyal",
         "goodWith": ["dogs", "children"],
         "activityLevel": "medium",
-        "meetImage": "/v1685578058/pixieMD_ue3cr7.png",
+        "meetImage": "/pixieMD_ue3cr7.png",
         "hex": "8FDDDB"
       }
     ],
@@ -66,7 +66,7 @@
         "personality": "playful",
         "goodWith": ["cats", "dogs", "children"],
         "activityLevel": "high",
-        "meetImage": "/v1685578057/booMD_zkchks.png",
+        "meetImage": "/booMD_zkchks.png",
         "hex": "EA5D31"
       },
       {
@@ -79,7 +79,7 @@
         "personality": "affectionate",
         "goodWith": ["dogs", "adults"],
         "activityLevel": "low",
-        "meetImage": "/v1685578058/sammyMD_gkhyxi.png",
+        "meetImage": "/sammyMD_gkhyxi.png",
         "hex": "3EB7CF"
       },
       {
@@ -92,7 +92,7 @@
         "personality": "friendly",
         "goodWith": ["dogs", "cats", "children"],
         "activityLevel": "high",
-        "meetImage": "/v1685578058/milyMD_x6rfa9.png",
+        "meetImage": "/milyMD_x6rfa9.png",
         "hex": "FFD835"
       },
 
@@ -106,7 +106,7 @@
         "personality": "loyal",
         "goodWith": ["dogs", "children"],
         "activityLevel": "medium",
-        "meetImage": "/v1685578057/fionaMD_esrthr.png",
+        "meetImage": "/fionaMD_esrthr.png",
         "hex": "F3A3B0"
       }
     ]
@@ -122,13 +122,13 @@
       "personality": "friendly",
       "goodWith": ["dogs", "cats", "children"],
       "activityLevel": "high",
-      "meetImage": "/v1685578058/tobyMD_yubbiv.png",
+      "meetImage": "/tobyMD_yubbiv.png",
       "hex": "00C57D",
       "carouselImages": [
-        "/v1686344458/TobyGallery00_ifoyml.png",
-        "/v1686344458/TobyGallery01_e8qu90.png",
-        "/v1686344458/TobyGallery02_jnhpf9.png",
-        "/v1686344458/TobyGallery03_i0lhvb.png"
+        "/TobyGallery00_ifoyml.png",
+        "/TobyGallery01_e8qu90.png",
+        "/TobyGallery02_jnhpf9.png",
+        "/TobyGallery03_i0lhvb.png"
       ]
     }
   ]

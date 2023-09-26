@@ -1,94 +1,49 @@
 <template>
   <div class="h-screen w-screen bg-contAccent py-12 px-8">
-    <nuxt-img
-      provider="cloudinary"
-      src="/v1685029473/circleHero_ybk8m3.png"
-      width="100%"
-      height="100%"
-      class="absolute top-12 left-0 z-[2]"
-    ></nuxt-img>
-    <nuxt-img
-      provider="cloudinary"
-      src="/v1685029473/circleHeroBlue_j0v27w.png"
-      width="100%"
-      height="100%"
-      class="absolute top-20 left-0 z-1"
-    ></nuxt-img>
-    <div
-      class="flex flex-col gap-4 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-8 px-8 relative z-10"
-    >
+    <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
+      class="absolute top-12 left-0 z-[2]"></nuxt-img>
+    <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
+      class="absolute top-20 left-0 z-1"></nuxt-img>
+    <div class="flex flex-col gap-4 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-8 px-8 relative z-10">
       <div class="titles row-start-1 row-end-2 flex flex-col gap-2">
         <h1 class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold">
           Sign up
         </h1>
         <div class="flex text-Heading6sm font-bold justify-between gap-4">
           <h6>Create an account</h6>
-          <h6
-            class="text-contAccent text-Heading6sm font-semibold tracking-wide"
-          >
+          <h6 class="text-contAccent text-Heading6sm font-semibold tracking-wide">
             Sign up as a shelter
           </h6>
         </div>
       </div>
 
-      <form
-        @submit.prevent="signup"
-        class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col relative"
-      >
-        <div
-          v-if="errorMessage !== ''"
-          class="bg-Bg z-10 w-full h-16 absolute bottom-0 dark:text-darkBg text-[#A81717] font-bold grid place-items-center shadow-sm shadow-Bg dark:shadow-darkBg rounded-md"
-        >
+      <form @submit.prevent="signup"
+        class="row-start-2 row-end-5 w-full text-center justify-center flex flex-col relative">
+        <div v-if="errorMessage !== ''"
+          class="bg-Bg z-10 w-full h-16 absolute bottom-0 dark:text-darkBg text-[#A81717] font-bold grid place-items-center shadow-sm shadow-Bg dark:shadow-darkBg rounded-md">
           {{ errorMessage }}
         </div>
         <div class="input-container">
-          <input
-            type="name"
-            id="name"
-            name="name"
-            v-model="credentials.name"
-            required
-            ref="name"
-            autocomplete="name"
-          />
+          <input type="name" id="name" name="name" v-model="credentials.name" required ref="name" autocomplete="name" />
           <label for="input" class="label text-contInactive">Name</label>
           <div class="underline"></div>
         </div>
         <div class="input-container">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            v-model="credentials.email"
-            required
-            ref="email"
-            autocomplete="email"
-          />
+          <input type="email" id="email" name="email" v-model="credentials.email" required ref="email"
+            autocomplete="email" />
           <label for="input" class="label text-contInactive">Email</label>
           <div class="underline"></div>
         </div>
         <div class="input-container">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            v-model="credentials.password"
-            required
-            autocomplete="current-password"
-          />
+          <input type="password" id="password" name="password" v-model="credentials.password" required
+            autocomplete="current-password" />
           <label for="input" class="label">Password</label>
           <div class="underline"></div>
         </div>
         <div class="flex gap-4 justify-center items-center">
           <div class="input-container">
-            <select
-              class="w-full"
-              required
-              name="country"
-              id="country"
-              v-model="credentials.country"
-              autocomplete="country"
-            >
+            <select class="w-full" required name="country" id="country" v-model="credentials.country"
+              autocomplete="country">
               <option value=""></option>
               <option value="usa">USA</option>
               <option value="colombia">Colombia</option>
@@ -100,57 +55,30 @@
           </div>
 
           <div class="input-container">
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              required
-              pattern="^[+]?[0-9]{9,12}$"
-              maxlength="12"
-              title="te"
-              class="w-full"
-              v-model="credentials.phone"
-              autocomplete="tel"
-            />
+            <input type="tel" id="phone" name="phone" required pattern="^[+]?[0-9]{9,12}$" maxlength="12" title="te"
+              class="w-full" v-model="credentials.phone" autocomplete="tel" />
             <label for="input" class="label">Phone</label>
             <div class="underline"></div>
           </div>
         </div>
         <div class="flex flex-col gap-2 mt-4">
-          <UCheckbox
-            v-model="credentials.terms"
-            required
-            label="I agree to the
-          AnimalGod Terms of Service and Privacy Policy"
-            :ui="{
+          <UCheckbox v-model="credentials.terms" required label="I agree to the
+          AnimalGod Terms of Service and Privacy Policy" :ui="{
+            label:
+              'leading-tight text-left line-clamp-2 font-regular text-[#5C6D82] text-Footer',
+          }" />
+          <UCheckbox v-model="credentials.notifications" class="leading-none text-left"
+            label="I would like to receive communications from the website" :ui="{
               label:
                 'leading-tight text-left line-clamp-2 font-regular text-[#5C6D82] text-Footer',
-            }"
-          />
-          <UCheckbox
-            v-model="credentials.notifications"
-            class="leading-none text-left"
-            label="I would like to receive communications from the website"
-            :ui="{
-              label:
-                'leading-tight text-left line-clamp-2 font-regular text-[#5C6D82] text-Footer',
-            }"
-          />
+            }" />
         </div>
         <div class="flex flex-col mt-8">
-          <UButton
-            type="submit"
-            size="providers"
-            label="Sign up"
-            color="primary"
-            variant="solid"
-          />
+          <UButton type="submit" size="providers" label="Sign up" color="primary" variant="solid" />
         </div>
         <!-- SEPARATOR OR -->
       </form>
-      <div
-        class="row-start-5 row-end-7 w-full text-center justify-center flex flex-col"
-      >
+      <div class="row-start-5 row-end-7 w-full text-center justify-center flex flex-col">
         <div class="flex items-center my-4 justify-center">
           <div class="flex-1 h-px bg-[#5C6D82]"></div>
           <div class="mx-4 font-bold text-[#5C6D82] text-Heading6lg">or</div>
@@ -159,30 +87,12 @@
         <!-- PROVIDER LOGIN -->
         <div class="flex flex-col gap-2">
           <form @submit.prevent="loginWithGoogle">
-            <UButton
-              icon="i-logos-google-icon"
-              size="providers"
-              type="submit"
-              color="secondary"
-              variant="outline"
-              label="Continue with Google"
-              :trailing="false"
-              id="google"
-              block
-            />
+            <UButton icon="i-logos-google-icon" size="providers" type="submit" color="secondary" variant="outline"
+              label="Continue with Google" :trailing="false" id="google" block />
           </form>
           <form @submit.prevent="loginWithFB">
-            <UButton
-              icon="i-logos-facebook"
-              size="providers"
-              color="secondary"
-              variant="outline"
-              label="Continue with Facebook"
-              :trailing="false"
-              type="submit"
-              id="facebook"
-              block
-            />
+            <UButton icon="i-logos-facebook" size="providers" color="secondary" variant="outline"
+              label="Continue with Facebook" :trailing="false" type="submit" id="facebook" block />
           </form>
         </div>
         <nuxt-link to="/login" class="text-contInactive mt-4 text-Heading6sm">
@@ -291,16 +201,16 @@ const loginWithFB = async (e) => {
   @apply text-contInactive;
 }
 
-.input-container input[type="email"]:focus ~ .label,
-.input-container input[type="email"]:valid ~ .label,
-.input-container input[type="password"]:focus ~ .label,
-.input-container input[type="password"]:valid ~ .label,
-.input-container input[type="tel"]:focus ~ .label,
-.input-container input[type="tel"]:valid ~ .label,
-.input-container input[type="name"]:focus ~ .label,
-.input-container input[type="name"]:valid ~ .label,
-.input-container select:focus ~ .label,
-.input-container select:valid ~ .label {
+.input-container input[type="email"]:focus~.label,
+.input-container input[type="email"]:valid~.label,
+.input-container input[type="password"]:focus~.label,
+.input-container input[type="password"]:valid~.label,
+.input-container input[type="tel"]:focus~.label,
+.input-container input[type="tel"]:valid~.label,
+.input-container input[type="name"]:focus~.label,
+.input-container input[type="name"]:valid~.label,
+.input-container select:focus~.label,
+.input-container select:valid~.label {
   top: -20px;
   font-size: 16px;
   @apply text-contInactive;
@@ -318,32 +228,36 @@ const loginWithFB = async (e) => {
   @apply text-contInactive;
 }
 
-.input-container input[type="email"]:focus ~ .underline,
-.input-container input[type="email"]:valid ~ .underline,
-.input-container input[type="password"]:focus ~ .underline,
-.input-container input[type="password"]:valid ~ .underline,
-.input-container input[type="tel"]:focus ~ .underline,
-.input-container input[type="tel"]:valid ~ .underline,
-.input-container input[type="name"]:focus ~ .underline,
-.input-container input[type="name"]:valid ~ .underline,
-.input-container select:focus ~ .underline,
-.input-container select:valid ~ .underline {
+.input-container input[type="email"]:focus~.underline,
+.input-container input[type="email"]:valid~.underline,
+.input-container input[type="password"]:focus~.underline,
+.input-container input[type="password"]:valid~.underline,
+.input-container input[type="tel"]:focus~.underline,
+.input-container input[type="tel"]:valid~.underline,
+.input-container input[type="name"]:focus~.underline,
+.input-container input[type="name"]:valid~.underline,
+.input-container select:focus~.underline,
+.input-container select:valid~.underline {
   transform: scaleX(1);
 }
 
-.input-container input[type="password"]:valid ~ .underline {
+.input-container input[type="password"]:valid~.underline {
   @apply bg-[#98e958];
 }
-.input-container input[type="email"]:valid ~ .underline {
+
+.input-container input[type="email"]:valid~.underline {
   @apply bg-[#98e958];
 }
-.input-container input[type="tel"]:valid ~ .underline {
+
+.input-container input[type="tel"]:valid~.underline {
   @apply bg-[#98e958];
 }
-.input-container select:valid ~ .underline {
+
+.input-container select:valid~.underline {
   @apply bg-[#98e958];
 }
-.input-container input[type="name"]:valid ~ .underline {
+
+.input-container input[type="name"]:valid~.underline {
   @apply bg-[#98e958];
 }
 </style>

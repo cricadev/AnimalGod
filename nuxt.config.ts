@@ -31,7 +31,7 @@ export default defineNuxtConfig({
   ui: { icons: ["mdi", "logos", "material-symbols"] },
   image: {
     cloudinary: {
-      baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/",
+      baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/v1688160841/animalGod/",
     },
   },
   components: [

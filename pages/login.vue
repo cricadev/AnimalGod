@@ -1,8 +1,8 @@
 <template>
   <div class="h-screen w-screen bg-contAccent py-12 px-8">
-    <nuxt-img provider="cloudinary" src="/v1685029473/circleHero_ybk8m3.png" width="100%" height="100%"
+    <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
       class="absolute top-12 left-0 z-[2]"></nuxt-img>
-    <nuxt-img provider="cloudinary" src="/v1685029473/circleHeroBlue_j0v27w.png" width="100%" height="100%"
+    <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
       class="absolute top-20 left-0 z-1"></nuxt-img>
     <div class="grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10">
       <div class="titles row-start-1 row-end-2">

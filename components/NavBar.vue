@@ -36,96 +36,51 @@ const items = [
 <template>
   <div class="flex items-center justify-between w-full h-16">
     <nuxt-link to="/">
-      <nuxt-img
-        provider="cloudinary"
-        src="/v1685029472/animal_god_olvlho.png"
-        v-if="colorMode.preference !== 'light'"
-        width="100%"
-        height="35"
-        class="p-5"
-      ></nuxt-img>
-      <nuxt-img
-        provider="cloudinary"
-        src="/v1685029473/dark-animal_god_cloaku.png"
-        width="100%"
-        height="35"
-        class="p-5"
-        v-else
-      ></nuxt-img
-    ></nuxt-link>
-    <UButton
-      v-if="user?.user_metadata?.isShelter"
-      size="xl"
-      label="Register animal"
-      color="secondary"
-    />
+      <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'" width="100%"
+        height="35" class="p-5"></nuxt-img>
+      <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
+        v-else></nuxt-img></nuxt-link>
+    <UButton v-if="user?.user_metadata?.isShelter" size="xl" label="Register animal" color="secondary" />
     <div class="flex place-items-center burguer-menu">
       <ToggleTheme></ToggleTheme>
 
-      <UButton
-        @click="isOpen = true"
-        icon="i-mdi-menu"
-        size="xl"
-        color="contAccent"
-        square
-        variant="ghost"
-      />
+      <UButton @click="isOpen = true" icon="i-mdi-menu" size="xl" color="primary" square variant="ghost" />
 
-      <USlideover
-        v-model="isOpen"
-        :ui="{
-          overlay: {
-            background: 'bg-Bg/70 dark:bg-darkBg/70',
-            transition: {
-              enter: 'ease-in-out duration-500',
-              enterFrom: 'opacity-0',
-              enterTo: 'opacity-100',
-              leave: 'ease-in-out duration-500',
-              leaveFrom: 'opacity-100',
-              leaveTo: 'opacity-0',
-            },
-          },
-          base: 'relative flex-1 flex flex-col w-full focus:outline-none',
-          background: 'bg-Bg dark:bg-darkBg',
-          ring: '',
-          rounded: '',
-          padding: '',
-          shadow: 'shadow-xl',
-          width: 'w-screen max-w-md',
+      <USlideover v-model="isOpen" :ui="{
+        overlay: {
+          background: 'bg-Bg/70 dark:bg-darkBg/70',
           transition: {
-            enter: 'transform transition ease-in-out duration-300',
-            leave: 'transform transition ease-in-out duration-200',
+            enter: 'ease-in-out duration-500',
+            enterFrom: 'opacity-0',
+            enterTo: 'opacity-100',
+            leave: 'ease-in-out duration-500',
+            leaveFrom: 'opacity-100',
+            leaveTo: 'opacity-0',
           },
-        }"
-      >
+        },
+        base: 'relative flex-1 flex flex-col w-full focus:outline-none',
+        background: 'bg-Bg dark:bg-darkBg',
+        ring: '',
+        rounded: '',
+        padding: '',
+        shadow: 'shadow-xl',
+        width: 'w-screen max-w-md',
+        transition: {
+          enter: 'transform transition ease-in-out duration-300',
+          leave: 'transform transition ease-in-out duration-200',
+        },
+      }">
         <!-- Content -->
-        <div
-          v-if="!user"
-          class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond"
-        >
+        <div v-if="!user" class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
           <div class="flex flex-col gap-3 mx-5">
             <nuxt-link to="/login" class="">
-              <UButton
-                size="xl"
-                label="Log in"
-                color="primary"
-                variant="solid"
-                block
-              />
+              <UButton size="xl" label="Log in" color="primary" variant="solid" block />
             </nuxt-link>
             <nuxt-link to="/signup" class="">
-              <UButton
-                size="xl"
-                label="Sign up"
-                color="secondary"
-                variant="solid"
-                block
-              />
+              <UButton size="xl" label="Sign up" color="secondary" variant="solid" block />
             </nuxt-link>
 
-            <nuxt-link to="/forgot-password" class="text-center"
-              >Forgot password?</nuxt-link
-            >
+            <nuxt-link to="/forgot-password" class="text-center">Forgot password?</nuxt-link>
             <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
           </div>
 
@@ -136,19 +91,13 @@ const items = [
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
-                    >About adoption</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/about-adoption" class="nav--item">About adoption</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/meet-them" class="nav--item"
-                    >Meet them</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/meet-them" class="nav--item">Meet them</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/succesful-cases" class="nav--item"
-                    >Succesful cases</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/succesful-cases" class="nav--item">Succesful cases</nuxt-link>
                 </li>
               </ul>
             </div>
@@ -159,74 +108,45 @@ const items = [
               <nuxt-link to="/about-us">About us</nuxt-link>
             </li>
           </div>
-          <div
-            class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]"
-          >
-            <nuxt-img
-              provider="cloudinary"
-              src="/v1685029472/animal_god_olvlho.png"
-              v-if="colorMode.preference !== 'light'"
-              width="120"
-              height="35"
-            ></nuxt-img>
-            <nuxt-img
-              provider="cloudinary"
-              src="/v1685029473/dark-animal_god_cloaku.png"
-              width="120"
-              height="35"
-              v-else
-            ></nuxt-img>
+          <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
+            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+              width="120" height="35"></nuxt-img>
+            <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
           </div>
         </div>
-        <div
-          v-else-if="user?.user_metadata?.isShelter"
-          class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond"
-        >
+        <div v-else-if="user?.user_metadata?.isShelter"
+          class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
           <div class="flex flex-col gap-2 mx-5">
-            <UAccordion
-              :items="items"
-              :ui="{
-                wrapper: 'w-full flex flex-col gap-y-2',
-                item: {
-                  base: '',
-                  size: 'text-sm',
-                  color: 'text-gray-500 dark:text-gray-400',
-                  padding: 'py-2',
-                },
-                transition: {
-                  enterActiveClass:
-                    'overflow-hidden transition-[height] duration-200 ease-out',
-                  leaveActiveClass:
-                    'overflow-hidden transition-[height] duration-200 ease-out',
-                },
-                default: {
-                  openIcon: 'i-heroicons-chevron-down-20-solid',
-                  closeIcon: '',
-                  variant: 'soft',
-                },
-              }"
-            >
+            <UAccordion :items="items" :ui="{
+              wrapper: 'w-full flex flex-col gap-y-2',
+              item: {
+                base: '',
+                size: 'text-sm',
+                color: 'text-gray-500 dark:text-gray-400',
+                padding: 'py-2',
+              },
+              transition: {
+                enterActiveClass:
+                  'overflow-hidden transition-[height] duration-200 ease-out',
+                leaveActiveClass:
+                  'overflow-hidden transition-[height] duration-200 ease-out',
+              },
+              default: {
+                openIcon: 'i-heroicons-chevron-down-20-solid',
+                closeIcon: '',
+                variant: 'soft',
+              },
+            }">
               <template #default="{ item, index, open }">
-                <UButton
-                  color="gray"
-                  variant="ghost"
-                  class="border-b border-gray-200 dark:border-gray-700"
-                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }"
-                >
+                <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700"
+                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
                   <template #leading>
                     <div class="flex w-full h-16 justify-start items-center">
                       <div
-                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1"
-                      >
-                        <nuxt-img
-                          :src="
-                            user.user_metadata?.avatar_url ??
-                            'https://picsum.photos/100/100'
-                          "
-                          width="100"
-                          height="100"
-                          class="rounded-xl"
-                        />
+                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">
+                        <nuxt-img :src="user.user_metadata?.avatar_url ??
+                          'https://picsum.photos/100/100'
+                          " width="100" height="100" class="rounded-xl" />
                       </div>
                       <div class="flex flex-col text-start">
                         <h3>{{ item.label }}</h3>
@@ -236,11 +156,9 @@ const items = [
                   </template>
 
                   <template #trailing>
-                    <UIcon
-                      name="i-heroicons-chevron-right-20-solid"
+                    <UIcon name="i-heroicons-chevron-right-20-solid"
                       class="w-5 h-5 ms-auto transform transition-transform duration-200"
-                      :class="[open && 'rotate-90']"
-                    />
+                      :class="[open && 'rotate-90']" />
                   </template>
                 </UButton>
               </template>
@@ -252,9 +170,7 @@ const items = [
 
               <template #getting-started>
                 <div class="flex flex-col justify-center items-center gap-1">
-                  <ul
-                    class="flex flex-col justify-center items-center gap-1 text-center text-darkContText"
-                  >
+                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkContText">
                     <li>
                       <nuxt-link to="/profile"> Profile </nuxt-link>
                     </li>
@@ -269,9 +185,7 @@ const items = [
               </template>
 
               <template #installation="{ description }">
-                <div
-                  class="flex flex-col justify-center items-center gap-1 mb-4"
-                >
+                <div class="flex flex-col justify-center items-center gap-1 mb-4">
                   <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                     Installation
                   </h3>
@@ -304,19 +218,13 @@ const items = [
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
-                    >Meet and Great</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/about-adoption" class="nav--item">Meet and Great</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
-                    >Adoption day</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/about-adoption" class="nav--item">Adoption day</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
-                    >Answer questions</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/about-adoption" class="nav--item">Answer questions</nuxt-link>
                 </li>
               </ul>
             </div>
@@ -324,74 +232,44 @@ const items = [
               <nuxt-link to="/aboutus">About us</nuxt-link>
             </li>
           </div>
-          <div
-            class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]"
-          >
-            <nuxt-img
-              provider="cloudinary"
-              src="/v1685029472/animal_god_olvlho.png"
-              v-if="colorMode.preference !== 'light'"
-              width="120"
-              height="35"
-            ></nuxt-img>
-            <nuxt-img
-              provider="cloudinary"
-              src="/v1685029473/dark-animal_god_cloaku.png"
-              width="120"
-              height="35"
-              v-else
-            ></nuxt-img>
+          <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
+            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+              width="120" height="35"></nuxt-img>
+            <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
           </div>
         </div>
-        <div
-          v-else
-          class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond"
-        >
+        <div v-else class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
           <div class="flex flex-col gap-2 mx-5">
-            <UAccordion
-              :items="items"
-              :ui="{
-                wrapper: 'w-full flex flex-col gap-y-2',
-                item: {
-                  base: '',
-                  size: 'text-sm',
-                  color: 'text-gray-500 dark:text-gray-400',
-                  padding: 'py-2',
-                },
-                transition: {
-                  enterActiveClass:
-                    'overflow-hidden transition-[height] duration-200 ease-out',
-                  leaveActiveClass:
-                    'overflow-hidden transition-[height] duration-200 ease-out',
-                },
-                default: {
-                  openIcon: 'i-heroicons-chevron-down-20-solid',
-                  closeIcon: '',
-                  variant: 'soft',
-                },
-              }"
-            >
+            <UAccordion :items="items" :ui="{
+              wrapper: 'w-full flex flex-col gap-y-2',
+              item: {
+                base: '',
+                size: 'text-sm',
+                color: 'text-gray-500 dark:text-gray-400',
+                padding: 'py-2',
+              },
+              transition: {
+                enterActiveClass:
+                  'overflow-hidden transition-[height] duration-200 ease-out',
+                leaveActiveClass:
+                  'overflow-hidden transition-[height] duration-200 ease-out',
+              },
+              default: {
+                openIcon: 'i-heroicons-chevron-down-20-solid',
+                closeIcon: '',
+                variant: 'soft',
+              },
+            }">
               <template #default="{ item, index, open }">
-                <UButton
-                  color="gray"
-                  variant="ghost"
-                  class="border-b border-gray-200 dark:border-gray-700"
-                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }"
-                >
+                <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700"
+                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
                   <template #leading>
                     <div class="flex w-full h-16 justify-start items-center">
                       <div
-                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1"
-                      >
-                        <nuxt-img
-                          :src="
-                            user.user_metadata?.avatar_url ??
-                            'https://picsum.photos/100/100'
-                          "
-                          width="100"
-                          height="100"
-                          class="rounded-xl"
-                        />
+                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">
+                        <nuxt-img :src="user.user_metadata?.avatar_url ??
+                          'https://picsum.photos/100/100'
+                          " width="100" height="100" class="rounded-xl" />
                       </div>
                       <div class="flex flex-col text-start">
                         <h3>{{ item.label }}</h3>
@@ -401,11 +279,9 @@ const items = [
                   </template>
 
                   <template #trailing>
-                    <UIcon
-                      name="i-heroicons-chevron-right-20-solid"
+                    <UIcon name="i-heroicons-chevron-right-20-solid"
                       class="w-5 h-5 ms-auto transform transition-transform duration-200"
-                      :class="[open && 'rotate-90']"
-                    />
+                      :class="[open && 'rotate-90']" />
                   </template>
                 </UButton>
               </template>
@@ -418,27 +294,12 @@ const items = [
               <template #getting-started>
                 <div class="flex flex-col justify-center items-center gap-1">
                   <div class="flex flex-col gap-2 w-full">
-                    <UButton
-                      size="xl"
-                      label="Contact shelter"
-                      color="primary"
-                      variant="solid"
-                      block
-                      class="py-3"
-                    />
-                    <UButton
-                      size="xl"
-                      label="Cancel application"
-                      color="secondary"
-                      variant="outline"
-                      class="py-3"
-                      block
-                    />
+                    <UButton size="xl" label="Contact shelter" color="primary" variant="solid" block class="py-3" />
+                    <UButton size="xl" label="Cancel application" color="secondary" variant="outline" class="py-3"
+                      block />
                     <button></button><button></button>
                   </div>
-                  <ul
-                    class="flex flex-col justify-center items-center gap-1 text-center text-darkContText"
-                  >
+                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkContText">
                     <li>
                       <nuxt-link to="/profile"> Profile </nuxt-link>
                     </li>
@@ -449,13 +310,11 @@ const items = [
                     </li>
                     <li @click="logout">Log out</li>
                   </ul>
-                </div></template
-              >
+                </div>
+              </template>
 
               <template #installation="{ description }">
-                <div
-                  class="flex flex-col justify-center items-center gap-1 mb-4"
-                >
+                <div class="flex flex-col justify-center items-center gap-1 mb-4">
                   <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                     Installation
                   </h3>
@@ -485,19 +344,13 @@ const items = [
               </li>
               <ul class="flex justify-center items-center flex-col gap-2">
                 <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item"
-                    >About adoption</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/about-adoption" class="nav--item">About adoption</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/meet-them" class="nav--item"
-                    >Meet them</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/meet-them" class="nav--item">Meet them</nuxt-link>
                 </li>
                 <li>
-                  <nuxt-link to="/adopt/succesful-cases" class="nav--item"
-                    >Succesful cases</nuxt-link
-                  >
+                  <nuxt-link to="/adopt/succesful-cases" class="nav--item">Succesful cases</nuxt-link>
                 </li>
               </ul>
             </div>
@@ -508,23 +361,10 @@ const items = [
               <nuxt-link to="/about-us">About us</nuxt-link>
             </li>
           </div>
-          <div
-            class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]"
-          >
-            <nuxt-img
-              provider="cloudinary"
-              src="/v1685029472/animal_god_olvlho.png"
-              v-if="colorMode.preference !== 'light'"
-              width="120"
-              height="35"
-            ></nuxt-img>
-            <nuxt-img
-              provider="cloudinary"
-              src="/v1685029473/dark-animal_god_cloaku.png"
-              width="120"
-              height="35"
-              v-else
-            ></nuxt-img>
+          <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
+            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+              width="120" height="35"></nuxt-img>
+            <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
           </div>
         </div>
       </USlideover>
@@ -539,6 +379,7 @@ const items = [
 .nav--item {
   @apply text-Captionlg font-regular text-contInactive;
 }
+
 .router-link-active {
   @apply border-b border-contAccent pb-1;
 }
