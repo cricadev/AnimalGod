@@ -12,31 +12,31 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@iconify-json/logos": "^1.1.35",
-    "@iconify-json/material-symbols": "^1.1.57",
+    "@iconify-json/logos": "^1.1.37",
+    "@iconify-json/material-symbols": "^1.1.59",
     "@iconify-json/mdi": "^1.1.54",
-    "@nuxt/devtools": "^0.8.2",
+    "@nuxt/devtools": "^0.8.5",
     "@nuxt/eslint-config": "^0.2.0",
     "@nuxt/image": "1.0.0-rc.1",
-    "@nuxthq/ui": "npm:@nuxthq/ui-edge@latest",
     "@nuxtjs/color-mode": "^3.3.0",
-    "@nuxtjs/supabase": "^1.0.2",
+    "@nuxtjs/supabase": "^1.1.2",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@types/node": "^20",
-    "eslint": "^8.48.0",
-    "nuxt": "^3.7.1",
-    "prisma": "^5.2.0",
+    "eslint": "^8.50.0",
+    "nuxt": "^3.7.3",
+    "prisma": "^5.3.1",
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
+    "@nuxt/ui": "^2.8.1",
+    "@pinia-plugin-persistedstate/nuxt": "^1.1.2",
     "@pinia/nuxt": "^0.4.11",
-    "@prisma/client": "^5.2.0",
+    "@prisma/client": "^5.3.1",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "flowbite": "^1.8.1",
     "nuxt-icon": "^0.5.0",
-    "sass": "^1.66.1",
+    "sass": "^1.68.0",
     "vue3-carousel": "^0.3.1"
   }
 }

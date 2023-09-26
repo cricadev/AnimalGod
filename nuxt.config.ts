@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   modules: [
     "@nuxt/devtools",
-    "@nuxthq/ui",
+    "@nuxt/ui",
     "@nuxt/image",
     "@nuxtjs/supabase",
     "@pinia/nuxt",
