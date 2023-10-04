@@ -1,6 +1,7 @@
 datasource db {
-    url      = env("DATABASE_URL")
-    provider = "postgresql"
+    provider  = "postgresql"
+    url       = env("DATABASE_URL")
+    directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -9,31 +10,57 @@ generator client {
     output        = "../node_modules/.prisma/client"
 }
 
-model Pets {
-    id   Int   @id @default(autoincrement())
-    Pets Pet[]
+// Model for the shelters
+model Shelter {
+    id        Int      @id @default(autoincrement())
+    name      String
+    pets      Pet[] // Relation to the pets they have listed
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    // Add other fields like address, contact number, etc.
 }
 
+// Model for the clients
+model Client {
+    id           Int           @id @default(autoincrement())
+    name         String
+    appointments Appointment[] // Relation to their set appointments
+    country      String
+    phone        String
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+    // You can add other fields specific to clients if necessary
+}
+
+// Model for the pets listed for adoption
 model Pet {
-    id                 Int      @id @default(autoincrement())
-    name               String
-    type               String
-    breed              String
-    size               String
-    age                Int
-    gender             String
-    personality        String[]
-    goodWith           String[]
-    activityLevel      String
-    meetImage          String
-    hex                String
-    carouselImages     String[]
-    history            String
-    personalitySummary String
-    healthSummary      String
-    healthStats        String[]
-    createdAt          DateTime @default(now())
-    updatedAt          DateTime @updatedAt
-    Pets               Pets?    @relation(fields: [petsId], references: [id])
-    petsId             Int?
+    id           Int           @id @default(autoincrement())
+    name         String
+    age          Int
+    type         String // e.g., Dog, Cat, etc.
+    breed        String // e.g., Golden Retriever, Siamese, etc.
+    description  String?
+    images       String[] // URLs of uploaded images
+    isAdopted    Boolean       @default(false)
+    shelterId    Int? // Foreign Key relation to Shelter
+    shelter      Shelter?      @relation(fields: [shelterId], references: [id])
+    appointments Appointment[] // Relation to appointments set for this pet
+    createdAt    DateTime      @default(now())
+    updatedAt    DateTime      @updatedAt
+
+    // Add other fields as per the form's details like color, health conditions, etc.
+}
+
+// Model for the appointments set by clients for specific pets
+model Appointment {
+    id        Int      @id @default(autoincrement())
+    date      DateTime
+    message   String?
+    clientId  Int // Foreign Key relation to Client
+    client    Client   @relation(fields: [clientId], references: [id])
+    petId     Int // Foreign Key relation to Pet
+    pet       Pet      @relation(fields: [petId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    // You can add other fields specific to appointment details if necessary
 }

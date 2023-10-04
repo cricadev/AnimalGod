@@ -36,8 +36,7 @@
 
 <script setup>
 definePageMeta({
-  middleware: ["unauthenticated"],
-  layout: "auth",
+  layout: "autho",
 });
 
 const supaAuth = useSupabaseClient().auth;
@@ -57,7 +56,7 @@ const updatePassword = async () => {
   } else {
     console.log("Password updated");
     isFormSubmitted.value = true;
-    navigateTo("/profile")
+    return navigateTo("/profile")
   }
 };
 </script>

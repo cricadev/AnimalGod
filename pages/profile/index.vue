@@ -41,9 +41,7 @@
   <div class="" v-else>There is no profile please log in</div>
 </template>
 <script setup>
-definePageMeta({
-  middleware: ["authenticated"],
-});
+
 
 const user = useSupabaseUser();
 const capitalizeFirstLetter = (s) =>

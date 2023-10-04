@@ -70,10 +70,9 @@
 
 <script setup>
 definePageMeta({
-  middleware: ["unauthenticated"],
-  layout: "auth",
+  layout: "autho",
+  middleware: 'unauthenticated'
 });
-
 const supaAuth = useSupabaseClient().auth;
 
 const credentials = reactive({
@@ -84,7 +83,7 @@ const credentials = reactive({
 const errorMessage = ref("");
 
 const login = async () => {
-  const { error } = await supaAuth.signInWithPassword(credentials);
+  const { error } = await supaAuth.signInWithPassword({ ...credentials, options: { redirectTo: "http://localhost:3000/confirm" } });
   if (error) {
     console.log(error.message);
     errorMessage.value = error.message;

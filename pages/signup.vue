@@ -105,7 +105,6 @@
 </template>
 <script setup>
 definePageMeta({
-  middleware: ["unauthenticated"],
   layout: "auth",
 });
 

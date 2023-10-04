@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "nuxt-icon",
   ],
+
   colorMode: {
     preference: "system", // default value of $colorMode.preference
     fallback: "dark", // fallback value if not system preference found
@@ -18,6 +19,7 @@ export default defineNuxtConfig({
     classSuffix: "",
     storageKey: "nuxt-color-mode",
   },
+
   // Defaults options
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.css",
@@ -29,21 +31,33 @@ export default defineNuxtConfig({
   },
 
   ui: { icons: ["mdi", "logos", "material-symbols"] },
+
   image: {
     cloudinary: {
       baseURL: "https://res.cloudinary.com/ddc0cce3m/image/upload/v1688160841/animalGod/",
     },
   },
+
   components: [
     { path: "~/components/MeetThem", prefix: "MeetThem" },
     "~/components",
   ],
+
   supabase: {
 
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      exclude: ["/"],
+      exclude: ["/", "/login", "/profile/update", "/signup", "/signup-shelter", "/about", "/contact", "/privacy", "/terms", "/404", "/forgot-password"],
+    }
+  },
+
+  devtools: {
+    enabled: true
+  },
+  runtimeConfig: {
+    public: {
+      bucketUrl: process.env.BUCKET_URL,
     }
   }
 });

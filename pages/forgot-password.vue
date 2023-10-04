@@ -35,7 +35,8 @@
 
 <script setup>
 definePageMeta({
-  layout: "auth",
+  layout: "autho",
+
 });
 const isFormSubmitted = ref(false);
 const supaAuth = useSupabaseClient().auth;
