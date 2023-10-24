@@ -44,6 +44,7 @@ model Pet {
     isAdopted    Boolean       @default(false)
     shelterId    Int? // Foreign Key relation to Shelter
     shelter      Shelter?      @relation(fields: [shelterId], references: [id])
+    hexColor     String?       @default("#ffffff")
     appointments Appointment[] // Relation to appointments set for this pet
     createdAt    DateTime      @default(now())
     updatedAt    DateTime      @updatedAt

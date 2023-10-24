@@ -26,7 +26,8 @@ async function main() {
       isAdopted: false,
       shelterId: shelter1.id,
       description: "Friendly and playful",
-      images: ["image1_url", "image2_url"],
+      images: ["/tobyMD_yubbiv.png", "image2_url"],
+      hex: "#00C57D",
     },
   });
 
@@ -39,7 +40,8 @@ async function main() {
       isAdopted: false,
       shelterId: shelter2.id,
       description: "Calm and affectionate",
-      images: ["image3_url", "image4_url"],
+      images: ["/cooperMD_gugvdw.png", "image4_url"],
+      hex: "#EFAF52",
     },
   });
 
