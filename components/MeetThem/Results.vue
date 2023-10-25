@@ -1,10 +1,7 @@
 <template>
   <div class="flex justify-center items-center flex-col h-[65vh] mx-5">
     <div class="my-12 flex flex-col justify-center items-center text-center">
-      <span
-        class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"
-        >20 results</span
-      >
+      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">20 results</span>
       <h4 class="text-Heading4sm font-bold font-Inter mb-1">
         Black cats are less likely to be adopted
       </h4>
@@ -14,44 +11,32 @@
         counterparts.
       </p>
     </div>
-    <Carousel
-      ref="myCarousel"
-      class=""
-      :start-slide="currentSlide"
-      @slide-end="onSlideEnd"
-      :wrap-around="true"
-      snap-align="center"
-      :touch-drag="false"
-    >
-      <Slide
-        class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
-        v-for="(group, index) in animalGroups"
-        :key="index"
-      >
-        <nuxt-link
-          class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-          v-for="animal in group"
-          :key="animal.name"
-          :to="`/adopt/meet-them/${animal.name?.toLowerCase()}`"
-        >
-          <h6s
-            class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond"
-          >
+
+    <div class="" v-if="pending">
+      <h1>
+        Loading...
+      </h1>
+    </div>
+    <div class="" v-else-if="error || !data">
+      There's an error in the API CALL
+    </div>
+    <Carousel v-else ref="myCarousel" class="" :start-slide="currentSlide" @slide-end="onSlideEnd" :wrap-around="true"
+      snap-align="center" :touch-drag="false">
+      <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
+        v-for="animal in data" :key="animal.name">
+        <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+          :to="`/adopt/meet-them/${animal.name?.toLowerCase()}`">
+          <h6
+            class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
             {{ animal.name }}
-          </h6s>
-          <nuxt-img
-            format="webp"
-            provider="cloudinary"
-            :src="'/q_100' + animal.meetImage"
+          </h6>
+          <nuxt-img format="webp" provider="cloudinary" :src="animal.images[0]"
             class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
-            width="100%"
-            height="100%"
-          ></nuxt-img>
-          <div
-            class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-            :style="`background: linear-gradient(0deg, #${animal.hex} 0%, rgba(0, 0, 0, 0) 100%);`"
-          ></div>
+            width="100%" height="100%"></nuxt-img>
+          <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+            :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
         </nuxt-link>
+
       </Slide>
 
       <template #addons>
@@ -65,8 +50,23 @@
 import { Carousel, Pagination, Slide, Navigation } from "vue3-carousel";
 
 import animals from "~/db/animals.json";
+interface Animal {
+  age: Number;
+  breed: String;
+  createdAt: String;
+  description: String;
+  id: Number;
+  images: Array<String>;
+  isAdopted: Boolean;
+  name: String;
+  type: String;
+  updatedAt: String;
+  hexColor: String;
+}
+const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals')
 
-const animalGroups = ref(animals.animalGroups);
+
+
 const currentSlide = ref(0);
 
 const onSlideEnd = () => {

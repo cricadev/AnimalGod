@@ -3,7 +3,7 @@
     <h2 class="leading-none text-center px-12 text-Heading2sm font-bold text-darkContText relative z-30">
       {{ $props.title }}
     </h2>
-    <nuxt-img provider="cloudinary" src="/c_scale,w_158/circleHero_ybk8m3.png" width="100%" height="100%"
+    <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
       class="absolute top-0 left-0 z-20"></nuxt-img>
     <nuxt-img provider="cloudinary" src="/circleHeroMeet_c0gwem.png" width="100%" height="100%"
       class="absolute bottom-0 left-0 z-10"></nuxt-img>

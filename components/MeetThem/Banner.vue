@@ -1,6 +1,6 @@
 <template>
   <div class="relative h-[15vh] overflow-hidden mx-5 rounded-md bg-contSecond dark:bg-darkContSecond">
-    <nuxt-img provider="cloudinary" src="/e_grayscale/heroAboutAdoption_ak3i5i.png" height="100%" width="100%"
+    <nuxt-img provider="cloudinary" src="/heroAboutAdoption_ak3i5i.png" height="100%" width="100%"
       class="absolute bottom-2 left-0"></nuxt-img>
     <nuxt-img provider="cloudinary" src="/groupCircleTopAboutAdoption_nlcpko.png" height="100%" width="100%"
       class="absolute top-0 right-0"></nuxt-img>
