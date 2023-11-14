@@ -8,9 +8,18 @@ export default defineEventHandler(async (event) => {
     data: {
       id: body.id,
       name: body.name,
+      age: body.age,
       type: body.type,
       breed: body.breed,
-      age: body.age,
+      description: body.description,
+      images: body.images,
+      isAdopted: body.isAdopted,
+      hexColor: body.hexColor,
     }
   });
+
+  return {
+    status: 200,
+    body: JSON.stringify(res),
+  };
 })

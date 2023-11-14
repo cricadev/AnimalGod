@@ -20,12 +20,11 @@
     <div class="" v-else-if="error || !data">
       There's an error in the API CALL
     </div>
-    <Carousel v-else ref="myCarousel" class="" :start-slide="currentSlide" @slide-end="onSlideEnd" :wrap-around="true"
-      snap-align="center" :touch-drag="false">
-      <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
-        v-for="animal in data" :key="animal.name">
+    <Carousel v-else ref="myCarousel" @slide-end="onSlideEnd" :wrap-around="true" snap-align="center" :touch-drag="false"
+      :items-to-show="4">
+      <Slide v-for="animal in data" :key="animal.name">
         <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-          :to="`/adopt/meet-them/${animal.name?.toLowerCase()}`">
+          :to="`/adopt/meet-them/${animal.name}`">
           <h6
             class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
             {{ animal.name }}
@@ -63,14 +62,19 @@ interface Animal {
   updatedAt: String;
   hexColor: String;
 }
-const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals')
+const offset = ref(0)
+
+const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
 
 
 
-const currentSlide = ref(0);
+const onSlideEnd = async () => {
+  offset.value += 4
+  const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
+  if (data) {
+    data.value = data.value.concat(data)
+  }
 
-const onSlideEnd = () => {
-  currentSlide.value += 1;
 };
 </script>
 
