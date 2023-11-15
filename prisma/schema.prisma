@@ -10,6 +10,60 @@ generator client {
     output        = "../node_modules/.prisma/client"
 }
 
+// ENU,S
+
+enum Size {
+    SMALL
+    MEDIUM
+    LARGE
+}
+
+enum Breed {
+    GOLDEN_RETRIEVER
+    LABRADOR_RETRIEVER
+    GERMAN_SHEPHERD
+    BULLDOG
+    BEAGLE
+    POODLE
+    ROTTWEILER
+    YORKSHIRE_TERRIER
+    BOXER
+    DACHSHUND
+    // Add more breeds as needed
+}
+
+enum GoodWith {
+    CHILDREN
+    DOGS
+    CATS
+}
+
+enum ActivityLevel {
+    LOW
+    MEDIUM
+    HIGH
+}
+
+enum personalityAdjectives {
+    AFFECTIONATE
+    DOMINANT
+    RELAXED
+    INDEPENDENT
+    DEVOTED
+    CONFIDENT
+    ALOOF
+    COMPILANT
+    TIMID
+    ENTHUSIASTIC
+}
+
+enum liveWith {
+    PARTNER
+    CHILDREN
+    OTHER_PETS
+    ALONE
+}
+
 // Model for the shelters
 model Shelter {
     id        Int      @id @default(autoincrement())
@@ -18,6 +72,9 @@ model Shelter {
     pets      Pet[] // Relation to the pets they have listed
     country   String
     phone     String
+    image     String?
+    address   String?
+    website   String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     // Add other fields like address, contact number, etc.
@@ -38,34 +95,44 @@ model Client {
 
 // Model for the pets listed for adoption
 model Pet {
-    id           Int           @id @default(autoincrement())
-    name         String
-    age          Int
-    type         String // e.g., Dog, Cat, etc.
-    breed        String // e.g., Golden Retriever, Siamese, etc.
-    description  String?
-    images       String[] // URLs of uploaded images
-    isAdopted    Boolean       @default(false)
-    shelterId    Int? // Foreign Key relation to Shelter
-    shelter      Shelter?      @relation(fields: [shelterId], references: [id])
-    hexColor     String?       @default("#ffffff")
-    appointments Appointment[] // Relation to appointments set for this pet
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
-
-    // Add other fields as per the form's details like color, health conditions, etc.
+    id                     Int                     @id @default(autoincrement())
+    type                   String // e.g., Dog, Cat, etc.
+    name                   String
+    images                 String[] // URLs of uploaded images
+    gender                 Boolean
+    size                   Size // e.g., Small, Medium, Large, etc.
+    breed                  Breed // e.g., Golden Retriever, Siamese, etc.
+    goodWith               GoodWith[] // e.g., Children, Dogs, Cats, etc.
+    activity               ActivityLevel // e.g., Low, Medium, High, etc.
+    history                String                  @db.VarChar(2000)
+    personality            personalityAdjectives[]
+    personalityDescription String                  @db.VarChar(2000)
+    healthConditions       Json
+    healthDescription      String?                 @db.VarChar(2000)
+    isAdopted              Boolean                 @default(false)
+    shelterId              Int? // Foreign Key relation to Shelter
+    shelter                Shelter?                @relation(fields: [shelterId], references: [id])
+    appointments           Appointment[] // Relation to appointments set for this pet
+    createdAt              DateTime                @default(now())
+    updatedAt              DateTime                @updatedAt
 }
 
 // Model for the appointments set by clients for specific pets
 model Appointment {
-    id        Int      @id @default(autoincrement())
-    date      DateTime
-    message   String?
-    clientId  Int // Foreign Key relation to Client
-    client    Client   @relation(fields: [clientId], references: [id])
-    petId     Int // Foreign Key relation to Pet
-    pet       Pet      @relation(fields: [petId], references: [id])
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id                  Int        @id @default(autoincrement())
+    liveWith            liveWith[]
+    liveWithDescription String     @db.VarChar(2000)
+    liveIn              Boolean
+    isRenting           Boolean
+    rentAcceptance      Boolean?
+    qAndA               Json
+    qAndADescription    String     @db.VarChar(2000)
+    whyMessage          String     @db.VarChar(2000)
+    clientId            Int // Foreign Key relation to Client
+    client              Client     @relation(fields: [clientId], references: [id])
+    petId               Int // Foreign Key relation to Pet
+    pet                 Pet        @relation(fields: [petId], references: [id])
+    createdAt           DateTime   @default(now())
+    updatedAt           DateTime   @updatedAt
     // You can add other fields specific to appointment details if necessary
 }
