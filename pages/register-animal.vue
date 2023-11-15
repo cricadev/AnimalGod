@@ -47,7 +47,7 @@ const handlePetRegister = async () => {
     // First, try to create the client
     const data = await $fetch('/api/create-pet', {
       method: 'post',
-      body: { ...pet, shelterId: user.value?.id }
+      body: { ...pet, email: user.value?.email }
     });
     if (!data) {
       throw new Error('Error creating client')
