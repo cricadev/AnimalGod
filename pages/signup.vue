@@ -104,8 +104,9 @@
   </div>
 </template>
 <script setup>
+
 definePageMeta({
-  layout: "auth",
+  layout: "authenticated",
 });
 
 const supaAuth = useSupabaseClient().auth;
@@ -120,30 +121,46 @@ const credentials = reactive({
   notifications: false,
   isShelter: false,
 });
-
 const signup = async () => {
-  const { error } = await supaAuth.signUp({
-    email: credentials.email,
-    password: credentials.password,
-    options: {
-      data: {
-        name: credentials.name,
-        country: credentials.country,
-        phone: credentials.phone,
-        terms: credentials.terms,
-        notifications: credentials.notifications,
-        isShelter: credentials.isShelter,
+  try {
+    // First, try to create the client
+    const data = await $fetch('/api/createClient', {
+      method: 'post',
+      body: credentials
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+    console.log(data)
+
+
+    // If client creation is successful, sign up the user with Supabase
+    const { error: signUpError } = await supaAuth.signUp({
+      email: credentials.email,
+      password: credentials.password,
+      options: {
+        data: {
+          name: credentials.name,
+          country: credentials.country,
+          phone: credentials.phone,
+          terms: credentials.terms,
+          notifications: credentials.notifications,
+          isShelter: credentials.isShelter,
+        },
       },
-    },
-  });
-  if (error) {
+    });
+
+    if (signUpError) {
+      throw signUpError;
+    }
+
+    return await navigateTo("/");
+  } catch (error) {
     console.log(error);
     errorMessage.value = error.message;
     setTimeout(() => {
       errorMessage.value = "";
     }, 3000);
-  } else {
-    return await navigateTo("/");
   }
 };
 const loginWithGoogle = async (e) => {

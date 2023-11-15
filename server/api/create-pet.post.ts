@@ -3,10 +3,13 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
-
+  const shelter = await prisma.shelter.findUnique({
+    where: {
+      id: body.shelterId
+    }
+  });
   const res = await prisma.pet.create({
     data: {
-      id: body.id,
       name: body.name,
       age: body.age,
       type: body.type,
@@ -15,6 +18,9 @@ export default defineEventHandler(async (event) => {
       images: body.images,
       isAdopted: body.isAdopted,
       hexColor: body.hexColor,
+      shelter: {
+        connect: { id: body.shelterId }
+      }
     }
   });
 

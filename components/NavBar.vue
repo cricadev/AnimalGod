@@ -40,7 +40,8 @@ const items = [
         height="35" class="p-5"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
         v-else></nuxt-img></nuxt-link>
-    <UButton v-if="user?.user_metadata?.isShelter" size="xl" label="Register animal" color="secondary" />
+    <nuxt-link to="/register-animal" v-if="user?.user_metadata?.isShelter">
+      Register animal</nuxt-link>
     <div class="flex place-items-center burguer-menu">
       <ToggleTheme></ToggleTheme>
 

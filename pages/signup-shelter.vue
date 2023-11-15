@@ -11,9 +11,8 @@
         </h1>
         <div class="flex text-Heading6sm font-bold justify-between gap-4">
           <h6>Create an account</h6>
-          <h6 class="text-contAccent text-Heading6sm font-semibold tracking-wide">
-            Sign up as a shelter
-          </h6>
+          <nuxt-link class="text-contAccent text-Heading6sm font-semibold tracking-wide" to="/signup">Sign up as
+            client</nuxt-link>
         </div>
       </div>
 
@@ -104,8 +103,9 @@
   </div>
 </template>
 <script setup>
+
 definePageMeta({
-  layout: "auth",
+  layout: "authenticated",
 });
 
 const supaAuth = useSupabaseClient().auth;
@@ -122,28 +122,46 @@ const credentials = reactive({
 });
 
 const signup = async () => {
-  const { error } = await supaAuth.signUp({
-    email: credentials.email,
-    password: credentials.password,
-    options: {
-      data: {
-        name: credentials.name,
-        country: credentials.country,
-        phone: credentials.phone,
-        terms: credentials.terms,
-        notifications: credentials.notifications,
-        isShelter: credentials.isShelter,
+  try {
+
+
+    // First, try to create the shelter
+
+    const data = await $fetch('/api/createShelter', {
+      method: 'post',
+      body: credentials
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+    console.log(data)
+
+    const { error: signUpError } = await supaAuth.signUp({
+      email: credentials.email,
+      password: credentials.password,
+      options: {
+        data: {
+          name: credentials.name,
+          country: credentials.country,
+          phone: credentials.phone,
+          terms: credentials.terms,
+          notifications: credentials.notifications,
+          isShelter: credentials.isShelter,
+        },
       },
-    },
-  });
-  if (error) {
+    });
+
+    if (signUpError) {
+      throw signUpError;
+    }
+
+    return await navigateTo("/");
+  } catch (error) {
     console.log(error);
     errorMessage.value = error.message;
     setTimeout(() => {
       errorMessage.value = "";
     }, 3000);
-  } else {
-    return await navigateTo("/");
   }
 };
 const loginWithGoogle = async (e) => {

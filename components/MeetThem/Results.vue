@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-center items-center flex-col h-[65vh] mx-5">
+  <div class="flex justify-center items-center flex-col  mx-5">
     <div class="my-12 flex flex-col justify-center items-center text-center">
-      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">20 results</span>
+      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">{{ myData?.length }} results</span>
       <h4 class="text-Heading4sm font-bold font-Inter mb-1">
         Black cats are less likely to be adopted
       </h4>
@@ -17,19 +17,20 @@
         Loading...
       </h1>
     </div>
-    <div class="" v-else-if="error || !data">
+    <div class="" v-else-if="error || !myData">
       There's an error in the API CALL
     </div>
-    <Carousel v-else ref="myCarousel" @slide-end="onSlideEnd" :wrap-around="true" snap-align="center" :touch-drag="false"
-      :items-to-show="4">
-      <Slide v-for="animal in data" :key="animal.name">
+    <Carousel v-else ref="myCarousel" :wrap-around="true" snap-align="center-even" :items-to-show="myData?.length">
+
+      <Slide v-for="animal in myData" :key="animal.name">
+
         <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
           :to="`/adopt/meet-them/${animal.name}`">
           <h6
             class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
             {{ animal.name }}
           </h6>
-          <nuxt-img format="webp" provider="cloudinary" :src="animal.images[0]"
+          <nuxt-img v-if="animal.images.length > 0" format="webp" provider="cloudinary" :src="animal.images[0]"
             class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
             width="100%" height="100%"></nuxt-img>
           <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
@@ -37,12 +38,20 @@
         </nuxt-link>
 
       </Slide>
-
       <template #addons>
         <Pagination class="results-pagination" />
-        <Navigation class="results-navigation" />
+
       </template>
+
     </Carousel>
+    <div class="results-navigation">
+      <button @click="prev">Prev</button>
+
+      <button @click="next">Next</button>
+
+    </div>
+
+
   </div>
 </template>
 <script setup lang="ts">
@@ -62,31 +71,45 @@ interface Animal {
   updatedAt: String;
   hexColor: String;
 }
+const myCarousel = ref(null);
+onMounted(() => {
+  const track = document.querySelector('.carousel__track');
+
+  if (track) {
+    track.insertAdjacentHTML('afterbegin', '<div class="card">');
+    track.insertAdjacentHTML('afterbegin', '</div>')
+  }
+})
+const currentSlide = ref(0);
 const offset = ref(0)
 
-const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
+const { data: myData, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
 
 
+const next = async () => {
+  myCarousel.value?.next()
 
-const onSlideEnd = async () => {
   offset.value += 4
+
   const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
   if (data) {
-    data.value = data.value.concat(data)
+    myData.value = data.value
   }
-
 };
+
+const prev = async () => {
+  myCarousel.value?.prev()
+  offset.value -= 4
+  const { data, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
+  if (data) {
+    myData.value = data.value
+  }
+}
+
+
 </script>
-
-<style lang="scss" scoped>
-.carousel__slide {
-  scroll-snap-stop: auto;
-  flex-shrink: 0;
-  margin: 0;
-  position: relative;
-
-  display: grid;
-  justify-content: center;
-  align-items: center;
+<style scoped>
+.carousel__track {
+  @apply grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5;
 }
 </style>
