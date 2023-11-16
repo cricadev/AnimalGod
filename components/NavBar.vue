@@ -50,26 +50,9 @@ const items = [
       <USlideover v-model="isOpen" :ui="{
         overlay: {
           background: 'bg-Bg/70 dark:bg-darkBg/70',
-          transition: {
-            enter: 'ease-in-out duration-500',
-            enterFrom: 'opacity-0',
-            enterTo: 'opacity-100',
-            leave: 'ease-in-out duration-500',
-            leaveFrom: 'opacity-100',
-            leaveTo: 'opacity-0',
-          },
         },
-        base: 'relative flex-1 flex flex-col w-full focus:outline-none',
         background: 'bg-Bg dark:bg-darkBg',
-        ring: '',
-        rounded: '',
-        padding: '',
-        shadow: 'shadow-xl',
         width: 'w-screen max-w-md',
-        transition: {
-          enter: 'transform transition ease-in-out duration-300',
-          leave: 'transform transition ease-in-out duration-200',
-        },
       }">
         <!-- Content -->
         <div v-if="!user" class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
@@ -110,48 +93,29 @@ const items = [
             </li>
           </div>
           <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
-            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
-              width="120" height="35"></nuxt-img>
+            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.value == 'dark'" width="120"
+              height="35"></nuxt-img>
             <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
           </div>
         </div>
         <div v-else-if="user?.user_metadata?.isShelter"
           class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
           <div class="flex flex-col gap-2 mx-5">
-            <UAccordion :items="items" :ui="{
-              wrapper: 'w-full flex flex-col gap-y-2',
-              item: {
-                base: '',
-                size: 'text-sm',
-                color: 'text-gray-500 dark:text-gray-400',
-                padding: 'py-2',
-              },
-              transition: {
-                enterActiveClass:
-                  'overflow-hidden transition-[height] duration-200 ease-out',
-                leaveActiveClass:
-                  'overflow-hidden transition-[height] duration-200 ease-out',
-              },
-              default: {
-                openIcon: 'i-heroicons-chevron-down-20-solid',
-                closeIcon: '',
-                variant: 'soft',
-              },
-            }">
+            <UAccordion :items="items">
               <template #default="{ item, index, open }">
-                <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700"
+                <UButton color="invisible" class="border-b border-gray-200 dark:border-gray-700"
                   :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
                   <template #leading>
-                    <div class="flex w-full h-16 justify-start items-center">
+                    <div class="flex w-full h-16 justify-start items-center ">
                       <div
                         class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">
                         <nuxt-img :src="user.user_metadata?.avatar_url ??
                           'https://picsum.photos/100/100'
                           " width="100" height="100" class="rounded-xl" />
                       </div>
-                      <div class="flex flex-col text-start">
+                      <div class="ml-4 flex flex-col text-start">
                         <h3>{{ item.label }}</h3>
-                        <span> in process</span>
+                        <span class=""> in process</span>
                       </div>
                     </div>
                   </template>
@@ -171,7 +135,7 @@ const items = [
 
               <template #getting-started>
                 <div class="flex flex-col justify-center items-center gap-1">
-                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkContText">
+                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkBg dark:text-Bg">
                     <li>
                       <nuxt-link to="/profile"> Profile </nuxt-link>
                     </li>
@@ -241,28 +205,9 @@ const items = [
         </div>
         <div v-else class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
           <div class="flex flex-col gap-2 mx-5">
-            <UAccordion :items="items" :ui="{
-              wrapper: 'w-full flex flex-col gap-y-2',
-              item: {
-                base: '',
-                size: 'text-sm',
-                color: 'text-gray-500 dark:text-gray-400',
-                padding: 'py-2',
-              },
-              transition: {
-                enterActiveClass:
-                  'overflow-hidden transition-[height] duration-200 ease-out',
-                leaveActiveClass:
-                  'overflow-hidden transition-[height] duration-200 ease-out',
-              },
-              default: {
-                openIcon: 'i-heroicons-chevron-down-20-solid',
-                closeIcon: '',
-                variant: 'soft',
-              },
-            }">
+            <UAccordion :items="items">
               <template #default="{ item, index, open }">
-                <UButton color="gray" variant="ghost" class="border-b border-gray-200 dark:border-gray-700"
+                <UButton color="invisible" class="border-b border-gray-200 dark:border-gray-700"
                   :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
                   <template #leading>
                     <div class="flex w-full h-16 justify-start items-center">
@@ -300,7 +245,7 @@ const items = [
                       block />
                     <button></button><button></button>
                   </div>
-                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkContText">
+                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkBg dark:text-Bg">
                     <li>
                       <nuxt-link to="/profile"> Profile </nuxt-link>
                     </li>

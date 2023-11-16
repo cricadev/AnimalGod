@@ -61,7 +61,11 @@ export default defineAppConfig({
           outline:
             "ring-1 ring-inset ring-contAccent dark:bg-Bg bg-darkBg text-Bg dark:text-darkBg",
         },
-        black: {},
+        invisible: {
+          solid: " text-darkBg dark:text-Bg bg-transparent",
+          ghost: "text-transparent bg-transparent",
+          outline: "text-transparent bg-transparent",
+        },
         toggle: {
           solid: "text-darkBg dark:text-Bg",
         },
@@ -114,5 +118,15 @@ export default defineAppConfig({
         color: "primary",
       },
     },
+    input: {
+      color: {
+        white:
+          'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive',
+      },
+      variant: {
+        outline:
+          'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive border-2 border-contAccent dark:border-contAccent',
+      }
+    }
   },
 });

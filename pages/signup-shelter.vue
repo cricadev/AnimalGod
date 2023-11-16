@@ -62,15 +62,9 @@
         </div>
         <div class="flex flex-col gap-2 mt-4">
           <UCheckbox v-model="credentials.terms" required label="I agree to the
-          AnimalGod Terms of Service and Privacy Policy" :ui="{
-            label:
-              'leading-tight text-left line-clamp-2 font-regular text-[#5C6D82] text-Footer',
-          }" />
+          AnimalGod Terms of Service and Privacy Policy" :ui="uiCheckbox" />
           <UCheckbox v-model="credentials.notifications" class="leading-none text-left"
-            label="I would like to receive communications from the website" :ui="{
-              label:
-                'leading-tight text-left line-clamp-2 font-regular text-[#5C6D82] text-Footer',
-            }" />
+            label="I would like to receive communications from the website" :ui="uiCheckbox" />
         </div>
         <div class="flex flex-col mt-8">
           <UButton type="submit" size="providers" label="Sign up" color="primary" variant="solid" />
@@ -107,7 +101,10 @@
 definePageMeta({
   layout: "authenticated",
 });
-
+const uiCheckbox = {
+  label:
+    'leading-tight text-left line-clamp-2 font-regular text-[#5C6D82] text-Footer',
+}
 const supaAuth = useSupabaseClient().auth;
 const errorMessage = ref("");
 const credentials = reactive({
