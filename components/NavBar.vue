@@ -55,8 +55,37 @@ const items = [
         width: 'w-screen max-w-md',
       }">
         <!-- Content -->
-        <div v-if="!user" class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
-          <div class="flex flex-col gap-3 mx-5">
+        <div v-if="!user" class=" w-full h-full flex flex-col  bg-contSecond dark:bg-darkContSecond gap-16">
+          <div class="flex justify-center items-center mt-4">
+            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+              width="120" height="35"></nuxt-img>
+            <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
+          </div>
+
+          <div class="flex flex-col justify-center items-center gap-12">
+            <div class="text-center flex flex-col justify-center items-center">
+
+              <ul class="flex justify-center items-center flex-col gap-6">
+                <li>
+                  <nuxt-link to="/about-adoption" class="nav-title">About adoption</nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link to="/meet-them" class="nav-title">Meet them</nuxt-link>
+                </li>
+                <li>
+                  <nuxt-link to="/successful-cases" class="nav-title">Succesful cases</nuxt-link>
+                </li>
+                <li class="nav-title">
+                  <nuxt-link to="/tips">Tips</nuxt-link>
+                </li>
+                <!-- <li class="nav-title">
+                  <nuxt-link to="/about-us">About us</nuxt-link>
+                </li> -->
+              </ul>
+            </div>
+
+          </div>
+          <div class="flex flex-col gap-3 w-full absolute bottom-4 px-3">
             <nuxt-link to="/login" class="">
               <UButton size="xl" label="Log in" color="primary" variant="solid" block />
             </nuxt-link>
@@ -65,252 +94,104 @@ const items = [
             </nuxt-link>
 
             <nuxt-link to="/forgot-password" class="text-center">Forgot password?</nuxt-link>
-            <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
+
           </div>
 
-          <div class="flex flex-col justify-center items-center gap-12">
-            <div class="text-center flex flex-col justify-center items-center">
-              <li class="nav-title">
-                <nuxt-link to="/adopt">Adopt</nuxt-link>
-              </li>
-              <ul class="flex justify-center items-center flex-col gap-2">
-                <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item">About adoption</nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/adopt/meet-them" class="nav--item">Meet them</nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/adopt/succesful-cases" class="nav--item">Succesful cases</nuxt-link>
-                </li>
-              </ul>
-            </div>
-            <li class="nav-title">
-              <nuxt-link to="/tips">Tips</nuxt-link>
-            </li>
-            <li class="nav-title">
-              <nuxt-link to="/about-us">About us</nuxt-link>
-            </li>
-          </div>
-          <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
-            <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.value == 'dark'" width="120"
-              height="35"></nuxt-img>
-            <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
-          </div>
         </div>
         <div v-else-if="user?.user_metadata?.isShelter"
-          class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
-          <div class="flex flex-col gap-2 mx-5">
-            <UAccordion :items="items">
-              <template #default="{ item, index, open }">
-                <UButton color="invisible" class="border-b border-gray-200 dark:border-gray-700"
-                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
-                  <template #leading>
-                    <div class="flex w-full h-16 justify-start items-center ">
-                      <div
-                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">
-                        <nuxt-img :src="user.user_metadata?.avatar_url ??
-                          'https://picsum.photos/100/100'
-                          " width="100" height="100" class="rounded-xl" />
-                      </div>
-                      <div class="ml-4 flex flex-col text-start">
-                        <h3>{{ item.label }}</h3>
-                        <span class=""> in process</span>
-                      </div>
-                    </div>
-                  </template>
-
-                  <template #trailing>
-                    <UIcon name="i-heroicons-chevron-right-20-solid"
-                      class="w-5 h-5 ms-auto transform transition-transform duration-200"
-                      :class="[open && 'rotate-90']" />
-                  </template>
-                </UButton>
-              </template>
-              <template #item="{ item }">
-                <p class="italic text-gray-900 dark:text-white text-center">
-                  {{ item.description }}
-                </p>
-              </template>
-
-              <template #getting-started>
-                <div class="flex flex-col justify-center items-center gap-1">
-                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkBg dark:text-Bg">
-                    <li>
-                      <nuxt-link to="/profile"> Profile </nuxt-link>
-                    </li>
-                    <li>
-                      <nuxt-link to="/forgot-password">
-                        Forgot password?
-                      </nuxt-link>
-                    </li>
-                    <li @click="logout">Log out</li>
-                  </ul>
-                </div>
-              </template>
-
-              <template #installation="{ description }">
-                <div class="flex flex-col justify-center items-center gap-1 mb-4">
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                    Installation
-                  </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Install <code>@nuxthq/ui</code> dependency to your project:
-                  </p>
-                  <p>
-                    {{ description }}
-                  </p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                  <code>$ npm install @nuxtlabs/ui</code>
-                  <code>$ nnpm install -D @nuxthq/ui</code>
-                  <code>$ pnpm i -D @nuxthq/ui</code>
-                </div>
-              </template>
-            </UAccordion>
-
-            <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
-          </div>
-
-          <div class="flex flex-col justify-center items-center gap-12">
-            <li class="nav-title">
-              <nuxt-link to="/requests">Requests</nuxt-link>
-            </li>
-            <div class="text-center flex flex-col justify-center items-center">
-              <li class="nav-title">
-                <nuxt-link to="/tips">Calendar</nuxt-link>
-              </li>
-              <ul class="flex justify-center items-center flex-col gap-2">
-                <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item">Meet and Great</nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item">Adoption day</nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item">Answer questions</nuxt-link>
-                </li>
-              </ul>
-            </div>
-            <li class="nav-title">
-              <nuxt-link to="/aboutus">About us</nuxt-link>
-            </li>
-          </div>
-          <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
+          class=" w-full h-full flex flex-col gap-16 bg-contSecond dark:bg-darkContSecond">
+          <div class="flex justify-center items-center mt-4">
             <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
               width="120" height="35"></nuxt-img>
             <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
+          </div>
+
+          <div class="flex flex-col justify-center items-center ">
+
+
+            <ul class="flex justify-center items-center flex-col gap-6">
+              <li class="nav-title">
+                <nuxt-link to="/requests">Requests</nuxt-link>
+              </li>
+              <li class="nav-title">
+                <nuxt-link to="/register-animal">My Registered animals</nuxt-link>
+              </li>
+              <li class="nav-title">
+                <nuxt-link to="/aboutus">About us</nuxt-link>
+              </li>
+            </ul>
+
+          </div>
+          <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
+            <nuxt-link to="/profile" class="w-full flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="50" height="50"
+                  class="rounded-sm" />
+                <div class="">
+                  <h3 class=" leading-none text-Body1sm font-semibold text-darkContText">{{ user?.user_metadata?.name }}
+                  </h3>
+                  <span class="text-Captionlg font-light text-darkContText leading-none">Toby has been registered!</span>
+                </div>
+
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </nuxt-link>
+            <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-5" />
           </div>
         </div>
-        <div v-else class="pt-12 w-full h-full flex flex-col gap-2 bg-contSecond dark:bg-darkContSecond">
-          <div class="flex flex-col gap-2 mx-5">
-            <UAccordion :items="items">
-              <template #default="{ item, index, open }">
-                <UButton color="invisible" class="border-b border-gray-200 dark:border-gray-700"
-                  :ui="{ rounded: 'rounded-none', padding: { sm: 'p-3' } }">
-                  <template #leading>
-                    <div class="flex w-full h-16 justify-start items-center">
-                      <div
-                        class="w-14 h-14 rounded-full bg-primary-500 dark:bg-primary-400 flex items-center justify-center -my-1">
-                        <nuxt-img :src="user.user_metadata?.avatar_url ??
-                          'https://picsum.photos/100/100'
-                          " width="100" height="100" class="rounded-xl" />
-                      </div>
-                      <div class="flex flex-col text-start">
-                        <h3>{{ item.label }}</h3>
-                        <span> in process</span>
-                      </div>
-                    </div>
-                  </template>
-
-                  <template #trailing>
-                    <UIcon name="i-heroicons-chevron-right-20-solid"
-                      class="w-5 h-5 ms-auto transform transition-transform duration-200"
-                      :class="[open && 'rotate-90']" />
-                  </template>
-                </UButton>
-              </template>
-              <template #item="{ item }">
-                <p class="italic text-gray-900 dark:text-white text-center">
-                  {{ item.description }}
-                </p>
-              </template>
-
-              <template #getting-started>
-                <div class="flex flex-col justify-center items-center gap-1">
-                  <div class="flex flex-col gap-2 w-full">
-                    <UButton size="xl" label="Contact shelter" color="primary" variant="solid" block class="py-3" />
-                    <UButton size="xl" label="Cancel application" color="secondary" variant="outline" class="py-3"
-                      block />
-                    <button></button><button></button>
-                  </div>
-                  <ul class="flex flex-col justify-center items-center gap-1 text-center text-darkBg dark:text-Bg">
-                    <li>
-                      <nuxt-link to="/profile"> Profile </nuxt-link>
-                    </li>
-                    <li>
-                      <nuxt-link to="/forgot-password">
-                        Forgot password?
-                      </nuxt-link>
-                    </li>
-                    <li @click="logout">Log out</li>
-                  </ul>
-                </div>
-              </template>
-
-              <template #installation="{ description }">
-                <div class="flex flex-col justify-center items-center gap-1 mb-4">
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-                    Installation
-                  </h3>
-                  <p class="text-sm text-gray-500 dark:text-gray-400">
-                    Install <code>@nuxthq/ui</code> dependency to your project:
-                  </p>
-                  <p>
-                    {{ description }}
-                  </p>
-                </div>
-
-                <div class="flex flex-col items-center">
-                  <code>$ npm install @nuxtlabs/ui</code>
-                  <code>$ nnpm install -D @nuxthq/ui</code>
-                  <code>$ pnpm i -D @nuxthq/ui</code>
-                </div>
-              </template>
-            </UAccordion>
-            <!-- Profile login, avatar, notification status, name of the adoption-->
-
-            <hr class="mb-8 border border-darkBg/50 dark:border-Bg/50" />
-          </div>
-          <div class="flex flex-col justify-center items-center gap-12">
-            <div class="text-center flex flex-col justify-center items-center">
-              <li class="nav-title">
-                <nuxt-link to="/adopt">Adopt</nuxt-link>
-              </li>
-              <ul class="flex justify-center items-center flex-col gap-2">
-                <li>
-                  <nuxt-link to="/adopt/about-adoption" class="nav--item">About adoption</nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/adopt/meet-them" class="nav--item">Meet them</nuxt-link>
-                </li>
-                <li>
-                  <nuxt-link to="/adopt/succesful-cases" class="nav--item">Succesful cases</nuxt-link>
-                </li>
-              </ul>
-            </div>
-            <li class="nav-title">
-              <nuxt-link to="/tips">Tips</nuxt-link>
-            </li>
-            <li class="nav-title">
-              <nuxt-link to="/about-us">About us</nuxt-link>
-            </li>
-          </div>
-          <div class="flex justify-center items-center absolute bottom-8 left-1/2 translate-x-[-50%]">
+        <div v-else class=" w-full h-full flex flex-col gap-8 bg-contSecond dark:bg-darkContSecond">
+          <div class="flex justify-center items-center mt-4">
             <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
               width="120" height="35"></nuxt-img>
             <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35" v-else></nuxt-img>
+          </div>
+
+          <div class="flex flex-col justify-center items-center gap-12">
+
+            <ul class="flex justify-center items-center flex-col gap-6">
+              <li>
+                <nuxt-link to="/about-adoption" class="nav-title">About adoption</nuxt-link>
+              </li>
+              <li>
+                <nuxt-link to="/meet-them" class="nav-title">Meet them</nuxt-link>
+              </li>
+              <li>
+                <nuxt-link to="/successful-cases" class="nav-title">Successful cases</nuxt-link>
+              </li>
+              <li>
+                <nuxt-link to="/tips" class="nav-title">Tips</nuxt-link>
+              </li>
+              <li>
+                <nuxt-link to="/about-us" class="nav-title">About us</nuxt-link>
+              </li>
+            </ul>
+
+          </div>
+          <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
+            <nuxt-link to="/profile" class="w-full flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="50" height="50"
+                  class="rounded-sm" />
+                <div class="">
+                  <h3 class=" text-Body1sm font-semibold text-darkContText">{{ user?.user_metadata?.name }}
+                  </h3>
+                  <span class="text-Captionlg font-light text-darkContText  flex gap-2 items-center">Toby
+                    adoption is:
+                    <div class="bg-red-500 rounded-full w-2 h-2"></div>
+                    In process
+                  </span>
+                </div>
+
+              </div>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </nuxt-link>
+            <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-4" />
           </div>
         </div>
       </USlideover>
@@ -319,7 +200,7 @@ const items = [
 </template>
 <style lang="scss" scoped>
 .nav-title {
-  @apply text-base font-medium mb-2 list-none;
+  @apply text-base font-medium list-none;
 }
 
 .nav--item {
