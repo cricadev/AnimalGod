@@ -30,7 +30,7 @@
       </h4>
       <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="100" height="100"
         class="rounded-full" />
-      <pre class="dark:text-Bg text-darkBg">{{ user }}</pre>
+      <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-5" />
     </div>
     <div class="" v-else>There is no profile please log in</div>
     <div class="" v-if="pending">
@@ -50,8 +50,16 @@
 </template>
 <script setup>
 const { data, pending, error } = useFetch("/api/get-all-by-shelter");
+const supaAuth = useSupabaseClient().auth;
 
-
+const logout = async () => {
+  const { error } = await supaAuth.signOut();
+  if (error) {
+    console.log(error);
+  } else {
+    return navigateTo("/");
+  }
+};
 
 const user = useSupabaseUser();
 const capitalizeFirstLetter = (s) =>

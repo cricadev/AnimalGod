@@ -1,17 +1,44 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { useWindowSize } from "@vueuse/core";
+
+const { height, width } = storeToRefs(useWindowSize());
+const isMobile = computed(() => width.value < 768);
 const user = useSupabaseUser();
+
 const cardsHP = [
   {
-    figure1: "/circleCard.png",
-    figure2: "/circleCyanCard.png",
-    pet: "/catCard.png",
+    figure1: "/circleCard_pchnrb.png",
+    figure2: "/circleCyanCard_lxm5wo.png",
+    pet: "/tobyDogCard_zhban3.png",
+    classFigure1: "absolute top-0 right-0 skew-x-12",
+    classFigure2: "absolute bottom-0 left-0 skew-x-12",
+    classPet: "absolute bottom-0 -right-4 skew-x-12",
+    width: "100%",
+    height: "100%",
+    mobile: true
   },
   {
-    figure1: "smallCircleCard.png",
-    figure2: "curveCard.png",
-    figure3: "mediumCircleCard.png",
-    pet: "/tobyDogCard.png",
+    figure1: "/smallCircleCard_eh8sva.png",
+    figure2: "/curveCard_saubup.png",
+    figure3: "/mediumCircleCard_a6ucac.png",
+    pet: "/catCard_rcrjqb.png",
+    classFigure1: "absolute top-8 right-8 skew-x-12",
+    classFigure2: "absolute top-1/2 translate-y-[-50%] right-0 skew-x-12",
+    classFigure3: "absolute bottom-0 left-0 skew-x-12",
+    classPet: "absolute bottom-0 right-0 skew-x-12",
+    width: "50%",
+    height: "50%",
+    mobile: true
   },
+  {
+    figure1: "circleCard.png",
+    figure2: "circleCyanCard.png",
+    figure3: "circleCard.png",
+    pet: "/catCard.png",
+    mobile: false
+  },
+
 ];
 const boxes = [
   {
@@ -127,26 +154,19 @@ const boxes = [
     </div>
   </div>
   <div v-else
-    class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10">
-    <div class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-start-1 col-end-2">
-      <nuxt-img provider="cloudinary" src="/tobyDogCard_zhban3.png" class="absolute bottom-0 -right-4 skew-x-12"
-        width="100%" height="100%"></nuxt-img>
-      <nuxt-img provider="cloudinary" src="/circleCyanCard_lxm5wo.png" width="100%" height="100%"
-        class="absolute bottom-0 left-0 skew-x-12"></nuxt-img>
-      <nuxt-img provider="cloudinary" src="/circleCard_pchnrb.png" width="100%" height="100%"
-        class="absolute top-0 right-0 skew-x-12"></nuxt-img>
+    class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10 md:grid-cols-3">
+    <div v-for="animalCard in cardsHP"
+      class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1">
+      <div class="" v-if="animalCard.mobile">
+        <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" width="100%"
+          height="100%"></nuxt-img>
+        <nuxt-img provider="cloudinary" :src="animalCard.figure2" width="100%" height="100%"
+          :class="animalCard.classFigure2"></nuxt-img>
+        <nuxt-img provider="cloudinary" :src="animalCard.figure1" width="100%" height="100%"
+          :class="animalCard.classFigure1"></nuxt-img>
+      </div>
     </div>
-    <div class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-start-2 col-end-3">
-      <!-- Add your second card here -->
-      <nuxt-img provider="cloudinary" src="/catCard_rcrjqb.png" width="100%" height="100%"
-        class="absolute bottom-0 right-0 skew-x-12"></nuxt-img>
-      <nuxt-img provider="cloudinary" src="/mediumCircleCard_a6ucac.png" width="100%" height="100%"
-        class="absolute bottom-0 left-0 skew-x-12"></nuxt-img>
-      <nuxt-img provider="cloudinary" src="/smallCircleCard_eh8sva.png" width="50%" height="50%"
-        class="absolute top-8 right-8 skew-x-12"></nuxt-img>
-      <nuxt-img provider="cloudinary" src="/curveCard_saubup.png" width="50%" height="50%"
-        class="absolute top-1/2 translate-y-[-50%] right-0 skew-x-12"></nuxt-img>
-    </div>
+
   </div>
 </template>
 

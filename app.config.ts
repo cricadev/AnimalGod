@@ -50,8 +50,13 @@ export default defineAppConfig({
 
           ghost:
             "text-gray-900 dark:text-white hover:bg-white dark:hover:bg-gray-900 focus-visible:ring-inset focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
-        },
 
+        },
+        darkContThird: {
+          solid:
+            "shadow-sm  text-contSecond-50 bg-darkContThird hover:bg-darkContThird-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-darkContThird/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
+        }
+        ,
         secondary: {
           solid:
             "shadow-sm  text-gray dark:text-white bg-darkContThird hover:bg-darkContThird-700 disabled:bg-white dark:bg-darkContThird dark:hover:bg-darkContThird/50 dark:disabled:bg-gray-900 focus-visible:ring-2 focus-visible:ring-primary-500 dark:focus-visible:ring-primary-400",
@@ -122,7 +127,10 @@ export default defineAppConfig({
       color: {
         white:
           'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive',
+
+
       },
+
       variant: {
         outline:
           'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive border-2 border-contAccent dark:border-contAccent',
