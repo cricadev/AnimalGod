@@ -31,11 +31,16 @@ const cardsHP = [
     height: "50%",
     mobile: true
   },
+
   {
-    figure1: "circleCard.png",
-    figure2: "circleCyanCard.png",
-    figure3: "circleCard.png",
-    pet: "/catCard.png",
+    figure1: "/circleCard_pchnrb.png",
+    figure2: "/circleCyanCard_lxm5wo.png",
+    pet: "/dog3Card_ukel73.png",
+    classFigure1: "absolute top-0 right-0 skew-x-12",
+    classFigure2: "absolute bottom-0 left-0 skew-x-12",
+    classPet: "absolute -bottom-36 right-0 skew-x-12",
+    width: "100%",
+    height: "100%",
     mobile: false
   },
 
@@ -158,12 +163,15 @@ const boxes = [
     <div v-for="animalCard in cardsHP"
       class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1">
       <div class="" v-if="animalCard.mobile">
-        <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" width="100%"
-          height="100%"></nuxt-img>
-        <nuxt-img provider="cloudinary" :src="animalCard.figure2" width="100%" height="100%"
+        <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" :width="animalCard.width"
+          :height="animalCard.height"></nuxt-img>
+        <nuxt-img provider="cloudinary" :src="animalCard.figure2" :width="animalCard.width" :height="animalCard.height"
           :class="animalCard.classFigure2"></nuxt-img>
-        <nuxt-img provider="cloudinary" :src="animalCard.figure1" width="100%" height="100%"
+        <nuxt-img provider="cloudinary" :src="animalCard.figure1" :width="animalCard.width" :height="animalCard.height"
           :class="animalCard.classFigure1"></nuxt-img>
+
+        <nuxt-img v-if="animalCard.figure3" provider="cloudinary" :src="animalCard.figure3" :width="animalCard.width"
+          :height="animalCard.height" :class="animalCard.classFigure3"></nuxt-img>
       </div>
     </div>
 
