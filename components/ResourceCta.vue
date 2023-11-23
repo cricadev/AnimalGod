@@ -54,32 +54,26 @@ const shelterSlides = [
 
 <template>
   <Carousel :autoplay="2000" :wrap-around="true">
-    <Slide
-      class="h-[50vh] w-full relative overflow-hidden flex flex-col gap-4"
-      :class="{
-        'bg-Bg dark:bg-darkBg': user && user?.user_metadata?.isShelter,
-        'bg-contSecond dark:bg-darkContSecond':
-          user && !user?.user_metadata?.isShelter,
-        'dark:bg-darkContSecond bg-contSecond': !user,
-      }"
-      v-for="slide in user?.user_metadata?.isShelter
-        ? shelterSlides
-        : slidesResources"
-      :key="slide.content"
-    >
-      <div
-        class="z-40 mx-5 text-center bottom-24 text-darkBg dark:text-darkContText flex flex-col gap-4 mb-4"
-      >
-        <h2 class="font-sans font-bold text-Heading2sm leading-tight">
+    <Slide class="h-[50vh] md:h-[30vh] w-full relative overflow-hidden flex flex-col gap-4" :class="{
+      'bg-Bg> dark:bg-darkBg': user && user?.user_metadata?.isShelter,
+      'bg-Bg> dark:bg-darkBg': user && !user?.user_metadata?.isShelter,
+      'dark:bg-darkContSecond bg-contSecond': !user,
+    }" v-for="slide in user?.user_metadata?.isShelter
+  ? shelterSlides
+  : slidesResources" :key="slide.content">
+      <div class="z-40 mx-5 text-center bottom-24 text-darkBg dark:text-darkContText flex flex-col gap-4 mb-4 ">
+        <h2 class="font-sans font-bold text-Heading2sm leading-tight md:text-Heading3lg">
           {{ slide.title }}
         </h2>
-        <p class="mt-4 font-sans font-regular text-Body1sm leading-tight">
+        <p class="mt-4 font-sans font-regular text-Body1sm leading-tight md:text-Body1lg">
           {{ slide.content }}
         </p>
       </div>
-      <UButton size="xl" :label="slide.cta" color="primary" variant="solid" />
+      <UButton size="xl" :label="slide.cta" color="primary" variant="solid" class="md:px-8 py-4" />
     </Slide>
 
-    <template #addons> </template>
+    <template #addons>
+      <Pagination class="pt-32"></Pagination>
+    </template>
   </Carousel>
 </template>

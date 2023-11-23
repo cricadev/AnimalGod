@@ -1,21 +1,23 @@
 <template>
   <div class="">
     <!-- HERO -->
-    <div class="relative h-[30vh]">
-      <nuxt-img provider="cloudinary" src="/heroAboutAdoption_ak3i5i.png" height="100%" width="100%"
-        class="absolute bottom-8 left-0"></nuxt-img>
+    <div class="relative h-[30vh] md:h-[20vh] bg-contSecond dark:bg-darkContSecond ">
+      <nuxt-img
+        src="https://res.cloudinary.com/ddc0cce3m/image/upload/e_grayscale/f_auto,q_auto/v1688160841/animalGod/heroAboutAdoption_ak3i5i.png"
+        height="100%" width="100%" class="px-32 absolute flex justify-center w-full"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/groupCircleTopAboutAdoption_nlcpko.png" height="100%" width="100%"
         class="absolute top-0 right-0"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/circleAboutAdoption_mscnaz.png" height="100%" width="100%"
         class="absolute bottom-0 left-0"></nuxt-img>
-      <h2 class="text-Heading2sm font-bold text-center absolute bottom-0 z-20">
+      <h2 class="text-Heading2sm font-bold text-center absolute bottom-4 z-20 flex justify-center w-full">
         Everything you need to know about adoption
       </h2>
-      <div class="absolute h-[40%] w-full bg-gradient-to-t from-Bg dark:from-darkBg z-10 bottom-0 left-0 to-transparent">
+      <div
+        class="absolute h-[40%] w-full bg-gradient-to-t from-contSecond dark:from-darkContSecond z-10 bottom-0 left-0 to-transparent">
       </div>
     </div>
     <!-- DO'S AND DON'TS -->
-    <div class="pt-12 px-5 flex flex-col gap-12">
+    <div class="pt-12 px-5 flex flex-col gap-12 md:px-32 pb-36">
       <div class="flex gap-4">
         <h1 class="text-Heading1sm font-extrabold">01</h1>
         <div class="flex flex-col gap-2">
@@ -45,32 +47,54 @@
           <h3 class="text-Heading3sm font-bold leading-tight">
             Do's and Dont's if you wish to adopt from an animal shelter
           </h3>
-          <ul class="first-list">
-            <li>
-              Research the animal you are interested in adopting thoroughly
-            </li>
-            <li>Visit the shelter to meet the animal in person</li>
-            <li>
-              Ask the shelter staff questions about the animal's behavior and
-              history
-            </li>
-            <li>Be prepared to provide the animal with a forever home</li>
-          </ul>
-          <ul class="second-list mt-12">
-            <li>Adopt on impulse</li>
-            <li>Get a animal without doing research first</li>
-            <li>Expect the animal to conform to your lifestyle</li>
-            <li>Return the animal to the shelter if it doesn't work out</li>
-          </ul>
+          <div class="" v-if="isMobile">
+            <ul class="first-list">
+              <li>
+                Research the animal you are interested in adopting thoroughly
+              </li>
+              <li>Visit the shelter to meet the animal in person</li>
+              <li>
+                Ask the shelter staff questions about the animal's behavior and
+                history
+              </li>
+              <li>Be prepared to provide the animal with a forever home</li>
+            </ul>
+            <ul class="second-list mt-12">
+              <li>Adopt on impulse</li>
+              <li>Get a animal without doing research first</li>
+              <li>Expect the animal to conform to your lifestyle</li>
+              <li>Return the animal to the shelter if it doesn't work out</li>
+            </ul>
+          </div>
+          <div class="flex gap-16 w-full justify-center items-center" v-else>
+            <ul class="first-list">
+              <li>
+                Research the animal you are interested in adopting thoroughly
+              </li>
+              <li>Visit the shelter to meet the animal in person</li>
+              <li>
+                Ask the shelter staff questions about the animal's behavior and
+                history
+              </li>
+              <li>Be prepared to provide the animal with a forever home</li>
+            </ul>
+            <ul class="second-list mt-12 md:mt-0">
+              <li>Adopt on impulse</li>
+              <li>Get a animal without doing research first</li>
+              <li>Expect the animal to conform to your lifestyle</li>
+              <li>Return the animal to the shelter if it doesn't work out</li>
+            </ul>
+          </div>
         </div>
+      </div>
+      <div class="flex justify-center my-8">
+        <UButton class="md:px-8 md:py-3" size="xl" label="Learn more" color="primary" variant="solid" />
       </div>
     </div>
     <!-- CTA -->
-    <div class="flex justify-center my-8">
-      <UButton size="xl" label="Learn more" color="primary" variant="solid" />
-    </div>
+
     <!-- FAQS -->
-    <FAQs></FAQs>
+    <FAQs class=""></FAQs>
     <!-- PETS FOR ADOPTION -->
     <div class="flex flex-col gap-12 h-[70vh] w-full justify-center items-center">
       <h3 class="text-Heading3sm font-bold">Pets available for adoption</h3>
@@ -80,7 +104,7 @@
           <h6 class="text-Heading6sm font-bold absolute bottom-2 left-1/2 translate-x-[-50%] z-10 text-Bg">
             Shultz
           </h6>
-          <div class="absolute h-[20%] w-full bg-gradient-to-t from-[#EBA5B0] bottom-0 left-0 to-transparent"></div>
+          <div class="absolute h-[40%] w-full bg-gradient-to-t  from-[#535853] bottom-0 left-0 to-transparent"></div>
         </div>
         <div class="relative">
           <nuxt-img provider="cloudinary" src="/adoptionDog02_xbdir8.png" height="100%" width="100%"></nuxt-img>
@@ -97,7 +121,14 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { storeToRefs } from "pinia";
+import { useWindowSize } from "@vueuse/core";
+
+const { height, width } = storeToRefs(useWindowSize());
+const isMobile = computed(() => width.value < 768);
+
+</script>
 
 <style lang="scss" scoped>
 ul {
@@ -110,7 +141,7 @@ ul {
 
 .first-list {
   li::before {
-    content: url("https://res.cloudinary.com/ddc0cce3m/image/upload/checkGreen_r6qaq1.png");
+    content: url("https://res.cloudinary.com/ddc0cce3m/image/upload/v1685132187/animalGod/checkGreen_r6qaq1.png");
     margin-right: 1rem;
     display: inline-block;
   }
@@ -118,7 +149,7 @@ ul {
 
 .second-list {
   li::before {
-    content: url("https://res.cloudinary.com/ddc0cce3m/image/upload/checkRed_vpapp0.png");
+    content: url("https://res.cloudinary.com/ddc0cce3m/image/upload/v1685132236/animalGod/checkRed_vpapp0.png");
     margin-right: 1rem;
     display: inline-block;
   }

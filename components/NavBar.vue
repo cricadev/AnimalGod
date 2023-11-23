@@ -200,6 +200,7 @@ const items = [
       <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
         v-else></nuxt-img>
     </nuxt-link>
+    <ToggleTheme></ToggleTheme>
 
     <div v-if="!user" class="flex flex-col justify-center items-center gap-12">
       <ul class="flex justify-center items-center  gap-6">

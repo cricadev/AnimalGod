@@ -100,7 +100,7 @@ const slidesHero = [
               </p>
               <div class="" v-if="slide.cta">
                 <div class="flex justify-start mt-8">
-                  <UButton size="xl" label="Learn more" color="primary" variant="solid" />
+                  <UButton size="xl" label="Learn more" color="primary" variant="solid" class="md:py-4 md:px-8" />
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@ const slidesHero = [
       </Slide>
 
       <template #addons>
-        <Pagination />
+        <Pagination class="opacity-0 " />
       </template>
     </Carousel>
   </div>

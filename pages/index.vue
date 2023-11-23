@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useWindowSize } from '@vueuse/core';
+import { storeToRefs } from 'pinia';
+
 useHead({
   title: "AnimalGod",
   meta: [
@@ -12,6 +15,8 @@ useHead({
 const user = useSupabaseUser();
 
 
+const { height, width } = storeToRefs(useWindowSize());
+const isMobile = computed(() => width.value < 768);
 </script>
 
 <template>
@@ -31,15 +36,23 @@ const user = useSupabaseUser();
     </div>
 
     <resource-cta></resource-cta>
-    <testimonies-HP class="mx-5 mb-12"></testimonies-HP>
+    <testimonies-HP></testimonies-HP>
     <div v-if="user?.user_metadata?.isShelter">
       <logos-HP></logos-HP>
-      <tip></tip>
       <FAQs></FAQs>
     </div>
     <div v-else>
-      <FAQs></FAQs>
-      <tip></tip>
+      <div class="" v-if="isMobile">
+        <FAQs></FAQs>
+        <tip></tip>
+      </div>
+      <div
+        class="overflow-hidden flex items-center h-full w-full bg-gradient-to-r from-darkContThird via-darkContThird to-darkBg"
+        v-else>
+        <tip class="h-full w-full -skew-x-6"></tip>
+        <FAQs :skew="true" class="h-full w-full -skew-x-6"></FAQs>
+
+      </div>
     </div>
   </div>
 </template>

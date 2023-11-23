@@ -86,34 +86,48 @@ const shelterSlides = [
 </script>
 
 <template>
-  <Carousel :wrap-around="true">
+  <Carousel class="p-4 md:p-16" :items-to-show="1" :wrap-around="true">
     <Slide
-      class="dark:bg-contAccent bg-contAccent h-[80vh] w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText"
+      class="p-8 dark:bg-contAccent bg-contAccent h-[80vh] md:h-[50vh] w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid"
       v-for="slide in user?.user_metadata?.isShelter
         ? shelterSlides
         : slidesResources" :key="slide.content">
-      <h2 v-html="slide.title" class="font-sans font-bold text-Heading2sm relative z-10"></h2>
-      <span class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter">{{ slide.date
-      }}</span>
-      <div class="relative h-[30%] w-full grid grid-cols-5 grid-rows-6 z-10">
-        <nuxt-img provider="cloudinary" :src="slide.image"
-          class="row-start-1 row-end-7 col-start-2 col-end-5 w-auto h-full"></nuxt-img>
-        <nuxt-img provider="cloudinary" :src="slide.cover"
-          class="h-full w-auto object-cover object-center row-start-4 row-end-7 col-start-4 col-end-6 mt-4"></nuxt-img>
-      </div>
-      <p class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10">
-        {{ slide.content }}
-      </p>
-      <span class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10">
-        {{ slide.tag }}
-      </span>
+      <h2 v-html="slide.title" class="font-sans font-bold text-Heading2sm relative z-10 col-span-2"></h2>
       <span
-        class="absolute bottom-0 right-0 z-[1] font-extrabold text-right text-[#0955C9] text-[15rem] leading-none line-clamp-3">
-        {{ slide.pet }}
-      </span>
+        class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter md:col-start-2 md:col-end-3">{{
+          slide.date
+        }}</span>
+      <div class="relative h-[30%] md:h-full w-full grid  z-10 md:col-start-1 md:col-end-2">
+        <nuxt-img provider="cloudinary" :src="slide.image"
+          class="md:row-start-1 md:row-end-4 col-start-1 col-end-5 w-auto h-full"></nuxt-img>
+        <nuxt-img provider="cloudinary" :src="slide.cover"
+          class="h-full w-auto object-cover object-center row-start-2 row-end-5 col-start-3 col-end-6 mt-4 rounded-xl relative scale-75 "></nuxt-img>
+      </div>
+      <div class="md:col-start-2 md:col-end-3 ">
+        <p class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10 md:text-end">
+          {{ slide.content }}
+        </p>
+        <div
+          class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10 md:text-end  md:mt-8 md:w-full">
+          {{ slide.tag }}
+        </div>
+        <span
+          class="absolute bottom-0 right-0 z-[1] font-extrabold text-right text-[#0955C9] text-[15rem] leading-none line-clamp-3">
+          {{ slide.pet }}
+        </span>
+      </div>
     </Slide>
     <template #addons>
       <Navigation class="navigation-testimonies bg-transparent text-darkContText" />
     </template>
   </Carousel>
 </template>
+<style scoped>
+.grid-testimonials {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+
+}
+</style>
