@@ -1,6 +1,6 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep question="Is the pet a dog or a cat?">
+    <RegisterAnimalFormPreHeaderStep question="Is the pet a dog or a cat?" :expression="modelValue.length">
     </RegisterAnimalFormPreHeaderStep>
 
 

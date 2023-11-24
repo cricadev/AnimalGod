@@ -240,3 +240,10 @@ html {
 .section-step-layout {
   @apply flex flex-col justify-between  h-full py-16 px-4 text-black;
 }
+.input-basic-info {
+  @apply w-full text-black bg-transparent border-t-0 border-x-0 border-b-2 border-black placeholder:text-contInactive placeholder:font-bold;
+}
+
+.label-basic-info {
+  @apply absolute bottom-4 left-2 text-contInactive font-bold pointer-events-none;
+}

@@ -1,18 +1,15 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep question="What’s the pet’s name?"></RegisterAnimalFormPreHeaderStep>
+    <RegisterAnimalFormPreHeaderStep question="What’s the pet’s name?" :expression="expression">
+    </RegisterAnimalFormPreHeaderStep>
 
 
     <div class="flex gap-8 flex-col w-full items-center justify-center">
       <input class="w-full text-black bg-transparent border-t-0 border-x-0 border-b-2 border-black "
         placeholder="Full name" type="text" :value="modelValue" @input="updateName($event.target.value)">
 
-      <div class="flex w-full justify-between items-center">
-        <UButton size="xl" label="Back" color="primary" variant="outline" class="text-black px-12"
-          @click="emit('back')" />
-        <UButton size="xl" label="Next" class="px-12" color="primary" variant="solid" :disabled="modelValue.length <= 2"
-          @click="emit('next')" />
-      </div>
+      <RegisterAnimalFormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+      </RegisterAnimalFormBackAndNextButtons>
 
     </div>
 
@@ -21,8 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-
-defineProps({
+const expression = computed(() => {
+  return props.modelValue.length < 3
+})
+const props = defineProps({
   modelValue: {
     type: String,
     required: true

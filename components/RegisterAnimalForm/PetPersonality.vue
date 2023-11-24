@@ -1,32 +1,52 @@
 <template>
-  <div class="text-black">
-    <h2>
-      Select the adjectives that describes the pet’s personality and add a description
-    </h2>
+  <div class="section-step-layout">
+    <RegisterAnimalFormPreHeaderStep
+      question="Select the adjectives that describes the pet’s personality and add a description"
+      :expression="expression">
+    </RegisterAnimalFormPreHeaderStep>
 
     <div>
       <div>
         <label>Personality:</label>
         <div v-for="adjective in adjectivesOptions" :key="adjective">
-          <input type="checkbox" :id="adjective" v-model="modelValue.personality" :value="adjective">
+          <input type="checkbox" :id="adjective" :value="adjective"
+            @change="updatePet('personality', $event.target.value)">
           <label :for="adjective">{{ adjective }}</label>
         </div>
       </div>
 
 
+      <div class="relative flex gap-8 flex-col">
 
-      <textarea :value="modelValue.personality" @input="updateHistory($event.target.value)" id="pet-personality"
-        placeholder="Describe the pet's personality (1000 Chars)" name="pet-history" rows="4" cols="50"></textarea>
+        <textarea class="input-basic-info h-12" :value="personalityDescription"
+          @input="updatePet('personalityDescription', $event.target.value)" id="pet-personality"
+          placeholder="Describe the pet's personality (1000 Chars)" name="pet-history" rows="4" cols="50"></textarea>
 
+        <RegisterAnimalFormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+        </RegisterAnimalFormBackAndNextButtons>
+      </div>
     </div>
 
-    <button @click="emit('next')">Next</button>
   </div>
 </template>
 
 <script lang="ts" setup>
-defineProps({
+
+const expression = computed(() => {
+  return !pet.value.personality || !pet.value.personalityDescription
+})
+const pet = ref({})
+
+const props = defineProps({
   modelValue: {
+    type: String,
+    required: true
+  },
+  personality: {
+    type: Array,
+    required: true
+  },
+  personalityDescription: {
     type: String,
     required: true
   },
@@ -35,12 +55,23 @@ defineProps({
     required: true
   }
 })
-const emit = defineEmits(['update:modelValue', 'next'])
+const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
-const updateHistory = (personality) => {
-  emit('update:modelValue', personality)
+
+const updatePet = (key, value) => {
+  if (key === 'personality') {
+    const personality = [...pet.value.personality ?? []];
+    const index = personality.indexOf(value);
+    if (index === -1) {
+      personality.push(value);
+    } else {
+      personality.splice(index, 1);
+    }
+    value = personality;
+  }
+  emit(`update:${key}`, value);
+  pet.value = { ...pet?.value, [key]: value }
 }
-
 </script>
 
 <style></style>

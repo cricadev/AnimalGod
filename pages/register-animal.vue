@@ -1,21 +1,25 @@
 <template>
-  <div class="overflow-hidden">
-    <form class="flex flex-col justify-between h-full gap-4 w-full bg-Bg absolute top-0 left-0 z-[999] overflow-hidden">
+  <div class="overflow-hidden p-5 bg-form">
+    <form @submit.prevent="handlePetRegister"
+      class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative z-[999] overflow-hidden rounded-lg">
       <TransitionGroup name="list" class="">
         <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="8" />
         <RegisterAnimalFormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
         <RegisterAnimalFormPetTypeSelection v-if="step === 1" v-model="pet.type" @back="step--" @next="step++" />
         <RegisterAnimalFormPetNameInput v-if="step === 2" v-model="pet.name" @next="step++" @back="step--" />
         <RegisterAnimalFormPetImageUpload v-if="step === 3" v-model="pet.images" @next="step++" @back="step--" />
-        <RegisterAnimalFormPetBasicInfo v-if="step === 4" v-model="pet" :sizeOptions="SizeOptions"
-          :breedOptions="BreedOptions" :good-with-options="GoodWithOptions" :activity-level-options="ActivityLevelOptions"
-          @next="step++" @back="step--" />
+        <RegisterAnimalFormPetBasicInfo v-if="step === 4" v-model:gender="pet.gender" v-model:size="pet.size"
+          v-model:age="pet.age" v-model:breed="pet.breed" v-model:goodWith="pet.goodWith" v-model:activity="pet.activity"
+          :sizeOptions="SizeOptions" :breedOptions="BreedOptions" :good-with-options="GoodWithOptions"
+          :activity-level-options="ActivityLevelOptions" @next="step++" @back="step--" />
 
-        <RegisterAnimalFormPetHistory v-if="step === 5" v-model="pet" @next="step++" @back="step--" />
-        <RegisterAnimalFormPetPersonality v-if="step === 6" v-model="pet"
-          :adjectivesOptions="PersonalityAdjectivesOptions" @next="step++" @back="step--" />
-        <RegisterAnimalFormPetHealth v-if="step === 7" v-model="pet" :healthOptions="HealthConditionOptions"
+        <RegisterAnimalFormPetHistory v-if="step === 5" v-model="pet.history" @next="step++" @back="step--" />
+        <RegisterAnimalFormPetPersonality v-if="step === 6" v-model:personality="pet.personality"
+          v-model:personalityDescription="pet.personalityDescription" :adjectivesOptions="PersonalityAdjectivesOptions"
           @next="step++" @back="step--" />
+        <RegisterAnimalFormPetHealth v-if="step === 7" v-model:healthConditions="pet.healthConditions"
+          v-model:healthDescription="pet.healthDescription" :healthOptions="HealthConditionOptions" @next="step++"
+          @back="step--" />
         <RegisterAnimalFormPetReview @edit-type="goToAndFix" v-if="step === 8" :pet="pet" @back="step--"
           @submit="handlePetRegister" />
       </TransitionGroup>
@@ -25,7 +29,7 @@
 </template>
 <script lang="ts" setup>
 import { useRefHistory } from '@vueuse/core'
-const step = ref(0)
+const step = ref(8)
 const { history, undo, redo } = useRefHistory(step)
 
 const nextStep = () => {
@@ -41,7 +45,7 @@ const SizeOptions = ['Small', 'Medium', 'Large'];
 const BreedOptions = ['Golden Retriever', 'Siamese', /* other breeds... */];
 const GoodWithOptions = ['Children', 'Dogs', 'Cats'];
 const ActivityLevelOptions = ['Low', 'Medium', 'High'];
-const PersonalityAdjectivesOptions = ['Friendly', 'Playful', 'Calm', /* other adjectives... */];
+const PersonalityAdjectivesOptions = ['Affectionate', 'Aloof', 'Dominant', 'Compliant', 'Relaxed', 'Enthusiastic', 'Confident', 'Timid', 'Devoted', 'Independent'];
 const HealthConditionOptions = [{
   label: 'Is the pet fully vaccinated?',
   value: 'Vaccinated',
@@ -75,14 +79,14 @@ const pet = reactive({
   name: '',
   images: [''],
 
-  gender: false,
-  size: SizeOptions[0], // Default to the first option
-  age: 0,
-  breed: BreedOptions[0], // Default to the first option
-  goodWith: GoodWithOptions[0], // This will be an array of selected options
-  activity: ActivityLevelOptions[0], // Default to the first option
+  gender: '',
+  size: '', // Default to the first option
+  age: null,
+  breed: '', // Default to the first option
+  goodWith: '', // This will be an array of selected options
+  activity: '', // Default to the first option
   history: '',
-  personality: PersonalityAdjectivesOptions[0], // This will be an array of selected options
+  personality: [''], // This will be an array of selected options
   personalityDescription: '',
   healthConditions: HealthConditionOptions.map(condition => ({ condition: condition.value, answer: '' })),
   healthDescription: '',
@@ -133,6 +137,11 @@ const handleFileUpload = (event) => {
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+.bg-form {
+  @apply bg-contAccent
+  /* Change to your preferred color */
 }
 </style>
 
