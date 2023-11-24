@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-hidden p-5 bg-form">
-    <form @submit.prevent="handlePetRegister"
+    <form @submit.prevent="handleFormSubmition"
       class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative z-[999] overflow-hidden rounded-lg">
       <TransitionGroup name="list" class="">
         <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="8" />
@@ -28,19 +28,14 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia';
+import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
-const step = ref(8)
-const { history, undo, redo } = useRefHistory(step)
-
-const nextStep = () => {
-  step.value++;
+const formStore = useformStore();
+const { pet } = storeToRefs(formStore);
+const handleFormSubmition = () => {
+  console.log(pet)
 }
-const goToAndFix = (s: number) => {
-
-  step.value = s;
-
-}
-const user = useSupabaseUser();
 const SizeOptions = ['Small', 'Medium', 'Large'];
 const BreedOptions = ['Golden Retriever', 'Siamese', /* other breeds... */];
 const GoodWithOptions = ['Children', 'Dogs', 'Cats'];
@@ -73,29 +68,21 @@ const HealthConditionOptions = [{
 
 
 ];
-const pet = reactive({
-  id: 0,
-  type: '',
-  name: '',
-  images: [''],
+const step = ref(0)
+const { history, undo, redo } = useRefHistory(step)
 
-  gender: '',
-  size: '', // Default to the first option
-  age: null,
-  breed: '', // Default to the first option
-  goodWith: '', // This will be an array of selected options
-  activity: '', // Default to the first option
-  history: '',
-  personality: [''], // This will be an array of selected options
-  personalityDescription: '',
-  healthConditions: HealthConditionOptions.map(condition => ({ condition: condition.value, answer: '' })),
-  healthDescription: '',
-  isAdopted: false,
-  shelterId: null,
-  appointments: [],
-  createdAt: new Date(),
-  updatedAt: new Date(),
-});
+const nextStep = () => {
+  step.value++;
+}
+const goToAndFix = (s: number) => {
+
+  step.value = s;
+  console.log(history.value)
+}
+
+const user = useSupabaseUser();
+
+
 const handlePetRegister = async () => {
   try {
     // First, try to create the client
@@ -115,11 +102,7 @@ const handlePetRegister = async () => {
   }
 }
 
-const handleFileUpload = (event) => {
-  const files = event.target.files;
-  pet.images = Array.from(files);
-  console.log(pet.images)
-};
+
 </script>
 
 <style >

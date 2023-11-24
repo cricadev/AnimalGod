@@ -8,7 +8,9 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "nuxt-icon",
   ],
-
+  pinia: {
+    storesDirs: ['./stores/**',],
+  },
   colorMode: {
     preference: "system", // default value of $colorMode.preference
     fallback: "dark", // fallback value if not system preference found

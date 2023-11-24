@@ -11,12 +11,12 @@
       <input type="file" id="imageInput" @change="handleFileUpload" multiple accept="image/*">
     </label>
     <div class="selected-images" v-else>
-      <div class="image-container" v-for="(file, index) in files.slice(0, 5)" :key="index">
-        {{ file }}
+      <div class="image-container" v-for="(img, index) in imagesURL.slice(0, 5)" :key="index">
+        <img :src="img" alt="pet image" class="w-full h-full object-cover">
 
         <button class="delete-icon" @click="deleteImage(index)">
 
-          <Icon class="h-8 w-8" name="cil:trash"></Icon>
+          <Icon class="h-5 w-5 p-px rounded-sm text-white bg-contAccent" name="cil:trash"></Icon>
         </button>
       </div>
       <div v-if="files.length > 5" class="more-images">
@@ -30,39 +30,63 @@
   </div>
 </template>
 
-<script setup>
-const files = ref([])
-console.log(files.value)
-const upload = ref(false)
+<script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useformStore } from '~/stores/formStore';
+const formStore = useformStore()
+const { imagesURL, pet, files, upload } = storeToRefs(formStore)
+const { handleFileUpload, deleteImage } = formStore
+
+const supabase = useSupabaseClient()
+
 defineProps({
   modelValue: {
     type: Array,
     required: true
   }
 })
-watch(files, (newVal, oldVal) => {
-  if (newVal.length > 0) {
-    upload.value = true
-  } else {
-    upload.value = false
-  }
-}, {
-  immediate: true,
-  deep: true
-})
+
 
 const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
-const handleFileUpload = (event) => {
-  files.value = Array.from(event.target.files);
+// const handleFileUpload = async (event) => {
+//   files.value = Array.from(event.target.files);
 
-  emit('update:modelValue', files);
-}
+//   for (let file of files.value) {
+//     try {
+//       let filePath = `avatars/${file.name}`;
+//       const { data, error } = await supabase.storage.from('avatars').upload(filePath, file);
+//       if (error) {
+//         console.error('Error uploading file:', error.message);
+//         return
+//       }
+//       imagesURL.value = [...imagesURL.value, URL.createObjectURL(file)]
+//     } catch (error) {
+//       console.error('Error uploading file:', error);
+//     }
+//   }
 
-const deleteImage = (index) => {
-  files.value.splice(index, 1);
-  emit('update:modelValue', files);
-}
+//   emit('update:modelValue', files);
+// }
+
+// const deleteImage = async (index) => {
+
+
+//   try {
+//     const { data, error } = await supabase.storage.from('avatars').remove([`avatars/${files.value[index].name}`])
+
+//     if (error) {
+//       console.error('Error deleting file:', error.message);
+//       return
+//     }
+//     files.value.splice(index, 1);
+//     imagesURL.value.splice(index, 1);
+
+//   } catch (error) {
+//     console.error('Error deleting file:', error);
+//   }
+//   emit('update:modelValue', files);
+// }
 </script>
 
 <style scoped>
@@ -81,9 +105,9 @@ const deleteImage = (index) => {
   position: absolute;
   top: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
+  background-color: transparent;
 }
 
 .more-images {

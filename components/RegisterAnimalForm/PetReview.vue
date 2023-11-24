@@ -2,29 +2,74 @@
   <div class="section-step-layout">
     <RegisterAnimalFormPreHeaderStep question="Let's review the info, confirm and apply!" :expression="expression">
     </RegisterAnimalFormPreHeaderStep>
-    <h2></h2>
-    <div class="pet-info">
-      <div v-for="(value, key) in pet" :key="key">
-        <button @click="emit('editType', stepIndex(key))">
-          <label :for="`pet-${key}`">{{ formatLabel(key) }}</label>
-          <div v-if="isObject(value)">
-            <div v-for="(subValue, subKey) in value" :key="subKey">
-              <input class="bg-transparent border-none font-bold" :value="subValue" :id="`pet-${key}-${subKey}`"
-                :name="`pet-${key}-${subKey}`" type="text" disabled>
-            </div>
-          </div>
-          <input v-else class="bg-transparent border-none font-bold" :value="value" :id="`pet-${key}`"
-            :name="`pet-${key}`" type="text" disabled>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-          </svg>
-        </button>
+    <div v-if="pet" class="pet-info space-y-4 my-12 overflow-y-auto overflow-x-hidden">
+      <h4 class="font-bold">The pet's info is</h4>
+      <div class="item">
+        <h5 class="text-contInactive font-bold text-sm">Pet's category</h5>
+        <UButton :label="pet.type" icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+
       </div>
+
+      <div class="item">
+        <h5 class="text-contInactive font-bold text-sm">Pet's name</h5>
+        <UButton :label="pet.name" icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+
+      </div>
+
+      <div class="flex-col gap-0">
+        <div class="flex justify-between">
+          <h5 class="text-contInactive font-bold text-sm">Photos and video</h5>
+          <UButton icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+        </div>
+
+        <div class="selected-images flex gap-2" v-if="pet.images">
+          <div class="image-container" v-for="(file, index) in pet.images" :key="index">
+
+            <img :src="file" alt="pet image" class="w-16 h-auto object-cover">
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- BASIC INFO-->
+
+
+      <div class="grid gap-8 w-full">
+        <h5 class="text-contInactive font-bold text-sm col-start-1 col-end-2">History</h5>
+
+        <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-[200px] w-full">
+          {{ pet.history }}
+        </div>
+        <UButton class="col-start-3 col-end-4 row-start-1 row-end-2 self-start" icon="i-mdi-pencil" trailing
+          color="secondary" variant="ghost"></UButton>
+
+      </div>
+      <div class="grid gap-8 w-full">
+        <h5 class="text-contInactive font-bold text-sm col-start-1 col-end-2">Personality</h5>
+
+        <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-[200px] w-full flex flex-col gap-4">
+
+          <ul class="list-disc list-inside">
+            <li class="" v-for="item in pet.personality">
+              {{ item }}
+            </li>
+          </ul>
+
+          {{ pet.personalityDescription }}
+        </div>
+        <UButton class="col-start-3 col-end-4 row-start-1 row-end-2 self-start" icon="i-mdi-pencil" trailing
+          color="secondary" variant="ghost"></UButton>
+
+      </div>
+
     </div>
-    <div class="submit-button">
-      <button @click="emit('submit', pet)">Confirm and Apply</button>
+    <div class="submit-button flex justify-end">
+      <UButton class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('submit', pet)">Confirm
+        and Apply</UButton>
     </div>
   </div>
 </template>
@@ -52,4 +97,18 @@ const stepIndex = (key) => {
 const formatLabel = (key) => {
   return key.split(/(?=[A-Z])/).join(' ').toUpperCase();
 }
+
+const deleteImage = (index) => {
+  const images = [...pet.value.images ?? []];
+  images.splice(index, 1);
+  emit('editType', {
+    key: 'images',
+    value: images
+  })
+}
 </script>
+<style scoped>
+.item {
+  @apply flex gap-8;
+}
+</style>

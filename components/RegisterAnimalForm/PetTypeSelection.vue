@@ -1,5 +1,5 @@
 <template>
-  <div class="section-step-layout">
+  <div class="section-step-layout" style="padding-bottom: 4rem;">
     <RegisterAnimalFormPreHeaderStep question="Is the pet a dog or a cat?" :expression="modelValue.length">
     </RegisterAnimalFormPreHeaderStep>
 
