@@ -1,10 +1,10 @@
 <template>
   <div class="overflow-hidden">
-    <form @submit.prevent="handlePetRegister"
-      class="flex flex-col w-full justify-center items-center gap-4 bg-Bg h-full absolute top-0 left-0 z-[9999] overflow-hidden">
-      <TransitionGroup name="list">
+    <form class="flex flex-col justify-between h-full gap-4 w-full bg-Bg absolute top-0 left-0 z-[999] overflow-hidden">
+      <TransitionGroup name="list" class="">
+        <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="8" />
         <RegisterAnimalFormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
-        <RegisterAnimalFormPetTypeSelection v-if="step === 1" v-model="pet.type" @next="step++" />
+        <RegisterAnimalFormPetTypeSelection v-if="step === 1" v-model="pet.type" @back="step--" @next="step++" />
         <RegisterAnimalFormPetNameInput v-if="step === 2" v-model="pet.name" @next="step++" @back="step--" />
         <RegisterAnimalFormPetImageUpload v-if="step === 3" v-model="pet.images" @next="step++" @back="step--" />
         <RegisterAnimalFormPetBasicInfo v-if="step === 4" v-model="pet" :sizeOptions="SizeOptions"

@@ -236,3 +236,7 @@ html {
   padding-bottom: 0;
   padding-top: 20px;
 }
+
+.section-step-layout {
+  @apply flex flex-col justify-between  h-full py-16 px-4 text-black;
+}
