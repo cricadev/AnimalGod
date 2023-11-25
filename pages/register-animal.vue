@@ -68,7 +68,7 @@ const HealthConditionOptions = [{
 
 
 ];
-const step = ref(0)
+const step = ref(8)
 const { history, undo, redo } = useRefHistory(step)
 
 const nextStep = () => {
@@ -88,7 +88,7 @@ const handlePetRegister = async () => {
     // First, try to create the client
     const data = await $fetch('/api/create-pet', {
       method: 'post',
-      body: { ...pet, email: user.value?.email }
+      body: { ...pet.value, email: user.value?.email }
     });
     if (!data) {
       throw new Error('Error creating client')

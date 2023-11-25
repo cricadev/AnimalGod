@@ -12,6 +12,11 @@ generator client {
 
 // ENU,S
 
+enum Gender {
+    MALE
+    FEMALE
+}
+
 enum Size {
     SMALL
     MEDIUM
@@ -99,7 +104,7 @@ model Pet {
     type                   String // e.g., Dog, Cat, etc.
     name                   String
     images                 String[] // URLs of uploaded images
-    gender                 Boolean
+    gender                 Gender
     size                   Size // e.g., Small, Medium, Large, etc.
     breed                  Breed // e.g., Golden Retriever, Siamese, etc.
     goodWith               GoodWith[] // e.g., Children, Dogs, Cats, etc.

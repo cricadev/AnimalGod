@@ -54,7 +54,7 @@ const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
 
 const pet = ref({
-  healthConditions: props.healthOptions.map(option => ({ label: option.label, answer: '' })),
+  healthConditions: props.healthOptions.map(option => ({ label: option.label, answer: '', responseIfYes: option.responseIfYes, responseIfNo: option.responseIfNo })),
 })
 
 const updatePet = (key, value, index) => {

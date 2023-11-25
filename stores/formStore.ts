@@ -5,27 +5,34 @@ export const useformStore = defineStore("formStore", () => {
   const upload = ref(false)
   const HealthConditionOptions = [{
     label: 'Is the pet fully vaccinated?',
-    value: 'Vaccinated',
+    responseIfYes: 'Fully vaccinated',
+    responseIfNo: 'Not all vacuums',
+
   },
   {
     label: 'Is the pet sterilized?',
-    value: 'Sterilized',
+    responseIfYes: 'Sterilized',
+    responseIfNo: 'Not sterilized',
   },
   {
     label: 'Is the pet physically active?',
-    value: 'Active',
+    responseIfYes: 'Physically active',
+    responseIfNo: 'Not physically active',
   },
   {
     label: 'Is the pet healthy eating habits?',
-    value: 'Healthy',
+    responseIfYes: 'Healthy eating habits',
+    responseIfNo: 'Unhealthy eating habits',
   },
   {
     label: 'Does the pet have good hygiene?',
-    value: 'Hygienic',
+    responseIfYes: 'Good hygiene',
+    responseIfNo: 'Bad hygiene',
   },
   {
     label: 'Does the pet have any psychological problems?',
-    value: 'Psychological',
+    responseIfYes: 'Psychological problems',
+    responseIfNo: 'No psychological problems',
   },
 
 
