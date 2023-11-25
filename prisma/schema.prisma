@@ -106,6 +106,7 @@ model Pet {
     images                 String[] // URLs of uploaded images
     gender                 Gender
     size                   Size // e.g., Small, Medium, Large, etc.
+    age                    Int
     breed                  Breed // e.g., Golden Retriever, Siamese, etc.
     goodWith               GoodWith[] // e.g., Children, Dogs, Cats, etc.
     activity               ActivityLevel // e.g., Low, Medium, High, etc.

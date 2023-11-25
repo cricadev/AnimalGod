@@ -68,7 +68,7 @@ const HealthConditionOptions = [{
 
 
 ];
-const step = ref(8)
+const step = ref(0)
 const { history, undo, redo } = useRefHistory(step)
 
 const nextStep = () => {

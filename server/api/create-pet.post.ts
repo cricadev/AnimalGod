@@ -10,18 +10,25 @@ export default defineEventHandler(async (event) => {
   });
   const res = await prisma.pet.create({
     data: {
-      name: body.name,
-      age: body.age,
       type: body.type,
-      breed: body.breed,
-      description: body.description,
+      name: body.name,
       images: body.images,
+      gender: body.gender.toUpperCase(),
+      size: body.size.toUpperCase(),
+      age: body.age,
+      breed: body.breed.toUpperCase(),
+      goodWith: body.goodWith.toUpperCase(),
+      activity: body.activity.toUpperCase(),
+      history: body.history,
+      personality: body.personality,
+      personalityDescription: body.personalityDescription,
+      healthConditions: body.healthConditions,
+      healthDescription: body.healthDescription,
       isAdopted: body.isAdopted,
-      hexColor: body.hexColor,
-      shelter: {
-        connect: { id: shelter.id }
-      }
-    }
+      shelterId: shelter?.id,
+      createdAt: body.createdAt,
+      updatedAt: body.updatedAt,
+    },
   });
 
   return {
