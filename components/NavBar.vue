@@ -4,12 +4,18 @@ import { useWindowSize } from "@vueuse/core";
 
 const { height, width } = storeToRefs(useWindowSize());
 const isMobile = computed(() => width.value < 768);
+watch(isMobile,
+  () => {
+    console.log(isMobile.value);
+  }
+  , {
+    immediate: true
+  })
 const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
 const user = useSupabaseUser();
 
-console.log(isMobile.value);
 // after every route enter toggle the isOpen boolean to false
 watch(
   () => route.path,
@@ -45,7 +51,8 @@ const items = [
       <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'" width="100%"
         height="35" class="p-5"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
-        v-else></nuxt-img></nuxt-link>
+        v-else></nuxt-img>
+    </nuxt-link>
     <nuxt-link to="/register-animal" v-if="user?.user_metadata?.isShelter">
       Register animal</nuxt-link>
     <div class="flex place-items-center burguer-menu">
@@ -193,7 +200,7 @@ const items = [
     </div>
 
   </div>
-  <div class="flex items-center justify-between w-full h-16" v-else>
+  <div class="flex items-center justify-between w-full h-16" v-if="!isMobile">
     <nuxt-link to="/">
       <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'" width="100%"
         height="35" class="p-5"></nuxt-img>
