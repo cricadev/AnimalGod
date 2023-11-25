@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "nuxt-icon",
   ],
+  routeRules: {
+    '/api/**': { cors: true }
+  },
   pinia: {
     storesDirs: ['./stores/**',],
   },

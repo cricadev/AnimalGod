@@ -19,6 +19,7 @@
     </div>
     <div class="" v-else-if="error || !myData">
       There's an error in the API CALL
+      {{ error }}
     </div>
     <Carousel v-else ref="myCarousel" :wrap-around="true" snap-align="center-even" :items-to-show="myData?.length">
 
@@ -89,7 +90,13 @@ onMounted(() => {
 const currentSlide = ref(0);
 const offset = ref(0)
 
+
 const { data: myData, error, pending } = await useLazyFetch<Animal[]>('/api/get-all-animals?offset=' + offset.value)
+
+if (error) {
+  console.error(error)
+
+}
 
 
 const next = async () => {
