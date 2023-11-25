@@ -3,7 +3,7 @@
     <form @submit.prevent="handleFormSubmition"
       class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative z-[999] overflow-hidden rounded-lg">
       <TransitionGroup name="list" class="">
-        <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="8" />
+        <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="9" />
         <RegisterAnimalFormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
         <RegisterAnimalFormPetTypeSelection v-if="step === 1" v-model="pet.type" @back="step--" @next="step++" />
         <RegisterAnimalFormPetNameInput v-if="step === 2" v-model="pet.name" @next="step++" @back="step--" />
@@ -22,6 +22,9 @@
           @back="step--" />
         <RegisterAnimalFormPetReview @edit-type="goToAndFix" v-if="step === 8" :pet="pet" @back="step--"
           @submit="handlePetRegister" />
+
+        <RegisterAnimalFormExitFormScreen @exit-form="handleExitForm" v-if="step === 9" />
+
       </TransitionGroup>
     </form>
 
@@ -33,11 +36,30 @@ import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
 const formStore = useformStore();
 const { pet } = storeToRefs(formStore);
+
 const handleFormSubmition = () => {
   console.log(pet)
 }
+const handleExitForm = () => {
+  formStore.resetPet();
+  step.value = 0;
+  setTimeout(() => {
+    navigateTo('/');
+  }, 500);
+}
 const SizeOptions = ['Small', 'Medium', 'Large'];
-const BreedOptions = ['Golden Retriever', 'Siamese', /* other breeds... */];
+const BreedOptions = [
+  'Golden Retriever',
+  'Labrador Retriever',
+  'German Shepherd',
+  'Bulldog',
+  'Beagle',
+  'Poodle',
+  'Rottweiler',
+  'Yorkshire Terrier',
+  'Boxer',
+  'Dachshund'
+];
 const GoodWithOptions = ['Children', 'Dogs', 'Cats'];
 const ActivityLevelOptions = ['Low', 'Medium', 'High'];
 const PersonalityAdjectivesOptions = ['Affectionate', 'Aloof', 'Dominant', 'Compliant', 'Relaxed', 'Enthusiastic', 'Confident', 'Timid', 'Devoted', 'Independent'];
@@ -95,6 +117,7 @@ const handlePetRegister = async () => {
     }
     console.log(data)
 
+    step.value++;
 
   }
   catch (error) {

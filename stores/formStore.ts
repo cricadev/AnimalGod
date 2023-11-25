@@ -63,14 +63,42 @@ export const useformStore = defineStore("formStore", () => {
   });
   const imagesURL = ref<string[]>([]);
   const files = ref<File[]>([]);
+  const supabaseImages = ref<string[]>([]);
+  const resetPet = () => {
+
+    pet.value = {
+      id: 0,
+      type: '',
+      name: '',
+      images: [''],
+
+      gender: '',
+      size: '', // Default to the first option
+      age: null,
+      breed: '', // Default to the first option
+      goodWith: '', // This will be an array of selected options
+      activity: '', // Default to the first option
+      history: '',
+      personality: [''], // This will be an array of selected options
+      personalityDescription: '',
+      healthConditions: HealthConditionOptions.map(condition => ({ condition: condition.value, answer: '' })),
+      healthDescription: '',
+      isAdopted: false,
+      shelterId: null,
+      appointments: [],
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+  }
 
   const handleFileUpload = async (e: any) => {
-    files.value = Array.from(event.target.files);
-
-    for (let file of files.value) {
+    files.value = Array.from(e.target.files);
+    const counter = ref(0);
+    for (const file of files.value) {
       try {
-        let filePath = `avatars/${file.name}`;
+        let filePath = `avatars/${pet.name}${counter.value}`;
         const { data, error } = await supabase.storage.from('avatars').upload(filePath, file);
+        counter.value = counter.value + 1;
         if (error) {
           console.error('Error uploading file:', error.message);
           return
@@ -86,6 +114,9 @@ export const useformStore = defineStore("formStore", () => {
     }
 
     pet.images = imagesURL.value;
+
+    supabaseImages.value = pet.name
+
     // emit('update:modelValue', files);
   };
 
@@ -124,7 +155,9 @@ export const useformStore = defineStore("formStore", () => {
     files,
     upload,
     handleFileUpload,
-    deleteImage
+    deleteImage,
+    resetPet,
+    supabaseImages
 
   }
 });

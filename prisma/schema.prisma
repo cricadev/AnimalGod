@@ -34,7 +34,6 @@ enum Breed {
     YORKSHIRE_TERRIER
     BOXER
     DACHSHUND
-    // Add more breeds as needed
 }
 
 enum GoodWith {
@@ -57,7 +56,7 @@ enum personalityAdjectives {
     DEVOTED
     CONFIDENT
     ALOOF
-    COMPILANT
+    COMPLIANT
     TIMID
     ENTHUSIASTIC
 }
@@ -108,7 +107,7 @@ model Pet {
     size                   Size // e.g., Small, Medium, Large, etc.
     age                    Int
     breed                  Breed // e.g., Golden Retriever, Siamese, etc.
-    goodWith               GoodWith[] // e.g., Children, Dogs, Cats, etc.
+    goodWith               GoodWith
     activity               ActivityLevel // e.g., Low, Medium, High, etc.
     history                String                  @db.VarChar(2000)
     personality            personalityAdjectives[]
