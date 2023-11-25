@@ -6,7 +6,7 @@ datasource db {
 
 generator client {
     provider      = "prisma-client-js"
-    binaryTargets = ["native", "darwin-arm64"]
+    binaryTargets = ["native", "rhel-openssl-1.0.x"]
     output        = "../node_modules/.prisma/client"
 }
 
@@ -99,7 +99,7 @@ model Client {
 
 // Model for the pets listed for adoption
 model Pet {
-    id                     Int                     @id @default(autoincrement())
+    id                     Int           @id @default(autoincrement())
     type                   String // e.g., Dog, Cat, etc.
     name                   String
     images                 String[] // URLs of uploaded images
@@ -109,17 +109,17 @@ model Pet {
     breed                  Breed // e.g., Golden Retriever, Siamese, etc.
     goodWith               GoodWith
     activity               ActivityLevel // e.g., Low, Medium, High, etc.
-    history                String                  @db.VarChar(2000)
-    personality            personalityAdjectives[]
-    personalityDescription String                  @db.VarChar(2000)
+    history                String        @db.VarChar(2000)
+    personality            String[]
+    personalityDescription String        @db.VarChar(2000)
     healthConditions       Json
-    healthDescription      String?                 @db.VarChar(2000)
-    isAdopted              Boolean                 @default(false)
+    healthDescription      String?       @db.VarChar(2000)
+    isAdopted              Boolean       @default(false)
     shelterId              Int? // Foreign Key relation to Shelter
-    shelter                Shelter?                @relation(fields: [shelterId], references: [id])
+    shelter                Shelter?      @relation(fields: [shelterId], references: [id])
     appointments           Appointment[] // Relation to appointments set for this pet
-    createdAt              DateTime                @default(now())
-    updatedAt              DateTime                @updatedAt
+    createdAt              DateTime      @default(now())
+    updatedAt              DateTime      @updatedAt
 }
 
 // Model for the appointments set by clients for specific pets

@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { limit = 4, offset = 0 } = getQuery(event)
 
+
   // Get the current user's email
   const user = await serverSupabaseUser(event);
   console.log(user)

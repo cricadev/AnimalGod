@@ -3,8 +3,11 @@ import { Carousel, Pagination, Slide } from "vue3-carousel";
 import { useWindowSize } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 
-const { height, width } = storeToRefs(useWindowSize());
-const isMobile = computed(() => width.value < 768);
+const { height, width } = useWindowSize();
+const isMobile = ref(true)
+watch(width, (newWidth) => {
+  isMobile.value = newWidth < 768;
+}, { immediate: true });
 const slidesHero = [
   {
     id: 1,

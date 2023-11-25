@@ -49,7 +49,7 @@
   </div>
 </template>
 <script setup>
-const { data, pending, error } = useFetch("/api/get-all-by-shelter");
+//const { data, pending, error } = useFetch("/api/get-all-by-shelter");
 const supaAuth = useSupabaseClient().auth;
 
 const logout = async () => {

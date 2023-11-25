@@ -157,7 +157,8 @@ export const useformStore = defineStore("formStore", () => {
     handleFileUpload,
     deleteImage,
     resetPet,
-    supabaseImages
+    supabaseImages,
+    HealthConditionOptions
 
   }
 });
