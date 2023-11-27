@@ -8,13 +8,14 @@
         <Icon class="h-20 w-20 " name="material-symbols:photo-camera-rounded"></Icon>
         <span>Select from gallery or take a picture</span>
       </div>
-      <input type="file" id="imageInput" @change="handleFileUpload" multiple accept="image/*">
+      <input type="file" id="imageInput" @change="(event) => handleFileUpload(event, 'animalgod-files', pet?.name)"
+        multiple accept="image/*">
     </label>
     <div class="selected-images" v-else>
       <div class="image-container" v-for="(img, index) in imagesURL.slice(0, 5)" :key="index">
         <img :src="img" alt="pet image" class="w-full h-full object-cover">
 
-        <button class="delete-icon" @click="deleteImage(index)">
+        <button class="delete-icon" @click="(event) => deleteImage(index, 'animalgod-files')">
 
           <Icon class="h-5 w-5 p-px rounded-sm text-white bg-contAccent" name="cil:trash"></Icon>
         </button>
@@ -49,44 +50,6 @@ defineProps({
 
 const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
-// const handleFileUpload = async (event) => {
-//   files.value = Array.from(event.target.files);
-
-//   for (let file of files.value) {
-//     try {
-//       let filePath = `avatars/${file.name}`;
-//       const { data, error } = await supabase.storage.from('avatars').upload(filePath, file);
-//       if (error) {
-//         console.error('Error uploading file:', error.message);
-//         return
-//       }
-//       imagesURL.value = [...imagesURL.value, URL.createObjectURL(file)]
-//     } catch (error) {
-//       console.error('Error uploading file:', error);
-//     }
-//   }
-
-//   emit('update:modelValue', files);
-// }
-
-// const deleteImage = async (index) => {
-
-
-//   try {
-//     const { data, error } = await supabase.storage.from('avatars').remove([`avatars/${files.value[index].name}`])
-
-//     if (error) {
-//       console.error('Error deleting file:', error.message);
-//       return
-//     }
-//     files.value.splice(index, 1);
-//     imagesURL.value.splice(index, 1);
-
-//   } catch (error) {
-//     console.error('Error deleting file:', error);
-//   }
-//   emit('update:modelValue', files);
-// }
 </script>
 
 <style scoped>

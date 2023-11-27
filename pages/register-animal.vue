@@ -1,7 +1,7 @@
 <template>
   <div class="overflow-hidden p-5 bg-form">
     <form @submit.prevent="handleFormSubmition"
-      class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative z-[999] overflow-hidden rounded-lg">
+      class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative overflow-hidden rounded-lg">
       <TransitionGroup name="list" class="">
         <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="9" />
         <RegisterAnimalFormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />

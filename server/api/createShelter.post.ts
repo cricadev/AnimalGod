@@ -6,14 +6,22 @@ export default defineEventHandler(async (event) => {
   try {
     const credentials = await readBody(event);
 
-    // Check if a client with the provided email already exists
-    const existingClient = await prisma.shelter.findUnique({
+    // Check if a shelter with the provided email already exists
+    const existingShelter = await prisma.shelter.findUnique({
       where: {
         email: credentials.email,
       },
     });
 
-    if (existingClient) {
+    // check if a  client with the provided email already exists
+
+    const existingClient = await prisma.client.findUnique({
+      where: {
+        email: credentials.email,
+      },
+    });
+
+    if (existingShelter || existingClient) {
       // If a client with the provided email already exists, return an error message
       return {
         status: 400,
