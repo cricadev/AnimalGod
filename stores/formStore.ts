@@ -38,6 +38,7 @@ export const useformStore = defineStore("formStore", () => {
 
   ];
   const supabase = useSupabaseClient();
+  const user = useSupabaseUser();
   const pet = reactive<Pet>({
     id: 0,
     type: '',
@@ -90,54 +91,46 @@ export const useformStore = defineStore("formStore", () => {
       updatedAt: new Date(),
     }
   }
+  const filePaths = ref([]);
 
-  const handleFileUpload = async (e: any) => {
+  const handleFileUpload = async (e: any, storageTableName: string, entityName: string) => {
     files.value = Array.from(e.target.files);
     const counter = ref(0);
     for (const file of files.value) {
       try {
-        let filePath = `avatars/${pet.name}${counter.value}`;
-        const { data, error } = await supabase.storage.from('avatars').upload(filePath, file);
+        let filePath = `${storageTableName}/${entityName}${counter.value}`;
+        const { data, error } = await supabase.storage.from(storageTableName).upload(filePath, file);
         counter.value = counter.value + 1;
         if (error) {
           console.error('Error uploading file:', error.message);
           return
-
         }
-
-
         imagesURL.value = [...imagesURL.value, URL.createObjectURL(file)]
-
+        filePaths.value.push(filePath);
       } catch (error) {
         console.error('Error uploading file:', error);
       }
     }
-
     pet.images = imagesURL.value;
-
-    supabaseImages.value = pet.name
-
-    // emit('update:modelValue', files);
   };
 
-  const deleteImage = async (index) => {
-
+  const deleteImage = async (index: number, storageTableName: string) => {
     try {
-      let filePath = `avatars/${files.value[index].name}`;
-      const { data, error } = await supabase.storage.from('avatars').remove([filePath]);
+      let filePath = filePaths.value[index];
+      console.log(filePath)
+      const { data, error } = await supabase.storage.from(storageTableName).remove([filePath]);
       if (error) {
         console.error('Error deleting file:', error.message);
         return
       }
       imagesURL.value.splice(index, 1);
       files.value.splice(index, 1);
+      filePaths.value.splice(index, 1);
     } catch (error) {
       console.error('Error deleting file:', error);
     }
-    // emit('update:modelValue', files);
-
-
   }
+
   watch(files, (newVal, oldVal) => {
     if (newVal.length > 0) {
       upload.value = true
