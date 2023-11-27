@@ -108,7 +108,7 @@ model Pet {
     goodWith               GoodWith
     activity               ActivityLevel // e.g., Low, Medium, High, etc.
     history                String        @db.VarChar(2000)
-    personality            String[]
+    personalityTemp        String[]
     personalityDescription String        @db.VarChar(2000)
     healthConditions       Json
     healthDescription      String?       @db.VarChar(2000)
