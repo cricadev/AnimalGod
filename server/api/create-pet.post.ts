@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, personalityAdjectives } from "@prisma/client";
+
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
@@ -20,7 +21,7 @@ export default defineEventHandler(async (event) => {
       goodWith: body.goodWith.toUpperCase(),
       activity: body.activity.toUpperCase(),
       history: body.history,
-      personality: body.personality.map((personality) => personality.toUpperCase()),
+      personality: body.personality.map((p: string) => personalityAdjectives[p.toUpperCase()]),
       personalityDescription: body.personalityDescription,
       healthConditions: body.healthConditions,
       healthDescription: body.healthDescription,
