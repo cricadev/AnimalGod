@@ -1,9 +1,8 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import type { Pet } from "@/types"
-import { PrismaClient } from '@prisma/client';
 
 export const useClientStore = defineStore("ClientStore", () => {
-  const clients = ref([]);
+  const clients = ref([])
 
 
 
@@ -28,7 +27,7 @@ export const useClientStore = defineStore("ClientStore", () => {
   return {
     clients,
     fetchClient,
-    findClientId
+
   };
 });
 if (import.meta.hot) {
