@@ -4,16 +4,26 @@
       <div class="user-image-upload flex justify-center items-center">
 
         <div class="relative">
-          <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-if="!file" />
-          <nuxt-img
-            :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/avatars/avatars/' + user.user_metadata?.name + '0'"
-            class="w-16 h-16 rounded-full" v-else />
-          <label for="imageInput"
-            class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white">
-            <Icon name="i-mdi-pencil" class="p" />
-            <input type="file" id="imageInput" class="hidden"
-              @change="(event) => handleFileUpload(event, 'avatars', user.user_metadata?.name)" accept="image/*">
-          </label>
+          <div class="" v-if="!isFile">
+            <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" />
+            <label for="imageInput"
+              class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white">
+              <Icon name="i-mdi-pencil" class="" />
+              <input type="file" id="imageInput" class="hidden" @change="(event) => handleUpload(event)" accept="image/*">
+            </label>
+          </div>
+
+          <div class="" v-else>
+            <nuxt-img :src="currentPrismaUser.image" class="w-16 h-16 rounded-full object-cover" />
+
+            <button
+              class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white"
+              @click="handleImageDelete">
+              <Icon name="i-mdi-trash-can" class="" />
+            </button>
+
+
+          </div>
 
         </div>
 
@@ -51,7 +61,7 @@
     <div class="" v-else>There is no profile please log in</div>
 
     <div class="">
-      {{ id }}
+      {{ currentPrismaUser }}
     </div>
 
   </div>
@@ -61,27 +71,114 @@ import { useformStore } from '~/stores/formStore';
 import { useShelterStore } from '~/stores/ShelterStore';
 import { useClientStore } from '~/stores/ClientStore';
 
+
 const user = useSupabaseUser();
 const clientStore = useClientStore();
 const shelterStore = useShelterStore();
+const { handleFileUpload, deleteImage } = useformStore();
 
-const { handleFileUpload } = useformStore();
-
-const getId = async () => {
+// onMounted(async () => {
+//   if (user.value.user_metadata?.isShelter) {
+//     currentPrismaUser.value = await getCurrentUser();
+//     shelterStore.setShelter(currentPrismaUser.value)
+//   } else if (user.value.user_metadata?.isShelter === false) {
+//     currentPrismaUser.value = await getCurrentUser();
+//     clientStore.setClient(currentPrismaUser.value)
+//   }
+// })
+const getCurrentUser = async () => {
   if (user.value.user_metadata?.isShelter) {
-    const id = await findShelterId(user.value.user_metadata?.email);
-    return id;
+    const { data } = await useFetch(`/api/getId?email=${user.value.email}&isShelter=true`)
+    return data
   } else if (user.value.user_metadata?.isShelter === false) {
-    const id = await findClientId(user.value.user_metadata?.email);
-    return id;
+    const { data } = await useFetch(`/api/getId?email=${user.value.email}`)
+    return data
   }
 }
-const id = await getId();
-console.log(id);
 
 
 
-const file = ref(null);
+const currentPrismaUser = await getCurrentUser();
+
+const isFile = computed(() => {
+  return currentPrismaUser.value.image !== '' && currentPrismaUser.value.image !== null && currentPrismaUser.value.image !== undefined
+})
+
+console.log(isFile.value)
+
+watch(() => currentPrismaUser.value.image, (newVal) => {
+  if (newVal === '' || newVal === null || newVal === undefined) {
+    isFile.value = false;
+    console.log('isFile is false');
+  } else {
+    isFile.value = true;
+    console.log('isFile is true');
+  }
+});
+
+
+const handleImageDelete = async () => {
+
+  await deleteImage(0, 'avatars', user.value.user_metadata?.name)
+
+  try {
+    console.log(currentPrismaUser.value.id)
+    // First, try to create the client
+    const data = await $fetch('/api/updateUser', {
+      method: 'PATCH',
+      body: {
+        isShelter: user.value.user_metadata?.isShelter,
+        id: currentPrismaUser.value.id,
+        image: ''
+      }
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+
+
+  }
+  catch (error) {
+    console.log(error);
+  }
+  currentPrismaUser.value = await getCurrentUser();
+
+
+}
+
+
+const handleUpload = async (event) => {
+
+  await handleFileUpload(event, 'avatars', user.value.user_metadata?.name)
+
+  try {
+    // First, try to create the client
+    const data = await $fetch('/api/updateUser', {
+      method: 'PATCH',
+      body: {
+        isShelter: user.value.user_metadata?.isShelter,
+        id: currentPrismaUser.value.id,
+        image: 'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/avatars/avatars/' + user.value.user_metadata?.name + '0'
+      }
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+
+
+  }
+  catch (error) {
+    console.log(error);
+  }
+  currentPrismaUser.value = await getCurrentUser();
+
+
+
+
+}
+
+
+
 const supaAuth = useSupabaseClient().auth;
 
 const logout = async () => {

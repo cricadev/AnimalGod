@@ -22,10 +22,11 @@ export const useShelterStore = defineStore("ShelterStore", () => {
   }
 
 
+
+
   return {
     shelters,
     fetchShelter,
-    findShelterId
   };
 });
 if (import.meta.hot) {

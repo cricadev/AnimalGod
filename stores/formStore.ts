@@ -114,9 +114,9 @@ export const useformStore = defineStore("formStore", () => {
     pet.images = imagesURL.value;
   };
 
-  const deleteImage = async (index: number, storageTableName: string) => {
+  const deleteImage = async (index: number, storageTableName: string, entityName: string) => {
     try {
-      let filePath = filePaths.value[index];
+      let filePath = `${storageTableName}/${entityName}${index}`;
       console.log(filePath)
       const { data, error } = await supabase.storage.from(storageTableName).remove([filePath]);
       if (error) {
