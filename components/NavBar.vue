@@ -56,7 +56,7 @@ const items = [
     <nuxt-link to="/register-animal" v-if="user?.user_metadata?.isShelter">
       Register animal</nuxt-link>
     <div class="flex place-items-center burguer-menu">
-      <!-- <ToggleTheme></ToggleTheme> -->
+      <ToggleTheme></ToggleTheme>
 
       <UButton @click="isOpen = true" icon="i-mdi-menu" size="xl" color="primary" square variant="ghost" />
 
@@ -207,7 +207,7 @@ const items = [
       <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
         v-else></nuxt-img>
     </nuxt-link>
-    <!-- <ToggleTheme></ToggleTheme> -->
+    <ToggleTheme></ToggleTheme>
 
     <div v-if="!user" class="flex flex-col justify-center items-center gap-12">
       <ul class="flex justify-center items-center  gap-6">

@@ -90,6 +90,7 @@ model Client {
     appointments Appointment[] // Relation to their set appointments
     country      String
     phone        String
+    image        String?
     createdAt    DateTime      @default(now())
     updatedAt    DateTime      @updatedAt
     // You can add other fields specific to clients if necessary

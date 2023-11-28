@@ -5,14 +5,16 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
+  const updateData = {
+    image: body.image !== undefined ? { set: body.image } : undefined,
+    website: body.website !== undefined ? { set: body.website } : undefined,
+    address: body.address !== undefined ? { set: body.address } : undefined,
+  };
+
   if (body.isShelter) {
     const shelter = await prisma.shelter.update({
       where: { id: body.id },
-      data: {
-        image: {
-          set: body.image
-        }
-      }
+      data: updateData,
     });
 
     return {
@@ -22,11 +24,7 @@ export default defineEventHandler(async (event) => {
   } else {
     const client = await prisma.client.update({
       where: { id: body.id },
-      data: {
-        image: {
-          set: body.image
-        }
-      }
+      data: updateData,
     });
 
     return {

@@ -23,7 +23,7 @@
           <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
             v-for="(img, index) in data?.images">
             <nuxt-img
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/avatars/avatars/' + data?.name + index"
+              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + data?.name + index"
               class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
             </nuxt-img>
           </Slide>
@@ -203,7 +203,7 @@
       <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="myData">
         <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
-          <div class="" v-for="animal in myData">
+          <div class="" v-for="(animal, index) in myData">
             <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
               :to="`/meet-them/`">
               <h6
@@ -211,7 +211,7 @@
                 {{ animal.name }}
               </h6>
               <nuxt-img v-if="animal.images.length > 0"
-                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/avatars/avatars/' + animal.name + '0'"
+                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + index"
                 class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
                 width="100%" height="100%"></nuxt-img>
               <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"

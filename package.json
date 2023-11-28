@@ -12,6 +12,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@iconify-json/circle-flags": "^1.1.45",
     "@iconify-json/logos": "^1.1.37",
     "@iconify-json/material-symbols": "^1.1.59",
     "@iconify-json/mdi": "^1.1.54",
@@ -34,7 +35,9 @@
     "@pinia/nuxt": "^0.4.11",
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "country-codes-list": "^1.6.11",
     "flowbite": "^1.8.1",
+    "i18n-iso-countries": "^7.7.0",
     "nuxt-icon": "^0.5.0",
     "sass": "^1.68.0",
     "vue3-carousel": "^0.3.1"

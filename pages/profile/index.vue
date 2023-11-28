@@ -3,9 +3,9 @@
     <div class="text-darkContThird" v-if="user">
       <div class="user-image-upload flex justify-center items-center">
 
-        <div class="relative">
-          <div class="" v-if="!isFile">
-            <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" />
+        <div class="relative" v-if="currentPrismaUser">
+          <div class="" v-if="!currentPrismaUser.image">
+            <Icon name="i-mdi-account" class="w-32 h-32 rounded-full" />
             <label for="imageInput"
               class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white">
               <Icon name="i-mdi-pencil" class="" />
@@ -13,8 +13,9 @@
             </label>
           </div>
 
-          <div class="" v-else>
-            <nuxt-img :src="currentPrismaUser.image" class="w-16 h-16 rounded-full object-cover" />
+          <div class="relative" v-else>
+
+            <nuxt-img :src="currentPrismaUser.image" class="w-32 h-32 rounded-full object-cover" />
 
             <button
               class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white"
@@ -22,39 +23,64 @@
               <Icon name="i-mdi-trash-can" class="" />
             </button>
 
-
           </div>
 
         </div>
 
       </div>
-      <h3 class="text-Heading3sm">
-        Email: {{ user.user_metadata?.email ?? user.email }}
-      </h3>
-      <h3 class="text-Heading3sm">
-        Name:
+
+      <h3 class="text-Heading3sm text-center text-white font-semibold">
+
         {{
-          user.user_metadata?.name ??
-          "there is no name available for this provider"
+          user.user_metadata?.name
         }}
+        <Icon :name="convertCountryToIcon(user.user_metadata?.country)" class="" />
+
       </h3>
 
-      <h4 class="text-Heading4sm">
-        Country: {{ capitalizeFirstLetter(user.user_metadata?.country) }}
-      </h4>
-      <h4 class="text-Heading4sm">
-        Notifications:
-        {{ user.user_metadata?.notifications ? "Enabled" : "Disabled" }}
-      </h4>
-      <h4 class="text-Heading4sm">
-        Phone: {{ user.user_metadata?.phone || "N/A" }}
-      </h4>
-      <h4 class="text-Heading4sm">
-        Terms: {{ user.user_metadata?.terms ? "Accepted" : "Not Accepted" }}
-      </h4>
-      <h4 class="text-Heading4sm">
-        Is Shelter: {{ user.user_metadata?.isShelter ? "Yes" : "No" }}
-      </h4>
+      <ProfileInputEditableHeading :phone="user.user_metadata?.phone" @updateProfile="handleFieldUpdate"
+        v-model="form.phone" />
+
+      <!-- <div class="input-field--heading-group">
+
+        <h4 v-if="currentPrismaUser.phone && !editable"
+          class="text-Heading4sm text-center font-bold text-contInactive flex items-center justify-center gap-2">
+          <Icon name="i-mdi-phone" class="" />
+          + {{ convertCountryToTel(user.user_metadata?.country) }} {{ user.user_metadata?.phone }}
+
+          <Icon name="i-mdi-pencil" @click="editable = true" class="" />
+        </h4>
+
+        <form v-else @submit.prevent="handleFieldUpdate">
+          <input type="text" class="mx-16 bg-transparent border-none flex justify-center" v-model="form.phone">
+        </form>
+      </div> -->
+      <div class="input-field--heading-group">
+
+        <h4 v-if="currentPrismaUser.address && !editable"
+          class="text-Heading4sm text-center font-bold text-contInactive flex items-center justify-center gap-2">
+          <Icon name="material-symbols:location-on" class="" />
+          {{
+            currentPrismaUser.address ?? 'Enter an address' }}
+
+          <Icon name="i-mdi-pencil" @click="editable = true" class="" />
+
+        </h4>
+
+        <form v-else @submit.prevent="handleFieldUpdate">
+          <input type="text" class="mx-16 bg-transparent border-none flex justify-center" v-model="form.address">
+        </form>
+      </div>
+
+
+      <div class="input-field--heading-group">
+        <h4 class="text-Heading4sm text-center font-bold text-contInactive flex items-center justify-center">
+          <Icon name="i-mdi-web" class="" />
+          {{
+            currentPrismaUser.website ?? 'Enter a website'
+          }}
+        </h4>
+      </div>
 
       <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-5" />
     </div>
@@ -66,13 +92,60 @@
 
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { icons } from '@iconify-json/circle-flags';
+
 import { useformStore } from '~/stores/formStore';
 import { useShelterStore } from '~/stores/ShelterStore';
 import { useClientStore } from '~/stores/ClientStore';
+import countryCodes from 'country-codes-list';
 
+import countries from 'i18n-iso-countries';
 
+import en from 'i18n-iso-countries/langs/en.json';
+countries.registerLocale(en);
 const user = useSupabaseUser();
+
+const form = reactive({
+  phone: user.user_metadata?.phone,
+  address: '',
+  website: '',
+})
+const editable = ref(false)
+const state = reactive({
+  currentPrismaUser: reactive({
+    image: ""
+  })
+  // ...
+},
+);
+
+const { currentPrismaUser } = toRefs(state);
+const handleFieldUpdate = async () => {
+
+  try {
+    console.log(currentPrismaUser.value.id)
+    // First, try to create the client
+    const data = await $fetch('/api/updateUser', {
+      method: 'PATCH',
+      body: {
+        isShelter: user.value.user_metadata?.isShelter,
+        id: currentPrismaUser.value.id,
+        address: form.address,
+      }
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+    editable.value = false
+    await getCurrentUser()
+  }
+  catch (error) {
+    console.log(error);
+  }
+
+
+}
 const clientStore = useClientStore();
 const shelterStore = useShelterStore();
 const { handleFileUpload, deleteImage } = useformStore();
@@ -89,32 +162,19 @@ const { handleFileUpload, deleteImage } = useformStore();
 const getCurrentUser = async () => {
   if (user.value.user_metadata?.isShelter) {
     const { data } = await useFetch(`/api/getId?email=${user.value.email}&isShelter=true`)
-    return data
+    currentPrismaUser.value = data
   } else if (user.value.user_metadata?.isShelter === false) {
     const { data } = await useFetch(`/api/getId?email=${user.value.email}`)
-    return data
+    currentPrismaUser.value = data
   }
+
 }
 
-
-
-const currentPrismaUser = await getCurrentUser();
-
-const isFile = computed(() => {
-  return currentPrismaUser.value.image !== '' && currentPrismaUser.value.image !== null && currentPrismaUser.value.image !== undefined
-})
-
-console.log(isFile.value)
-
-watch(() => currentPrismaUser.value.image, (newVal) => {
-  if (newVal === '' || newVal === null || newVal === undefined) {
-    isFile.value = false;
-    console.log('isFile is false');
-  } else {
-    isFile.value = true;
-    console.log('isFile is true');
-  }
+onBeforeMount(async () => {
+  await getCurrentUser()
 });
+
+
 
 
 const handleImageDelete = async () => {
@@ -135,13 +195,12 @@ const handleImageDelete = async () => {
     if (!data) {
       throw new Error('Error creating client')
     }
-
+    await getCurrentUser()
 
   }
   catch (error) {
     console.log(error);
   }
-  currentPrismaUser.value = await getCurrentUser();
 
 
 }
@@ -165,12 +224,11 @@ const handleUpload = async (event) => {
       throw new Error('Error creating client')
     }
 
-
+    await getCurrentUser()
   }
   catch (error) {
     console.log(error);
   }
-  currentPrismaUser.value = await getCurrentUser();
 
 
 
@@ -192,9 +250,15 @@ const logout = async () => {
 
 
 
-const capitalizeFirstLetter = (s) =>
-  s
-    .split(" ")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+
+const convertCountryToIcon = (country) => {
+  const countryCode = countries.getAlpha2Code(country, 'en');
+  if (countryCode) {
+    const iconName = `circle-flags:${countryCode.toLowerCase()}`;
+    return iconName;
+  }
+
+};
+
+
 </script>

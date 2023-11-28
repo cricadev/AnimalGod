@@ -32,7 +32,7 @@
             {{ animal.name }}
           </h6>
           <nuxt-img v-if="animal.images.length > 0"
-            :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/avatars/avatars/' + animal.name + '0'"
+            :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + '0'"
             class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
             width="100%" height="100%"></nuxt-img>
           <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
