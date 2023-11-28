@@ -9,6 +9,7 @@ export default defineEventHandler(async (event) => {
     image: body.image !== undefined ? { set: body.image } : undefined,
     website: body.website !== undefined ? { set: body.website } : undefined,
     address: body.address !== undefined ? { set: body.address } : undefined,
+    phone: body.phone !== undefined ? { set: body.phone } : undefined,
   };
 
   if (body.isShelter) {

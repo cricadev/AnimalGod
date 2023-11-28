@@ -38,48 +38,15 @@
 
       </h3>
 
-      <ProfileInputEditableHeading :phone="user.user_metadata?.phone" @updateProfile="handleFieldUpdate"
-        v-model="form.phone" />
+      <div class="" v-if="loading"> loading....</div>
+      <div class="" v-else>
+        <ProfileInputEditableHeading :modelValue="currentPrismaUser.phone"
+          @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
+        <ProfileInputEditableHeading :modelValue="currentPrismaUser.address"
+          @update:modelValue="value => handleFieldUpdate('address', value)" :address="true" />
 
-      <!-- <div class="input-field--heading-group">
-
-        <h4 v-if="currentPrismaUser.phone && !editable"
-          class="text-Heading4sm text-center font-bold text-contInactive flex items-center justify-center gap-2">
-          <Icon name="i-mdi-phone" class="" />
-          + {{ convertCountryToTel(user.user_metadata?.country) }} {{ user.user_metadata?.phone }}
-
-          <Icon name="i-mdi-pencil" @click="editable = true" class="" />
-        </h4>
-
-        <form v-else @submit.prevent="handleFieldUpdate">
-          <input type="text" class="mx-16 bg-transparent border-none flex justify-center" v-model="form.phone">
-        </form>
-      </div> -->
-      <div class="input-field--heading-group">
-
-        <h4 v-if="currentPrismaUser.address && !editable"
-          class="text-Heading4sm text-center font-bold text-contInactive flex items-center justify-center gap-2">
-          <Icon name="material-symbols:location-on" class="" />
-          {{
-            currentPrismaUser.address ?? 'Enter an address' }}
-
-          <Icon name="i-mdi-pencil" @click="editable = true" class="" />
-
-        </h4>
-
-        <form v-else @submit.prevent="handleFieldUpdate">
-          <input type="text" class="mx-16 bg-transparent border-none flex justify-center" v-model="form.address">
-        </form>
-      </div>
-
-
-      <div class="input-field--heading-group">
-        <h4 class="text-Heading4sm text-center font-bold text-contInactive flex items-center justify-center">
-          <Icon name="i-mdi-web" class="" />
-          {{
-            currentPrismaUser.website ?? 'Enter a website'
-          }}
-        </h4>
+        <ProfileInputEditableHeading :modelValue="currentPrismaUser.website" :website="true"
+          @update:modelValue="value => handleFieldUpdate('website', value)" />
       </div>
 
       <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-5" />
@@ -106,46 +73,64 @@ import en from 'i18n-iso-countries/langs/en.json';
 countries.registerLocale(en);
 const user = useSupabaseUser();
 
-const form = reactive({
-  phone: user.user_metadata?.phone,
-  address: '',
-  website: '',
-})
-const editable = ref(false)
+
+
 const state = reactive({
   currentPrismaUser: reactive({
     image: ""
-  })
+  }),
+  loading: true
   // ...
 },
 );
 
-const { currentPrismaUser } = toRefs(state);
-const handleFieldUpdate = async () => {
+const { currentPrismaUser, loading } = toRefs(state);
+const getCurrentUser = async () => {
+  loading.value = true
+  if (user.value.user_metadata?.isShelter) {
+    const { data } = await useFetch(`/api/getId?email=${user.value.email}&isShelter=true`)
+    currentPrismaUser.value = data
+  } else if (user.value.user_metadata?.isShelter === false) {
+    const { data } = await useFetch(`/api/getId?email=${user.value.email}`)
+    currentPrismaUser.value = data
+  }
 
+  loading.value = false
+}
+
+onBeforeMount(async () => {
+  await getCurrentUser()
+});
+
+
+
+
+const handleFieldUpdate = async (field, newValue) => {
   try {
     console.log(currentPrismaUser.value.id)
+    console.log(field, newValue)
     // First, try to create the client
     const data = await $fetch('/api/updateUser', {
       method: 'PATCH',
       body: {
         isShelter: user.value.user_metadata?.isShelter,
         id: currentPrismaUser.value.id,
-        address: form.address,
+        [field]: newValue, // Update the specified field with the new value
       }
     });
     if (!data) {
       throw new Error('Error creating client')
     }
-    editable.value = false
+    if (user.value.user_metadata) {
+      user.value.user_metadata[field] = newValue;
+    }
     await getCurrentUser()
   }
   catch (error) {
     console.log(error);
   }
-
-
 }
+
 const clientStore = useClientStore();
 const shelterStore = useShelterStore();
 const { handleFileUpload, deleteImage } = useformStore();
@@ -159,20 +144,6 @@ const { handleFileUpload, deleteImage } = useformStore();
 //     clientStore.setClient(currentPrismaUser.value)
 //   }
 // })
-const getCurrentUser = async () => {
-  if (user.value.user_metadata?.isShelter) {
-    const { data } = await useFetch(`/api/getId?email=${user.value.email}&isShelter=true`)
-    currentPrismaUser.value = data
-  } else if (user.value.user_metadata?.isShelter === false) {
-    const { data } = await useFetch(`/api/getId?email=${user.value.email}`)
-    currentPrismaUser.value = data
-  }
-
-}
-
-onBeforeMount(async () => {
-  await getCurrentUser()
-});
 
 
 
