@@ -187,18 +187,18 @@
       </div>
       <div class="shelter-info bg-[#166DD2]" v-if="shelter">
         <div class="flex items-center flex-col justify-center gap-4">
-          <nuxt-img src="/shelterLogo.png" width="100" height="100" class="rounded-full"></nuxt-img>
+          <div class="">
+            <nuxt-img :src="shelter.image" width="100" height="100" class="rounded-full"></nuxt-img>
+          </div>
           <div class="flex flex-col">
             <h3 class="text-Heading3sm font-bold"> {{ shelter.name }} </h3>
             <p class="text-Body1sm font-regular">{{ shelter.email ?? 'No email provided' }}</p>
             <p class="text-Body1sm font-regular">{{ shelter.address ?? 'No address provided' }}</p>
             <p class="text-Body1sm font-regular">{{ shelter.phone ?? 'No phone provided' }}</p>
+
           </div>
         </div>
-        <div class="flex items-center justify-center gap-4 mt-4">
-          <UButton size="xl" label="Visit Shelter" color="primary" class="py-3 px-6" variant="solid" />
-          <UButton size="xl" label="Contact Shelter" color="white" variant="outline" class="bg-Bg font-bold py-3 px-6" />
-        </div>
+
       </div>
       <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="myData">
         <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
@@ -237,13 +237,13 @@ const route = useRoute();
 const shelter = ref<Shelter>({});
 const ShelterStore = useShelterStore();
 const { shelters } = storeToRefs(ShelterStore);
-const { fetchShelter } = ShelterStore;
+const { findShelterById } = ShelterStore
 const { data, error, pending } = await useLazyFetch<Pet>(`/api/${route.params.slug}`);
 
 try {
   const { data, error, pending } = await useLazyFetch<Pet>(`/api/${route.params.slug}`);
-  const shelterResponse = await fetchShelter(data.value?.shelterId);
-  shelter.value = shelterResponse;
+
+  shelter.value = findShelterById(data.value?.shelterId);
 } catch (error) {
   console.error(error);
 }

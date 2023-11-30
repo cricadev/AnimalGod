@@ -1,61 +1,100 @@
 <template>
   <div class="">
-    <div class="text-darkContThird" v-if="user">
-      <div class="user-image-upload flex justify-center items-center">
-
-        <div class="relative" v-if="currentPrismaUser">
-          <div class="" v-if="!currentPrismaUser.image">
-            <Icon name="i-mdi-account" class="w-32 h-32 rounded-full" />
-            <label for="imageInput"
-              class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white">
-              <Icon name="i-mdi-pencil" class="" />
-              <input type="file" id="imageInput" class="hidden" @change="(event) => handleUpload(event)" accept="image/*">
-            </label>
+    <div class="flex flex-col justify-between h-[90dvh]" v-if="user">
+      <div class="">
+        <div class="user-image-upload flex justify-center items-center">
+          <div class="relative" v-if="currentPrismaUser">
+            <div class="" v-if="!currentPrismaUser.image">
+              <Icon name="i-mdi-account" class="w-32 h-32 rounded-full" />
+              <label for="imageInput"
+                class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white">
+                <Icon name="i-mdi-pencil" class="" />
+                <input type="file" id="imageInput" class="hidden" @change="(event) => handleUpload(event)"
+                  accept="image/*">
+              </label>
+            </div>
+            <div class="relative" v-else>
+              <nuxt-img :src="currentPrismaUser.image" class="w-32 h-32 rounded-full object-cover" />
+              <button
+                class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white"
+                @click="handleImageDelete">
+                <Icon name="i-mdi-trash-can" class="" />
+              </button>
+            </div>
           </div>
-
-          <div class="relative" v-else>
-
-            <nuxt-img :src="currentPrismaUser.image" class="w-32 h-32 rounded-full object-cover" />
-
-            <button
-              class="absolute bottom-0 right-0 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-white"
-              @click="handleImageDelete">
-              <Icon name="i-mdi-trash-can" class="" />
-            </button>
-
-          </div>
-
         </div>
-
+        <h3 class="text-Heading3sm text-center text-white font-semibold">
+          {{
+            user.user_metadata?.name
+          }}
+          <Icon :name="convertCountryToIcon(user.user_metadata?.country)" class="" />
+        </h3>
+        <div class="" v-if="loading"> loading....</div>
+        <div class="" v-else>
+          <ProfileInputEditableHeading :modelValue="currentPrismaUser.phone"
+            @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
+          <ProfileInputEditableHeading :modelValue="currentPrismaUser.address"
+            @update:modelValue="value => handleFieldUpdate('address', value)" :address="true" />
+          <ProfileInputEditableHeading :modelValue="currentPrismaUser.website" :website="true"
+            @update:modelValue="value => handleFieldUpdate('website', value)" />
+        </div>
       </div>
 
-      <h3 class="text-Heading3sm text-center text-white font-semibold">
+      <div class="px-5">
 
-        {{
-          user.user_metadata?.name
-        }}
-        <Icon :name="convertCountryToIcon(user.user_metadata?.country)" class="" />
+        <nuxt-link v-if="user?.user_metadata?.isShelter" to="/registered-pets"
+          class="registered-pets-card justify-center flex bg-darkContSecond py-5 gap-4 items-center">
+          <UAvatarGroup size="sm" :max="4" :ui="{
+            'ring': 'ring-0',
+            'wrapper': 'bg-darkContSecond',
+          }">
+            <UAvatar class="override-this-shit"
+              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
+              :alt="pet?.name" v-for="pet in itemsPets" />
+          </UAvatarGroup>
 
-      </h3>
+          <span>
 
-      <div class="" v-if="loading"> loading....</div>
-      <div class="" v-else>
-        <ProfileInputEditableHeading :modelValue="currentPrismaUser.phone"
-          @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
-        <ProfileInputEditableHeading :modelValue="currentPrismaUser.address"
-          @update:modelValue="value => handleFieldUpdate('address', value)" :address="true" />
+            Your registered pets
 
-        <ProfileInputEditableHeading :modelValue="currentPrismaUser.website" :website="true"
-          @update:modelValue="value => handleFieldUpdate('website', value)" />
+            <Icon name="i-mdi-chevron-right" class="text-white" />
+          </span>
+
+        </nuxt-link>
+        <nuxt-link v-else to="/my-applications"
+          class="registered-pets-card justify-center flex bg-darkContSecond py-5 gap-4 items-center">
+          <UAvatarGroup size="sm" :max="4" :ui="{
+            'ring': 'ring-0',
+            'wrapper': 'bg-darkContSecond',
+          }">
+            <UAvatar class="override-this-shit"
+              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
+              :alt="pet?.name" v-for="pet in itemsPets" />
+          </UAvatarGroup>
+
+          <span>
+            Your applications
+            <Icon name="i-mdi-chevron-right" class="text-white" />
+          </span>
+
+
+        </nuxt-link>
+        <div class="t&c-buttons gap-1 flex flex-col mt-5">
+
+          <UButton size="xl" label="Permissions" color="secondary" variant="solid" block class=" py-3"
+            icon="i-mdi-chevron-right" trailing />
+          <UButton size="xl" label="Privacy Policy" color="secondary" variant="solid" block class="py-3"
+            icon="i-mdi-chevron-right" trailing />
+          <UButton size="xl" label="Contact Us" color="secondary" variant="solid" block class="py-3"
+            icon="i-mdi-chevron-right" trailing />
+
+          <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-5 mt-2" />
+        </div>
       </div>
-
-      <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-5" />
     </div>
     <div class="" v-else>There is no profile please log in</div>
 
-    <div class="">
-      {{ currentPrismaUser }}
-    </div>
+
 
   </div>
 </template>
@@ -74,6 +113,7 @@ countries.registerLocale(en);
 const user = useSupabaseUser();
 
 
+const { data: itemsPets, error: errorPets, pending: pendingPets } = useLazyFetch(`/api/get-all-by-shelter`)
 
 const state = reactive({
   currentPrismaUser: reactive({
@@ -85,6 +125,8 @@ const state = reactive({
 );
 
 const { currentPrismaUser, loading } = toRefs(state);
+
+
 const getCurrentUser = async () => {
   loading.value = true
   if (user.value.user_metadata?.isShelter) {
@@ -233,3 +275,4 @@ const convertCountryToIcon = (country) => {
 
 
 </script>
+<style scoped></style>

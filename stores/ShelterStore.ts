@@ -3,22 +3,35 @@ import type { Pet } from "@/types"
 
 
 export const useShelterStore = defineStore("ShelterStore", () => {
-  const shelters = ref([]);
 
-  const fetchShelter = async (id) => {
+
+  const shelters = ref<Shelter[]>([])
+
+  const fetchShelters = async () => {
+
     try {
-      const data = await $fetch(`/api/shelter?userId=${id}`);
+      const data = await $fetch(`/api/get-all-shelters`);
       if (!data) {
         const noDataError = new Error('No data returned from server');
         console.error('Error fetching shelter:', noDataError);
         throw noDataError;
       }
 
-      return data;
+      shelters.value = data;
     } catch (error) {
       console.error('Error in fetchShelter:', error);
       throw error;
     }
+
+
+
+
+
+  }
+  fetchShelters()
+
+  const findShelterById = (id: number) => {
+    return shelters.value.find((shelter) => shelter.id === id);
   }
 
 
@@ -26,7 +39,7 @@ export const useShelterStore = defineStore("ShelterStore", () => {
 
   return {
     shelters,
-    fetchShelter,
+    findShelterById
   };
 });
 if (import.meta.hot) {

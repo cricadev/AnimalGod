@@ -2,7 +2,7 @@ export default defineAppConfig({
   ui: {
     icons: "all",
     primary: "contAccent",
-    gray: "darkContText",
+    gray: "darkContSecond",
     button: {
       base: "focus:outline-none focus-visible:outline-0 disabled:cursor-not-allowed disabled:opacity-75 flex-shrink-0 justify-center",
       font: "font-medium",
