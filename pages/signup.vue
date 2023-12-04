@@ -124,7 +124,7 @@ const credentials = reactive({
 const signup = async () => {
   try {
     // First, try to create the client
-    const data = await $fetch('/api/createClient', {
+    const data = await $fetch('/api/client', {
       method: 'post',
       body: credentials
     });

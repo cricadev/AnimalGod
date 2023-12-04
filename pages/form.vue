@@ -3,27 +3,14 @@
     <form @submit.prevent="handleFormSubmition"
       class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative overflow-hidden rounded-lg">
       <TransitionGroup name="list" class="">
-        <RegisterAnimalFormStepsCounter :currentStep="step" :totalSteps="9" />
-        <RegisterAnimalFormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
-        <RegisterAnimalFormPetTypeSelection v-if="step === 1" v-model="pet.type" @back="step--" @next="step++" />
-        <RegisterAnimalFormPetNameInput v-if="step === 2" v-model="pet.name" @next="step++" @back="step--" />
-        <RegisterAnimalFormPetImageUpload v-if="step === 3" v-model="pet.images" @next="step++" @back="step--" />
-        <RegisterAnimalFormPetBasicInfo v-if="step === 4" v-model:gender="pet.gender" v-model:size="pet.size"
-          v-model:age="pet.age" v-model:breed="pet.breed" v-model:goodWith="pet.goodWith" v-model:activity="pet.activity"
-          :sizeOptions="SizeOptions" :breedOptions="BreedOptions" :good-with-options="GoodWithOptions"
-          :activity-level-options="ActivityLevelOptions" @next="step++" @back="step--" />
+        <FormStepsCounter :currentStep="step" :totalSteps="3" />
+        <FormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
+        <FormPetTypeSelection :shelter="false" v-if="step === 1" v-model="form.type" @back="step--" @next="step++" />
 
-        <RegisterAnimalFormPetHistory v-if="step === 5" v-model="pet.history" @next="step++" @back="step--" />
-        <RegisterAnimalFormPetPersonality v-if="step === 6" v-model:personality="pet.personality"
-          v-model:personalityDescription="pet.personalityDescription" :adjectivesOptions="PersonalityAdjectivesOptions"
-          @next="step++" @back="step--" />
-        <RegisterAnimalFormPetHealth v-if="step === 7" v-model:healthConditions="pet.healthConditions"
-          v-model:healthDescription="pet.healthDescription" :healthOptions="HealthConditionOptions" @next="step++"
-          @back="step--" />
-        <RegisterAnimalFormPetReview @edit-type="goToAndFix" v-if="step === 8" :pet="pet" @back="step--"
-          @submit="handlePetRegister" />
 
-        <RegisterAnimalFormExitFormScreen @exit-form="handleExitForm" v-if="step === 9" />
+        <FormPetReview @edit-type="goToAndFix" v-if="step === 8" :pet="form" @back="step--" @submit="handlePetRegister" />
+
+        <FormExitFormScreen @exit-form="handleExitForm" v-if="step === 9" />
 
       </TransitionGroup>
     </form>
@@ -35,10 +22,11 @@ import { storeToRefs } from 'pinia';
 import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
 const formStore = useformStore();
-const { pet } = storeToRefs(formStore);
+const { form } = storeToRefs(formStore);
+
 
 const handleFormSubmition = () => {
-  console.log(pet)
+  console.log(form)
 }
 const handleExitForm = () => {
   formStore.resetPet();
@@ -108,9 +96,9 @@ const user = useSupabaseUser();
 const handlePetRegister = async () => {
   try {
     // First, try to create the client
-    const data = await $fetch('/api/create-pet', {
+    const data = await $fetch('/api/form', {
       method: 'post',
-      body: { ...pet.value, email: user.value?.email }
+      body: { ...form.value, email: user.value?.email }
     });
     if (!data) {
       throw new Error('Error creating client')

@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="pet in data" :key="pet.id">
+        <tr v-for="pet in data?.pets" :key="pet.id">
           <td>
             <nuxt-img
               :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
@@ -51,7 +51,8 @@ const formatDate = (dateString) => {
   const year = date.getFullYear().toString().substr(-2);
   return `${day}/${month}/${year}`;
 }
-const { data, error, pending } = useLazyFetch(`/api/get-all-by-shelter`)
+
+const { data, error, pending } = useLazyFetch(`/api/shelter`)
 </script>
 
 <style></style>

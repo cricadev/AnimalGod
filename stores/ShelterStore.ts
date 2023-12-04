@@ -10,7 +10,7 @@ export const useShelterStore = defineStore("ShelterStore", () => {
   const fetchShelters = async () => {
 
     try {
-      const data = await $fetch(`/api/get-all-shelters`);
+      const data = await $fetch(`/api/shelters`);
       if (!data) {
         const noDataError = new Error('No data returned from server');
         console.error('Error fetching shelter:', noDataError);
@@ -31,8 +31,10 @@ export const useShelterStore = defineStore("ShelterStore", () => {
   fetchShelters()
 
   const findShelterById = (id: number) => {
-    return shelters.value.find((shelter) => shelter.id === id);
+    return shelters.value.find(shelter => shelter.id === id)
   }
+
+
 
 
 

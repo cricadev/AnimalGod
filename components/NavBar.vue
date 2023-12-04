@@ -119,7 +119,7 @@ const items = [
                   <nuxt-link to="/requests">Requests</nuxt-link>
                 </li>
                 <li class="nav-title">
-                  <nuxt-link to="/register-animal">My Registered animals</nuxt-link>
+                  <nuxt-link to="/registered-pets">My Registered animals</nuxt-link>
                 </li>
                 <li class="nav-title">
                   <nuxt-link to="/aboutus">About us</nuxt-link>

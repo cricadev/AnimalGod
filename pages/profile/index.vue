@@ -50,7 +50,7 @@
           }">
             <UAvatar class="override-this-shit"
               :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
-              :alt="pet?.name" v-for="pet in itemsPets" />
+              :alt="pet?.name" v-for="pet in itemsPets?.pets" />
           </UAvatarGroup>
 
           <span>
@@ -69,7 +69,7 @@
           }">
             <UAvatar class="override-this-shit"
               :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
-              :alt="pet?.name" v-for="pet in itemsPets" />
+              :alt="pet?.name" v-for="pet in itemsPets?.pets" />
           </UAvatarGroup>
 
           <span>
@@ -113,11 +113,12 @@ countries.registerLocale(en);
 const user = useSupabaseUser();
 
 
-const { data: itemsPets, error: errorPets, pending: pendingPets } = useLazyFetch(`/api/get-all-by-shelter`)
+const { data: itemsPets, error: errorPets, pending: pendingPets } = useLazyFetch(`/api/shelter`)
 
 const state = reactive({
   currentPrismaUser: reactive({
-    image: ""
+    image: "",
+    phone: "",
   }),
   loading: true
   // ...
@@ -130,10 +131,10 @@ const { currentPrismaUser, loading } = toRefs(state);
 const getCurrentUser = async () => {
   loading.value = true
   if (user.value.user_metadata?.isShelter) {
-    const { data } = await useFetch(`/api/getId?email=${user.value.email}&isShelter=true`)
+    const { data } = await useFetch(`/api/id?email=${user.value.email}&isShelter=true`)
     currentPrismaUser.value = data
-  } else if (user.value.user_metadata?.isShelter === false) {
-    const { data } = await useFetch(`/api/getId?email=${user.value.email}`)
+  } else if (!user.value.user_metadata?.isShelter) {
+    const { data } = await useFetch(`/api/id?email=${user.value.email}`)
     currentPrismaUser.value = data
   }
 
@@ -152,7 +153,7 @@ const handleFieldUpdate = async (field, newValue) => {
     console.log(currentPrismaUser.value.id)
     console.log(field, newValue)
     // First, try to create the client
-    const data = await $fetch('/api/updateUser', {
+    const data = await $fetch('/api/user', {
       method: 'PATCH',
       body: {
         isShelter: user.value.user_metadata?.isShelter,
@@ -197,7 +198,7 @@ const handleImageDelete = async () => {
   try {
     console.log(currentPrismaUser.value.id)
     // First, try to create the client
-    const data = await $fetch('/api/updateUser', {
+    const data = await $fetch('/api/user', {
       method: 'PATCH',
       body: {
         isShelter: user.value.user_metadata?.isShelter,
@@ -225,7 +226,7 @@ const handleUpload = async (event) => {
 
   try {
     // First, try to create the client
-    const data = await $fetch('/api/updateUser', {
+    const data = await $fetch('/api/user', {
       method: 'PATCH',
       body: {
         isShelter: user.value.user_metadata?.isShelter,

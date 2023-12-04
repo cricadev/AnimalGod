@@ -1,7 +1,7 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep question="Let's review the info, confirm and apply!" :expression="expression">
-    </RegisterAnimalFormPreHeaderStep>
+    <FormPreHeaderStep question="Let's review the info, confirm and apply!" :expression="expression">
+    </FormPreHeaderStep>
     <div v-if="pet" class="pet-info space-y-4 my-12 overflow-y-auto overflow-x-hidden">
       <h4 class="font-bold">The pet's info is</h4>
       <div class="item">

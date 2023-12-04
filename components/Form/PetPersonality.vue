@@ -1,9 +1,8 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep
-      question="Select the adjectives that describes the pet’s personality and add a description"
+    <FormPreHeaderStep question="Select the adjectives that describes the pet’s personality and add a description"
       :expression="expression">
-    </RegisterAnimalFormPreHeaderStep>
+    </FormPreHeaderStep>
 
     <div>
       <div>
@@ -22,8 +21,8 @@
           @input="updatePet('personalityDescription', $event.target.value)" id="pet-personality"
           placeholder="Describe the pet's personality (1000 Chars)" name="pet-history" rows="4" cols="50"></textarea>
 
-        <RegisterAnimalFormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
-        </RegisterAnimalFormBackAndNextButtons>
+        <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+        </FormBackAndNextButtons>
       </div>
     </div>
 

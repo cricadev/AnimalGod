@@ -1,7 +1,7 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep question="Now, add some basic info about the pet" :expression="expression">
-    </RegisterAnimalFormPreHeaderStep>
+    <FormPreHeaderStep question="Now, add some basic info about the pet" :expression="expression">
+    </FormPreHeaderStep>
 
     <div class="flex gap-2 w-full justify-start items-center">
       <label class="mr-8">Gender</label>
@@ -71,8 +71,8 @@
 
 
 
-    <RegisterAnimalFormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
-    </RegisterAnimalFormBackAndNextButtons>
+    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+    </FormBackAndNextButtons>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep question="Add some photos and one video of the pet" :expression="!upload">
-    </RegisterAnimalFormPreHeaderStep>
+    <FormPreHeaderStep question="Add some photos and one video of the pet" :expression="!upload">
+    </FormPreHeaderStep>
 
     <label v-if="!upload" for="imageInput" class="text-contInactive">
       <div class="flex flex-col items-center justify-center gap-4">
@@ -26,8 +26,8 @@
     </div>
 
 
-    <RegisterAnimalFormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="files.length < 1">
-    </RegisterAnimalFormBackAndNextButtons>
+    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="files.length < 1">
+    </FormBackAndNextButtons>
   </div>
 </template>
 

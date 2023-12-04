@@ -74,8 +74,9 @@
 
           </div>
           <div class="flex items-center justify-center gap-4 mt-4">
-            <UButton size="xl" label="Prerequisits form" color="primary" class="py-3 px-6" variant="solid"
-              :disabled="!user" />
+            <UButton size="xl" color="primary" class="py-3 px-6" variant="solid" :disabled="!user">
+              <nuxt-link :to="'/form?id=' + data.id">Prerequisites form</nuxt-link>
+            </UButton>
             <UButton size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold py-3 px-6" />
           </div>
 
@@ -185,21 +186,23 @@
         </UTabs>
 
       </div>
-      <div class="shelter-info bg-[#166DD2]" v-if="shelter">
-        <div class="flex items-center flex-col justify-center gap-4">
-          <div class="">
-            <nuxt-img :src="shelter.image" width="100" height="100" class="rounded-full"></nuxt-img>
-          </div>
-          <div class="flex flex-col">
-            <h3 class="text-Heading3sm font-bold"> {{ shelter.name }} </h3>
-            <p class="text-Body1sm font-regular">{{ shelter.email ?? 'No email provided' }}</p>
-            <p class="text-Body1sm font-regular">{{ shelter.address ?? 'No address provided' }}</p>
-            <p class="text-Body1sm font-regular">{{ shelter.phone ?? 'No phone provided' }}</p>
-
+      <div class="">
+        <div class="shelter-info bg-[#166DD2]" v-if="shelter">
+          <div class="flex items-center flex-col justify-center gap-4">
+            <div class="">
+              <nuxt-img :src="shelter.image" width="100" height="100" class="rounded-full"></nuxt-img>
+            </div>
+            <div class="flex flex-col">
+              <h3 class="text-Heading3sm font-bold"> {{ shelter.name }} </h3>
+              <p class="text-Body1sm font-regular">{{ shelter.email ?? 'No email provided' }}</p>
+              <p class="text-Body1sm font-regular">{{ shelter.address ?? 'No address provided' }}</p>
+              <p class="text-Body1sm font-regular">{{ shelter.phone ?? 'No phone provided' }}</p>
+            </div>
           </div>
         </div>
 
       </div>
+
       <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="myData">
         <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
@@ -234,24 +237,20 @@ import type { Pet, Shelter } from "~/types";
 import { useformStore } from '~/stores/formStore';
 import { useShelterStore } from "~/stores/ShelterStore";
 const route = useRoute();
-const shelter = ref<Shelter>({});
 const ShelterStore = useShelterStore();
 const { shelters } = storeToRefs(ShelterStore);
 const { findShelterById } = ShelterStore
+
 const { data, error, pending } = await useLazyFetch<Pet>(`/api/${route.params.slug}`);
 
-try {
-  const { data, error, pending } = await useLazyFetch<Pet>(`/api/${route.params.slug}`);
 
-  shelter.value = findShelterById(data.value?.shelterId);
-} catch (error) {
-  console.error(error);
-}
+const { data: shelter, error: errShelter, pending: penShelter } = useLazyFetch(`/api/shelter?shelterId=${data.value.shelterId}`)
 
 
+console.log(shelter.value)
 const formStore = useformStore();
 const { HealthConditionOptions } = formStore;
-const { data: myData, error: myError, pending: myPending } = await useLazyFetch<Pet[]>('/api/get-all-animals?offset=0&limit=2')
+const { data: myData, error: myError, pending: myPending } = await useLazyFetch<Pet[]>('/api/pets?offset=0&limit=2')
 
 // get carouselImages value from animalDataByName
 const user = useSupabaseUser();
@@ -410,10 +409,115 @@ if (error) {
   console.log(error)
 }
 
-console.log(data.value?.images)
 const onSlideEnd = () => {
   currentSlide.value += 1;
 };
 
 
 </script>
+<style scoped>
+.lds-roller {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

@@ -1,8 +1,8 @@
 <template>
   <div class="section-step-layout">
-    <RegisterAnimalFormPreHeaderStep
-      question="Select the adjectives that describes the pet’s health and add a description" :expression="expression">
-    </RegisterAnimalFormPreHeaderStep>
+    <FormPreHeaderStep question="Select the adjectives that describes the pet’s health and add a description"
+      :expression="expression">
+    </FormPreHeaderStep>
 
 
     <div v-for="(condition, index) in healthOptions" :key="condition.value">
@@ -18,8 +18,8 @@
 
       <textarea id="pet-health" placeholder="Describe the pet’s health condition (1000 chars)" :value="healthDescription"
         @input="updatePet('healthDescription', $event.target.value)" required></textarea>
-      <RegisterAnimalFormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
-      </RegisterAnimalFormBackAndNextButtons>
+      <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+      </FormBackAndNextButtons>
     </div>
   </div>
 </template>

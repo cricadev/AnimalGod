@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
-import type { Pet } from "~/types";
+import type { Pet, Appointment } from "~/types";
 
 export const useformStore = defineStore("formStore", () => {
   const upload = ref(false)
@@ -39,6 +39,23 @@ export const useformStore = defineStore("formStore", () => {
   ];
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
+  const form = reactive<Appointment>({
+    id: 0,
+    liveWith: [],
+    liveWithDescription: '',
+    liveIn: false,
+    isRenting: false,
+    rentAcceptance: false,
+    qAndA: [],
+    qAndADescription: '',
+    whyMessage: '',
+    clientId: 0,
+    client: null,
+    petId: 0,
+    pet: null,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  });
   const pet = reactive<Pet>({
     id: 0,
     type: '',
@@ -144,6 +161,7 @@ export const useformStore = defineStore("formStore", () => {
 
   return {
     pet,
+    form,
     imagesURL,
     files,
     upload,

@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
 
   // Get the authenticated user
   const user = await serverSupabaseUser(event)
-
+  console.log(shelterId, user)
   let shelter;
   if (user) {
     // If the user is authenticated, find the shelter by the user's email
@@ -36,7 +36,6 @@ export default defineEventHandler(async (event) => {
   })
 
   return {
-
     shelter, pets
   }
 
