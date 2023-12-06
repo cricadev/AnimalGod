@@ -243,11 +243,13 @@ const { findShelterById } = ShelterStore
 
 const { data, error, pending } = await useLazyFetch<Pet>(`/api/${route.params.slug}`);
 
+if (error) {
+  console.log(error)
+}
 
-const { data: shelter, error: errShelter, pending: penShelter } = useLazyFetch(`/api/shelter?shelterId=${data.value.shelterId}`)
+const shelter = shelters.value.find((shelter: Shelter) => shelter.id === data?.value.shelterId);
 
 
-console.log(shelter.value)
 const formStore = useformStore();
 const { HealthConditionOptions } = formStore;
 const { data: myData, error: myError, pending: myPending } = await useLazyFetch<Pet[]>('/api/pets?offset=0&limit=2')
@@ -405,9 +407,6 @@ const currentSlide = ref(0);
 
 
 
-if (error) {
-  console.log(error)
-}
 
 const onSlideEnd = () => {
   currentSlide.value += 1;

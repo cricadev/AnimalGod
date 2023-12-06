@@ -1,5 +1,6 @@
 <template>
   <div class="section-step-layout" style="padding-bottom: 4rem;">
+
     <FormPreHeaderStep :question="shelter ? 'Is the pet a dog or a cat?' :
       'Where do you live?'
       " :expression="modelValue.length">
@@ -20,20 +21,21 @@
       </button>
     </div>
     <div v-else class="flex flex-col gap-4 text-contAccent font-bold mx-20">
-      <button class="flex items-center gap-2 bg-[#c8ccd9] px-12 py-4 rounded-md"
+      <button class="flex items-center gap-2 bg-[#c8ccd9] px-8 py-4 rounded-md"
         :class="{ 'selected': modelValue === 'house' }" @click.prevent="updateType('house')">
         <Icon class="h-8 w-8" name="cil:house"></Icon>
         house
       </button>
-      <button class="flex items-center gap-2 bg-[#c8ccd9] px-12 py-4 rounded-md"
+      <button class="flex items-center gap-2 bg-[#c8ccd9] px-8 py-4 rounded-md"
         :class="{ 'selected': modelValue === 'apartment' }" @click.prevent="updateType('apartment')">
         <Icon class="h-8 w-8" name="cil:building"></Icon>
         building
       </button>
 
-      <FormBackAndNextButtons v-if="!shelter" @next="emit('next')" @back="emit('back')" :expression="expression">
-      </FormBackAndNextButtons>
+
     </div>
+    <FormBackAndNextButtons v-if="!shelter" @next="emit('next')" @back="emit('back')" :expression="expression">
+    </FormBackAndNextButtons>
   </div>
 </template>
 
@@ -49,7 +51,7 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'next'])
+const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
 const updateType = (type) => {
   emit('update:modelValue', type)

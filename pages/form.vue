@@ -5,12 +5,7 @@
       <TransitionGroup name="list" class="">
         <FormStepsCounter :currentStep="step" :totalSteps="3" />
         <FormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
-        <FormPetTypeSelection :shelter="false" v-if="step === 1" v-model="form.type" @back="step--" @next="step++" />
-
-
-        <FormPetReview @edit-type="goToAndFix" v-if="step === 8" :pet="form" @back="step--" @submit="handlePetRegister" />
-
-        <FormExitFormScreen @exit-form="handleExitForm" v-if="step === 9" />
+        <FormPetTypeSelection :shelter="false" v-if="step === 1" v-model="form.liveIn" @back="step--" @next="step++" />
 
       </TransitionGroup>
     </form>
@@ -35,49 +30,7 @@ const handleExitForm = () => {
     navigateTo('/');
   }, 500);
 }
-const SizeOptions = ['Small', 'Medium', 'Large'];
-const BreedOptions = [
-  'Golden Retriever',
-  'Labrador Retriever',
-  'German Shepherd',
-  'Bulldog',
-  'Beagle',
-  'Poodle',
-  'Rottweiler',
-  'Yorkshire Terrier',
-  'Boxer',
-  'Dachshund'
-];
-const GoodWithOptions = ['Children', 'Dogs', 'Cats'];
-const ActivityLevelOptions = ['Low', 'Medium', 'High'];
-const PersonalityAdjectivesOptions = ['Affectionate', 'Aloof', 'Dominant', 'Compliant', 'Relaxed', 'Enthusiastic', 'Confident', 'Timid', 'Devoted', 'Independent'];
-const HealthConditionOptions = [{
-  label: 'Is the pet fully vaccinated?',
-  value: 'Vaccinated',
-},
-{
-  label: 'Is the pet sterilized?',
-  value: 'Sterilized',
-},
-{
-  label: 'Is the pet physically active?',
-  value: 'Active',
-},
-{
-  label: 'Is the pet healthy eating habits?',
-  value: 'Healthy',
-},
-{
-  label: 'Does the pet have good hygiene?',
-  value: 'Hygienic',
-},
-{
-  label: 'Does the pet have any psychological problems?',
-  value: 'Psychological',
-},
 
-
-];
 const step = ref(0)
 const { history, undo, redo } = useRefHistory(step)
 

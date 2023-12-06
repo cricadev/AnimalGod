@@ -6,18 +6,24 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { limit = 4, offset = 0, shelterId } = getQuery(event)
 
+  console.log('shelterId', shelterId)
   // Get the authenticated user
-  const user = await serverSupabaseUser(event)
-  console.log(shelterId, user)
+  var user = null
+  try {
+    user = await serverSupabaseUser(event)
+  } catch (err) {
+    console.error(err)
+
+  }
   let shelter;
   if (user) {
     // If the user is authenticated, find the shelter by the user's email
-    shelter = await prisma.shelter.findUnique({
+    shelter = await prisma.shelter.findUniqueOrThrow({
       where: { email: user.email },
     });
   } else {
     // If the user is not authenticated, find the shelter by its ID
-    shelter = await prisma.shelter.findUnique({
+    shelter = await prisma.shelter.findUniqueOrThrow({
       where: { id: Number(shelterId) },
     });
   }
