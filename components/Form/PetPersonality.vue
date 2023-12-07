@@ -1,12 +1,12 @@
 <template>
   <div class="section-step-layout">
-    <FormPreHeaderStep question="Select the adjectives that describes the pet’s personality and add a description"
-      :expression="expression">
+    <FormPreHeaderStep :question="shelter ? 'Select the adjectives that describes the pet’s personality and add a description' :
+      'Who do you live with?'" :expression="expression">
     </FormPreHeaderStep>
 
     <div>
       <div>
-        <label>Personality:</label>
+        <label></label>
         <div v-for="adjective in adjectivesOptions" :key="adjective">
           <input type="checkbox" :id="adjective" :value="adjective"
             @change="updatePet('personality', $event.target.value)">
@@ -21,11 +21,11 @@
           @input="updatePet('personalityDescription', $event.target.value)" id="pet-personality"
           placeholder="Describe the pet's personality (1000 Chars)" name="pet-history" rows="4" cols="50"></textarea>
 
-        <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
-        </FormBackAndNextButtons>
+
       </div>
     </div>
-
+    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+    </FormBackAndNextButtons>
   </div>
 </template>
 
@@ -52,14 +52,19 @@ const props = defineProps({
   adjectivesOptions: {
     type: Array,
     required: true
+  }, shelter: {
+    type: Boolean,
+    default: true
   }
+
 })
 const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
 
 const updatePet = (key, value) => {
   if (key === 'personality') {
-    const personality = [...pet.value.personality ?? []];
+   
+  const personality = [...pet.value.personality ?? []];
     const index = personality.indexOf(value);
     if (index === -1) {
       personality.push(value);
@@ -67,6 +72,8 @@ const updatePet = (key, value) => {
       personality.splice(index, 1);
     }
     value = personality;
+    
+  
   }
   emit(`update:${key}`, value);
   pet.value = { ...pet?.value, [key]: value }

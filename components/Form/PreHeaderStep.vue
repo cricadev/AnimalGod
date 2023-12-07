@@ -8,7 +8,6 @@
 
       <nuxt-img v-else src="https://res.cloudinary.com/ddc0cce3m/image/upload/v1700849265/animalGod/god02_w0zze1.png"
         class="w-24 h-auto" alt="" />
-
     </div>
     <h3 class="text-Heading3sm text-black font-bold">{{ question }}</h3>
   </div>

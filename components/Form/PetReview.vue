@@ -2,7 +2,7 @@
   <div class="section-step-layout">
     <FormPreHeaderStep question="Let's review the info, confirm and apply!" :expression="expression">
     </FormPreHeaderStep>
-    <div v-if="pet" class="pet-info space-y-4 my-12 overflow-y-auto overflow-x-hidden">
+    <div v-if="pet && shelter" class="pet-info space-y-4 my-12 overflow-y-auto overflow-x-hidden">
       <h4 class="font-bold">The pet's info is</h4>
       <div class="item">
         <h5 class="text-contInactive font-bold text-sm">Pet's
@@ -115,6 +115,57 @@
 
       </div>
     </div>
+    <div class="pet-info space-y-4 my-12 overflow-y-auto overflow-x-hidden" v-if="!shelter">
+
+      <h4 class="font-bold">Your preview info is</h4>
+      <div class="item">
+        <h5 class="text-contInactive font-bold text-sm">You live with
+          <br>
+        </h5>
+        <UButton :label="pet.liveWith" icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+
+      </div>
+      <div class="item">
+        <h5 class="text-contInactive font-bold text-sm">You live in</h5>
+        <UButton :label="pet.liveIn" icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+
+      </div>
+      <!-- BASIC INFO-->
+      <div class="">
+        <div class="flex flex-col justify-between">
+          <h5 class="text-contInactive font-bold text-sm">Basic info</h5>
+          <ul class="list-disc list-inside">
+            <li class="leading-tight font-bold text-sm" v-for="(item, index) in pet.qAndA">
+              <span class="" v-if="item.answer == 'Yes'">
+                {{ qAndAResponses[index].responseIfYes }}
+              </span>
+              <span class="" v-if="item.answer == 'No'">
+                {{ qAndAResponses[index].responseIfNo }}
+              </span>
+            </li>
+          </ul>
+
+          <p class="leading-tight text-sm"> {{ pet.qAndADescription }}</p>
+
+          <UButton icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+
+
+        </div>
+      </div>
+      <div class="grid gap-8 w-full">
+        <h5 class="text-contInactive font-bold text-sm col-start-1 col-end-2">Why you want to adopt a pet</h5>
+
+        <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-auto w-full ">
+          <p class="leading-tight text-sm"> {{ pet.whyMessage }}</p>
+
+        </div>
+        <UButton class="col-start-3 col-end-4 row-start-1 row-end-2 self-start" icon="i-mdi-pencil" trailing
+          color="secondary" variant="ghost"></UButton>
+
+      </div>
+
+    </div>
+
     <div class="submit-button flex justify-end">
       <UButton class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('submit', pet)">Confirm
         and Apply</UButton>
@@ -157,6 +208,29 @@ const healthConditionResponses = [
   },
 
 ]
+
+
+const qAndAResponses = [
+  {
+    responseIfYes: 'Enough time',
+    responseIfNo: 'Not enough time',
+  },
+  {
+    responseIfYes: 'Had a pet before',
+    responseIfNo: 'Never had a pet before',
+  },
+  {
+    responseIfYes: 'Travel a lot',
+    responseIfNo: 'Do not travel a lot',
+  },
+  {
+    responseIfYes: 'Want additional info on dog care',
+    responseIfNo: 'Do not want additional info on dog care',
+  },
+
+
+]
+
 const isObject = (value) => {
   return value && typeof value === 'object' && value.constructor === Object;
 }
@@ -164,6 +238,10 @@ defineProps({
   pet: {
     type: Object,
     required: true
+  },
+  shelter: {
+    type: Boolean,
+    default: true
   }
 })
 const emit = defineEmits(['submit', 'editType'])

@@ -3,10 +3,23 @@
     <form @submit.prevent="handleFormSubmition"
       class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative overflow-hidden rounded-lg">
       <TransitionGroup name="list" class="">
-        <FormStepsCounter :currentStep="step" :totalSteps="3" />
+        <FormStepsCounter :currentStep="step" :totalSteps="6" />
         <FormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
-        <FormPetTypeSelection :shelter="false" v-if="step === 1" v-model="form.liveIn" @back="step--" @next="step++" />
+        <FormPetPersonality :shelter="false" v-if="step === 1" v-model:personality="form.liveWith"
+          v-model:personalityDescription="form.liveWithDescription" :adjectivesOptions="liveWithOptions" @next="step++"
+          @back="step--" />
+        <FormPetTypeSelection :shelter="false" v-if="step === 2" v-model="form.liveIn" @back="step--" @next="step++" />
 
+        <FormReqRent v-if="step === 3" v-model:isRenting="form.isRenting" v-model:rentAcceptance="form.rentAcceptance"
+          @next="step++" @back="step--" />
+
+        <FormPetHealth :shelter="false" v-if="step === 4" v-model:healthConditions="form.qAndA"
+          v-model:healthDescription="form.qAndADescription" :healthOptions="qAndAOptions" @next="step++" @back="step--" />
+
+        <FormPetHistory v-if="step === 5" v-model="form.whyMessage" @next="step++" @back="step--" />
+
+        <FormPetReview :shelter="false" @edit-type="goToAndFix" v-if="step === 6" :pet="form" @back="step--"
+          @submit="handlePetRegister" />
       </TransitionGroup>
     </form>
 
@@ -19,6 +32,23 @@ import { useRefHistory } from '@vueuse/core'
 const formStore = useformStore();
 const { form } = storeToRefs(formStore);
 
+const qAndAOptions = [{
+  label: 'Do you have enough time to spend with your pet?',
+  value: 'Vaccinated',
+},
+{
+  label: 'Had you have a pet before?',
+  value: 'Sterilized',
+},
+{
+  label: 'Do you travel a lot?',
+  value: 'Active',
+},
+{
+  label: 'Do you want additional info on dog care?',
+  value: 'Healthy',
+},
+];
 
 const handleFormSubmition = () => {
   console.log(form)
@@ -45,7 +75,7 @@ const goToAndFix = (s: number) => {
 
 const user = useSupabaseUser();
 
-
+const liveWithOptions = ['My Husband/Wife', 'Children', 'Other Pet', 'Alone'];
 const handlePetRegister = async () => {
   try {
     // First, try to create the client

@@ -1,6 +1,6 @@
 <template>
   <div class="section-step-layout">
-    <FormPreHeaderStep question="Select the adjectives that describes the pet’s health and add a description"
+    <FormPreHeaderStep :question="shelter ? 'Select the adjectives that describes the pet’s health and add a description' : 'Now, some yes/no questions'"
       :expression="expression">
     </FormPreHeaderStep>
 
@@ -47,6 +47,10 @@ const props = defineProps({
   healthOptions: {
     type: Array,
     required: true
+  },
+  shelter: {
+    type: Boolean,
+    default: true
   }
 })
 console.log(props.modelValue)
@@ -56,6 +60,7 @@ const emit = defineEmits(['update:modelValue', 'next', 'back'])
 const pet = ref({
   healthConditions: props.healthOptions.map(option => ({ label: option.label, answer: '', responseIfYes: option.responseIfYes, responseIfNo: option.responseIfNo })),
 })
+
 
 const updatePet = (key, value, index) => {
   if (key === 'healthConditions') {

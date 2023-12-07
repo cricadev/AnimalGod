@@ -53,8 +53,8 @@ defineProps({
 
 const emit = defineEmits(['update:modelValue', 'next', 'back'])
 
-const updateType = (type) => {
-  emit('update:modelValue', type)
+const updateType = (value) => {
+  emit('update:modelValue', value)
   if (shelter) {
     setTimeout(() => {
       emit('next')

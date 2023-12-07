@@ -37,6 +37,31 @@ export const useformStore = defineStore("formStore", () => {
 
 
   ];
+
+
+  const qAndAOptions = [{
+    label: 'Do you have enough time to spend with your pet?',
+    responseIfYes: 'Enough time',
+    responseIfNo: 'Not enough time',
+  },
+  {
+    label: 'Had you have a pet before?',
+    responseIfYes: 'Had a pet before',
+    responseIfNo: 'Never had a pet before',
+  },
+  {
+    label: 'Do you travel a lot?',
+    responseIfYes: 'Travel a lot',
+    responseIfNo: 'Do not travel a lot',
+  },
+  {
+    label: 'Do you want additional info on dog care?',
+    responseIfYes: 'Want additional info on dog care',
+    responseIfNo: 'Do not want additional info on dog care',
+  },
+  ];
+
+
   const supabase = useSupabaseClient();
   const user = useSupabaseUser();
   const form = reactive<Appointment>({
@@ -46,7 +71,7 @@ export const useformStore = defineStore("formStore", () => {
     liveIn: false,
     isRenting: false,
     rentAcceptance: false,
-    qAndA: [],
+    qAndA: qAndAOptions.map(condition => ({ condition: condition.value, answer: '' })),
     qAndADescription: '',
     whyMessage: '',
     clientId: 0,
