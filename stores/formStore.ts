@@ -131,6 +131,23 @@ export const useformStore = defineStore("formStore", () => {
       updatedAt: new Date(),
     }
   }
+  const resetForm = () => {
+    form.value = {
+      id: 0,
+      liveWith: [],
+      liveWithDescription: '',
+      liveIn: false,
+      isRenting: false,
+      rentAcceptance: false,
+      qAndA: qAndAOptions.map(condition => ({ condition: condition.value, answer: '' })),
+      qAndADescription: '',
+      whyMessage: '',
+      clientId: null,
+      petId: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }
+  }
   const filePaths = ref([]);
 
   const handleFileUpload = async (e: any, storageTableName: string, entityName: string) => {
@@ -191,6 +208,7 @@ export const useformStore = defineStore("formStore", () => {
     handleFileUpload,
     deleteImage,
     resetPet,
+    resetForm,
     supabaseImages,
     HealthConditionOptions
 

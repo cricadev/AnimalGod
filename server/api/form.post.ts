@@ -1,4 +1,4 @@
-import { PrismaClient, personalityAdjectives } from "@prisma/client";
+import { PrismaClient, liveWith } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -12,9 +12,9 @@ export default defineEventHandler(async (event) => {
   });
   const res = await prisma.appointment.create({
     data: {
-      liveWith: body.liveWith,
+      liveWith: body.liveWith.map((p: string) => liveWith[p.toUpperCase()]),
       liveWithDescription: body.liveWithDescription,
-      liveIn: body.liveIn,
+      liveIn: body.liveIn === 'house' ? true : false,
       isRenting: body.isRenting,
       rentAcceptance: body.rentAcceptance,
       qAndA: body.qAndA,

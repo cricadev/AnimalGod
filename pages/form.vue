@@ -20,6 +20,8 @@
 
         <FormPetReview :shelter="false" @edit-type="goToAndFix" v-if="step === 6" :pet="form" @back="step--"
           @submit="handlePetRegister" />
+        <FormExitFormScreen @exit-form="handleExitForm" v-if="step === 7" />
+
       </TransitionGroup>
     </form>
 
@@ -58,13 +60,12 @@ const handleFormSubmition = () => {
   console.log(form)
 }
 const handleExitForm = () => {
-  formStore.resetPet();
+  formStore.resetForm();
   step.value = 0;
   setTimeout(() => {
     navigateTo('/');
   }, 500);
 }
-
 const step = ref(0)
 const { history, undo, redo } = useRefHistory(step)
 
@@ -79,7 +80,7 @@ const goToAndFix = (s: number) => {
 
 const user = useSupabaseUser();
 
-const liveWithOptions = ['My Husband/Wife', 'Children', 'Other Pet', 'Alone'];
+const liveWithOptions = ['PARTNER', 'CHILDREN', 'OTHER_PETS', 'ALONE'];
 const handlePetRegister = async () => {
   try {
     // First, try to create the client
