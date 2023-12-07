@@ -1,7 +1,9 @@
 <template>
   <div class="section-step-layout">
 
-    <FormPreHeaderStep question="Tell a little bit about the pet’s history" :expression="expression">
+    <FormPreHeaderStep
+      :question="shelter ? 'Tell a little bit about the pet’s history' : 'Let’s finish this form by telling us why you want to adopt a pet.'"
+      :expression="expression">
     </FormPreHeaderStep>
 
     <div class="relative flex gap-8 flex-col">
@@ -20,12 +22,16 @@
 
 <script lang="ts" setup>
 const expression = computed(() => {
-  return props.modelValue.length < 100
+  return props.modelValue.length < 10
 })
 const props = defineProps({
   modelValue: {
     type: String,
     required: true
+  },
+  shelter: {
+    type: Boolean,
+    default: true
   }
 })
 const emit = defineEmits(['update:modelValue', 'next', 'back'])

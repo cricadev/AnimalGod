@@ -16,7 +16,7 @@
         <FormPetHealth :shelter="false" v-if="step === 4" v-model:healthConditions="form.qAndA"
           v-model:healthDescription="form.qAndADescription" :healthOptions="qAndAOptions" @next="step++" @back="step--" />
 
-        <FormPetHistory v-if="step === 5" v-model="form.whyMessage" @next="step++" @back="step--" />
+        <FormPetHistory :shelter="false" v-if="step === 5" v-model="form.whyMessage" @next="step++" @back="step--" />
 
         <FormPetReview :shelter="false" @edit-type="goToAndFix" v-if="step === 6" :pet="form" @back="step--"
           @submit="handlePetRegister" />
@@ -31,7 +31,11 @@ import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
 const formStore = useformStore();
 const { form } = storeToRefs(formStore);
-
+const route = useRoute()
+console.log(
+  'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+  route.query.id
+)
 const qAndAOptions = [{
   label: 'Do you have enough time to spend with your pet?',
   value: 'Vaccinated',
@@ -79,7 +83,7 @@ const liveWithOptions = ['My Husband/Wife', 'Children', 'Other Pet', 'Alone'];
 const handlePetRegister = async () => {
   try {
     // First, try to create the client
-    const data = await $fetch('/api/form', {
+    const data = await $fetch('/api/form?id=' + route.query.id, {
       method: 'post',
       body: { ...form.value, email: user.value?.email }
     });

@@ -74,10 +74,8 @@ export const useformStore = defineStore("formStore", () => {
     qAndA: qAndAOptions.map(condition => ({ condition: condition.value, answer: '' })),
     qAndADescription: '',
     whyMessage: '',
-    clientId: 0,
-    client: null,
-    petId: 0,
-    pet: null,
+    clientId: null,
+    petId: null,
     createdAt: new Date(),
     updatedAt: new Date(),
   });
