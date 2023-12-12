@@ -65,6 +65,11 @@ enum liveWith {
     OTHER_PETS
     ALONE
 }
+enum FormStatus {
+  IN_PROCESS
+  ACCEPTED
+  DENIED
+}
 
 // Model for the shelters
 model Shelter {
@@ -136,7 +141,7 @@ model Appointment {
     client              Client     @relation(fields: [clientId], references: [id])
     petId               Int // Foreign Key relation to Pet
     pet                 Pet        @relation(fields: [petId], references: [id])
-    acceptedForm        Boolean    @default(false)
+    acceptedForm FormStatus @default(IN_PROCESS)
     createdAt           DateTime   @default(now())
     updatedAt           DateTime   @updatedAt
     // You can add other fields specific to appointment details if necessary

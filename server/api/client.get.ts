@@ -48,7 +48,6 @@ export default defineEventHandler(async (event) => {
     where: { id: { in: petIds } },
     include: { shelter: true }
   })
-
   const tableData = appointments.map(appointment => {
     // Find the pet associated with the appointment
     const pet = pets.find(pet => pet.id === appointment.petId);
@@ -57,6 +56,7 @@ export default defineEventHandler(async (event) => {
       petImage: pet?.image,
       petName: pet?.name,
       isAdopted: pet?.isAdopted,
+      appointmentState: appointment.acceptedForm,
       appointmentCreatedAt: appointment.createdAt,
       shelterImage: pet?.shelter?.image,
       shelterName: pet?.shelter?.name,

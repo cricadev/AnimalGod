@@ -23,13 +23,16 @@
         <tr v-for="pet in data?.tableData" :key="pet.id">
           <td>
             <nuxt-img
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
+              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.petName + '0'"
               class="rounded-full object-cover h-12 w-12"></nuxt-img>
             {{ pet.petName }}
 
             <nuxt-link :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
           </td>
-          <td>{{ pet.isAdopted ? 'Approved' : 'Denied'
+          <td>{{ pet.appointmentState === 'IN_PROCESS' ? 'In process' :
+            pet.appointmentState === 'ACCEPTED' ? 'Accepted' :
+              pet.appointmentState === 'DENIED' ? 'Denied' : 'Canceled'
+
           }}</td>
           <td>{{ formatDate(pet.appointmentCreatedAt) }}</td>
           <td>
@@ -39,14 +42,16 @@
           </td>
 
           <td>
-            <span>
-              <Icon name="material-symbols:call-sharp"></Icon>
-              {{ pet.shelterContact.phone }}
-            </span>
-            <span>
-              <Icon name="material-symbols:alternate-email"></Icon>
-              {{ pet.shelterContact.email }}
-            </span>
+            <div class="flex flex-col gap-2 items-start justify-start">
+              <span class="flex gap-2 items-center">
+                <Icon name="material-symbols:call-sharp"></Icon>
+                {{ pet.shelterContact.phone }}
+              </span>
+              <span class="flex gap-2 items-center">
+                <Icon name="material-symbols:alternate-email"></Icon>
+                {{ pet.shelterContact.email }}
+              </span>
+            </div>
           </td>
         </tr>
       </tbody>
