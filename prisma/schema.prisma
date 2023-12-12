@@ -136,6 +136,7 @@ model Appointment {
     client              Client     @relation(fields: [clientId], references: [id])
     petId               Int // Foreign Key relation to Pet
     pet                 Pet        @relation(fields: [petId], references: [id])
+    acceptedForm        Boolean    @default(false)
     createdAt           DateTime   @default(now())
     updatedAt           DateTime   @updatedAt
     // You can add other fields specific to appointment details if necessary
