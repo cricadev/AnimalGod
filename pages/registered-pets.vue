@@ -32,7 +32,23 @@
           <td>{{ pet.isAdopted ? 'Adopted' : 'Registered'
           }}</td>
           <td>{{ formatDate(pet.createdAt) }}</td>
-          <td>{{ pet.appointments ?? 'No applicants' }}</td>
+          <td>
+            <div class="" v-if="pet.appointments.length === 1">
+
+              <nuxt-img :src="pet.appointments[0].client.image" class="w-16 h-16 rounded-full"></nuxt-img>
+              <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span>
+            </div>
+            <div class="" v-else-if="pet.appointments.length > 1">
+
+              <UAvatarGroup size="sm" :max="4" :ui="{
+                'ring': 'ring-0',
+                'wrapper': 'bg-darkContSecond',
+              }">
+                <UAvatar class="override-this-shit" :src="p?.client.image" :alt="p?.client.name"
+                  v-for="p in pet.appointments" />
+              </UAvatarGroup>
+            </div>
+          </td>
 
           <td>
             <nuxt-link :to="`/pet/${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>

@@ -112,9 +112,41 @@ import en from 'i18n-iso-countries/langs/en.json';
 countries.registerLocale(en);
 const user = useSupabaseUser();
 
+const itemsPets = ref(null)
+const errorPets = ref(null)
+const PendingPets = ref(null)
+if (user.value?.user_metadata.isShelter) {
+  const { data, error, pending } = useLazyFetch(`/api/shelter`)
 
-const { data: itemsPets, error: errorPets, pending: pendingPets } = useLazyFetch(`/api/shelter`)
+  if (data) {
+    itemsPets.value = data.value
+  }
 
+  if (error) {
+    errorPets.value = error.value
+  }
+
+  if (pending) {
+    PendingPets.value = pending.value
+  }
+
+} else {
+  const { data, error, pending } = useLazyFetch(`/api/client`)
+
+  if (data) {
+    itemsPets.value = data.value
+  }
+
+  if (error) {
+    errorPets.value = error.value
+  }
+
+  if (pending) {
+    PendingPets.value = pending.value
+  }
+
+
+}
 const state = reactive({
   currentPrismaUser: reactive({
     image: "",

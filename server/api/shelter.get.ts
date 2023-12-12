@@ -38,11 +38,28 @@ export default defineEventHandler(async (event) => {
     take: Number(limit),
     orderBy: { id: 'desc' },
     where: { shelterId: shelter.id },
-    include: { shelter: true }
-  })
+    include: {
+      shelter: true,
+      appointments: {
+        include: {
+          client: true
+        }
+      }
+    }
+  });
 
   return {
-    shelter, pets
+    shelter,
+    pets: pets.map(pet => ({
+      ...pet,
+      appointments: pet.appointments.map(appointment => ({
+        ...appointment,
+        client: {
+          id: appointment.client.id,
+          name: appointment.client.name,
+          image: appointment.client.image
+        }
+      }))
+    }))
   }
-
 })
