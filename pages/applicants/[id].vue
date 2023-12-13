@@ -25,37 +25,35 @@
         Applicants ({{ petBasedOnId?.appointments.length }})
       </span>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Applicant</th>
-          <th>State</th>
-          <th>Date</th>
-          <th>Info</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="appointment in petBasedOnId?.appointments" :key="appointment.id">
-
-          <td>
-            <div class="">
-
-              <nuxt-img :src="appointment.client.image" class="w-16 h-16 rounded-full"></nuxt-img> <span
-                class="font-semibold "> {{ appointment.client.name }} </span>
-
-            </div>
-          </td>
-          <td>
-            {{ appointment.acceptedForm }}
-          </td>
-          <td>{{ formatDate(appointment.createdAt) }}</td>
-          <td>
-            <nuxt-link :to="`/applicant-form/${appointment.id}`">See Form Answers</nuxt-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="overflow-scroll">
+      <table class="table">
+        <thead class="table-head">
+          <tr class="table-row">
+            <th class="table-header">Applicant</th>
+            <th>State</th>
+            <th>Date</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr class="table-data" v-for="appointment in petBasedOnId?.appointments" :key="appointment.id">
+            <td class="table-data-cell">
+              <div class="">
+                <nuxt-img :src="appointment.client.image" class="w-16 h-16 rounded-full"></nuxt-img> <span
+                  class="font-semibold "> {{ appointment.client.name }} </span>
+              </div>
+            </td>
+            <td>
+              {{ appointment.acceptedForm }}
+            </td>
+            <td>{{ formatDate(appointment.createdAt) }}</td>
+            <td>
+              <nuxt-link :to="`/applicant-form/${appointment.id}`">See Form Answers</nuxt-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

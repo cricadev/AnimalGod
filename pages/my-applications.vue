@@ -9,53 +9,54 @@
 
 
   <div v-else>
-    <table>
-      <thead>
-        <tr>
-          <th>Pet</th>
-          <th>State</th>
-          <th>Date</th>
-          <th>Shelter</th>
-          <th>Contact</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="pet in data?.tableData" :key="pet.id">
-          <td>
-            <nuxt-img
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.petName + '0'"
-              class="rounded-full object-cover h-12 w-12"></nuxt-img>
-            {{ pet.petName }}
-
-            <nuxt-link :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
-          </td>git st
-          <td>{{ pet.appointmentState === 'IN_PROCESS' ? 'In process' :
-            pet.appointmentState === 'ACCEPTED' ? 'Accepted' :
-              pet.appointmentState === 'DENIED' ? 'Denied' : 'Canceled'
-
-          }}</td>
-          <td>{{ formatDate(pet.appointmentCreatedAt) }}</td>
-          <td>
-            <nuxt-img :src="pet.shelterImage" class="w-16 h-16 rounded-full"></nuxt-img>
-            <span class="font-semibold "> {{ pet.shelterName }} </span>
-
-          </td>
-
-          <td>
-            <div class="flex flex-col gap-2 items-start justify-start">
-              <span class="flex gap-2 items-center">
-                <Icon name="material-symbols:call-sharp"></Icon>
-                {{ pet.shelterContact.phone }}
-              </span>
-              <span class="flex gap-2 items-center">
-                <Icon name="material-symbols:alternate-email"></Icon>
-                {{ pet.shelterContact.email }}
-              </span>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="">
+      <h2 class="header-table">Your applications</h2>
+    </div>
+    <div class="overflow-scroll rounded-lg">
+      <table class="table rounded-lg">
+        <thead class="table-head ">
+          <tr class="table-row ">
+            <th class="table-header ">Pet</th>
+            <th>State</th>
+            <th>Date</th>
+            <th>Shelter</th>
+            <th>Contact</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr class="table-data" v-for="pet in data?.tableData" :key="pet.id">
+            <td class="table-data-cell">
+              <nuxt-img
+                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.petName + '0'"
+                class="table-data-cell-img"></nuxt-img>
+              <span class="table-data-cell-name">{{ pet.petName }}</span>
+              <nuxt-link class="table-data-cell-link" :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
+            </td>
+            <td>{{ pet.appointmentState === 'IN_PROCESS' ? 'In process' :
+              pet.appointmentState === 'ACCEPTED' ? 'Accepted' :
+                pet.appointmentState === 'DENIED' ? 'Denied' : 'Canceled'
+            }}</td>
+            <td>{{ formatDate(pet.appointmentCreatedAt) }}</td>
+            <td>
+              <nuxt-img :src="pet.shelterImage" class="w-16 h-16 rounded-full"></nuxt-img>
+              <span class="font-semibold "> {{ pet.shelterName }} </span>
+            </td>
+            <td>
+              <div class="flex flex-col gap-2 items-start justify-start">
+                <span class="flex gap-2 items-center">
+                  <Icon name="material-symbols:call-sharp"></Icon>
+                  {{ pet.shelterContact.phone }}
+                </span>
+                <span class="flex gap-2 items-center">
+                  <Icon name="material-symbols:alternate-email"></Icon>
+                  {{ pet.shelterContact.email }}
+                </span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 

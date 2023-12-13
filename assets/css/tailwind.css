@@ -247,3 +247,47 @@ html {
 .label-basic-info {
   @apply absolute bottom-4 left-2 text-contInactive font-bold pointer-events-none;
 }
+.table {
+  @apply w-full px-8 mx-8;
+}
+
+.table-head {
+  @apply bg-contAccent rounded-lg;
+}
+
+.table-row {
+  @apply flex items-center gap-8;
+}
+
+.table-header {
+  @apply font-semibold py-4 sticky left-0 bg-contAccent px-5;
+}
+th {
+  @apply px-5;
+}
+.table-body {
+  @apply bg-darkContSecond;
+}
+
+.table-data {
+  @apply border border-[#454545] flex items-center  gap-8;
+}
+
+.table-data-cell {
+  @apply flex flex-col items-center text-center gap-2 py-4 px-4 sticky left-0 bg-darkContSecond;
+}
+
+.table-data-cell-img {
+  @apply rounded-full object-cover h-12 w-12;
+}
+
+.table-data-cell-link {
+  @apply text-Captionlg font-semibold text-darkContThird;
+}
+
+.table-data-cell-name {
+  @apply font-semibold;
+}
+.header-table {
+  @apply font-bold text-center text-Heading2sm my-12;
+}

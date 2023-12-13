@@ -8,62 +8,60 @@
   </div>
 
 
-  <div v-else>
-    <table>
-      <thead>
-        <tr>
-          <th>Pet</th>
-          <th>State</th>
-          <th>Date</th>
-          <th>Applicants</th>
-          <th>Info</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="pet in  data?.pets " :key="pet.id">
-          <td>
-            <nuxt-img
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
-              class="rounded-full object-cover h-12 w-12"></nuxt-img>
-            {{ pet.name }}
-
-            <nuxt-link :to="'/meet-them/' + pet?.name">See profile</nuxt-link>
-          </td>
-          <td>{{ pet.isAdopted ? 'Adopted' : 'Registered'
-          }}</td>
-          <td>{{ formatDate(pet.createdAt) }}</td>
-          <td>
-            <div class="" v-if="pet.appointments.length === 1">
-              <nuxt-link :to="'/applicants/' + pet.id">
-                <nuxt-img :src="pet.appointments[0].client.image" class="w-16 h-16 rounded-full"></nuxt-img>
-                <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span></nuxt-link>
-
-
-
-            </div>
-            <div class="flex flex-col gap-2" v-else-if="pet.appointments.length > 1">
-
-              <UAvatarGroup size="sm" :max="4" :ui="{
-                'ring': 'ring-0',
-                'wrapper': 'bg-darkContSecond',
-              }">
-                <UAvatar class="override-this-shit" :src="p?.client.image" :alt="p?.client.name"
-                  v-for="p in pet.appointments" />
-              </UAvatarGroup>
-              <div class="">
-
-                <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>
-
+  <div class="" v-else>
+    <div class="">
+      <h2 class="header-table">Your registered pets</h2>
+    </div>
+    <div class="overflow-scroll">
+      <table class="table">
+        <thead class="table-head">
+          <tr class="table-row">
+            <th class="table-header">Pet</th>
+            <th>State</th>
+            <th>Date</th>
+            <th>Applicants</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr v-for="pet in  data?.pets " :key="pet.id" class="table-data">
+            <td class="table-data-cell">
+              <nuxt-img
+                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
+                class="table-data-cell-img"></nuxt-img>
+              <span class="table-data-cell-name"> {{ pet.name }}</span>
+              <nuxt-link :to="'/meet-them/' + pet?.name" class="table-data-cell-link">See
+                profile</nuxt-link>
+            </td>
+            <td>{{ pet.isAdopted ? 'Adopted' : 'Registered'
+            }}</td>
+            <td>{{ formatDate(pet.createdAt) }}</td>
+            <td>
+              <div class="" v-if="pet.appointments.length === 1">
+                <nuxt-link :to="'/applicants/' + pet.id">
+                  <nuxt-img :src="pet.appointments[0].client.image" class="w-16 h-16 rounded-full"></nuxt-img>
+                  <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span></nuxt-link>
               </div>
-            </div>
-          </td>
-
-          <td>
-            <nuxt-link :to="`/pet/${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <div class="flex flex-col gap-2" v-else-if="pet.appointments.length > 1">
+                <UAvatarGroup size="sm" :max="4" :ui="{
+                  'ring': 'ring-0',
+                  'wrapper': 'bg-darkContSecond',
+                }">
+                  <UAvatar class="override-this-shit" :src="p?.client.image" :alt="p?.client.name"
+                    v-for="p in pet.appointments" />
+                </UAvatarGroup>
+                <div class="">
+                  <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>
+                </div>
+              </div>
+            </td>
+            <td>
+              <nuxt-link :to="`/pet/${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
