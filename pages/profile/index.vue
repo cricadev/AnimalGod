@@ -42,7 +42,7 @@
 
       <div class="px-5">
 
-        <nuxt-link v-if="user?.user_metadata?.isShelter" to="/registered-pets"
+        <nuxt-link v-if="user?.user_metadata?.isShelter" to="/my-pets"
           class="registered-pets-card justify-center flex bg-darkContSecond py-5 gap-4 items-center">
           <UAvatarGroup size="sm" :max="4" :ui="{
             'ring': 'ring-0',

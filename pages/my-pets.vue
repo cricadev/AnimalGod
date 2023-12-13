@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="pet in data?.pets" :key="pet.id">
+        <tr v-for="pet in  data?.pets " :key="pet.id">
           <td>
             <nuxt-img
               :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
@@ -34,11 +34,14 @@
           <td>{{ formatDate(pet.createdAt) }}</td>
           <td>
             <div class="" v-if="pet.appointments.length === 1">
+              <nuxt-link :to="'/applicants/' + pet.id">
+                <nuxt-img :src="pet.appointments[0].client.image" class="w-16 h-16 rounded-full"></nuxt-img>
+                <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span></nuxt-link>
 
-              <nuxt-img :src="pet.appointments[0].client.image" class="w-16 h-16 rounded-full"></nuxt-img>
-              <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span>
+
+
             </div>
-            <div class="" v-else-if="pet.appointments.length > 1">
+            <div class="flex flex-col gap-2" v-else-if="pet.appointments.length > 1">
 
               <UAvatarGroup size="sm" :max="4" :ui="{
                 'ring': 'ring-0',
@@ -47,6 +50,11 @@
                 <UAvatar class="override-this-shit" :src="p?.client.image" :alt="p?.client.name"
                   v-for="p in pet.appointments" />
               </UAvatarGroup>
+              <div class="">
+
+                <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>
+
+              </div>
             </div>
           </td>
 

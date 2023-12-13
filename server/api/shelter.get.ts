@@ -57,7 +57,10 @@ export default defineEventHandler(async (event) => {
         client: {
           id: appointment.client.id,
           name: appointment.client.name,
-          image: appointment.client.image
+          image: appointment.client.image,
+          email: appointment.client.email,
+          phone: appointment.client.phone,
+          country: appointment.client.country,
         }
       }))
     }))

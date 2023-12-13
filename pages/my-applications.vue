@@ -28,7 +28,7 @@
             {{ pet.petName }}
 
             <nuxt-link :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
-          </td>
+          </td>git st
           <td>{{ pet.appointmentState === 'IN_PROCESS' ? 'In process' :
             pet.appointmentState === 'ACCEPTED' ? 'Accepted' :
               pet.appointmentState === 'DENIED' ? 'Denied' : 'Canceled'
