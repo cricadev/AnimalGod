@@ -2,28 +2,19 @@
   <div class="">
     <!--Carousel Section -->
 
-    <div class="" v-if="pending">
-      <h1>
-        Loading...
-      </h1>
-    </div>
-    <div class="" v-else-if="error || !data">
-      There's an error in the API CALL
-      {{ error }}
-    </div>
-    <div v-else class="h-full">
+    <div v-if="pet" class="h-full">
 
       <div class="h-[40vh] px-16 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5">
         <h2 class="col-start-1 col-end-6 row-start-1 row-end-2 text-Heading1sm font-bold capitalize text-center">
-          {{ data?.name ?? "No name" }}
+          {{ pet?.name ?? "No name" }}
         </h2>
         <Carousel ref="myCarousel"
           class="row-start-2 row-end-7 col-start-1 col-end-6 w-full h-full overflow-hidden rounded-xl shadow-xl"
-          :start-slide="currentSlide" @slide-end="onSlideEnd" :wrap-around="true" snap-align="center" :touch-drag="false">
+          :wrap-around="true" snap-align="center" :touch-drag="false">
           <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
-            v-for="(img, index) in data?.images">
+            v-for="(img, index) in pet?.images">
             <nuxt-img
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + data?.name + index"
+              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + index"
               class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
             </nuxt-img>
           </Slide>
@@ -38,23 +29,23 @@
 
         <ul class="list-disc list-inside grid grid-cols-2 w-full text-sm gap-2">
           <li class="pl-4 capitalize -ml-4">
-            {{ data.breed.toLowerCase().split("_").join(" ") }}
+            {{ pet.breed.toLowerCase().split("_").join(" ") }}
           </li>
           <li>
-            {{ data.age }} years old
+            {{ pet.age }} years old
           </li>
           <li>
-            {{ data.gender.toLowerCase() }}
+            {{ pet.gender.toLowerCase() }}
           </li>
 
           <li>
-            Good with {{ data.goodWith.toLowerCase() }}
+            Good with {{ pet.goodWith.toLowerCase() }}
           </li>
           <li class="capitalize">
-            {{ data.size.toLowerCase() }}
+            {{ pet.size.toLowerCase() }}
           </li>
           <li class="capitalize">
-            {{ data.personality[0].toLowerCase() }}
+            {{ pet.personality[0].toLowerCase() }}
           </li>
         </ul>
 
@@ -65,17 +56,17 @@
       <div class="rounded-lg are-you-interest bg-darkContThird mx-4 px-8 py-2 text-black">
         <div>
           <div class="" v-if="!user">
-            <h3 class="text-Heading3sm font-bold">Are you interested in {{ data.name }}?</h3>
+            <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
             Please first <nuxt-link class="text-contAccent font-bold" to="/signup">Sign up</nuxt-link> or <nuxt-link
               class="text-contAccent font-bold" to="/login">Log in</nuxt-link> to apply
           </div>
           <div class="" v-else>
-            <h3 class="text-Heading3sm font-bold">Are you interested in {{ data.name }}?</h3>
+            <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
 
           </div>
           <div class="flex items-center justify-center gap-4 mt-4">
             <UButton size="xl" color="primary" class="py-3 px-6" variant="solid" :disabled="!user">
-              <nuxt-link :to="'/form?id=' + data.id">Prerequisites form</nuxt-link>
+              <nuxt-link :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
             </UButton>
             <UButton size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold py-3 px-6" />
           </div>
@@ -105,23 +96,23 @@
           <template #item="{ item }">
             <div class="px-5 py-16">
               <p class="text-Heading3sm font-bold leading-6 text-gray-900 dark:text-white">
-                {{ data.name }}'s {{ item.label }}
+                {{ pet.name }}'s {{ item.label }}
               </p>
 
               <div v-if="item.key === 'history'" class="space-y-3">
 
                 <p class="mt-5 text-Body1sm font-regular text-darkContText leading-tight">
-                  {{ data.history }}
+                  {{ pet.history }}
                 </p>
 
               </div>
               <div v-else-if="item.key === 'personality'" class="space-y-3">
                 <p>
-                  {{ data.personalityDescription }}
+                  {{ pet.personalityDescription }}
                 </p>
 
                 <ul class="space-y-4 ">
-                  <li v-for=" adjective  in  data.personality " :key="adjective">
+                  <li v-for=" adjective  in  pet.personality " :key="adjective">
                     <div v-for=" explainedAdjective  in  personalityAdjectivesExplained " :key="explainedAdjective.label">
                       <div class="grid gap-4 rounded-lg place-items-center bg-darkContSecond p-4"
                         v-if="adjective.toUpperCase() === explainedAdjective.label.toUpperCase()">
@@ -151,11 +142,11 @@
               </div>
               <div v-else-if="item.key === 'health'" class="space-y-3">
                 <p>
-                  {{ data.healthDescription }}
+                  {{ pet.healthDescription }}
                 </p>
 
                 <ul class="space-y-4 ">
-                  <li v-for=" (adjective, index)  in  data.healthConditions " :key="adjective">
+                  <li v-for=" (adjective, index)  in  pet.healthConditions " :key="adjective">
                     <div>
                       <div class="flex gap-4" v-if="adjective.answer === 'Yes'">
 
@@ -207,14 +198,14 @@
         <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
           <div class="" v-for="(animal, index) in myData">
-            <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-              :to="`/meet-them/`">
+            <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+              :to="`/meet-them/${animal.name}`">
               <h6
                 class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
                 {{ animal.name }}
               </h6>
               <nuxt-img v-if="animal.images.length > 0"
-                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + index"
+                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + '0'"
                 class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
                 width="100%" height="100%"></nuxt-img>
               <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
@@ -236,23 +227,30 @@ import { storeToRefs } from 'pinia';
 import type { Pet, Shelter } from "~/types";
 import { useformStore } from '~/stores/formStore';
 import { useShelterStore } from "~/stores/ShelterStore";
+import { usePetStore } from "~/stores/PetStore";
+const PetStore = usePetStore();
+const { pet, shelter } = storeToRefs(PetStore);
 const route = useRoute();
-const ShelterStore = useShelterStore();
-const { shelters } = storeToRefs(ShelterStore);
-const { findShelterById } = ShelterStore
 
-const { data, error, pending } = await useLazyFetch<Pet>(`/api/${route.params.slug}`);
 
-if (error) {
-  console.log(error)
+if (route.params.slug) {
+  try {
+    await PetStore.fetchero(route.params.slug);
+    if (pet.value) {
+      PetStore.setShelter(pet.value.shelterId);
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
 }
 
-const shelter = shelters.value.find((shelter: Shelter) => shelter.id === data?.value.shelterId);
 
 
 const formStore = useformStore();
 const { HealthConditionOptions } = formStore;
-const { data: myData, error: myError, pending: myPending } = await useLazyFetch<Pet[]>('/api/pets?offset=0&limit=2')
+
+const { data: myData, error: myError, pending: myPending } = await useLazyFetch<Pet[]>('/api/pets?offset=0&limit=2&id=' + pet.value?.id)
 
 // get carouselImages value from animalDataByName
 const user = useSupabaseUser();
@@ -403,14 +401,6 @@ const personalityAdjectivesExplained = [
 ];
 
 
-const currentSlide = ref(0);
-
-
-
-
-const onSlideEnd = () => {
-  currentSlide.value += 1;
-};
 
 
 </script>

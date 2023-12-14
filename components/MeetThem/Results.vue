@@ -21,23 +21,25 @@
       There's an error in the API CALL
       {{ error }}
     </div>
-    <Carousel v-else ref="myCarousel" :wrap-around="true" snap-align="center-even" :items-to-show="myData?.length">
+    <Carousel v-else ref="myCarousel" :wrap-around="true" snap-align="center-even" :items-to-show="4">
 
-      <Slide v-for="animal in        myData       " :key="animal.name">
+      <Slide v-for="animal in myData" :key="animal.name">
 
-        <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-          :to="`/meet-them/${animal.name}`">
-          <h6
-            class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
-            {{ animal.name }}
-          </h6>
-          <nuxt-img v-if="animal.images.length > 0"
-            :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + '0'"
-            class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
-            width="100%" height="100%"></nuxt-img>
-          <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-            :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
-        </nuxt-link>
+        <div class="">
+          <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+            :to="`/meet-them/${animal.name}`">
+            <h6
+              class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+              {{ animal.name }}
+            </h6>
+            <nuxt-img v-if="animal.images.length > 0"
+              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + '0'"
+              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
+              width="100%" height="100%"></nuxt-img>
+            <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+              :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
+          </nuxt-link>
+        </div>
 
       </Slide>
       <template #addons>
@@ -79,22 +81,14 @@ interface Animal {
 const myCarousel = ref(null);
 const formStore = useformStore();
 const { supabaseImages } = storeToRefs(formStore);
-onMounted(() => {
-  const track = document.querySelector('.carousel__track');
 
-  if (track) {
-    track.insertAdjacentHTML('afterbegin', '<div class="card">');
-    track.insertAdjacentHTML('afterbegin', '</div>')
-  }
-})
-const currentSlide = ref(0);
 const offset = ref(0)
 
 
 const { data: myData, error, pending } = await useLazyFetch<Animal[]>('/api/pets?offset=' + offset.value)
 
 if (error) {
-  console.error(error)
+  console.error(error.value)
 
 }
 
