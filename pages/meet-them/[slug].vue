@@ -194,10 +194,10 @@
 
       </div>
 
-      <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="myData">
+      <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="relatedPets">
         <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
-          <div class="" v-for="(animal, index) in myData">
+          <div class="" v-for="(animal, index) in relatedPets">
             <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
               :to="`/meet-them/${animal.name}`">
               <h6
@@ -229,28 +229,33 @@ import { useformStore } from '~/stores/formStore';
 import { useShelterStore } from "~/stores/ShelterStore";
 import { usePetStore } from "~/stores/PetStore";
 const PetStore = usePetStore();
-const { pet, shelter } = storeToRefs(PetStore);
+const { pet, shelter, relatedPets } = storeToRefs(PetStore);
 const route = useRoute();
 
-
-if (route.params.slug) {
-  try {
-    await PetStore.fetchero(route.params.slug);
-    if (pet.value) {
-      PetStore.setShelter(pet.value.shelterId);
+onMounted(async () => {
+  if (route.params.slug) {
+    try {
+      await PetStore.fetchPet(route.params.slug);
+      if (pet.value) {
+        PetStore.setShelter(pet.value.shelterId);
+        await PetStore.fetchRelatedPets(pet.value.id);
+      }
+    }
+    catch (err) {
+      console.log(err)
     }
   }
-  catch (err) {
-    console.log(err)
-  }
-}
+})
 
+onUnmounted(() => {
+  PetStore.resetPet();
+})
 
 
 const formStore = useformStore();
 const { HealthConditionOptions } = formStore;
 
-const { data: myData, error: myError, pending: myPending } = await useLazyFetch<Pet[]>('/api/pets?offset=0&limit=2&id=' + pet.value?.id)
+
 
 // get carouselImages value from animalDataByName
 const user = useSupabaseUser();

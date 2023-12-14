@@ -3,7 +3,7 @@
     <FormPreHeaderStep question="Add some photos and one video of the pet" :expression="!upload">
     </FormPreHeaderStep>
 
-    <label v-if="!upload" for="imageInput" class="text-contInactive">
+    <label v-if="pet.images.length == 0" for="imageInput" class="text-contInactive">
       <div class="flex flex-col items-center justify-center gap-4">
         <Icon class="h-20 w-20 " name="material-symbols:photo-camera-rounded"></Icon>
         <span>Select from gallery or take a picture</span>
@@ -12,10 +12,12 @@
         multiple accept="image/*">
     </label>
     <div class="selected-images" v-else>
-      <div class="image-container" v-for="(img, index) in imagesURL.slice(0, 5)" :key="index">
+      <div class="image-container" v-for="(img, index) in pet.images" :key="index">
+
         <img :src="img" alt="pet image" class="w-full h-full object-cover">
 
-        <button class="delete-icon" @click="(event) => deleteImage(index, 'animalgod-files')">
+        <button class="delete-icon" @click="(event) => deleteImage(index, 'animalgod-files', pet.name)"
+          :disabled="isDeleting">
 
           <Icon class="h-5 w-5 p-px rounded-sm text-white bg-contAccent" name="cil:trash"></Icon>
         </button>
@@ -26,7 +28,8 @@
     </div>
 
 
-    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="files.length < 1">
+    <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
+      :expression="files.length < 1">
     </FormBackAndNextButtons>
   </div>
 </template>
@@ -35,7 +38,7 @@
 import { storeToRefs } from 'pinia';
 import { useformStore } from '~/stores/formStore';
 const formStore = useformStore()
-const { imagesURL, pet, files, upload } = storeToRefs(formStore)
+const { imagesURL, pet, files, upload, isDeleting } = storeToRefs(formStore)
 const { handleFileUpload, deleteImage } = formStore
 
 const supabase = useSupabaseClient()
@@ -48,7 +51,7 @@ defineProps({
 })
 
 
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 </script>
 

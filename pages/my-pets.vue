@@ -56,7 +56,7 @@
               </div>
             </td>
             <td>
-              <nuxt-link :to="`/pet/${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>
+              <nuxt-link :to="`/pet?id=${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>
             </td>
           </tr>
         </tbody>

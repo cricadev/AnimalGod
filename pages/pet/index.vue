@@ -2,12 +2,15 @@
   <div class="overflow-hidden p-5 bg-form">
     <form @submit.prevent="handleFormSubmition"
       class="flex flex-col justify-between h-[80vh] gap-4 w-full bg-Bg relative overflow-hidden rounded-lg">
-      <TransitionGroup name="list" class="">
+      <TransitionGroup name="list">
         <FormStepsCounter :currentStep="step" :totalSteps="9" />
         <FormSalutForm v-if="step === 0" @close="nextStep" @next="step++" />
-        <FormPetTypeSelection v-if="step === 1" v-model="pet.type" @back="step--" @next="step++" />
-        <FormPetNameInput v-if="step === 2" v-model="pet.name" @next="step++" @back="step--" />
-        <FormPetImageUpload v-if="step === 3" v-model="pet.images" @next="step++" @back="step--" />
+        <FormPetTypeSelection @update-type="fixAndGoBackTo" v-if="step === 1" v-model="pet.type" @back="step--"
+          @next="step++" />
+        <FormPetNameInput @update-type="fixAndGoBackTo" v-if="step === 2" v-model="pet.name" @next="step++"
+          @back="step--" />
+        <FormPetImageUpload @update-type="fixAndGoBackTo" v-if="step === 3" v-model="pet.images" @next="step++"
+          @back="step--" />
         <FormPetBasicInfo v-if="step === 4" v-model:gender="pet.gender" v-model:size="pet.size" v-model:age="pet.age"
           v-model:breed="pet.breed" v-model:goodWith="pet.goodWith" v-model:activity="pet.activity"
           :sizeOptions="SizeOptions" :breedOptions="BreedOptions" :good-with-options="GoodWithOptions"
@@ -35,6 +38,13 @@ import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
 const formStore = useformStore();
 const { pet } = storeToRefs(formStore);
+
+onUnmounted(() => {
+  formStore.resetPet();
+})
+const isEditing = ref(false);
+provide('isEditing', isEditing);
+const route = useRoute();
 
 const handleFormSubmition = () => {
   console.log(pet)
@@ -92,13 +102,27 @@ const HealthConditionOptions = [{
 const step = ref(0)
 const { history, undo, redo } = useRefHistory(step)
 
+if (route.query.id) {
+  step.value = 8;
+  console.log(Number(route.query.id))
+  try {
+    await formStore.fetchPetById(Number(route.query.id));
+  }
+  catch (error) {
+    console.log(error)
+  }
+}
+
 const nextStep = () => {
   step.value++;
 }
 const goToAndFix = (s: number) => {
-
   step.value = s;
-  console.log(history.value)
+  isEditing.value = true
+}
+const fixAndGoBackTo = (s: number) => {
+  step.value = s;
+  isEditing.value = false
 }
 
 const user = useSupabaseUser();

@@ -83,7 +83,7 @@ export const useformStore = defineStore("formStore", () => {
     id: 0,
     type: '',
     name: '',
-    images: [''],
+    images: [],
 
     gender: '',
     size: '', // Default to the first option
@@ -107,20 +107,19 @@ export const useformStore = defineStore("formStore", () => {
   const supabaseImages = ref<string[]>([]);
   const resetPet = () => {
 
-    pet.value = {
+    Object.assign(pet, {
       id: 0,
       type: '',
       name: '',
-      images: [''],
-
+      images: [],
       gender: '',
-      size: '', // Default to the first option
+      size: '',
       age: null,
-      breed: '', // Default to the first option
-      goodWith: '', // This will be an array of selected options
-      activity: '', // Default to the first option
+      breed: '',
+      goodWith: '',
+      activity: '',
       history: '',
-      personality: [''], // This will be an array of selected options
+      personality: [''],
       personalityDescription: '',
       healthConditions: HealthConditionOptions.map(condition => ({ condition: condition.value, answer: '' })),
       healthDescription: '',
@@ -129,10 +128,13 @@ export const useformStore = defineStore("formStore", () => {
       appointments: [],
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    });
+    console.log(pet, 'pet reset')
   }
   const resetForm = () => {
-    form.value = {
+
+
+    Object.assign(form, {
       id: 0,
       liveWith: [],
       liveWithDescription: '',
@@ -146,23 +148,36 @@ export const useformStore = defineStore("formStore", () => {
       petId: null,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }
+    });
   }
-  const filePaths = ref([]);
 
+  async function fetchPetById(id: number) {
+    const data = await $fetch<Pet>(`/api/pet?id=${id}`);
+    if (!data) {
+      const noDataError = new Error('No data returned from server');
+      console.error('Error fetching pet:', noDataError);
+      throw noDataError;
+    }
+    Object.assign(pet, data);
+
+  }
+
+
+  const filePaths = ref([]);
   const handleFileUpload = async (e: any, storageTableName: string, entityName: string) => {
     files.value = Array.from(e.target.files);
-    const counter = ref(0);
     for (const file of files.value) {
       try {
-        let filePath = `${storageTableName}/${entityName}${counter.value}`;
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        let filePath = `${storageTableName}/${entityName}-${uniqueSuffix}`;
         const { data, error } = await supabase.storage.from(storageTableName).upload(filePath, file);
-        counter.value = counter.value + 1;
         if (error) {
           console.error('Error uploading file:', error.message);
           return
         }
-        imagesURL.value = [...imagesURL.value, URL.createObjectURL(file)]
+        const publicUrl = supabase.storage.from(storageTableName).getPublicUrl(filePath).data.publicUrl;
+
+        imagesURL.value = [...imagesURL.value, publicUrl]
         filePaths.value.push(filePath);
       } catch (error) {
         console.error('Error uploading file:', error);
@@ -170,21 +185,29 @@ export const useformStore = defineStore("formStore", () => {
     }
     pet.images = imagesURL.value;
   };
+  const isDeleting = ref(false);
 
   const deleteImage = async (index: number, storageTableName: string, entityName: string) => {
+    isDeleting.value = true;
     try {
-      let filePath = `${storageTableName}/${entityName}${index}`;
+      let filePath = filePaths.value[index];
       console.log(filePath)
       const { data, error } = await supabase.storage.from(storageTableName).remove([filePath]);
       if (error) {
         console.error('Error deleting file:', error.message);
         return
       }
-      imagesURL.value.splice(index, 1);
+      const imageUrl = imagesURL.value[index];
       files.value.splice(index, 1);
       filePaths.value.splice(index, 1);
+      const imageUrlIndex = pet.images.findIndex(imgurl => imgurl === imageUrl);
+      if (imageUrlIndex !== -1) {
+        pet.images.splice(imageUrlIndex, 1);
+      }
     } catch (error) {
       console.error('Error deleting file:', error);
+    } finally {
+      isDeleting.value = false;
     }
   }
 
@@ -210,7 +233,9 @@ export const useformStore = defineStore("formStore", () => {
     resetPet,
     resetForm,
     supabaseImages,
-    HealthConditionOptions
+    HealthConditionOptions,
+    fetchPetById,
+    isDeleting
 
   }
 });

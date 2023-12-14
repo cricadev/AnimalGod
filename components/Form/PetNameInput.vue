@@ -8,7 +8,8 @@
       <input class="w-full text-black bg-transparent border-t-0 border-x-0 border-b-2 border-black "
         placeholder="Full name" type="text" :value="modelValue" @input="updateName($event.target.value)">
 
-      <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+      <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
+        :expression="expression">
       </FormBackAndNextButtons>
 
     </div>
@@ -28,7 +29,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 const updateName = (name) => {
   emit('update:modelValue', name)

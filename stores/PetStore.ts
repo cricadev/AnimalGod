@@ -6,7 +6,7 @@ export const usePetStore = defineStore("PetStore", () => {
   const shelter = ref<Shelter | null>(null);
   const relatedPets = ref<Pet[]>([]);
   const { shelters } = useShelterStore();
-  async function fetchero(slug: string) {
+  async function fetchPet(slug: string) {
     const data = await $fetch<Pet>(`/api/${slug}`);
     if (!data) {
       const noDataError = new Error('No data returned from server');
@@ -16,17 +16,37 @@ export const usePetStore = defineStore("PetStore", () => {
     pet.value = data;
   }
 
+
+  async function fetchRelatedPets() {
+    const data = await $fetch<Pet[]>(`/api/pets?limit=2&offset=0&id=${pet.value?.id}`);
+    if (!data) {
+      const noDataError = new Error('No data returned from server');
+      console.error('Error fetching pet:', noDataError);
+      throw noDataError;
+    }
+    relatedPets.value = data;
+  }
+
   function setShelter(shelterId) {
     if (pet.value) {
       shelter.value = shelters.find(shelter => shelter.id === shelterId);
     }
   }
 
+  function resetPet() {
+    pet.value = null;
+    shelter.value = null;
+    relatedPets.value = [];
+  }
+
   return {
-    fetchero,
+    fetchPet,
     pet,
     setShelter,
-    shelter
+    shelter,
+    resetPet,
+    relatedPets,
+    fetchRelatedPets,
   }
 });
 if (import.meta.hot) {

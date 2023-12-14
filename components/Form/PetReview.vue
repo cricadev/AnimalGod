@@ -1,29 +1,34 @@
 <template>
   <div class="section-step-layout">
-    <FormPreHeaderStep question="Let's review the info, confirm and apply!" :expression="expression">
+    <FormPreHeaderStep question="Let's review the info, confirm and register the pet!" :expression="expression">
     </FormPreHeaderStep>
     <div v-if="pet && shelter" class="pet-info space-y-4 my-12 overflow-y-auto overflow-x-hidden">
       <h4 class="font-bold">The pet's info is</h4>
       <div class="item">
-        <h5 class="text-contInactive font-bold text-sm">Pet's
-          <br> category
-        </h5>
-        <UButton :label="pet.type" icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+        <UButton @click="emit('edit-type', 1)" label="Pet's Category" icon="i-mdi-pencil" trailing color="third"
+          class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
+        <span class="font-bold ml-4">
+          {{ pet.type }}
+        </span>
 
       </div>
       <div class="item">
-        <h5 class="text-contInactive font-bold text-sm">Pet's name</h5>
-        <UButton :label="pet.name" icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
+        <UButton @click="emit('edit-type', 2)" label="Pet's name" icon="i-mdi-pencil" trailing color="third"
+          class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
+        <span class="font-bold ml-4">
+          {{ pet.name }}
+        </span>
 
       </div>
       <div class="flex-col gap-0">
-        <div class="flex justify-between">
-          <h5 class="text-contInactive font-bold text-sm">Photos and video</h5>
-          <UButton icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
-        </div>
 
+        <div class="item">
+          <UButton @click="emit('edit-type', 3)" label="Photos and Videos" icon="i-mdi-pencil" trailing color="third"
+            class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
+
+        </div>
         <div class="selected-images flex gap-2" v-if="pet.images">
-          <div class="image-container" v-for="(file, index) in pet.images" :key="index">
+          <div class="image-container" v-for="( file, index ) in  pet.images " :key="index">
 
             <img :src="file" alt="pet image" class="w-16 h-auto object-cover">
 
@@ -80,7 +85,7 @@
         <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-auto w-full flex flex-col gap-4">
 
           <ul class="list-disc list-inside">
-            <li class="leading-tight font-bold text-sm" v-for="item in pet.personality">
+            <li class="leading-tight font-bold text-sm" v-for=" item  in  pet.personality ">
               {{ item }}
             </li>
           </ul>
@@ -97,7 +102,7 @@
         <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-auto w-full flex flex-col gap-4">
 
           <ul class="list-disc list-inside">
-            <li class="leading-tight font-bold text-sm" v-for="(item, index) in pet.healthConditions">
+            <li class="leading-tight font-bold text-sm" v-for="( item, index ) in  pet.healthConditions ">
               <span class="" v-if="item.answer == 'Yes'">
                 {{ healthConditionResponses[index].responseIfYes }}
               </span>
@@ -135,7 +140,7 @@
         <div class="flex flex-col justify-between">
           <h5 class="text-contInactive font-bold text-sm">Basic info</h5>
           <ul class="list-disc list-inside">
-            <li class="leading-tight font-bold text-sm" v-for="(item, index) in pet.qAndA">
+            <li class="leading-tight font-bold text-sm" v-for="( item, index ) in  pet.qAndA ">
               <span class="" v-if="item.answer == 'Yes'">
                 {{ qAndAResponses[index].responseIfYes }}
               </span>
@@ -168,7 +173,7 @@
 
     <div class="submit-button flex justify-end">
       <UButton class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('submit', pet)">Confirm
-        and Apply</UButton>
+        and Register</UButton>
     </div>
   </div>
 </template>
@@ -244,7 +249,7 @@ defineProps({
     default: true
   }
 })
-const emit = defineEmits(['submit', 'editType'])
+const emit = defineEmits(['submit', 'edit-type'])
 
 const stepIndex = (key) => {
   const steps = ['type', 'name', 'images', 'gender', 'size', 'age', 'breed', 'goodWith', 'activity', 'history', 'personality', 'personalityDescription', 'healthConditions', 'healthDescription'];
@@ -266,6 +271,6 @@ const deleteImage = (index) => {
 </script>
 <style scoped>
 .item {
-  @apply flex gap-8;
+  @apply flex flex-col items-start;
 }
 </style>

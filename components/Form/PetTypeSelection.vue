@@ -34,7 +34,8 @@
 
 
     </div>
-    <FormBackAndNextButtons v-if="!shelter" @next="emit('next')" @back="emit('back')" :expression="expression">
+    <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
+      :expression="expression">
     </FormBackAndNextButtons>
   </div>
 </template>
@@ -51,16 +52,13 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 const updateType = (value) => {
   emit('update:modelValue', value)
-  if (shelter) {
-    setTimeout(() => {
-      emit('next')
-    }, 500);
 
-  }
+
+
 
 
 }
