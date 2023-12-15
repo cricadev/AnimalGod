@@ -19,8 +19,8 @@
       <div class="relative flex gap-8 flex-col">
 
         <textarea class="input-basic-info h-12" :value="personalityDescription"
-          @input="updatePet('personalityDescription', $event.target.value)" id="pet-personality"
-          placeholder="Describe the pet's personality (1000 Chars)" name="pet-history" rows="4" cols="50"></textarea>
+          @input="updatePet('personalityDescription', $event.target.value)" id="pet-personality" :placeholder="shelter ? `Describe the pet's personality (1000 Chars)` : `Describe who do you live with (1000 Chars)`
+            " name="pet-history" rows="4" cols="50"></textarea>
 
 
       </div>

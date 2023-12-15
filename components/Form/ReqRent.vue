@@ -35,7 +35,8 @@
       </div>
     </div>
 
-    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+    <FormBackAndNextButtons @update-type="emit('update-type', 6)" @next="emit('next')" @back="emit('back')"
+      :expression="expression">
     </FormBackAndNextButtons>
 
   </div>
@@ -65,7 +66,7 @@ const expression = computed(() => {
   return 0 !== 0
 });
 
-const emit = defineEmits(['update:isRenting', 'update:rentAcceptance', 'next', 'back'])
+const emit = defineEmits(['update:isRenting', 'update:rentAcceptance', 'next', 'back', 'update-type'])
 
 const setRenting = (value) => {
   form.value.isRenting = value;

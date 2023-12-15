@@ -18,8 +18,8 @@
     </div>
     <div class="relative flex gap-8 flex-col">
 
-      <textarea id="pet-health" placeholder="Describe the pet’s health condition (1000 chars)" :value="healthDescription"
-        @input="updatePet('healthDescription', $event.target.value)" required></textarea>
+      <textarea id="pet-health" :placeholder="shelter ? `Describe the pet's health condition (1000 Chars)` : `Expand any response (1000 Chars)`
+        " :value="healthDescription" @input="updatePet('healthDescription', $event.target.value)" required></textarea>
       <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
         :expression="expression">
       </FormBackAndNextButtons>

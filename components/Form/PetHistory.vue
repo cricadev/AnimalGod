@@ -9,8 +9,9 @@
     <div class="relative flex gap-8 flex-col">
 
 
-      <textarea placeholder="Write the pet's history (1000 chars)" class="input-basic-info h-12" :value="modelValue"
-        @input="updateHistory($event.target.value)" id="pet-history" name="pet-history" rows="4" cols="50"></textarea>
+      <textarea :placeholder="shelter ? `Describe the pet's history (1000 Chars)` : `Describe why do you want to adopt (1000 Chars)`
+        " class="input-basic-info h-12" :value="modelValue" @input="updateHistory($event.target.value)"
+        id="pet-history" name="pet-history" rows="4" cols="50"></textarea>
 
       <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
         :expression="expression">

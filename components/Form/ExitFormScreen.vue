@@ -7,7 +7,7 @@
     <h2 class="text-darkContSecond text-Heading2sm font-bold">You
       <span class="text-contAccent">successfully</span>,
       <br>
-      register a new pet
+      {{ shelter ? 'register a new pet' : 'apply for a pet' }}
     </h2>
 
 
@@ -19,7 +19,12 @@
 
 <script lang="ts" setup>
 const emit = defineEmits(["exitForm"])
-
+const props = defineProps({
+  shelter: {
+    type: Boolean,
+    default: true
+  }
+})
 </script>
 
 <style></style>
