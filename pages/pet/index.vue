@@ -163,7 +163,7 @@ const handlePetRegister = async () => {
 const handlePetUpdate = async () => {
   try {
     // First, try to create the client
-    const data = await $fetch('/api/pet', {
+    const data = await $fetch(`/api/pet?id=${route.query.id}`, {
       method: 'PATCH',
       body: { ...pet.value, email: user.value?.email }
     });
