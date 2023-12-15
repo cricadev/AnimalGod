@@ -26,9 +26,8 @@
         <tbody class="table-body">
           <tr class="table-data" v-for="pet in data?.tableData" :key="pet.id">
             <td class="table-data-cell">
-              <nuxt-img
-                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.petName + '0'"
-                class="table-data-cell-img"></nuxt-img>
+
+              <nuxt-img :src="pet.petImages[0]" class="table-data-cell-img"></nuxt-img>
               <span class="table-data-cell-name">{{ pet.petName }}</span>
               <nuxt-link class="table-data-cell-link" :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
             </td>

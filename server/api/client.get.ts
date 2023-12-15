@@ -53,7 +53,7 @@ export default defineEventHandler(async (event) => {
     const pet = pets.find(pet => pet.id === appointment.petId);
 
     return {
-      petImage: pet?.image,
+      petImages: pet?.images,
       petName: pet?.name,
       isAdopted: pet?.isAdopted,
       appointmentState: appointment.acceptedForm,

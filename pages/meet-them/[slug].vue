@@ -12,10 +12,9 @@
           class="row-start-2 row-end-7 col-start-1 col-end-6 w-full h-full overflow-hidden rounded-xl shadow-xl"
           :wrap-around="true" snap-align="center" :touch-drag="false">
           <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
-            v-for="(img, index) in pet?.images">
-            <nuxt-img
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + index"
-              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
+            v-for="(img, index) in  pet?.images ">
+            <nuxt-img :src="img" :key="index"
+              class=" row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
             </nuxt-img>
           </Slide>
           <template #addons>
@@ -92,7 +91,8 @@
               height: 'h-8', padding: 'px-3', size: 'text-sm', font: 'font-medium', rounded: 'rounded-md', shadow: ''
             },
           },
-        }">
+        }
+          ">
           <template #item="{ item }">
             <div class="px-5 py-16">
               <p class="text-Heading3sm font-bold leading-6 text-gray-900 dark:text-white">
@@ -112,8 +112,9 @@
                 </p>
 
                 <ul class="space-y-4 ">
-                  <li v-for=" adjective  in  pet.personality " :key="adjective">
-                    <div v-for=" explainedAdjective  in  personalityAdjectivesExplained " :key="explainedAdjective.label">
+                  <li v-for="  adjective   in   pet.personality  " :key="adjective">
+                    <div v-for="  explainedAdjective   in   personalityAdjectivesExplained  "
+                      :key="explainedAdjective.label">
                       <div class="grid gap-4 rounded-lg place-items-center bg-darkContSecond p-4"
                         v-if="adjective.toUpperCase() === explainedAdjective.label.toUpperCase()">
                         <div
@@ -128,7 +129,7 @@
                             {{ explainedAdjective.tag }}
                           </p>
                           <ul class="list-disc list-inside mt-2">
-                            <li v-for=" item  in  explainedAdjective.list " class="text-Captionsm leading-tight"
+                            <li v-for="  item   in   explainedAdjective.list  " class="text-Captionsm leading-tight"
                               :key="item">
                               {{ item }}
                             </li>
@@ -146,7 +147,7 @@
                 </p>
 
                 <ul class="space-y-4 ">
-                  <li v-for=" (adjective, index)  in  pet.healthConditions " :key="adjective">
+                  <li v-for=" ( adjective, index )  in   pet.healthConditions  " :key="adjective">
                     <div>
                       <div class="flex gap-4" v-if="adjective.answer === 'Yes'">
 
@@ -197,15 +198,14 @@
       <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="relatedPets">
         <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
-          <div class="" v-for="(animal, index) in relatedPets">
+          <div class="" v-for="( animal, index ) in  relatedPets ">
             <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
               :to="`/meet-them/${animal.name}`">
               <h6
                 class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
                 {{ animal.name }}
               </h6>
-              <nuxt-img v-if="animal.images.length > 0"
-                :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + animal.name + '0'"
+              <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
                 class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
                 width="100%" height="100%"></nuxt-img>
               <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"

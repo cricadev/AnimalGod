@@ -48,9 +48,7 @@
             'ring': 'ring-0',
             'wrapper': 'bg-darkContSecond',
           }">
-            <UAvatar class="override-this-shit"
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
-              :alt="pet?.name" v-for="pet in itemsPets?.pets" />
+            <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
           </UAvatarGroup>
 
           <span>
@@ -67,9 +65,7 @@
             'ring': 'ring-0',
             'wrapper': 'bg-darkContSecond',
           }">
-            <UAvatar class="override-this-shit"
-              :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + pet?.name + '0'"
-              :alt="pet?.name" v-for="pet in itemsPets?.pets" />
+            <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
           </UAvatarGroup>
 
           <span>

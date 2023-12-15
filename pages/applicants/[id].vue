@@ -13,9 +13,7 @@
 
     </nuxt-img> -->
     <div class="px-32 flex flex-col gap-2 mb-16  mt-12 justify-center items-center">
-      <nuxt-img
-        :src="'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/animalgod-files/animalgod-files/' + petBasedOnId.name + '0'"
-        class="w-16 rounded-full object-cover h-16">
+      <nuxt-img :src="petBasedOnId?.images[0]" class="w-16 rounded-full object-cover h-16">
 
       </nuxt-img>
       <h2 class="text-Heading2sm font-bold leading-none">
