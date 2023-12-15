@@ -15,7 +15,45 @@ const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
 const user = useSupabaseUser();
+const itemsPets = ref(null)
+const errorPets = ref(null)
+const PendingPets = ref(null)
 
+if (user.value) {
+
+  if (user.value?.user_metadata.isShelter) {
+    const { data, error, pending } = useLazyFetch(`/api/shelter`)
+
+    if (data) {
+      itemsPets.value = data.value
+    }
+
+    if (error) {
+      errorPets.value = error.value
+    }
+
+    if (pending) {
+      PendingPets.value = pending.value
+    }
+
+  } else {
+    const { data, error, pending } = useLazyFetch(`/api/client`)
+
+    if (data) {
+      itemsPets.value = data.value
+    }
+
+    if (error) {
+      errorPets.value = error.value
+    }
+
+    if (pending) {
+      PendingPets.value = pending.value
+    }
+
+
+  }
+}
 // after every route enter toggle the isOpen boolean to false
 watch(
   () => route.path,
@@ -34,15 +72,7 @@ const logout = async () => {
     return navigateTo("/");
   }
 };
-const items = [
-  {
-    label: user.value?.user_metadata?.name || "",
-    description: user.value?.email || "",
-    icon: "i-heroicons-information-circle",
-    defaultOpen: false,
-    slot: "getting-started",
-  },
-];
+
 </script>
 
 <template>
@@ -128,16 +158,20 @@ const items = [
             </div>
             <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
               <nuxt-link to="/profile" class="w-full flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="50"
-                    height="50" class="rounded-sm" />
+                <div v-if="!PendingPets && !errorPets" class="flex items-center gap-3">
+                  <nuxt-img v-if="itemsPets.shelter.image.length" :src="itemsPets?.shelter?.image" width="50" height="50"
+                    class="rounded-sm" />
+                  <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                   <div class="">
                     <h3 class=" leading-none text-Body1sm font-semibold text-darkContText">{{ user?.user_metadata?.name }}
                     </h3>
-                    <span class="text-Captionlg font-light text-darkContText leading-none">Toby has been
+                    <span class="text-Captionlg font-light text-darkContText leading-none">
+                      {{ itemsPets?.pets?.length ?? 0 }} pets
+                      has been
                       registered!</span>
                   </div>
                 </div>
+
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-4 h-4">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
@@ -173,18 +207,21 @@ const items = [
             </div>
             <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
               <nuxt-link to="/profile" class="w-full flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                  <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="50"
-                    height="50" class="rounded-sm" />
+                <div v-if="!PendingPets && !errorPets" class="flex items-center gap-3">
+                  <nuxt-img v-if="itemsPets.client.image.length" :src="itemsPets?.client?.image" width="50" height="50"
+                    class="rounded-sm" />
+                  <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                   <div class="">
                     <h3 class=" text-Body1sm font-semibold text-darkContText">{{ user?.user_metadata?.name }}
                     </h3>
-                    <span class="text-Captionlg font-light text-darkContText  flex gap-2 items-center">Toby
-                      adoption is:
+                    <span class="text-Captionlg font-light text-darkContText  flex gap-2 items-center">{{
+                      itemsPets?.appointments.length ?? 0 }}
+                      adoption requests
                       <div class="bg-red-500 rounded-full w-2 h-2"></div>
                       In process
                     </span>
                   </div>
+
                 </div>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                   stroke="currentColor" class="w-4 h-4">
@@ -257,8 +294,9 @@ const items = [
           <div class="flex flex-col justify-center items-center gap-6 mr-6">
             <nuxt-link to="/profile" class="w-full flex items-center justify-between">
               <div class="flex items-center gap-3">
-                <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="50" height="50"
+                <nuxt-img v-if="itemsPets.shelter.image.length" :src="itemsPets?.shelter?.image" width="50" height="50"
                   class="rounded-sm" />
+                <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
               </div>
             </nuxt-link>
           </div>
@@ -290,8 +328,9 @@ const items = [
         <div class="flex flex-col justify-center items-center gap-6 mr-6">
           <nuxt-link to="/profile" class="w-full flex items-center justify-between">
             <div class="flex items-center gap-3">
-              <nuxt-img :src="user.user_metadata?.avatar_url ?? 'https://picsum.photos/100/100'" width="50" height="50"
+              <nuxt-img v-if="itemsPets.client.image.length" :src="itemsPets?.client?.image" width="50" height="50"
                 class="rounded-sm" />
+              <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
 
             </div>
 
