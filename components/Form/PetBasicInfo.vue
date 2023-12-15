@@ -5,28 +5,36 @@
 
     <div class="flex gap-2 w-full justify-start items-center">
       <label class="mr-8">Gender</label>
-      <UButton icon="i-material-symbols-male" color="primary" :class="{ 'selected': pet?.gender == 'male' }"
-        variant="outline" @click.prevent="updatePet('gender', 'male')" />
+      <UButton icon="i-material-symbols-male" color="primary" :class="[{
+        'selected': gender == 'MALE',
 
-      <UButton icon="i-material-symbols-female" color="primary" :class="{ 'selected': pet?.gender == 'female' }"
-        variant="outline" @click.prevent="updatePet('gender', 'female')" />
+      }, {
+        'selected': gender == 'male',
+
+      }]
+        " variant="outline" @click.prevent="updatePet('gender', 'male')" />
+
+      <UButton icon="i-material-symbols-female" color="primary" :class="[{ 'selected': gender == 'female' },
+      {
+        'selected': gender == 'FEMALE'
+      }]" variant="outline" @click.prevent="updatePet('gender', 'female')" />
 
     </div>
 
     <div class="flex gap-2 w-full justify-start items-center">
       <label class="mr-8">Size:</label>
-      <UButton v-for="size in sizeOptions" :class="[{
-        'selected': pet.size == size
+      <UButton v-for="s in sizeOptions" :class="[{
+        'selected': s == size
       },
       {
-        'p-1': size == 'Small'
+        'p-1': s == 'SMALL'
       },
       {
-        'p-2': size == 'Medium'
+        'p-2': s == 'MEDIUM'
       },
       {
-        'p-3': size == 'Large'
-      }]" icon="i-mdi-dog-side" @click.prevent="updatePet('size', size)" color="primary" variant="outline" />
+        'p-3': s == 'LARGE'
+      }]" icon="i-mdi-dog-side" @click.prevent="updatePet('size', s)" color="primary" variant="outline" />
 
     </div>
 
@@ -71,7 +79,9 @@
 
 
 
-    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+
+    <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
+      :expression="expression">
     </FormBackAndNextButtons>
   </div>
 </template>
@@ -130,7 +140,7 @@ const props = defineProps({
     required: true
   }
 })
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 const updatePet = (key, value) => {
   emit(`update:${key}`, value);

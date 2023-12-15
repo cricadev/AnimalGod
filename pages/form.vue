@@ -75,7 +75,6 @@ const nextStep = () => {
 const goToAndFix = (s: number) => {
 
   step.value = s;
-  console.log(history.value)
 }
 
 const user = useSupabaseUser();

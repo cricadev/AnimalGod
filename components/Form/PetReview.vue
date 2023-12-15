@@ -41,8 +41,13 @@
       </div>
       <!-- BASIC INFO-->
       <div class="">
-        <div class="flex justify-between">
-          <h5 class="text-contInactive font-bold text-sm">Basic info</h5>
+        <div class="flex flex-col justify-between">
+
+          <div class="item">
+            <UButton @click="emit('edit-type', 4)" label="Basic info" icon="i-mdi-pencil" trailing color="third"
+              class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
+
+          </div>
           <ul class="list-disc list-inside">
             <li class="leading-tight font-bold text-sm">
               {{ pet.gender }}
@@ -63,25 +68,29 @@
 
 
           </ul>
-          <UButton icon="i-mdi-pencil" trailing color="secondary" variant="ghost"></UButton>
 
 
         </div>
       </div>
-      <div class="grid gap-8 w-full">
-        <h5 class="text-contInactive font-bold text-sm col-start-1 col-end-2">History</h5>
+      <div class="flex flex-col gap-0 w-full">
+        <div class="item">
+          <UButton @click="emit('edit-type', 5)" label="History" icon="i-mdi-pencil" trailing color="third"
+            class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
 
+        </div>
         <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-auto w-full ">
           <p class="leading-tight text-sm"> {{ pet.history }}</p>
 
         </div>
-        <UButton class="col-start-3 col-end-4 row-start-1 row-end-2 self-start" icon="i-mdi-pencil" trailing
-          color="secondary" variant="ghost"></UButton>
+
 
       </div>
-      <div class="grid gap-8 w-full">
-        <h5 class="text-contInactive font-bold text-sm col-start-1 col-end-2">Personality</h5>
+      <div class="flex flex-col gap-0 w-full">
+        <div class="item">
+          <UButton @click="emit('edit-type', 6)" label="Personality" icon="i-mdi-pencil" trailing color="third"
+            class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
 
+        </div>
         <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-auto w-full flex flex-col gap-4">
 
           <ul class="list-disc list-inside">
@@ -92,12 +101,15 @@
 
           <p class="leading-tight text-sm"> {{ pet.personalityDescription }}</p>
         </div>
-        <UButton class="col-start-3 col-end-4 row-start-1 row-end-2 self-start" icon="i-mdi-pencil" trailing
-          color="secondary" variant="ghost"></UButton>
+
 
       </div>
-      <div class="grid gap-8 w-full grid-cols-3">
-        <h5 class="text-contInactive font-bold text-sm col-start-1 col-end-2">Health Condition</h5>
+      <div class="flex flex-col w-full ">
+        <div class="item">
+          <UButton @click="emit('edit-type', 7)" label="Health Condition" icon="i-mdi-pencil" trailing color="third"
+            class="text-contInactive font-bold text-sm" variant="ghost"></UButton>
+
+        </div>
 
         <div class="col-start-2 row-start-1  col-end-4 overflow-y-auto h-auto w-full flex flex-col gap-4">
 
@@ -115,8 +127,7 @@
           <p class="leading-tight text-sm"> {{ pet.healthDescription }}</p>
 
         </div>
-        <UButton class="col-start-3 col-end-4 row-start-1 row-end-2 self-start" icon="i-mdi-pencil" trailing
-          color="secondary" variant="ghost"></UButton>
+
 
       </div>
     </div>
@@ -172,13 +183,16 @@
     </div>
 
     <div class="submit-button flex justify-end">
-      <UButton class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('submit', pet)">Confirm
+      <UButton v-if="!route.query.id" class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('submit', pet)">Confirm
         and Register</UButton>
+      <UButton v-else class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('update-pet', pet)">Confirm and Update
+      </UButton>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+const route = useRoute()
 const expression = computed(() => {
   return true
 })
@@ -249,7 +263,7 @@ defineProps({
     default: true
   }
 })
-const emit = defineEmits(['submit', 'edit-type'])
+const emit = defineEmits(['submit', 'edit-type', 'update-pet'])
 
 const stepIndex = (key) => {
   const steps = ['type', 'name', 'images', 'gender', 'size', 'age', 'breed', 'goodWith', 'activity', 'history', 'personality', 'personalityDescription', 'healthConditions', 'healthDescription'];

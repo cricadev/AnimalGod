@@ -26,6 +26,14 @@
         +{{ files.length - 5 }} more
       </div>
     </div>
+    <label v-if="pet.images.length !== 0" for="imageInput" class="text-contInactive">
+      <div class="flex flex-col items-center justify-center gap-4">
+        <Icon class="h-20 w-20 " name="material-symbols:photo-camera-rounded"></Icon>
+        <span>Fancy another picture?</span>
+      </div>
+      <input type="file" id="imageInput" @change="(event) => handleFileUpload(event, 'animalgod-files', pet?.name)"
+        multiple accept="image/*">
+    </label>
 
 
     <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"

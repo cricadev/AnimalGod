@@ -8,7 +8,8 @@
       <div>
         <label></label>
         <div v-for="adjective in adjectivesOptions" :key="adjective">
-          <input type="checkbox" :id="adjective" :value="adjective"
+
+          <input type="checkbox" :id="adjective" :value="adjective" :checked="personality.includes(adjective)"
             @change="updatePet('personality', $event.target.value)">
           <label :for="adjective">{{ adjective }}</label>
         </div>
@@ -24,7 +25,8 @@
 
       </div>
     </div>
-    <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+    <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next=" emit('next')" @back="emit('back')"
+      :expression="expression">
     </FormBackAndNextButtons>
   </div>
 </template>
@@ -58,13 +60,13 @@ const props = defineProps({
   }
 
 })
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 
 const updatePet = (key, value) => {
   if (key === 'personality') {
-   
-  const personality = [...pet.value.personality ?? []];
+
+    const personality = [...pet.value.personality ?? []];
     const index = personality.indexOf(value);
     if (index === -1) {
       personality.push(value);
@@ -72,8 +74,8 @@ const updatePet = (key, value) => {
       personality.splice(index, 1);
     }
     value = personality;
-    
-  
+
+
   }
   emit(`update:${key}`, value);
   pet.value = { ...pet?.value, [key]: value }

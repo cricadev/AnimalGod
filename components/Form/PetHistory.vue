@@ -12,7 +12,8 @@
       <textarea placeholder="Write the pet's history (1000 chars)" class="input-basic-info h-12" :value="modelValue"
         @input="updateHistory($event.target.value)" id="pet-history" name="pet-history" rows="4" cols="50"></textarea>
 
-      <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+      <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
+        :expression="expression">
       </FormBackAndNextButtons>
     </div>
 
@@ -34,7 +35,7 @@ const props = defineProps({
     default: true
   }
 })
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 const updateHistory = (history) => {
   emit('update:modelValue', history)

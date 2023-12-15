@@ -11,19 +11,22 @@
           @back="step--" />
         <FormPetImageUpload @update-type="fixAndGoBackTo" v-if="step === 3" v-model="pet.images" @next="step++"
           @back="step--" />
-        <FormPetBasicInfo v-if="step === 4" v-model:gender="pet.gender" v-model:size="pet.size" v-model:age="pet.age"
-          v-model:breed="pet.breed" v-model:goodWith="pet.goodWith" v-model:activity="pet.activity"
-          :sizeOptions="SizeOptions" :breedOptions="BreedOptions" :good-with-options="GoodWithOptions"
-          :activity-level-options="ActivityLevelOptions" @next="step++" @back="step--" />
+        <FormPetBasicInfo @update-type="fixAndGoBackTo" v-if="step === 4" v-model:gender="pet.gender"
+          v-model:size="pet.size" v-model:age="pet.age" v-model:breed="pet.breed" v-model:goodWith="pet.goodWith"
+          v-model:activity="pet.activity" :sizeOptions="SizeOptions" :breedOptions="BreedOptions"
+          :good-with-options="GoodWithOptions" :activity-level-options="ActivityLevelOptions" @next="step++"
+          @back="step--" />
 
-        <FormPetHistory v-if="step === 5" v-model="pet.history" @next="step++" @back="step--" />
-        <FormPetPersonality v-if="step === 6" v-model:personality="pet.personality"
+        <FormPetHistory @update-type="fixAndGoBackTo" v-if="step === 5" v-model="pet.history" @next="step++"
+          @back="step--" />
+        <FormPetPersonality @update-type="fixAndGoBackTo" v-if="step === 6" v-model:personality="pet.personality"
           v-model:personalityDescription="pet.personalityDescription" :adjectivesOptions="PersonalityAdjectivesOptions"
           @next="step++" @back="step--" />
-        <FormPetHealth v-if="step === 7" v-model:healthConditions="pet.healthConditions"
+        <FormPetHealth @update-type="fixAndGoBackTo" v-if="step === 7" v-model:healthConditions="pet.healthConditions"
           v-model:healthDescription="pet.healthDescription" :healthOptions="HealthConditionOptions" @next="step++"
           @back="step--" />
-        <FormPetReview @edit-type="goToAndFix" v-if="step === 8" :pet="pet" @back="step--" @submit="handlePetRegister" />
+        <FormPetReview @update-pet="handlePetUpdate" @edit-type="goToAndFix" v-if="step === 8" :pet="pet" @back="step--"
+          @submit="handlePetRegister" />
 
         <FormExitFormScreen @exit-form="handleExitForm" v-if="step === 9" />
 
@@ -56,22 +59,31 @@ const handleExitForm = () => {
     navigateTo('/');
   }, 500);
 }
-const SizeOptions = ['Small', 'Medium', 'Large'];
+const SizeOptions = ['SMALL', 'MEDIUM', 'LARGE'];
 const BreedOptions = [
-  'Golden Retriever',
-  'Labrador Retriever',
-  'German Shepherd',
-  'Bulldog',
-  'Beagle',
-  'Poodle',
-  'Rottweiler',
-  'Yorkshire Terrier',
-  'Boxer',
-  'Dachshund'
+  'GOLDEN RETRIEVER',
+  'LABRADOR RETRIEVER',
+  'GERMAN SHEPHERD',
+  'BULLDOG',
+  'BEAGLE',
+  'POODLE',
+  'ROTTWEILER',
+  'YORKSHIRE TERRIER',
+  'BOXER',
+  'DACHSHUND',
 ];
-const GoodWithOptions = ['Children', 'Dogs', 'Cats'];
-const ActivityLevelOptions = ['Low', 'Medium', 'High'];
-const PersonalityAdjectivesOptions = ['Affectionate', 'Aloof', 'Dominant', 'Compliant', 'Relaxed', 'Enthusiastic', 'Confident', 'Timid', 'Devoted', 'Independent'];
+const GoodWithOptions = ['CHILDREN', 'DOGS', 'CATS'];
+const ActivityLevelOptions = ['LOW', 'MEDIUM', 'HIGH'];
+const PersonalityAdjectivesOptions = ['AFFECTIONATE',
+  'DOMINANT',
+  'RELAXED',
+  'INDEPENDENT',
+  'DEVOTED',
+  'CONFIDENT',
+  'ALOOF',
+  'COMPLIANT',
+  'TIMID',
+  'ENTHUSIASTIC',];
 const HealthConditionOptions = [{
   label: 'Is the pet fully vaccinated?',
   value: 'Vaccinated',
@@ -148,6 +160,25 @@ const handlePetRegister = async () => {
   }
 }
 
+const handlePetUpdate = async () => {
+  try {
+    // First, try to create the client
+    const data = await $fetch('/api/pet', {
+      method: 'PATCH',
+      body: { ...pet.value, email: user.value?.email }
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+    console.log(data)
+
+    step.value++;
+
+  }
+  catch (error) {
+    console.log(error);
+  }
+}
 
 </script>
 

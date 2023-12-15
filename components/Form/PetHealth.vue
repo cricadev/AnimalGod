@@ -1,6 +1,7 @@
 <template>
   <div class="section-step-layout">
-    <FormPreHeaderStep :question="shelter ? 'Select the adjectives that describes the pet’s health and add a description' : 'Now, some yes/no questions'"
+    <FormPreHeaderStep
+      :question="shelter ? 'Select the adjectives that describes the pet’s health and add a description' : 'Now, some yes/no questions'"
       :expression="expression">
     </FormPreHeaderStep>
 
@@ -8,17 +9,19 @@
     <div v-for="(condition, index) in healthOptions" :key="condition.value">
       <label> {{ condition.label }} </label>
       <input type="radio" :id="`${condition.value}-yes`" :name="condition.value" :value="healthConditions[index].answer"
-        value="Yes" @change="updatePet('healthConditions', 'Yes', index)">
+        :checked="healthConditions[index].answer == 'Yes'" value="Yes"
+        @change="updatePet('healthConditions', 'Yes', index)">
       <label :for="`${condition.value}-yes`">Yes</label>
       <input type="radio" :id="`${condition.value}-no`" :name="condition.value" :value="healthConditions[index].answer"
-        value="No" @change="updatePet('healthConditions', 'No', index)">
+        :checked="healthConditions[index].answer == 'No'" value="No" @change="updatePet('healthConditions', 'No', index)">
       <label :for="`${condition.value}-no`">No</label> -
     </div>
     <div class="relative flex gap-8 flex-col">
 
       <textarea id="pet-health" placeholder="Describe the pet’s health condition (1000 chars)" :value="healthDescription"
         @input="updatePet('healthDescription', $event.target.value)" required></textarea>
-      <FormBackAndNextButtons @next="emit('next')" @back="emit('back')" :expression="expression">
+      <FormBackAndNextButtons @update-type="emit('update-type', 8)" @next="emit('next')" @back="emit('back')"
+        :expression="expression">
       </FormBackAndNextButtons>
     </div>
   </div>
@@ -54,7 +57,7 @@ const props = defineProps({
   }
 })
 console.log(props.modelValue)
-const emit = defineEmits(['update:modelValue', 'next', 'back'])
+const emit = defineEmits(['update:modelValue', 'next', 'back', 'update-type'])
 
 
 const pet = ref({
