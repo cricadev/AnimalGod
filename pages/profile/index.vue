@@ -29,15 +29,15 @@
           }}
           <Icon :name="convertCountryToIcon(user.user_metadata?.country)" class="" />
         </h3>
-        <div class="" v-if="loading"> loading....</div>
-        <div class="" v-else>
-          <ProfileInputEditableHeading :modelValue="currentPrismaUser.phone"
+        <div v-if="!loading">
+          <ProfileInputEditableHeading :modelValue="currentPrismaUser?.phone"
             @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
-          <ProfileInputEditableHeading :modelValue="currentPrismaUser.address"
+          <ProfileInputEditableHeading v-if="currentPrismaUser.address" :modelValue="currentPrismaUser?.address"
             @update:modelValue="value => handleFieldUpdate('address', value)" :address="true" />
-          <ProfileInputEditableHeading :modelValue="currentPrismaUser.website" :website="true"
-            @update:modelValue="value => handleFieldUpdate('website', value)" />
+          <ProfileInputEditableHeading v-if="currentPrismaUser.website" :modelValue="currentPrismaUser?.website"
+            :website="true" @update:modelValue="value => handleFieldUpdate('website', value)" />
         </div>
+        <div v-else>Loading...</div>
       </div>
 
       <div class="px-5">
@@ -143,6 +143,7 @@ if (user.value?.user_metadata.isShelter) {
 
 
 }
+
 const state = reactive({
   currentPrismaUser: reactive({
     image: "",
@@ -157,21 +158,37 @@ const { currentPrismaUser, loading } = toRefs(state);
 
 
 const getCurrentUser = async () => {
-  loading.value = true
+  console.log(user.value?.user_metadata, 'IS shelter log', currentPrismaUser.value)
   if (user.value.user_metadata?.isShelter) {
-    const { data } = await useFetch(`/api/id?email=${user.value.email}&isShelter=true`)
-    currentPrismaUser.value = data
+    const { data, error } = await useFetch(`/api/id?email=${user.value.email}&isShelter=true`)
+    if (error.value) {
+      console.error(error.value?.message)
+    }
+    console.log(data.value)
+    if (data.value) {
+      currentPrismaUser.value = data.value
+      loading.value = false
+    }
+
+
   } else if (!user.value.user_metadata?.isShelter) {
-    const { data } = await useFetch(`/api/id?email=${user.value.email}`)
-    currentPrismaUser.value = data
+    const { data, error } = await useFetch(`/api/id?email=${user.value.email}`)
+    if (error) {
+      console.error(error.value?.message)
+    }
+    if (data.value) {
+      currentPrismaUser.value = data.value
+      loading.value = false
+    }
   }
 
-  loading.value = false
 }
 
-onBeforeMount(async () => {
+if (user.value?.user_metadata) {
   await getCurrentUser()
-});
+}
+
+
 
 
 
@@ -203,7 +220,6 @@ const handleFieldUpdate = async (field, newValue) => {
 }
 
 const clientStore = useClientStore();
-const shelterStore = useShelterStore();
 const { handleFileUpload, deleteImage } = useformStore();
 
 // onMounted(async () => {
@@ -218,20 +234,20 @@ const { handleFileUpload, deleteImage } = useformStore();
 
 
 
-
+const publicUrl = currentPrismaUser.value?.image ? ref(currentPrismaUser.value?.image) : ref(null)
 const handleImageDelete = async () => {
 
-  await deleteImage(0, 'avatars', user.value.user_metadata?.name)
+  await deleteImage(0, 'avatars', user.value.user_metadata?.name, publicUrl.value)
 
   try {
-    console.log(currentPrismaUser.value.id)
+    console.log(currentPrismaUser.value.id, publicUrl.value)
     // First, try to create the client
     const data = await $fetch('/api/user', {
       method: 'PATCH',
       body: {
         isShelter: user.value.user_metadata?.isShelter,
         id: currentPrismaUser.value.id,
-        image: ''
+        image: '',
       }
     });
     if (!data) {
@@ -250,7 +266,8 @@ const handleImageDelete = async () => {
 
 const handleUpload = async (event) => {
 
-  await handleFileUpload(event, 'avatars', user.value.user_metadata?.name)
+  publicUrl.value = await handleFileUpload(event, 'avatars', user.value.user_metadata?.name)
+  console.log(publicUrl.value)
 
   try {
     // First, try to create the client
@@ -259,7 +276,7 @@ const handleUpload = async (event) => {
       body: {
         isShelter: user.value.user_metadata?.isShelter,
         id: currentPrismaUser.value.id,
-        image: 'https://selsrqgtbifccztqjvag.supabase.co/storage/v1/object/public/avatars/avatars/' + user.value.user_metadata?.name + '0'
+        image: publicUrl.value,
       }
     });
     if (!data) {

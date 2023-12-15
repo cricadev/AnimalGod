@@ -37,8 +37,11 @@
           <tr class="table-data" v-for="appointment in petBasedOnId?.appointments" :key="appointment.id">
             <td class="table-data-cell">
               <div class="">
-                <nuxt-img :src="appointment.client.image" class="w-16 h-16 rounded-full"></nuxt-img> <span
-                  class="font-semibold "> {{ appointment.client.name }} </span>
+                <nuxt-img v-if="appointment.client.image" :src="appointment.client.image"
+                  class="w-16 h-16 rounded-full"></nuxt-img>
+                <Icon v-else name="i-mdi-account" class="w-16 h-16 rounded-full" />
+
+                <span class="font-semibold "> {{ appointment.client.name }} </span>
               </div>
             </td>
             <td>

@@ -9,7 +9,7 @@ export const useClientStore = defineStore("ClientStore", () => {
 
   const fetchClient = async (id) => {
     try {
-      const data = await $fetch(`/api/client?userId=${id}`);
+      const data = await $fetch(`/api/client?clientId=${id}`);
       if (!data) {
         const noDataError = new Error('No data returned from server');
         console.error('Error fetching client:', noDataError);

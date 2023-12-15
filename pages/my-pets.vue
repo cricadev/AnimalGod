@@ -37,7 +37,8 @@
             <td>
               <div class="" v-if="pet.appointments.length === 1">
                 <nuxt-link :to="'/applicants/' + pet.id">
-                  <nuxt-img :src="pet.appointments[0].client.image" class="w-16 h-16 rounded-full"></nuxt-img>
+                  <nuxt-img v-if="pet.appointments[0].client.image" :src="pet.appointments[0].client.image"
+                    class="w-16 h-16 rounded-full"></nuxt-img>
                   <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span></nuxt-link>
               </div>
               <div class="flex flex-col gap-2" v-else-if="pet.appointments.length > 1">
@@ -45,8 +46,10 @@
                   'ring': 'ring-0',
                   'wrapper': 'bg-darkContSecond',
                 }">
-                  <UAvatar class="override-this-shit" :src="p?.client.image" :alt="p?.client.name"
-                    v-for="p in pet.appointments" />
+                  <UAvatar v-for="p in pet.appointments" v-if="p?.client.image" class="override-this-shit"
+                    :src="p?.client.image" :alt="p?.client.name" />
+
+                  <UAvatar v-for="p in pet.appointments" v-else class="override-this-shit" :alt="p?.client.name" />
                 </UAvatarGroup>
                 <div class="">
                   <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>

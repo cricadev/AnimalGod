@@ -165,44 +165,66 @@ export const useformStore = defineStore("formStore", () => {
 
   const filePaths = ref([]);
   const handleFileUpload = async (e: any, storageTableName: string, entityName: string) => {
+    // Upload each file
     files.value = Array.from(e.target.files);
     for (const file of files.value) {
       try {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         let filePath = `${storageTableName}/${entityName}-${uniqueSuffix}`;
-        const { data, error } = await supabase.storage.from(storageTableName).upload(filePath, file);
-        if (error) {
-          console.error('Error uploading file:', error.message);
-          return
-        }
-        const publicUrl = supabase.storage.from(storageTableName).getPublicUrl(filePath).data.publicUrl;
+        await supabase.storage.from(storageTableName).upload(filePath, file);
 
-        imagesURL.value = [...imagesURL.value, publicUrl]
-        filePaths.value.push(filePath);
+        const publicUrl = supabase.storage.from(storageTableName).getPublicUrl(filePath).data.publicUrl;
+        if (storageTableName === 'animalgod-files') {
+          imagesURL.value = [...imagesURL.value, publicUrl]
+          filePaths.value.push(filePath);
+        }
+
+        if (storageTableName === 'avatars') {
+          filePaths.value.push(filePath);
+          return publicUrl
+        }
       } catch (error) {
         console.error('Error uploading file:', error);
       }
     }
     pet.images = imagesURL.value;
   };
-  const isDeleting = ref(false);
-
-  const deleteImage = async (index: number, storageTableName: string, entityName: string) => {
+  const isDeleting = ref(false)
+  const deleteImage = async (index: number, storageTableName: string, entityName: string, publicUrl: string) => {
     isDeleting.value = true;
     try {
-      let filePath = filePaths.value[index];
-      console.log(filePath)
+      let filePath;
+      if (storageTableName === 'avatars') {
+        const imageName = publicUrl.substring(publicUrl.lastIndexOf('/') + 1);
+        filePath = 'avatars/' + imageName;
+      } else {
+        // Extract the name of the image from the public URL
+        const imageName = publicUrl.substring(publicUrl.lastIndexOf('/') + 1);
+        filePath = storageTableName + '/' + imageName;
+      }
+      console.log(filePath, 'filePath')
+
+      // Delete the file
       const { data, error } = await supabase.storage.from(storageTableName).remove([filePath]);
       if (error) {
         console.error('Error deleting file:', error.message);
-        return
+        return;
       }
-      const imageUrl = imagesURL.value[index];
-      files.value.splice(index, 1);
-      filePaths.value.splice(index, 1);
-      const imageUrlIndex = pet.images.findIndex(imgurl => imgurl === imageUrl);
-      if (imageUrlIndex !== -1) {
-        pet.images.splice(imageUrlIndex, 1);
+
+      // Update the local state based on the storage table name
+      if (storageTableName === 'animalgod-files') {
+        files.value.splice(index, 1);
+        imagesURL.value.splice(index, 1);
+        filePaths.value = filePaths.value.filter(path => path !== filePath);
+        const imageUrlIndex = pet.images.findIndex(imgurl => imgurl === publicUrl);
+        if (imageUrlIndex !== -1) {
+          pet.images.splice(imageUrlIndex, 1);
+        }
+      };
+
+      if (storageTableName === 'avatars') {
+        files.value.splice(index, 1);
+        filePaths.value = filePaths.value.filter(path => path !== filePath);
       }
     } catch (error) {
       console.error('Error deleting file:', error);
@@ -210,7 +232,6 @@ export const useformStore = defineStore("formStore", () => {
       isDeleting.value = false;
     }
   }
-
   watch(files, (newVal, oldVal) => {
     if (newVal.length > 0) {
       upload.value = true

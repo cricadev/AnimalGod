@@ -15,8 +15,7 @@
       <div class="image-container" v-for="(img, index) in pet.images" :key="index">
 
         <img :src="img" alt="pet image" class="w-full h-full object-cover">
-
-        <button class="delete-icon" @click="(event) => deleteImage(index, 'animalgod-files', pet.name)"
+        <button class="delete-icon" @click="(event) => deleteImage(index, 'animalgod-files', pet.name, img)"
           :disabled="isDeleting">
 
           <Icon class="h-5 w-5 p-px rounded-sm text-white bg-contAccent" name="cil:trash"></Icon>
