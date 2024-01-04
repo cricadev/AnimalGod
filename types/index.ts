@@ -1,4 +1,4 @@
-interface Shelter {
+export interface Shelter {
   id: number;
   name: string;
   email: string;
@@ -12,7 +12,7 @@ interface Shelter {
   updatedAt: Date;
 }
 
-interface Client {
+export interface Client {
   id: number;
   name: string;
   email: string;
@@ -23,7 +23,7 @@ interface Client {
   updatedAt: Date;
 }
 
-interface Pet {
+export interface Pet {
   id: number;
   type: string;
   name: string;
@@ -46,7 +46,7 @@ interface Pet {
   updatedAt: Date;
 }
 
-interface Appointment {
+export interface Appointment {
   id: number;
   liveWith: liveWith[];
   liveWithDescription: string;

@@ -39,6 +39,7 @@
     "flowbite": "^1.8.1",
     "i18n-iso-countries": "^7.7.0",
     "nuxt-icon": "^0.5.0",
+    "pet-breed-names": "^1.0.2",
     "sass": "^1.68.0",
     "vue3-carousel": "^0.3.1"
   }

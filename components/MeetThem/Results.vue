@@ -1,7 +1,8 @@
 <template>
   <div class="flex justify-center items-center flex-col  mx-5">
     <div class="my-12 flex flex-col justify-center items-center text-center">
-      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">{{ myData?.length }} results</span>
+      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"> {{ query }}</span>
+      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">{{ allData?.length }} results</span>
       <h4 class="text-Heading4sm font-bold font-Inter mb-1">
         Black cats are less likely to be adopted
       </h4>
@@ -17,40 +18,32 @@
         Loading...
       </h1>
     </div>
-    <div class="" v-else-if="error || !myData">
+    <div class="" v-else-if="error || !allData">
       There's an error in the API CALL
       {{ error }}
     </div>
-    <Carousel v-else ref="myCarousel" :wrap-around="true" snap-align="center-even" :items-to-show="4">
 
-      <Slide v-for="animal in myData" :key="animal.name">
+    <div class="grid grid-cols-2 grid-rows-2 w-full h-full relative gap-4">
+      <div v-for="animal in myData" :key="animal.name">
+        <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+          :to="`/meet-them/${animal.name}`">
+          <h6
+            class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+            {{ animal.name }}
+          </h6>
+          <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
+            class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
+            width="100%" height="100%"></nuxt-img>
+          <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+            :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
+        </nuxt-link>
+      </div>
+      <div class="absolute -bottom-8 w-full flex justify-center gap-8">
+        <button @click="prev(4)">Prev</button>
 
-        <div class="">
-          <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-            :to="`/meet-them/${animal.name}`">
-            <h6
-              class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
-              {{ animal.name }}
-            </h6>
-            <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
-              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
-              width="100%" height="100%"></nuxt-img>
-            <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-              :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
-          </nuxt-link>
-        </div>
+        <button @click="next(4)" :disabled="disableNext" class="disabled:text-red-500">Next</button>
 
-      </Slide>
-      <template #addons>
-        <Pagination class="results-pagination" />
-
-      </template>
-
-    </Carousel>
-    <div class="results-navigation">
-      <button @click="prev">Prev</button>
-
-      <button @click="next">Next</button>
+      </div>
 
     </div>
 
@@ -60,59 +53,54 @@
 <script setup lang="ts">
 import { useformStore } from "~/stores/formStore";
 import { storeToRefs } from "pinia";
-
-import { Carousel, Pagination, Slide, Navigation } from "vue3-carousel";
-
-import animals from "~/db/animals.json";
-interface Animal {
-  age: Number;
-  breed: String;
-  createdAt: String;
-  description: String;
-  id: Number;
-  images: Array<String>;
-  isAdopted: Boolean;
-  name: String;
-  type: String;
-  updatedAt: String;
-  hexColor: String;
-}
+import type { Pet } from "~/types";
+const props = defineProps({
+  query: {
+    type: String,
+    required: true,
+  },
+})
 const myCarousel = ref(null);
 const formStore = useformStore();
 const { supabaseImages } = storeToRefs(formStore);
-
-const offset = ref(0)
-
-
-const { data: myData, error, pending } = await useLazyFetch<Animal[]>('/api/pets?offset=' + offset.value)
+const { data: allData, error, pending } = await useLazyFetch<Pet[]>('/api/pets');
 
 if (error) {
   console.error(error.value)
-
 }
 
+const limit = ref(4); // Number of items to display
+const offset = ref(0); // Number of items to skip
 
-const next = async () => {
-  myCarousel.value?.next()
+const myData = computed(() => allData.value.slice(offset.value, offset.value + limit.value));
 
-  offset.value += 4
-
-  const { data, error, pending } = await useLazyFetch<Animal[]>('/api/pets?offset=' + offset.value)
-  if (data) {
-    myData.value = data.value
-  }
-};
-
-const prev = async () => {
-  myCarousel.value?.prev()
-  offset.value -= 4
-  const { data, error, pending } = await useLazyFetch<Animal[]>('/api/pets?offset=' + offset.value)
-  if (data) {
-    myData.value = data.value
-  }
+const next = () => {
+  offset.value = Math.min(allData.value.length - limit.value, offset.value + limit.value);
 }
 
+const prev = () => {
+  offset.value = Math.max(0, offset.value - limit.value);
+}
+const disableNext = computed(() => offset.value + limit.value >= allData.value.length);
 
+
+watch(() => props.query, async (newVal) => {
+  if (newVal) {
+    console.log(newVal)
+    const { data, error } = await useLazyFetch<Pet[]>('/api/pets?searchQuery=' + newVal);
+    if (data) {
+      allData.value = data.value;
+      console.log(data)
+    }
+  } else {
+    const { data, error } = await useLazyFetch<Pet[]>('/api/pets');
+    if (data) {
+      allData.value = data.value;
+      console.log(data)
+    }
+
+  }
+})
 </script>
 <style scoped>
 .carousel__track {

@@ -39,6 +39,9 @@
 import { storeToRefs } from 'pinia';
 import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
+import { dogBreeds, catBreeds } from 'pet-breed-names';
+
+
 const formStore = useformStore();
 const { pet } = storeToRefs(formStore);
 
@@ -48,6 +51,15 @@ onUnmounted(() => {
 const isEditing = ref(false);
 provide('isEditing', isEditing);
 const route = useRoute();
+const BreedOptions = computed(() => {
+  if (pet.value.type === 'dog') {
+    return dogBreeds.en
+  }
+  else {
+    return catBreeds.en
+  }
+})
+
 
 const handleFormSubmition = () => {
   console.log(pet)
@@ -60,18 +72,7 @@ const handleExitForm = () => {
   }, 500);
 }
 const SizeOptions = ['SMALL', 'MEDIUM', 'LARGE'];
-const BreedOptions = [
-  'GOLDEN RETRIEVER',
-  'LABRADOR RETRIEVER',
-  'GERMAN SHEPHERD',
-  'BULLDOG',
-  'BEAGLE',
-  'POODLE',
-  'ROTTWEILER',
-  'YORKSHIRE TERRIER',
-  'BOXER',
-  'DACHSHUND',
-];
+
 const GoodWithOptions = ['CHILDREN', 'DOGS', 'CATS'];
 const ActivityLevelOptions = ['LOW', 'MEDIUM', 'HIGH'];
 const PersonalityAdjectivesOptions = ['AFFECTIONATE',
