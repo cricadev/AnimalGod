@@ -9,14 +9,27 @@
     <meet-them-banner></meet-them-banner>
 
     <!-- BBUTTONS FILTER -->
-    <meet-them-filter></meet-them-filter>
+    <meet-them-filter v-model="advancedFiltering.type" @update-type="updateFilters"></meet-them-filter>
 
     <!-- RESULTS -->
-    <MeetThemResults :query="searchQuery"></MeetThemResults>
+    <MeetThemResults :query="searchQuery" :filters="advancedFiltering"></MeetThemResults>
   </div>
 </template>
 <script setup>
 const searchQuery = ref('');
+const advancedFiltering = reactive({
+  type: '',
+  breed: '',
+  size: '',
+  age: 0,
+  gender: '',
+  personality: '',
+  goodWith: '',
+  activity: '',
+})
 
+const updateFilters = (newFilters) => {
 
+  Object.assign(advancedFiltering, newFilters);
+}
 </script>

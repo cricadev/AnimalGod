@@ -54,10 +54,15 @@
 import { useformStore } from "~/stores/formStore";
 import { storeToRefs } from "pinia";
 import type { Pet } from "~/types";
+import { profile } from "console";
 const props = defineProps({
   query: {
     type: String,
     required: true,
+  },
+  filters: {
+    type: Object,
+    required: false,
   },
 })
 const myCarousel = ref(null);
@@ -101,6 +106,23 @@ watch(() => props.query, async (newVal) => {
 
   }
 })
+watch(() => props.filters, async (newFilters) => {
+  // Create a query string from the filters
+  if (newFilters) {
+    console.log(newFilters)
+    const queryParams = Object.entries(newFilters)
+      .filter(([key, value]) => value) // Remove entries with empty values
+      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+      .join('&');
+
+    console.log(queryParams)
+    const { data, error } = await useLazyFetch<Pet[]>('/api/pets?' + queryParams);
+    if (data) {
+      allData.value = data.value;
+      console.log(data)
+    }
+  }
+}, { deep: true })
 </script>
 <style scoped>
 .carousel__track {
