@@ -4,10 +4,7 @@ import { useWindowSize } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 
 const { height, width } = useWindowSize();
-const isMobile = ref(true)
-watch(width, (newWidth) => {
-  isMobile.value = newWidth < 768;
-}, { immediate: true });
+const isMobile = computed(() => width.value < 768)
 const slidesHero = [
   {
     id: 1,

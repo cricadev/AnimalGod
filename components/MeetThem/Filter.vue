@@ -25,8 +25,8 @@
       <USelectMenu searchable searchable-placeholder="Search a gender..." placeholder="Gender" :options="GenderOptions"
         v-model="advancedFiltering.gender" />
 
-      <USelectMenu searchable searchable-placeholder="Search a personality..." placeholder="Personality"
-        :options="PersonalityOptions" v-model="advancedFiltering.personality" />
+      <USelectMenu placeholder="Personality" :multiple="true" :options="PersonalityOptions"
+        v-model="advancedFiltering.personality" />
 
       <USelectMenu searchable searchable-placeholder="Search a good with..." placeholder="Good with"
         :options="GoodWithOptions" v-model="advancedFiltering.goodWith" />
