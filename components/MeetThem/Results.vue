@@ -1,7 +1,8 @@
 <template>
   <div class="flex justify-center items-center flex-col  mx-5">
     <div class="my-12 flex flex-col justify-center items-center text-center">
-      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"> {{ query }}</span>
+      <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"> {{ query }} {{ queryParamsText
+      }}</span>
       <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">{{ allData?.length }} results</span>
       <h4 class="text-Heading4sm font-bold font-Inter mb-1">
         Black cats are less likely to be adopted
@@ -65,6 +66,7 @@ const props = defineProps({
     required: false,
   },
 })
+const queryParamsText = ref('')
 const myCarousel = ref(null);
 const formStore = useformStore();
 const { supabaseImages } = storeToRefs(formStore);
@@ -116,6 +118,7 @@ watch(() => props.filters, async (newFilters) => {
       .join('&');
 
     console.log(queryParams)
+    queryParamsText.value = queryParams;
     const { data, error } = await useLazyFetch<Pet[]>('/api/pets?' + queryParams);
     if (data) {
       allData.value = data.value;

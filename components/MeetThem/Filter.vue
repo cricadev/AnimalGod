@@ -9,25 +9,45 @@
     <UButton size="xl" label="Filter by" color="primary" variant="solid" trailingIcon="i-mdi-menu-down"
       @click="appear = true" />
     <div class="appear-menu w-full absolute top-0" v-show="appear">
+
       <UButton size="xl" label="Filter by" color="primary" variant="solid" trailingIcon="i-mdi-menu-down"
         @click="sendFilters" block />
-      <USelectMenu searchable searchable-placeholder="Search a breed..." placeholder="Select a breed"
-        :options="BreedOptions" v-model="advancedFiltering.breed" />
 
-      <USelectMenu searchable searchable-placeholder="Search a size..." placeholder="Select a size" :options="sizes"
+      <USelectMenu searchable searchable-placeholder="Search a breed..." placeholder="Breed" :options="BreedOptions"
+        v-model="advancedFiltering.breed" />
+
+      <USelectMenu searchable searchable-placeholder="Search a size...  " placeholder="Size" :options="SizesOptions"
         v-model="advancedFiltering.size" />
+
+      <USelectMenu searchable searchable-placeholder="Search a age..." placeholder="Age" :options="AgesOptions"
+        v-model="advancedFiltering.age" />
+
+      <USelectMenu searchable searchable-placeholder="Search a gender..." placeholder="Gender" :options="GenderOptions"
+        v-model="advancedFiltering.gender" />
+
+      <USelectMenu searchable searchable-placeholder="Search a personality..." placeholder="Personality"
+        :options="PersonalityOptions" v-model="advancedFiltering.personality" />
+
+      <USelectMenu searchable searchable-placeholder="Search a good with..." placeholder="Good with"
+        :options="GoodWithOptions" v-model="advancedFiltering.goodWith" />
+
+      <USelectMenu searchable searchable-placeholder="Search a activity level..." placeholder="Activity level"
+        :options="ActivityLevelOptions" v-model="advancedFiltering.activity" />
 
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { dogBreeds, catBreeds } from 'pet-breed-names';
+
 const appear = ref(false);
 const selectMenu = ref(null);
+
 const sendFilters = () => {
   appear.value = false;
   console.log(advancedFiltering)
 }
+
 const people = [
   {
     id: "dog",
@@ -42,6 +62,7 @@ const people = [
 ];
 
 const selected = ref(people[0]);
+
 const BreedOptions = computed(() => {
   if (selected.value.id === 'dog') {
     return dogBreeds.en
@@ -50,7 +71,39 @@ const BreedOptions = computed(() => {
     return catBreeds.en
   }
 })
-const sizes = ['SMALL', 'MEDIUM', 'LARGE']
+const SizesOptions = [
+  'Small',
+  'Medium',
+  'Large',
+  'Extra Large',
+];
+const AgesOptions = [
+  'Baby', 'Young', 'Adult', 'Senior'
+];
+const GenderOptions = [
+  'Male', 'Female'
+]
+const PersonalityOptions = [
+  'Affectionate',
+  'Dominant',
+  'Relaxed',
+  'Independent',
+  'Devoted',
+  'Confident',
+  'Aloof',
+  'Compliant',
+  'Timid',
+  'Enthusiastic',
+]
+
+const GoodWithOptions = [
+  'Kids', 'Dogs', 'Cats', 'Other'
+]
+const ActivityLevelOptions = [
+  'Low',
+  'Moderate',
+  'High',
+]
 const advancedFiltering = reactive({
   type: '',
   breed: '',
@@ -63,6 +116,7 @@ const advancedFiltering = reactive({
 })
 
 const emit = defineEmits(["update:modelValue", "update-type"]);
+
 const updateSelected = (selected) => {
   emit("update:modelValue", selected.id);
 };
