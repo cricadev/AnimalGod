@@ -37,7 +37,7 @@ const slidesHero = [
 </script>
 
 <template>
-  <div v-if="isMobile">
+  <div v-show="isMobile">
     <Carousel :autoplay="2000" :wrap-around="true">
       <Slide class="bg-contAccent h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
         :key="slide.content">
@@ -53,7 +53,7 @@ const slidesHero = [
               {{ slide.title }}
             </h2>
             <p class="mt-4 font-sans font-regular text-Body1sm">
-              {{ slide.content }}
+              {{ slide.content }} MOBILE
             </p>
           </div>
           <span
@@ -72,7 +72,7 @@ const slidesHero = [
       </template>
     </Carousel>
   </div>
-  <div class="" v-else>
+  <div class="" v-show="!isMobile">
     <Carousel :autoplay="2000" :wrap-around="true">
       <Slide class="bg-[#1713C1] h-[40vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
         :key="slide.content">
@@ -96,7 +96,7 @@ const slidesHero = [
                 {{ slide.title }}
               </h2>
               <p class="mt-4 font-sans font-regular text-Body1lg text-start">
-                {{ slide.content }}
+                {{ slide.content }} DESKTOP
               </p>
               <div class="" v-if="slide.cta">
                 <div class="flex justify-start mt-8">
