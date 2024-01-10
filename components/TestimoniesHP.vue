@@ -99,9 +99,9 @@ const shelterSlides = [
         }}</span>
       <div class="relative h-[30%] md:h-full w-full grid  z-10 md:col-start-1 md:col-end-2">
         <nuxt-img provider="cloudinary" :src="slide.image"
-          class="md:row-start-1 md:row-end-4 col-start-1 col-end-5 w-auto h-full"></nuxt-img>
+          class="md:row-start-1 md:row-end-4 md:col-start-1 md::col-end-5 w-auto h-full row-start-1 row-end-3"></nuxt-img>
         <nuxt-img provider="cloudinary" :src="slide.cover"
-          class="h-full w-auto object-cover object-center row-start-2 row-end-5 col-start-3 col-end-6 mt-4 rounded-xl relative scale-75 "></nuxt-img>
+          class="h-full w-auto object-cover object-center md:row-start-2 md:row-end-5 md:col-start-3 md:col-end-6 mt-4 rounded-xl relative scale-75 "></nuxt-img>
       </div>
       <div class="md:col-start-2 md:col-end-3 ">
         <p class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10 md:text-end">

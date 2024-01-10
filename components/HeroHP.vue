@@ -74,7 +74,7 @@ const slidesHero = [
   </div>
   <div class="" v-show="!isMobile">
     <Carousel :autoplay="2000" :wrap-around="true">
-      <Slide class="bg-[#1713C1] h-[40vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
+      <Slide class="bg-[#1713C1] h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
         :key="slide.content">
         <div class="grid-hero-mobile">
           <div class="w-full h-gull relative">
@@ -92,10 +92,10 @@ const slidesHero = [
               {{ slide.kind }}
             </span>
             <div class="z-40 absolute mx-5 text-center  text-darkContText-50 dark:text-darkContText-50">
-              <h2 class="font-sans font-bold text-Heading1lg text-start leading-tight">
+              <h2 class="font-sans font-bold text-Heading1lg lg:text-Display text-start leading-tight lg:leading-none">
                 {{ slide.title }}
               </h2>
-              <p class="mt-4 font-sans font-regular text-Body1lg text-start">
+              <p class="mt-4 font-sans font-regular text-Body1lg lg:text-xl text-start">
                 {{ slide.content }} DESKTOP
               </p>
               <div class="" v-if="slide.cta">

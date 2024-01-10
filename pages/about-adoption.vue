@@ -47,7 +47,7 @@
           <h3 class="text-Heading3sm font-bold leading-tight">
             Do's and Dont's if you wish to adopt from an animal shelter
           </h3>
-          <div class="" v-if="isMobile">
+          <div class="" v-show="isMobile">
             <ul class="first-list">
               <li>
                 Research the animal you are interested in adopting thoroughly
@@ -66,7 +66,7 @@
               <li>Return the animal to the shelter if it doesn't work out</li>
             </ul>
           </div>
-          <div class="flex gap-16 w-full justify-center items-center" v-else>
+          <div class="flex gap-16 w-full justify-center items-center" v-show="!isMobile">
             <ul class="first-list">
               <li>
                 Research the animal you are interested in adopting thoroughly

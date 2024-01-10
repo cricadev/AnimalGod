@@ -200,7 +200,7 @@ const boxes = [
     <div v-else class="">
       <div
         class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10 md:grid-cols-3  "
-        v-if="!isMobile">
+        v-show="!isMobile">
         <div v-for="animalCard in cardsHP" :key="animalCard.figure1"
           class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 ">
           <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" :width="animalCard.width"
@@ -215,7 +215,7 @@ const boxes = [
       </div>
       <div
         class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10 md:grid-cols-3"
-        v-else>
+        v-show="isMobile">
         <div v-for="animalCard in cardsHP.slice(0, 2)" :key="animalCard.figure1"
           class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1">
           <div class="">

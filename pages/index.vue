@@ -42,13 +42,13 @@ const isMobile = computed(() => width.value < 768);
       <FAQs></FAQs>
     </div>
     <div v-else>
-      <div class="" v-if="isMobile">
+      <div class="" v-show="isMobile">
         <FAQs></FAQs>
         <tip></tip>
       </div>
       <div
         class="overflow-hidden flex items-center h-full w-full bg-gradient-to-r from-darkContThird via-darkContThird to-darkBg"
-        v-else>
+        v-show="!isMobile">
         <tip class="h-full w-full -skew-x-6"></tip>
         <FAQs :skew="true" class="h-full w-full -skew-x-6"></FAQs>
 
