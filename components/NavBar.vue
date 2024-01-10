@@ -78,7 +78,7 @@ const logout = async () => {
         <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
           v-else></nuxt-img>
       </nuxt-link>
-      <nuxt-link to="/pet" v-if="user?.user_metadata?.isShelter">
+      <nuxt-link to="/pet" class="bg-darkContThird px-3 py-2 rounded-lg" v-if="user?.user_metadata?.isShelter">
         Register animal</nuxt-link>
       <div class="flex place-items-center burguer-menu">
         <ToggleTheme></ToggleTheme>
@@ -335,4 +335,5 @@ const logout = async () => {
 
 .router-link-active {
   @apply border-b border-contAccent pb-1;
-}</style>
+}
+</style>

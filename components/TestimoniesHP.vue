@@ -86,9 +86,9 @@ const shelterSlides = [
 </script>
 
 <template>
-  <Carousel class="p-4 md:p-16" :items-to-show="1" :wrap-around="true">
+  <Carousel :items-to-show="1" :wrap-around="true" class="">
     <Slide
-      class="p-8 dark:bg-contAccent bg-contAccent h-[80vh] md:h-[50vh] w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid"
+      class="h-full p-8 mx-4 px-4 dark:bg-contAccent bg-contAccent w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid"
       v-for="slide in user?.user_metadata?.isShelter
         ? shelterSlides
         : slidesResources" :key="slide.content">
@@ -97,11 +97,11 @@ const shelterSlides = [
         class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter md:col-start-2 md:col-end-3">{{
           slide.date
         }}</span>
-      <div class="relative h-[30%] md:h-full w-full grid  z-10 md:col-start-1 md:col-end-2">
+      <div class="grid relative z-20">
         <nuxt-img provider="cloudinary" :src="slide.image"
-          class="md:row-start-1 md:row-end-4 md:col-start-1 md::col-end-5 w-auto h-full row-start-1 row-end-3"></nuxt-img>
+          class="col-start-1 col-end-5 row-start-1 row-end-3 p-8"></nuxt-img>
         <nuxt-img provider="cloudinary" :src="slide.cover"
-          class="h-full w-auto object-cover object-center md:row-start-2 md:row-end-5 md:col-start-3 md:col-end-6 mt-4 rounded-xl relative scale-75 "></nuxt-img>
+          class="p-8 col-start-3 col-end-6 row-start-2 row-end-4"></nuxt-img>
       </div>
       <div class="md:col-start-2 md:col-end-3 ">
         <p class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10 md:text-end">
