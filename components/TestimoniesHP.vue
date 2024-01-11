@@ -104,11 +104,12 @@ const shelterSlides = [
           class="p-8 col-start-3 col-end-6 row-start-2 row-end-4"></nuxt-img>
       </div>
       <div class="md:col-start-2 md:col-end-3 ">
-        <p class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10 md:text-end">
+        <p
+          class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10 md:text-end md:text-Captionlg">
           {{ slide.content }}
         </p>
         <div
-          class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10 md:text-end  md:mt-8 md:w-full">
+          class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10 md:text-end  md:mt-8 md:w-full md:text-2xl">
           {{ slide.tag }}
         </div>
         <span

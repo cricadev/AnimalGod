@@ -53,7 +53,7 @@ const slidesHero = [
               {{ slide.title }}
             </h2>
             <p class="mt-4 font-sans font-regular text-Body1sm">
-              {{ slide.content }} MOBILE
+              {{ slide.content }}
             </p>
           </div>
           <span
@@ -74,34 +74,31 @@ const slidesHero = [
   </div>
   <div class="" v-show="!isMobile">
     <Carousel :autoplay="2000" :wrap-around="true">
-      <Slide class="bg-[#1713C1] h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
+      <Slide class="bg-[#1713C1] md:h-[40vh] lg:h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
         :key="slide.content">
-        <div class="grid-hero-mobile">
-          <div class="w-full h-gull relative">
-            <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
-              class=" z-40"></nuxt-img>
-            <nuxt-img provider="cloudinary" :src="slide.image" width="100%" height="100%"
-              class="z-20 absolute top-0 left-0"></nuxt-img>
-            <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
-              class=" z-[5]"></nuxt-img>
-          </div>
-          <div class="">
+        <div class="w-full h-full relative grid">
+          <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
+            class="z-40 absolute top-0"></nuxt-img>
+          <nuxt-img provider="cloudinary" :src="slide.image" width="100%" height="100%"
+            class="z-20 absolute top-4 left-0 lg:bottom-0"></nuxt-img>
+          <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
+            class=" z-[5]"></nuxt-img>
 
-            <span
-              class="absolute bottom-0 right-0 z-1 font-extrabold text-right text-[#0300A2] text-[10rem] leading-none ">
-              {{ slide.kind }}
-            </span>
-            <div class="z-40 absolute mx-5 text-center  text-darkContText-50 dark:text-darkContText-50">
-              <h2 class="font-sans font-bold text-Heading1lg lg:text-Display text-start leading-tight lg:leading-none">
-                {{ slide.title }}
-              </h2>
-              <p class="mt-4 font-sans font-regular text-Body1lg lg:text-xl text-start">
-                {{ slide.content }} DESKTOP
-              </p>
-              <div class="" v-if="slide.cta">
-                <div class="flex justify-start mt-8">
-                  <UButton size="xl" label="Learn more" color="primary" variant="solid" class="md:py-4 md:px-8" />
-                </div>
+          <span
+            class="absolute bottom-0 right-0 z-1 font-extrabold text-right text-[#0300A2] text-[10rem] md:text-[20rem] leading-none ">
+            {{ slide.kind }}
+          </span>
+          <div
+            class="z-40 md:col-start-2 md:row-start-1 md:row-end-3 mx-5 text-center  text-darkContText-50 md:place-self-center dark:text-darkContText-50 md:mr-32">
+            <h2 class="font-sans font-bold text-Heading1lg lg:text-Display text-start leading-tight lg:leading-none">
+              {{ slide.title }}
+            </h2>
+            <p class="mt-4 font-sans font-regular text-Body1lg lg:text-xl text-start">
+              {{ slide.content }}
+            </p>
+            <div class="" v-if="slide.cta">
+              <div class="flex justify-start mt-8">
+                <UButton size="xl" label="Learn more" color="primary" variant="solid" class="md:py-4 md:px-8" />
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { storeToRefs } from "pinia";
 import { useWindowSize } from "@vueuse/core";
 
 const { height, width } = storeToRefs(useWindowSize());
-const isMobile = computed(() => width.value < 768);
+const isMobile = computed(() => width.value < 1024);
 
 const isOpen = ref(false);
 const colorMode = useColorMode();
@@ -103,7 +103,7 @@ const logout = async () => {
                 <div class="text-center flex flex-col justify-center items-center">
                   <ul class="flex justify-center items-center flex-col gap-6">
                     <li>
-                      <nuxt-link to="/about-adoption" class="nav-title">About adoption</nuxt-link>
+                      <nuxt-link to="/about-adoption" class="nav-title"> Adopt</nuxt-link>
                     </li>
                     <li>
                       <nuxt-link to="/meet-them" class="nav-title">Meet them</nuxt-link>
@@ -154,7 +154,7 @@ const logout = async () => {
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="!PendingPets && !errorPets" class="flex items-center gap-3">
-                    <nuxt-img v-if="itemsPets.shelter.image.length" :src="itemsPets?.shelter?.image" width="50"
+                    <nuxt-img v-if="itemsPets?.shelter?.image.length" :src="itemsPets?.shelter?.image" width="50"
                       height="50" class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
@@ -185,7 +185,7 @@ const logout = async () => {
               <div class="flex flex-col justify-center items-center gap-12">
                 <ul class="flex justify-center items-center flex-col gap-6">
                   <li>
-                    <nuxt-link to="/about-adoption" class="nav-title">About adoption</nuxt-link>
+                    <nuxt-link to="/about-adoption" class="nav-title">Adopt</nuxt-link>
                   </li>
                   <li>
                     <nuxt-link to="/meet-them" class="nav-title">Meet them</nuxt-link>
@@ -231,13 +231,15 @@ const logout = async () => {
       </div>
     </div>
     <div class="flex items-center justify-between w-full h-16" v-show="!isMobile">
-      <nuxt-link to="/">
-        <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'" width="100%"
-          height="35" class="p-5"></nuxt-img>
-        <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
-          v-else></nuxt-img>
-      </nuxt-link>
-      <ToggleTheme></ToggleTheme>
+      <div class="flex">
+        <nuxt-link to="/">
+          <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+            width="100%" height="35" class="p-5"></nuxt-img>
+          <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
+            v-else></nuxt-img>
+        </nuxt-link>
+        <ToggleTheme></ToggleTheme>
+      </div>
       <div v-if="!user" class="flex flex-col justify-center items-center gap-12">
         <ul class="flex justify-center items-center  gap-6">
           <li>
@@ -284,8 +286,8 @@ const logout = async () => {
             <div class="flex flex-col justify-center items-center gap-6 mr-6">
               <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                  <nuxt-img v-if="itemsPets.shelter.image.length" :src="itemsPets?.shelter?.image" width="50" height="50"
-                    class="rounded-sm" />
+                  <nuxt-img v-if="itemsPets?.shelter?.image.length" :src="itemsPets?.shelter?.image" width="50"
+                    height="50" class="rounded-sm" />
                   <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                 </div>
               </nuxt-link>
