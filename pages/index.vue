@@ -27,12 +27,10 @@ const isMobile = computed(() => width.value < 768);
       <cards-HP v-if="user?.user_metadata?.isShelter"></cards-HP>
       <div v-else>
         <cards-HP></cards-HP>
-        <cta-cards-HP></cta-cards-HP>
       </div>
     </div>
     <div v-else>
       <cards-HP></cards-HP>
-      <cta-cards-HP></cta-cards-HP>
     </div>
 
     <resource-cta></resource-cta>
