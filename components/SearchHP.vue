@@ -12,7 +12,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="mx-4 md:mx-32">
+  <div class="mx-4 md:mx-32 lg:mx-96">
     <UInput v-model="searchQuery" icon="i-heroicons-magnifying-glass-20-solid" color="white" variant="outline" size="xl"
       trailing placeholder="Search" :ui="{
         icon: {

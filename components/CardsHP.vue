@@ -4,10 +4,13 @@ import { useWindowSize } from "@vueuse/core";
 
 const { height, width } = storeToRefs(useWindowSize());
 const isMobile = computed(() => width.value < 768);
+const isTablet = computed(() => width.value < 1024);
+
 const user = useSupabaseUser();
 
 const cardsHP = [
   {
+    id: 0,
     figure1: "/circleCard_pchnrb.png",
     figure2: "/circleCyanCard_lxm5wo.png",
     pet: "/tobyDogCard_zhban3.png",
@@ -21,6 +24,7 @@ const cardsHP = [
 
 
   {
+    id: 1,
     figure1: "/circleCard_pchnrb.png",
     figure2: "/circleCyanCard_lxm5wo.png",
     pet: "/dog3Card_ukel73.png",
@@ -32,6 +36,7 @@ const cardsHP = [
     mobile: true
   },
   {
+    id: 2,
     figure1: "/smallCircleCard_eh8sva.png",
     figure2: "/curveCard_saubup.png",
     figure3: "/mediumCircleCard_a6ucac.png",
@@ -40,8 +45,22 @@ const cardsHP = [
     classFigure2: "absolute top-1/2 translate-y-[-50%] right-0 skew-x-12",
     classFigure3: "absolute bottom-0 left-0 skew-x-12",
     classPet: "absolute bottom-0 right-0 skew-x-12",
-    width: "50%",
-    height: "50%",
+    width: "100%",
+    height: "100%",
+    mobile: false
+  },
+  {
+    id: 3,
+    figure1: "/smallCircleCard_eh8sva.png",
+    figure2: "/curveCard_saubup.png",
+    figure3: "/mediumCircleCard_a6ucac.png",
+    pet: "/catCard_rcrjqb.png",
+    classFigure1: "absolute top-8 right-8 skew-x-12",
+    classFigure2: "absolute top-1/2 translate-y-[-50%] right-0 skew-x-12",
+    classFigure3: "absolute bottom-0 left-0 skew-x-12",
+    classPet: "absolute bottom-0 right-0 skew-x-12",
+    width: "100%",
+    height: "100%",
     mobile: false
   }
 ];
@@ -199,9 +218,24 @@ const boxes = [
     </div>
     <div v-else class="">
       <div
+        class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[60vh] mb-8 gap-4 overflow-hidden mx-auto px-10 md:grid-cols-3  lg:grid-cols-4"
+        v-show="!isMobile && !isTablet">
+        <div v-for="animalCard in cardsHP" :key="animalCard.id"
+          class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 ">
+          <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" :width="animalCard.width"
+            :height="animalCard.height"></nuxt-img>
+          <nuxt-img provider="cloudinary" :src="animalCard.figure2" :width="animalCard.width" :height="animalCard.height"
+            :class="animalCard.classFigure2"></nuxt-img>
+          <nuxt-img provider="cloudinary" :src="animalCard.figure1" :width="animalCard.width" :height="animalCard.height"
+            :class="animalCard.classFigure1"></nuxt-img>
+          <nuxt-img v-if="animalCard.figure3" provider="cloudinary" :src="animalCard.figure3" :width="animalCard.width"
+            :height="animalCard.height" :class="animalCard.classFigure3"></nuxt-img>
+        </div>
+      </div>
+      <div
         class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10 md:grid-cols-3  "
-        v-show="!isMobile">
-        <div v-for="animalCard in cardsHP" :key="animalCard.figure1"
+        v-show="!isMobile && isTablet">
+        <div v-for="animalCard in cardsHP.slice(0, 3)" :key="animalCard.figure1"
           class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 ">
           <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" :width="animalCard.width"
             :height="animalCard.height"></nuxt-img>
@@ -215,7 +249,7 @@ const boxes = [
       </div>
       <div
         class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4 overflow-hidden mx-auto px-10 md:grid-cols-3"
-        v-show="isMobile">
+        v-show="isMobile && !isTablet">
         <div v-for="animalCard in cardsHP.slice(0, 2)" :key="animalCard.figure1"
           class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1">
           <div class="">
