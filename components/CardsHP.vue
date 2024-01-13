@@ -13,14 +13,15 @@ const cardsHP = [
     id: 0,
     figure1: "/circleCard_pchnrb.png",
     figure2: "/circleCyanCard_lxm5wo.png",
-    pet: "/tobyDogCard_zhban3.png",
+    pet: "/color-tpoby_efervc.png",
     classFigure1: "absolute top-0 right-0 skew-x-12  ",
     classFigure2: "absolute bottom-0 left-0 skew-x-12  ",
-    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0",
+    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0 grayscale hover:filter-none",
     width: "100%",
     height: "100%",
     mobile: true,
-    cardStylesHover: "hover:bg-[#02C77A] dark:hover:bg-[#02C77A]"
+    cardStylesHover: "hover:bg-[#02C77A] dark:hover:bg-[#02C77A]",
+
   },
 
 
