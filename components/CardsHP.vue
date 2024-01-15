@@ -11,9 +11,9 @@ const user = useSupabaseUser();
 const cardsHP = [
   {
     id: 0,
-    figure1: "/circleCard_pchnrb.png",
+    figure1: "/circle-card1_ebrq35.png",
     figure2: "/circleCyanCard_lxm5wo.png",
-    pet: "/color-tpoby_efervc.png",
+    pet: "/colo-toby_sn0ja5.png",
     classFigure1: "absolute top-0 right-0 skew-x-12  ",
     classFigure2: "absolute bottom-0 left-0 skew-x-12  ",
     classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0 grayscale hover:filter-none",
@@ -21,6 +21,8 @@ const cardsHP = [
     height: "100%",
     mobile: true,
     cardStylesHover: "hover:bg-[#02C77A] dark:hover:bg-[#02C77A]",
+    classesName: "bg-gradient-to-t from-[#02C77A] to-transparent dark:from-[#02C77A]  dark:to-transparent",
+    petName: "Toby",
 
   },
 
@@ -28,86 +30,55 @@ const cardsHP = [
   {
     id: 1,
     figure1: "/mediumCircleCard_a6ucac.png",
-    figure2: "/mediumCircleCard_a6ucac.png",
-    pet: "/dog3Card_ukel73.png",
+    figure2: "/circle1-card2_uxelhg.png",
+    figure3: "/circle2-card2_chfu4e.png",
+    pet: "/color-second_kpqn71.png",
     classFigure1: "absolute top-0 right-0 skew-x-12",
     classFigure2: "absolute bottom-0 left-0 skew-x-12",
-    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0",
+    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0 grayscale hover:filter-none",
     width: "100%",
     height: "100%",
     mobile: true,
-    cardStylesHover: "hover:bg-[#E8BC5E] dark:hover:bg-[#E8BC5E]"
+    cardStylesHover: "hover:bg-[#E8BC5E] dark:hover:bg-[#E8BC5E]",
+    classesName: "bg-gradient-to-t from-[#E8BC5E] to-transparent dark:from-[#E8BC5E]  dark:to-transparent",
+    petName: "Cooper",
 
   },
   {
     id: 2,
-    figure1: "/smallCircleCard_eh8sva.png",
+    figure1: "/circle2-card4_png_wxjcru.png",
     figure2: "/curveCard_saubup.png",
     figure3: "/mediumCircleCard_a6ucac.png",
-    pet: "/catCard_rcrjqb.png",
+    pet: "/color-third_u9s7ka.png",
     classFigure1: "absolute top-8 right-8 skew-x-12",
     classFigure2: "absolute top-1/2 translate-y-[-50%] right-0 skew-x-12",
     classFigure3: "absolute bottom-0 left-0 skew-x-12",
-    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0",
+    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0 grayscale hover:filter-none",
     width: "100%",
     height: "100%",
     mobile: false,
-    cardStylesHover: "hover:bg-[#C85927] dark:hover:bg-[#C85927]"
+    cardStylesHover: "hover:bg-[#C85927] dark:hover:bg-[#C85927]",
+    classesName: "bg-gradient-to-t from-[#C85927] to-transparent dark:from-[#C85927]  dark:to-transparent",
+    petName: "Luna",
   },
   {
     id: 3,
-    figure1: "/smallCircleCard_eh8sva.png",
-    figure2: "/curveCard_saubup.png",
-    figure3: "/mediumCircleCard_a6ucac.png",
-    pet: "/catPixie_fwwsnx.png",
+    figure1: "/circle1-card4_xdwo24.png",
+    figure2: "/circle2-card4_png_wxjcru.png",
+    figure3: "/circle-card4_stnxqe.png",
+    pet: "/color-fourth_nsmv9k.png",
     classFigure1: "absolute top-8 right-8 skew-x-12",
-    classFigure2: "absolute top-1/2 translate-y-[-50%] right-0 skew-x-12",
+    classFigure2: "absolute right-0 skew-x-12",
     classFigure3: "absolute bottom-0 left-0 skew-x-12",
-    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0",
+    classPet: "w-full h-full object-cover skew-x-12 absolute bottom-0 grayscale hover:filter-none",
     width: "100%",
     height: "100%",
     mobile: false,
-    cardStylesHover: "hover:bg-[#BCEFF0] dark:hover:bg-[#BCEFF0]"
+    cardStylesHover: "hover:bg-[#BCEFF0] dark:hover:bg-[#BCEFF0]",
+    classesName: "bg-gradient-to-t from-[#BCEFF0] to-transparent dark:from-[#BCEFF0]  dark:to-transparent",
+    petName: "Pixie",
   }
 ];
-const cardsHPHovered = [
-  {
-    figure1: "/circleCard_pchnrb.png",
-    figure2: "/circleCyanCard_lxm5wo.png",
-    pet: "/tobyDogCard_zhban3.png",
-    classFigure1: "opacity-0",
-    classFigure2: "opacity-0",
-    classPet: "absolute bottom-0 -right-4 skew-x-12",
-    width: "100%",
-    height: "100%",
-    mobile: true
-  },
-  {
-    figure1: "/circleCard_pchnrb.png",
-    figure2: "/circleCyanCard_lxm5wo.png",
-    pet: "/dog3Card_ukel73.png",
-    classFigure1: "absolute top-0 right-0 skew-x-12",
-    classFigure2: "absolute bottom-0 left-0 skew-x-12",
-    classPet: "absolute bottom-0 left-0 skew-x-12",
-    width: "100%",
-    height: "100%",
-    mobile: true
-  },
-  {
-    figure1: "/smallCircleCard_eh8sva.png",
-    figure2: "/curveCard_saubup.png",
-    figure3: "/mediumCircleCard_a6ucac.png",
-    pet: "/catCard_rcrjqb.png",
-    classFigure1: "absolute top-8 right-8 skew-x-12",
-    classFigure2: "absolute top-1/2 translate-y-[-50%] right-0 skew-x-12",
-    classFigure3: "absolute bottom-0 left-0 skew-x-12",
-    classPet: "absolute bottom-0 right-0 skew-x-12",
-    width: "50%",
-    height: "50%",
-    mobile: false
-  }
-];
-
 const boxes = [
   {
     icon: "material-symbols:award-star-outline",
@@ -222,34 +193,50 @@ const boxes = [
           :class="box.imagePosCard[3]?.pos" width="100%" height="100%"></nuxt-img>
       </div>
     </div>
-    <div v-else class="lg:flex lg:items-center lg:px-48">
+    <div v-else class="lg:flex lg:items-center 2xl:px-48">
       <div
-        class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[60vh] mb-8 gap-4  mx-auto px-10  md:grid-cols-3  lg:grid-cols-4 "
+        class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[60vh] mb-8 gap-4  mx-auto lg:px-10  md:grid-cols-3  lg:grid-cols-4 "
         v-show="!isMobile && !isTablet">
         <div v-for="animalCard in cardsHP" :key="animalCard.id"
-          class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 max-w-sm transition-all duration-500 ease-in-out"
+          class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 max-w-sm transition-all duration-500 ease-in-out card"
           :class="animalCard.cardStylesHover">
+          <span :class="[
+            animalCard.classesName,
+            'absolute bottom-0 left-1/2 w-full flex justify-center items-center text-white font-bold text-Heading2sm translate-x-[-50%] transition-all duration-500 ease-in-out] z-30 card__name h-1/5'
+          ]">
+
+            {{ animalCard.petName }}
+          </span>
           <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet"></nuxt-img>
-          <nuxt-img provider="cloudinary" :src="animalCard.figure2" :class="animalCard.classFigure2"></nuxt-img>
-          <nuxt-img provider="cloudinary" :src="animalCard.figure1" :class="animalCard.classFigure1" carousel
-            sizes=" "></nuxt-img>
+          <nuxt-img provider="cloudinary" :src="animalCard.figure2"
+            :class="[animalCard.classFigure2, 'card__figure']"></nuxt-img>
+          <nuxt-img provider="cloudinary" :src="animalCard.figure1" :class="[animalCard.classFigure1, 'card__figure']"
+            carousel sizes=" "></nuxt-img>
           <nuxt-img v-if="animalCard.figure3" provider="cloudinary" :src="animalCard.figure3"
-            :class="animalCard.classFigure3"></nuxt-img>
+            :class="[animalCard.classFigure3, 'card__figure']"></nuxt-img>
         </div>
       </div>
       <div
         class="container grid grid-cols-2 grid-rows-1 justify-center w-full h-[40vh] mb-8 gap-4  mx-auto px-10 md:grid-cols-3  "
         v-show="!isMobile && isTablet">
         <div v-for="animalCard in cardsHP.slice(0, 3)" :key="animalCard.figure1"
-          class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 ">
+          class="bg-[#EDF1F4] dark:bg-darkContSecond w-full h-full -skew-x-12 relative col-span-1 max-w-sm transition-all duration-500 ease-in-out card "
+          :class="animalCard.cardStylesHover">
+          <span :class="[
+            animalCard.classesName,
+            'absolute bottom-0 left-1/2 w-full flex justify-center items-center text-white font-bold text-Heading2sm translate-x-[-50%] transition-all duration-500 ease-in-out] z-30 card__name h-1/5'
+          ]">
+
+            {{ animalCard.petName }}
+          </span>
           <nuxt-img provider="cloudinary" :src="animalCard.pet" :class="animalCard.classPet" :width="animalCard.width"
             :height="animalCard.height"></nuxt-img>
           <nuxt-img provider="cloudinary" :src="animalCard.figure2" :width="animalCard.width" :height="animalCard.height"
-            :class="animalCard.classFigure2"></nuxt-img>
+            :class="[animalCard.classFigure2, 'card__figure']"></nuxt-img>
           <nuxt-img provider="cloudinary" :src="animalCard.figure1" :width="animalCard.width" :height="animalCard.height"
-            :class="animalCard.classFigure1"></nuxt-img>
+            :class="[animalCard.classFigure1, 'card__figure']"></nuxt-img>
           <nuxt-img v-if="animalCard.figure3" provider="cloudinary" :src="animalCard.figure3" :width="animalCard.width"
-            :height="animalCard.height" :class="animalCard.classFigure3"></nuxt-img>
+            :height="animalCard.height" :class="[animalCard.classFigure3, 'card__figure']"></nuxt-img>
         </div>
       </div>
       <div
@@ -279,4 +266,30 @@ const boxes = [
   </div>
 </template>
 
-<style></style>
+<style>
+.card:hover>.card__name {
+  opacity: 100;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.card__figure {
+  transition: opacity 0.3s ease-in-out;
+  width: 50%;
+}
+
+.card:hover>.card__figure {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+.card__name {
+
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+</style>

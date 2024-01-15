@@ -86,42 +86,44 @@ const shelterSlides = [
 </script>
 
 <template>
-  <Carousel :items-to-show="1" :wrap-around="true" class="">
-    <Slide
-      class="h-full p-8 mx-4 px-4 dark:bg-contAccent bg-contAccent w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid"
-      v-for="slide in user?.user_metadata?.isShelter
-        ? shelterSlides
-        : slidesResources" :key="slide.content">
-      <h2 v-html="slide.title" class="font-sans font-bold text-Heading2sm relative z-10 col-span-2"></h2>
-      <span
-        class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter md:col-start-2 md:col-end-3">{{
-          slide.date
-        }}</span>
-      <div class="grid relative z-20">
-        <nuxt-img provider="cloudinary" :src="slide.image"
-          class="col-start-1 col-end-5 row-start-1 row-end-3 p-8"></nuxt-img>
-        <nuxt-img provider="cloudinary" :src="slide.cover"
-          class="p-8 col-start-3 col-end-6 row-start-2 row-end-4"></nuxt-img>
-      </div>
-      <div class="md:col-start-2 md:col-end-3 ">
-        <p
-          class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 relative z-10 md:text-end md:text-Captionlg">
-          {{ slide.content }}
-        </p>
-        <div
-          class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10 md:text-end  md:mt-8 md:w-full md:text-2xl">
-          {{ slide.tag }}
-        </div>
+  <div class="w-full h-full md:p-10 lg:p-16 2xl:px-64 2xl:py-16">
+    <Carousel :items-to-show="1" :wrap-around="true" class="">
+      <Slide
+        class="h-full p-8 lg:p-16 mx-4 px-4 dark:bg-contAccent bg-contAccent w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid"
+        v-for="slide in user?.user_metadata?.isShelter
+          ? shelterSlides
+          : slidesResources" :key="slide.content">
+        <h2 v-html="slide.title" class="font-sans font-bold text-Heading2sm relative z-10 col-span-2"></h2>
         <span
-          class="absolute bottom-0 right-0 z-[1] font-extrabold text-right text-[#0955C9] text-[15rem] leading-none line-clamp-3">
-          {{ slide.pet }}
-        </span>
-      </div>
-    </Slide>
-    <template #addons>
-      <Navigation class="navigation-testimonies bg-transparent text-darkContText" />
-    </template>
-  </Carousel>
+          class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter md:col-start-2 md:col-end-3">{{
+            slide.date
+          }}</span>
+        <div class="grid relative z-20">
+          <nuxt-img provider="cloudinary" :src="slide.image"
+            class="col-start-1 col-end-5 row-start-1 row-end-3 p-8"></nuxt-img>
+          <nuxt-img provider="cloudinary" :src="slide.cover"
+            class="p-8 col-start-3 col-end-6 row-start-2 row-end-4"></nuxt-img>
+        </div>
+        <div class="md:col-start-2 md:col-end-3 ">
+          <p
+            class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 lg:px-16 relative z-10 md:text-end md:text-Captionlg 2xl:px-32">
+            {{ slide.content }}
+          </p>
+          <div
+            class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10 md:text-end  md:mt-8 md:w-full md:text-2xl">
+            {{ slide.tag }}
+          </div>
+          <span
+            class="absolute bottom-0 right-0 z-[1] font-extrabold text-right text-[#0955C9] text-[15rem] leading-none line-clamp-3">
+            {{ slide.pet }}
+          </span>
+        </div>
+      </Slide>
+      <template #addons>
+        <Navigation class="navigation-testimonies bg-transparent text-darkContText" />
+      </template>
+    </Carousel>
+  </div>
 </template>
 <style scoped>
 .grid-testimonials {

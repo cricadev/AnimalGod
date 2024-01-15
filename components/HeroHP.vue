@@ -4,7 +4,7 @@ import { useWindowSize } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 
 const { height, width } = useWindowSize();
-const isMobile = computed(() => width.value < 768)
+const isMobile = computed(() => width.value < 1034)
 const slidesHero = [
   {
     id: 1,
@@ -73,19 +73,19 @@ const slidesHero = [
     </Carousel>
   </div>
   <div class="" v-show="!isMobile">
-    <Carousel :autoplay="2000" :wrap-around="true">
+    <Carousel :wrap-around="true">
       <Slide class="bg-[#1713C1] md:h-[40vh] lg:h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
         :key="slide.content">
         <div class="w-full h-full relative grid">
           <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
             class="z-40 absolute top-0"></nuxt-img>
           <nuxt-img provider="cloudinary" :src="slide.image" width="100%" height="100%"
-            class="z-20 absolute top-4 left-0 lg:bottom-0"></nuxt-img>
-          <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
-            class=" z-[5]"></nuxt-img>
+            class="place-self-end row-span-2 z-[41]"></nuxt-img>
+          <nuxt-img provider="cloudinary" src="/circleHP_a2qj83.png"
+            class="absolute bottom-0 left-0 z-[5] w-1/2 "></nuxt-img>
 
           <span
-            class="absolute bottom-0 right-0 z-1 font-extrabold text-right text-[#0300A2] text-[10rem] md:text-[20rem] leading-none ">
+            class="absolute bottom-0 right-0 z-1 font-extrabold text-right text-[#0300A2] text-[10rem] lg:text-[20rem] leading-none ">
             {{ slide.kind }}
           </span>
           <div
