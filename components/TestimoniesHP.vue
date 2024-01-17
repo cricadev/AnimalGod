@@ -106,11 +106,11 @@ const shelterSlides = [
         </div>
         <div class="md:col-start-2 md:col-end-3 ">
           <p
-            class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 lg:px-16 relative z-10 md:text-end md:text-Captionlg 2xl:px-32">
+            class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 lg:px-16 relative z-10 md:text-start md:text-Captionlg 2xl:px-32">
             {{ slide.content }}
           </p>
           <div
-            class="place-self-end mr-4 font-Inter font-medium italic text-sm relative z-10 md:text-end  md:mt-8 md:w-full md:text-2xl">
+            class="place-self-end  font-Inter font-medium italic text-sm relative z-10 md:text-start  md:mt-8 md:w-full md:text-2xl">
             {{ slide.tag }}
           </div>
           <span

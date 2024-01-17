@@ -53,16 +53,17 @@ const shelterSlides = [
 </script>
 
 <template>
-  <div class="w-full h-full pt-32 pb-12">
+  <div class="w-full h-full pt-32 pb-12 ">
     <Carousel :autoplay="2000" :wrap-around="true">
-      <Slide class="h-[50vh] md:h-[30vh] w-full relative overflow-hidden flex flex-col gap-4" :class="{
+      <Slide class="h-[50vh] md:h-[30vh] lg:h-[40vh] w-full relative overflow-hidden flex flex-col gap-4 " :class="{
         'bg-Bg dark:bg-darkBg': user && user?.user_metadata?.isShelter,
         'bg-Bg dark:bg-darkBg': user && !user?.user_metadata?.isShelter,
         'bg-Bg dark:bg-darkBg': !user,
       }" v-for="slide in user?.user_metadata?.isShelter
   ? shelterSlides
   : slidesResources" :key="slide.content">
-        <div class="z-40 mx-5 text-center bottom-24 text-darkBg dark:text-darkContText flex flex-col gap-4 mb-4 ">
+        <div
+          class="z-40 mx-5 text-center bottom-24 text-darkBg dark:text-darkContText flex flex-col gap-4 mb-4 md:p-10 lg:p-16 2xl:px-64 py-16">
           <h2 class="font-sans font-bold text-Heading2sm leading-tight md:text-Heading3lg">
             {{ slide.title }}
           </h2>
@@ -73,7 +74,7 @@ const shelterSlides = [
         <UButton size="xl" :label="slide.cta" color="primary" variant="solid" class="md:px-8 py-4" />
       </Slide>
       <template #addons>
-        <Pagination class="lg:p-12"></Pagination>
+        <Pagination class=""></Pagination>
       </template>
     </Carousel>
   </div>
