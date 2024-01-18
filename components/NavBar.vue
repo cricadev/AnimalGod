@@ -71,7 +71,7 @@ const logout = async () => {
 
 <template>
   <div class="">
-    <div class="flex items-center justify-between w-full h-16" v-show="isMobile">
+    <div class="flex items-center justify-between w-full h-16 " v-show="isMobile">
       <nuxt-link to="/">
         <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'" width="100%"
           height="35" class="p-5"></nuxt-img>
@@ -201,9 +201,11 @@ const logout = async () => {
                   </li>
                 </ul>
               </div>
+
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
+
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
-                  <div v-if="!PendingPets && !errorPets && itemsPets" class="flex items-center gap-3">
+                  <div v-if="itemsPets" class="flex items-center gap-3">
                     <nuxt-img v-if="itemsPets?.client?.image.length" :src="itemsPets?.client?.image" width="50"
                       height="50" class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
@@ -230,7 +232,7 @@ const logout = async () => {
         </USlideover>
       </div>
     </div>
-    <div class="flex items-center justify-between w-full h-16" v-show="!isMobile">
+    <div class="flex items-center justify-between w-full  h-16" v-show="!isMobile">
       <div class="flex">
         <nuxt-link to="/">
           <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
@@ -240,8 +242,8 @@ const logout = async () => {
         </nuxt-link>
         <ToggleTheme></ToggleTheme>
       </div>
-      <div v-if="!user" class="flex flex-col justify-center items-center gap-12">
-        <ul class="flex justify-center items-center  gap-6">
+      <div v-if="!user" class="flex flex-col justify-center items-center gap-12 mr-16">
+        <ul class="flex justify-center items-center  gap-12">
           <li>
             <nuxt-link to="/about-adoption" class="nav-title">About adoption</nuxt-link>
           </li>
@@ -257,7 +259,7 @@ const logout = async () => {
           <li>
             <nuxt-link to="/about-us" class="nav-title">About us</nuxt-link>
           </li>
-          <div class="flex gap-2">
+          <div class="flex gap-4">
             <nuxt-link to="/signup" class="">
               <UButton size="xl" label="Sign up" color="secondary" variant="solid" block />
             </nuxt-link>
@@ -268,7 +270,7 @@ const logout = async () => {
         </ul>
       </div>
       <div class="" v-else-if="user?.user_metadata?.isShelter">
-        <ul class="flex justify-center items-center  gap-6">
+        <ul class="flex justify-center items-center gap-12 mr-16">
           <li>
             <nuxt-link to="/about-adoption" class="nav-title">Requests</nuxt-link>
           </li>
@@ -278,7 +280,7 @@ const logout = async () => {
           <li>
             <nuxt-link to="/successful-cases" class="nav-title">About us</nuxt-link>
           </li>
-          <div class="flex gap-2">
+          <div class="flex gap-4">
             <UButton size="xl" label="Log out" color="darkContThird" variant="solid" class="py-3" inline>
               <nuxt-link to="/pet">
                 Register animal</nuxt-link>
@@ -296,7 +298,7 @@ const logout = async () => {
         </ul>
       </div>
       <div class="" v-else>
-        <ul class="flex justify-center items-center  gap-6">
+        <ul class="flex justify-center items-center gap-12 mr-16">
           <li>
             <nuxt-link to="/about-adoption" class="nav-title">About adoption</nuxt-link>
           </li>

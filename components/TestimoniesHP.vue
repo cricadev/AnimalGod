@@ -93,28 +93,29 @@ const shelterSlides = [
         v-for="slide in user?.user_metadata?.isShelter
           ? shelterSlides
           : slidesResources" :key="slide.content">
-        <h2 v-html="slide.title" class="font-sans font-bold text-Heading2sm relative z-10 col-span-2"></h2>
+        <h2 v-html="slide.title"
+          class="font-sans font-bold text-Heading2sm relative z-10 md:col-start-1 md:col-end-3 md:row-start-1"></h2>
         <span
-          class="text-contInactive place-self-end mr-4 z-10 font-medium text-base italic font-Inter md:col-start-2 md:col-end-3">{{
+          class="text-contInactive place-self-end md:self-end md:pb-8 md:justify-self-start mr-4 z-10 font-medium text-base italic font-Inter md:col-start-2 md:col-end-3 md:row-start-1 md:row-end-4 md:mx-32 lg:text-lg">{{
             slide.date
           }}</span>
-        <div class="grid relative z-20">
+        <div class="grid relative z-20 md:row-start-2 md:row-end-4">
           <nuxt-img provider="cloudinary" :src="slide.image"
             class="col-start-1 col-end-5 row-start-1 row-end-3 p-8"></nuxt-img>
           <nuxt-img provider="cloudinary" :src="slide.cover"
             class="p-8 col-start-3 col-end-6 row-start-2 row-end-4"></nuxt-img>
         </div>
-        <div class="md:col-start-2 md:col-end-3 ">
+        <div class="md:col-start-2 md:col-end-3  md:row-start-1 md:row-end-4">
           <p
-            class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 lg:px-16 relative z-10 md:text-start md:text-Captionlg 2xl:px-32">
+            class="mt-4 font-Inter font-regular text-Captionsm leading-tight px-4 lg:px-16 relative z-10 md:text-start md:text-Captionlg 2xl:px-32 lg:text-lg">
             {{ slide.content }}
           </p>
           <div
-            class="place-self-end  font-Inter font-medium italic text-sm relative z-10 md:text-start  md:mt-8 md:w-full md:text-2xl">
+            class="place-self-end lg:place-self-center  font-Inter font-medium italic text-sm relative z-10 md:text-start  md:mt-8 md:w-full md:text-2xl 2xl:px-32 lg:text-xl">
             {{ slide.tag }}
           </div>
           <span
-            class="absolute bottom-0 right-0 z-[1] font-extrabold text-right text-[#0955C9] text-[15rem] leading-none line-clamp-3">
+            class="absolute bottom-0 right-0 z-[1] font-extrabold text-right text-[#0955C9] text-[15rem] leading-none line-clamp-3 lg:text-[25rem]">
             {{ slide.pet }}
           </span>
         </div>

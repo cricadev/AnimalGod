@@ -86,7 +86,7 @@ const FAQS = [
 <template>
   <div class="bg-contSecond dark:bg-darkContSecond p-10">
     <h1 class="font-bold font-Inter text-Heading2sm mb-16">FAQs</h1>
-    <div id="accordion-collapse" data-accordion="collapse" class="overflow-y-scroll h-[50vh]">
+    <div id="accordion-collapse" data-accordion="collapse" class="overflow-y-scroll h-[50vh] md:h-full">
       <div class="" v-for="(faq, index) in FAQS">
 
         <h2 :id="'accordion-collapse-heading-1'" :class="[
@@ -125,7 +125,7 @@ const FAQS = [
       </div>
 
     </div>
-    <div class="flex justify-center mt-8">
+    <div class="flex justify-center mt-8 lg:justify-start">
       <UButton size="xl" label="Read More" color="primary" variant="solid" />
     </div>
   </div>

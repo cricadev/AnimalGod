@@ -4,7 +4,7 @@ const colorMode = useColorMode();
 
 <template>
   <div
-    class=" h-screen bg-Bg dark:bg-darkContSecond w-full grid grid-cols-3 grid-rows-6 px-5 md:px-16 place-items-center md:grid-rows-2 md:h-full md:pt-64 md:pb-8 md:gap-y-64 md:gap-x-16">
+    class=" h-screen bg-Bg dark:bg-darkContSecond w-full grid grid-cols-3 grid-rows-6 px-5 md:px-16 place-items-center md:grid-rows-2 md:h-full md:pt-64 md:pb-8 md:gap-y-64 md:gap-x-16 lg:grid-cols-5 lg:grid-rows-1 md:h-full">
     <div
       class="flex flex-col items-center justify-center gap-9 col-start-1 col-end-4 row-start-1 row-end-3 md:col-end-2 md:row-end-2">
       <nuxt-img v-if="colorMode.preference !== 'light'" provider="cloudinary" src="/animal_god_olvlho.png" height="50"
@@ -48,7 +48,8 @@ const colorMode = useColorMode();
         </ul>
       </div>
     </div>
-    <div class="col-start-1 col-end-4 row-start-4 row-end-7 mt-10 md:row-start-1 md:row-end-3">
+    <div
+      class="col-start-1 col-end-4 row-start-4 row-end-7 mt-10 md:row-start-1 md:row-end-3 lg:col-start-4 lg:col-end-6 lg:self-start ">
       <p class="text-Body1sm font-semibold mb-3">Stay in the loop</p>
       <p class="font-semibold text-Body1sm text-contInactive mb-10">
         We’ll send you a nice letter once per week. No spam.
