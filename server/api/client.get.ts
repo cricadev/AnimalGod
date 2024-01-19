@@ -6,11 +6,11 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { limit = 4, offset = 0, clientId } = getQuery(event)
 
-  console.log('clientId', clientId)
+  8
   // Get the authenticated user
   var user = null
   try {
-    user = await serverSupabaseUser(event)
+    user = await server765SupabaseUser(event)
   } catch (err) {
     console.error(err)
 

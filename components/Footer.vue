@@ -11,7 +11,7 @@ const colorMode = useColorMode();
         width="160"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" height="50" width="160" v-else></nuxt-img>
 
-      <p class="text-Captionsm leading-tight text-center md:text-start">
+      <p class="text-Captionsm leading-tight text-center md:text-start md:text-Captionlg">
         Our goal is to give animals a second chance by connecting
         <br />
         shelters with users who want to adopt. <br />
@@ -50,7 +50,7 @@ const colorMode = useColorMode();
     </div>
     <div
       class="col-start-1 col-end-4 row-start-4 row-end-7 mt-10 md:row-start-1 md:row-end-3 lg:col-start-4 lg:col-end-6 lg:self-start ">
-      <p class="text-Body1sm font-semibold mb-3">Stay in the loop</p>
+      <p class="text-Body1sm font-semibold mb-3 md:text-bod">Stay in the loop</p>
       <p class="font-semibold text-Body1sm text-contInactive mb-10">
         We’ll send you a nice letter once per week. No spam.
       </p>
@@ -68,6 +68,6 @@ const colorMode = useColorMode();
 }
 
 .nav--item {
-  @apply text-Captionsm font-regular text-contInactive;
+  @apply text-Captionsm font-regular text-contInactive md:text-Captionlg;
 }
 </style>

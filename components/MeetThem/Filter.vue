@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between mx-5 items-center relative">
-    <div class="mobile">
+    <div class="mobile" v-if="isMobile">
       <USelectMenu placeholder="Animal" v-model="selected" :options="people" id="select-menu" ref="selectMenu">
         <UButton v-if="selected.icon" :name="selected.icon" :icon="selected.icon" size="xl" color="primary"
           variant="solid">
@@ -27,6 +27,30 @@
         <USelectMenu searchable searchable-placeholder="Search a activity level..." placeholder="Activity level"
           :options="ActivityLevelOptions" v-model="advancedFiltering.activity" />
       </div>
+    </div>
+    <div class="mobile" v-else-if="!isMobile">
+      <USelectMenu placeholder="Animal" v-model="selected" :options="people" id="select-menu" ref="selectMenu">
+        <UButton v-if="selected.icon" :name="selected.icon" :icon="selected.icon" size="xl" color="primary"
+          variant="solid">
+          {{ selected.label }}
+        </UButton>
+      </USelectMenu>
+
+
+      <USelectMenu searchable searchable-placeholder="Search a breed..." placeholder="Breed" :options="BreedOptions"
+        trailing v-model="advancedFiltering.breed" class="justify-center" />
+      <USelectMenu searchable searchable-placeholder="Search a size...  " placeholder="Size" :options="SizesOptions"
+        v-model="advancedFiltering.size" />
+      <USelectMenu searchable searchable-placeholder="Search a age..." placeholder="Age" :options="AgesOptions"
+        v-model="advancedFiltering.age" />
+      <USelectMenu searchable searchable-placeholder="Search a gender..." placeholder="Gender" :options="GenderOptions"
+        v-model="advancedFiltering.gender" />
+      <USelectMenu placeholder="Personality" :multiple="true" :options="PersonalityOptions"
+        v-model="advancedFiltering.personality" />
+      <USelectMenu searchable searchable-placeholder="Search a good with..." placeholder="Good with"
+        :options="GoodWithOptions" v-model="advancedFiltering.goodWith" />
+      <USelectMenu searchable searchable-placeholder="Search a activity level..." placeholder="Activity level"
+        :options="ActivityLevelOptions" v-model="advancedFiltering.activity" />
     </div>
   </div>
 </template>
