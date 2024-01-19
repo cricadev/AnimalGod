@@ -140,7 +140,7 @@ const FAQS = [
   }
 
   .title {
-    @apply text-Body1sm font-semibold;
+    @apply text-Body1sm font-semibold md:text-Body1lg;
   }
 }
 

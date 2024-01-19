@@ -4,7 +4,7 @@ import { useWindowSize } from "@vueuse/core";
 import { storeToRefs } from "pinia";
 
 const { height, width } = useWindowSize();
-const isMobile = computed(() => width.value < 1034)
+const isMobile = computed(() => width.value < 768)
 const slidesHero = [
   {
     id: 1,
@@ -39,7 +39,7 @@ const slidesHero = [
 <template>
   <div v-show="isMobile">
     <Carousel :autoplay="2000" :wrap-around="true">
-      <Slide class="bg-contAccent h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
+      <Slide class="bg-[#1713C1] h-[70vh] w-full relative overflow-hidden" v-for="slide in slidesHero"
         :key="slide.content">
         <div class="flex flex-col items-center justify-center h-full">
           <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
@@ -49,19 +49,19 @@ const slidesHero = [
           <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
             class="absolute bottom-0 left-0 z-[5]"></nuxt-img>
           <div class="absolute z-40 mx-5 text-center bottom-24 text-darkContText-50 dark:text-darkContText-50">
-            <h2 class="font-sans font-bold text-Heading2sm">
+            <h2 class="font-sans font-bold text-Heading2sm  md:text-Heading1lg ">
               {{ slide.title }}
             </h2>
-            <p class="mt-4 font-sans font-regular text-Body1sm">
+            <p class="mt-4 font-sans font-regular text-Body1sm md:text-Body1lg ">
               {{ slide.content }}
             </p>
           </div>
           <span
-            class="absolute bottom-0 right-0 z-[31] font-extrabold text-right text-[#0955C9] text-[7rem] leading-none">
+            class="absolute bottom-0 right-0 z-[31] font-extrabold text-right text-[#0300A2] text-[7rem] leading-none">
             {{ slide.kind }}
           </span>
           <div
-            class="absolute h-[50%] w-full bg-gradient-to-t from-contAccent z-30 bottom-0 left-0 to-transparent via-contAccent">
+            class="absolute h-[50%] w-full bg-gradient-to-t from-[#1713C1] z-30 bottom-0 left-0 to-transparent via-[#1713C1]">
           </div>
         </div>
 

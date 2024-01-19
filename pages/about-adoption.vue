@@ -1,26 +1,28 @@
 <template>
   <div class="">
     <!-- HERO -->
-    <div class="relative h-[30vh] md:h-[20vh] bg-contSecond dark:bg-darkContSecond ">
+    <div class="relative h-[30vh] md:h-[20vh]  justify-center flex bg-contSecond dark:bg-darkContSecond ">
       <nuxt-img
         src="https://res.cloudinary.com/ddc0cce3m/image/upload/e_grayscale/f_auto,q_auto/v1688160841/animalGod/heroAboutAdoption_ak3i5i.png"
-        height="100%" width="100%" class="px-32 absolute flex justify-center w-full"></nuxt-img>
+        height="100%" width="100%"
+        class="absolute flex justify-center w-full h-full object-contain lg:object-cover bottom-0"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/groupCircleTopAboutAdoption_nlcpko.png" height="100%" width="100%"
         class="absolute top-0 right-0"></nuxt-img>
       <nuxt-img provider="cloudinary" src="/circleAboutAdoption_mscnaz.png" height="100%" width="100%"
         class="absolute bottom-0 left-0"></nuxt-img>
-      <h2 class="text-Heading2sm font-bold text-center absolute bottom-4 z-20 flex justify-center w-full">
+      <h2
+        class="text-Heading2sm font-bold text-center absolute bottom-4 z-20 flex justify-center w-full lg:text-Display2">
         Everything you need to know about adoption
       </h2>
       <div
-        class="absolute h-[40%] w-full bg-gradient-to-t from-contSecond dark:from-darkContSecond z-10 bottom-0 left-0 to-transparent">
+        class="absolute h-[60%] w-full bg-gradient-to-t from-contSecond dark:from-darkContSecond via-contSecond dark:via-darkContSecond z-10 bottom-0 left-0 to-transparent">
       </div>
     </div>
     <!-- DO'S AND DON'TS -->
     <div class="pt-12 px-5 flex flex-col gap-12 md:px-32 pb-36">
-      <div class="flex gap-4">
+      <div class="flex gap-8">
         <h1 class="text-Heading1sm font-extrabold">01</h1>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-8">
           <h3 class="text-Heading3sm font-bold leading-tight">
             Adopting an animal from a shelter is a wonderful way to provide a
             forever home for a needy pet.
@@ -43,7 +45,7 @@
       </div>
       <div class="flex gap-4">
         <h1 class="text-Heading1sm font-extrabold">02</h1>
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-8">
           <h3 class="text-Heading3sm font-bold leading-tight">
             Do's and Dont's if you wish to adopt from an animal shelter
           </h3>
@@ -115,7 +117,9 @@
         </div>
       </div>
       <div class="flex justify-center mb-8">
-        <UButton size="sm" label="Meet Them" color="primary" variant="solid" />
+        <nuxt-link to="/meet-them">
+          <UButton size="xl" label="Meet Them" color="primary" variant="solid" class="whitespace-nowrap" />
+        </nuxt-link>
       </div>
     </div>
   </div>
