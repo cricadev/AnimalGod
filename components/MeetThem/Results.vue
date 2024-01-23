@@ -24,7 +24,7 @@
       {{ error }}
     </div>
 
-    <div class="" v-else>
+    <div class="px-2 md:px-20 lg:px-96" v-else>
       <div v-if="isMobile && !isTablet" class="grid grid-cols-2 grid-rows-2 h-[50vh] gap-4">
         <div v-for="animal in myData" :key="animal.name">
           <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
