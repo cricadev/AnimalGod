@@ -62,7 +62,7 @@
               'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
             },
           }, 'padding': {
-            'lg': 'py-2 px-5'
+            'lg': 'py-2 px-6'
           }
         }
           " size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a size...  "
