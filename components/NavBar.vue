@@ -187,7 +187,7 @@ const logout = async () => {
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
 
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
-                  <div v-if="itemsPets" class="flex items-center gap-3">
+                  <div v-if="!user?.user_metadata?.isShelter && itemsPets" class="flex items-center gap-3">
                     <nuxt-img v-if="itemsPets?.client?.image.length" :src="itemsPets?.client?.image" width="50"
                       height="50" class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
