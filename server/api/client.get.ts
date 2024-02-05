@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   // Get the authenticated user
   var user = null
   try {
-    user = await server765SupabaseUser(event)
+    user = await serverSupabaseUser(event)
   } catch (err) {
     console.error(err)
 

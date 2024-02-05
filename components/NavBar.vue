@@ -8,48 +8,28 @@ const isMobile = computed(() => width.value < 1024);
 const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
+
 const user = useSupabaseUser();
-const itemsPets = ref(null)
-const errorPets = ref(null)
-const PendingPets = ref(null)
-onMounted(() => {
+const fetchResult = ref(null);
+const itemsPets = ref(null);
+const errorPets = ref(null);
+const PendingPets = ref(null);
 
-  if (user.value) {
-
-    if (user.value?.user_metadata.isShelter) {
-      const { data, error, pending } = useFetch(`/api/shelter`)
-
-      if (data) {
-        itemsPets.value = data.value
-      }
-
-      if (error) {
-        errorPets.value = error.value
-      }
-
-      if (pending) {
-        PendingPets.value = pending.value
-      }
-
+watch(user, async (newUser) => {
+  if (newUser) {
+    if (newUser.user_metadata.isShelter) {
+      fetchResult.value = await useFetch(`/api/shelter`);
     } else {
-      const { data, error, pending } = useFetch(`/api/client`)
+      fetchResult.value = await useFetch(`/api/client`);
+    }
 
-      if (data) {
-        itemsPets.value = data.value
-      }
-
-      if (error) {
-        errorPets.value = error.value
-      }
-
-      if (pending) {
-        PendingPets.value = pending.value
-      }
-
-
+    if (fetchResult.value) {
+      itemsPets.value = fetchResult.value.data;
+      errorPets.value = fetchResult.value.error;
+      PendingPets.value = fetchResult.value.pending;
     }
   }
-})
+}, { immediate: true });
 // after every route enter toggle the isOpen boolean to false
 watch(
   () => route.path,
@@ -207,7 +187,7 @@ const logout = async () => {
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
 
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
-                  <div v-if="!PendingPets && !errorPets && itemsPets" class="flex items-center gap-3">
+                  <div v-if="itemsPets" class="flex items-center gap-3">
                     <nuxt-img v-if="itemsPets?.client?.image.length" :src="itemsPets?.client?.image" width="50"
                       height="50" class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
@@ -227,7 +207,7 @@ const logout = async () => {
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                   </svg>
                 </nuxt-link>
-                <UButton size="xl" label="Log outa" color="primary" variant="solid" block @click="logout" class="py-4" />
+                <UButton size="xl" label="Log out" color="primary" variant="solid" block @click="logout" class="py-4" />
               </div>
             </div>
           </div>
