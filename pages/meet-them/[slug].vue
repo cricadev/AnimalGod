@@ -19,59 +19,52 @@
           </Slide>
           <template #addons>
             <Pagination class=" pt-24 scale-50" />
-            <Navigation class="" />
           </template>
         </Carousel>
       </div>
 
-      <div class="basic-info bg-contAccent mx-4 rounded-lg px-4 py-4 my-4">
-
-        <ul class="list-disc list-inside grid grid-cols-2 w-full text-sm gap-2">
-          <li class="pl-4 capitalize -ml-4">
-            {{ pet.breed.toLowerCase().split("_").join(" ") }}
-          </li>
-          <li>
-            {{ pet.age }} years old
-          </li>
-          <li>
-            {{ pet.gender.toLowerCase() }}
-          </li>
-
-          <li>
-            Good with {{ pet.goodWith.toLowerCase() }}
-          </li>
-          <li class="capitalize">
-            {{ pet.size.toLowerCase() }}
-          </li>
-          <li class="capitalize">
-            {{ pet.personality[0].toLowerCase() }}
-          </li>
-        </ul>
-
-
-
-      </div>
-
-      <div class="rounded-lg are-you-interest bg-darkContThird mx-4 px-8 py-2 text-black">
-        <div>
-          <div class="" v-if="!user">
-            <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
-            Please first <nuxt-link class="text-contAccent font-bold" to="/signup">Sign up</nuxt-link> or <nuxt-link
-              class="text-contAccent font-bold" to="/login">Log in</nuxt-link> to apply
-          </div>
-          <div class="" v-else>
-            <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
-
-          </div>
-          <div class="flex items-center justify-center gap-4 mt-4">
-            <UButton size="xl" color="primary" class="py-3 px-6" variant="solid" :disabled="!user">
-              <nuxt-link :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
-            </UButton>
-            <UButton size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold py-3 px-6" />
-          </div>
-
+      <div class=" lg:grid lg:grid-cols-3">
+        <div class=" basic-info bg-contAccent  rounded-lg px-4 py-4  col-span-2">
+          <ul class="list-disc list-inside grid grid-cols-2 w-full text-sm gap-2">
+            <li class="pl-4 capitalize -ml-4">
+              {{ pet.breed.toLowerCase().split("_").join(" ") }}
+            </li>
+            <li>
+              {{ pet.age }} years old
+            </li>
+            <li>
+              {{ pet.gender.toLowerCase() }}
+            </li>
+            <li>
+              Good with {{ pet.goodWith.toLowerCase() }}
+            </li>
+            <li class="capitalize">
+              {{ pet.size.toLowerCase() }}
+            </li>
+            <li class="capitalize">
+              {{ pet.personality[0].toLowerCase() }}
+            </li>
+          </ul>
         </div>
-
+        <div class="rounded-lg are-you-interest bg-darkContThird mx-4 px-8 py-2 text-black">
+          <div>
+            <div class="" v-if="!user">
+              <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
+              Please first <nuxt-link class="text-contAccent font-bold" to="/signup">Sign up</nuxt-link> or <nuxt-link
+                class="text-contAccent font-bold" to="/login">Log in</nuxt-link> to apply
+            </div>
+            <div class="" v-else>
+              <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
+            </div>
+            <div class="flex items-center justify-center gap-4 mt-4">
+              <UButton size="xl" color="primary" class="py-3 px-6" variant="solid" :disabled="!user">
+                <nuxt-link :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
+              </UButton>
+              <UButton size="xl" label="Prerequisites" color="white" variant="outline"
+                class="bg-Bg font-bold py-3 px-6" />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="tabs-details mt-12">
         <UTabs :items="items" class="" :ui="{
@@ -238,7 +231,7 @@ onMounted(async () => {
       await PetStore.fetchPet(route.params.slug);
       if (pet.value) {
         PetStore.setShelter(pet.value.shelterId);
-        await PetStore.fetchRelatedPets(pet.value.id);
+        await PetStore.fetchRelatedPets();
       }
     }
     catch (err) {

@@ -30,11 +30,11 @@
     </div>
     <div class="desktop" v-else-if="!isMobile">
 
-      <div class="flex flex-wrap gap-x-6 gap-y-3 mx-10 justify-center items-center pt-8">
+      <div class="flex flex-wrap gap-x-2.5  gap-y-3 mx-10 justify-center items-center pt-8">
 
         <USelectMenu placeholder="Animal" v-model="selected" :options="people" id="select-menu" ref="selectMenu">
 
-          <UButton v-if="selected.icon" :name="selected.icon" :icon="selected.icon" size="xl" color="primary"
+          <UButton v-if="selected.icon" :name="selected.icon" :icon="selected.icon" size="md" color="primary"
             variant="solid">
             {{ selected.label }}
 

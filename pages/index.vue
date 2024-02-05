@@ -15,7 +15,7 @@ useHead({
 const user = useSupabaseUser();
 
 
-const { height, width } = storeToRefs(useWindowSize());
+const { height, width } = useWindowSize();
 const isMobile = computed(() => width.value < 768);
 </script>
 

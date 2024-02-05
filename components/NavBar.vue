@@ -69,7 +69,7 @@ const logout = async () => {
           overlay: {
             background: 'bg-Bg/70 dark:bg-darkBg/70',
           },
-          background: 'bg-Bg dark:bg-darkBg',
+          background: 'bg-contSecond dark:bg-darkContSecond',
           width: 'w-screen max-w-md',
         }">
           <!-- Content -->
@@ -135,7 +135,7 @@ const logout = async () => {
               </div>
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
-                  <div v-if="!PendingPets && !errorPets && itemsPets" class="flex items-center gap-3">
+                  <div v-if="user?.user_metadata?.isShelter && itemsPets" class="flex items-center gap-3">
                     <nuxt-img v-if="itemsPets?.shelter?.image.length" :src="itemsPets?.shelter?.image" width="50"
                       height="50" class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />

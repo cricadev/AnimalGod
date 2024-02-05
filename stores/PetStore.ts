@@ -28,9 +28,8 @@ export const usePetStore = defineStore("PetStore", () => {
   }
 
   function setShelter(shelterId) {
-    if (pet.value) {
-      shelter.value = shelters.find(shelter => shelter.id === shelterId);
-    }
+    shelter.value = shelters.find(shelter => shelter.id === shelterId);
+
   }
 
   function resetPet() {
