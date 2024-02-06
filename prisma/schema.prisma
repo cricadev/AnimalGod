@@ -21,19 +21,6 @@ enum Size {
     LARGE
 }
 
-enum Breed {
-    GOLDEN_RETRIEVER
-    LABRADOR_RETRIEVER
-    GERMAN_SHEPHERD
-    BULLDOG
-    BEAGLE
-    POODLE
-    ROTTWEILER
-    YORKSHIRE_TERRIER
-    BOXER
-    DACHSHUND
-}
-
 enum GoodWith {
     CHILDREN
     DOGS
@@ -65,10 +52,11 @@ enum liveWith {
     OTHER_PETS
     ALONE
 }
+
 enum FormStatus {
-  IN_PROCESS
-  ACCEPTED
-  DENIED
+    IN_PROCESS
+    ACCEPTED
+    DENIED
 }
 
 // Model for the shelters
@@ -110,7 +98,7 @@ model Pet {
     gender                 Gender
     size                   Size // e.g., Small, Medium, Large, etc.
     age                    Int
-    breed                  Breed // e.g., Golden Retriever, Siamese, etc.
+    breed                  String // e.g., Golden Retriever, Siamese, etc.
     goodWith               GoodWith
     activity               ActivityLevel // e.g., Low, Medium, High, etc.
     history                String                  @db.VarChar(2000)
@@ -141,7 +129,7 @@ model Appointment {
     client              Client     @relation(fields: [clientId], references: [id])
     petId               Int // Foreign Key relation to Pet
     pet                 Pet        @relation(fields: [petId], references: [id])
-    acceptedForm FormStatus @default(IN_PROCESS)
+    acceptedForm        FormStatus @default(IN_PROCESS)
     createdAt           DateTime   @default(now())
     updatedAt           DateTime   @updatedAt
     // You can add other fields specific to appointment details if necessary

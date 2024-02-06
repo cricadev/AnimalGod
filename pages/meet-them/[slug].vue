@@ -5,30 +5,31 @@
     <div v-if="pet" class="h-full">
 
       <div
-        class="h-[40vh] lg:h-[60vh]                                 px-16 md:px-40 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5 lg:px-[50rem]">
+        class="h-[40vh] lg:h-[60vh]                                 px-16 md:px-40 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5">
         <h2 class="col-start-1 col-end-6 row-start-1 row-end-2 text-Heading1sm font-bold capitalize text-center">
           {{ pet?.name ?? "No name" }}
         </h2>
         <Carousel ref="myCarousel"
-          class="row-start-2 row-end-7 col-start-1 col-end-6 w-full h-full overflow-hidden rounded-xl shadow-xl"
+          class="col-span-5 row-span-6  self-center w-full  overflow-hidden rounded-xl shadow-xl place-items-center"
           :wrap-around="true" snap-align="center" :touch-drag="false">
-          <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
+          <Slide
+            class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5 place-items-center"
             v-for="(img, index) in  pet?.images ">
             <nuxt-img :src="img" :key="index"
-              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
+              class="row-span-full col-span-full object-cover object-center z-0  self-center ">
             </nuxt-img>
           </Slide>
           <template #addons>
-            <Pagination class=" " />
+            <Pagination class="" style="padding-bottom: 0;" />
             <Navigation class=" " />
           </template>
         </Carousel>
       </div>
-
-      <div class=" md:grid md:grid-cols-8 flex flex-col gap-4 px-4 md:px-16  md:mt-12 lg:px-96 ">
-        <div class=" col-span-5 basic-info bg-contAccent  rounded-lg px-4 py-4   md:grid md:place-items-center  md:p-0 ">
+    
+      <div class=" md:grid md:grid-cols-8 flex flex-col gap-4 px-4 md:px-16  md:mt-6 lg:px-96  ">
+        <div class=" col-span-5 basic-info   rounded-lg px-4 py-4   md:grid md:place-items-center  md:p-0  ">
           <div
-            class="list-disc list-inside grid grid-cols-2 lg:grid-cols-3 lg:gap-0 lg:py-0 w-full text-sm gap-2 ml-2 h-full md:py-3 md:px-10 md:m-0">
+            class="list-disc list-inside grid grid-cols-2 lg:grid-cols-3 lg:place-items-center lg:gap-0  w-full text-sm gap-2 ml-2   md:m-0 bg-contAccent py-4 rounded-lg ">
             <span class="pl-4 list-slug h-min">
               {{ pet.breed.toLowerCase().split("_").join(" ") }}
             </span>
@@ -38,7 +39,7 @@
             <span class="list-slug  ">
               {{ pet.gender.toLowerCase() }}
             </span>
-            <span class="list-slug">
+            <span class="list-slug pl-4 h-min whitespace-nowrap">
               Good with {{ pet.goodWith.toLowerCase() }}
             </span>
             <span class="list-slug  ">
@@ -77,7 +78,7 @@
                 <div class="fader fader-right"></div>
               </div>
             </div>
-            <div class="flex items-center justify-center gap-4 mt-4 md:flex-col md:gap-1">
+            <div class="flex items-center justify-center gap-4 mt-4 flex-col md:gap-1">
               <UButton block size="xl" color="primary" class="" variant="solid" :disabled="!user">
                 <nuxt-link :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
               </UButton>
@@ -86,7 +87,7 @@
           </div>
         </div>
       </div>
-      <div class="tabs-details mt-12">
+      <div class="tabs-details mt-12 md:mt-24">
         <UTabs :items="items" class="" :ui="{
           wrapper: ' relative space-y-2 lg:px-96',
           container: 'relative w-full  bg',
@@ -228,7 +229,7 @@
       </div>
 
       <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="relatedPets">
-        <h3 class="text-Heading3sm font-bold text-center">Pet available for adoption</h3>
+        <h3 class="text-Heading3sm font-bold text-center mt:">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
           <div class="" v-for="( animal, index ) in  relatedPets ">
             <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
@@ -282,7 +283,7 @@ onMounted(async () => {
   let container2 = document.querySelector("#two");
   let text2 = document.querySelector("#two span");
 
-  if (container2.clientWidth < text2.clientWidth) {
+  if (container2?.clientWidth < text2?.clientWidth) {
     text2.classList.add("animate");
   }
 })
@@ -451,7 +452,7 @@ const personalityAdjectivesExplained = [
 </script>
 <style scoped>
 .list-slug {
-  @apply capitalize -ml-4 md:p-0 md:m-0 flex items-center gap-2 h-min;
+  @apply capitalize -ml-4 flex items-center justify-center h-min;
 
   &::before {
     content: "";
