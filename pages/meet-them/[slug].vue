@@ -4,7 +4,8 @@
 
     <div v-if="pet" class="h-full">
 
-      <div class="h-[40vh] px-16 md:px-40 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5">
+      <div
+        class="h-[40vh] lg:h-[60vh]                                 px-16 md:px-40 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5 lg:px-[50rem]">
         <h2 class="col-start-1 col-end-6 row-start-1 row-end-2 text-Heading1sm font-bold capitalize text-center">
           {{ pet?.name ?? "No name" }}
         </h2>
@@ -24,28 +25,29 @@
         </Carousel>
       </div>
 
-      <div class=" md:grid md:grid-cols-8 flex flex-col gap-4 px-4 md:px-16  md:mt-12">
+      <div class=" md:grid md:grid-cols-8 flex flex-col gap-4 px-4 md:px-16  md:mt-12 lg:px-96 ">
         <div class=" col-span-5 basic-info bg-contAccent  rounded-lg px-4 py-4   md:grid md:place-items-center  md:p-0 ">
-          <ul class="list-disc list-inside grid grid-cols-2 w-full text-sm gap-2 ml-2 h-full md:py-3 md:px-10 md:m-0">
-            <li class="pl-4 list-slug">
+          <div
+            class="list-disc list-inside grid grid-cols-2 lg:grid-cols-3 lg:gap-0 lg:py-0 w-full text-sm gap-2 ml-2 h-full md:py-3 md:px-10 md:m-0">
+            <span class="pl-4 list-slug h-min">
               {{ pet.breed.toLowerCase().split("_").join(" ") }}
-            </li>
-            <li class="list-slug  ">
+            </span>
+            <span class="list-slug  ">
               {{ pet.age }} years old
-            </li>
-            <li class="list-slug  ">
+            </span>
+            <span class="list-slug  ">
               {{ pet.gender.toLowerCase() }}
-            </li>
-            <li class="list-slug">
+            </span>
+            <span class="list-slug">
               Good with {{ pet.goodWith.toLowerCase() }}
-            </li>
-            <li class="list-slug  ">
+            </span>
+            <span class="list-slug  ">
               {{ pet.size.toLowerCase() }}
-            </li>
-            <li class="list-slug  ">
+            </span>
+            <span class="list-slug  ">
               {{ pet.personality[0].toLowerCase() }}
-            </li>
-          </ul>
+            </span>
+          </div>
         </div>
         <div class="rounded-lg are-you-interest bg-darkContThird  col-span-3 p-4 text-black">
           <div>
@@ -86,8 +88,8 @@
       </div>
       <div class="tabs-details mt-12">
         <UTabs :items="items" class="" :ui="{
-          wrapper: ' relative space-y-2',
-          container: 'relative w-full bg',
+          wrapper: ' relative space-y-2 lg:px-96',
+          container: 'relative w-full  bg',
           base: 'focus:outline-none',
           list: {
             base: 'relative'
@@ -122,8 +124,8 @@
                   {{ pet.personalityDescription }}
                 </p>
 
-                <ul class="space-y-4 ">
-                  <li v-for="  adjective   in   pet.personality  " :key="adjective">
+                <ul class="space-y-4 md:grid md:grid-cols-2 md:space-y-0 md:gap-4 md:items-center">
+                  <li class="h-full w-full" v-for="  adjective   in   pet.personality  " :key="adjective">
                     <div v-for="  explainedAdjective   in   personalityAdjectivesExplained  "
                       :key="explainedAdjective.label">
                       <div class="grid gap-4 rounded-lg place-items-center bg-darkContSecond p-4"
@@ -449,7 +451,7 @@ const personalityAdjectivesExplained = [
 </script>
 <style scoped>
 .list-slug {
-  @apply capitalize -ml-4 md:p-0 md:m-0 flex items-center gap-2;
+  @apply capitalize -ml-4 md:p-0 md:m-0 flex items-center gap-2 h-min;
 
   &::before {
     content: "";
