@@ -4,7 +4,7 @@
 
     <div v-if="pet" class="h-full">
 
-      <div class="h-[40vh] px-16 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5">
+      <div class="h-[40vh] px-16 md:px-40 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5">
         <h2 class="col-start-1 col-end-6 row-start-1 row-end-2 text-Heading1sm font-bold capitalize text-center">
           {{ pet?.name ?? "No name" }}
         </h2>
@@ -14,54 +14,72 @@
           <Slide class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-2 grid-rows-2 gap-5"
             v-for="(img, index) in  pet?.images ">
             <nuxt-img :src="img" :key="index"
-              class=" row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
+              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full">
             </nuxt-img>
           </Slide>
           <template #addons>
-            <Pagination class=" pt-24 scale-50" />
+            <Pagination class=" " />
+            <Navigation class=" " />
           </template>
         </Carousel>
       </div>
 
-      <div class=" lg:grid lg:grid-cols-3">
-        <div class=" basic-info bg-contAccent  rounded-lg px-4 py-4  col-span-2">
-          <ul class="list-disc list-inside grid grid-cols-2 w-full text-sm gap-2">
-            <li class="pl-4 capitalize -ml-4">
+      <div class=" md:grid md:grid-cols-8 flex flex-col gap-4 px-4 md:px-16  md:mt-12">
+        <div class=" col-span-5 basic-info bg-contAccent  rounded-lg px-4 py-4   md:grid md:place-items-center  md:p-0 ">
+          <ul class="list-disc list-inside grid grid-cols-2 w-full text-sm gap-2 ml-2 h-full md:py-3 md:px-10 md:m-0">
+            <li class="pl-4 list-slug">
               {{ pet.breed.toLowerCase().split("_").join(" ") }}
             </li>
-            <li>
+            <li class="list-slug  ">
               {{ pet.age }} years old
             </li>
-            <li>
+            <li class="list-slug  ">
               {{ pet.gender.toLowerCase() }}
             </li>
-            <li>
+            <li class="list-slug">
               Good with {{ pet.goodWith.toLowerCase() }}
             </li>
-            <li class="capitalize">
+            <li class="list-slug  ">
               {{ pet.size.toLowerCase() }}
             </li>
-            <li class="capitalize">
+            <li class="list-slug  ">
               {{ pet.personality[0].toLowerCase() }}
             </li>
           </ul>
         </div>
-        <div class="rounded-lg are-you-interest bg-darkContThird mx-4 px-8 py-2 text-black">
+        <div class="rounded-lg are-you-interest bg-darkContThird  col-span-3 p-4 text-black">
           <div>
             <div class="" v-if="!user">
-              <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
+
+              <div id="two" class="text-container">
+                <span class="text-Heading3sm font-bold text-black text-center whitespace-nowrap line-clamp-1">Are you
+                  interested in
+                  {{
+                    pet.name }}?</span>
+                <div class="fader fader-left"></div>
+                <div class="fader fader-right"></div>
+              </div>
+
               Please first <nuxt-link class="text-contAccent font-bold" to="/signup">Sign up</nuxt-link> or <nuxt-link
                 class="text-contAccent font-bold" to="/login">Log in</nuxt-link> to apply
             </div>
             <div class="" v-else>
-              <h3 class="text-Heading3sm font-bold">Are you interested in {{ pet.name }}?</h3>
+
+
+              <div id="two" class="text-container">
+                <span class="text-Heading3sm font-bold text-center whitespace-nowrap line-clamp-1 text-black">Are you
+                  interested in
+                  {{
+                    pet.name }}?</span>
+                <div class="fader fader-left"></div>
+                <div class="fader fader-right"></div>
+              </div>
             </div>
-            <div class="flex items-center justify-center gap-4 mt-4">
-              <UButton size="xl" color="primary" class="py-3 px-6" variant="solid" :disabled="!user">
+            <div class="flex items-center justify-center gap-4 mt-4 md:flex-col md:gap-1">
+              <UButton block size="xl" color="primary" class="" variant="solid" :disabled="!user">
                 <nuxt-link :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
               </UButton>
-              <UButton size="xl" label="Prerequisites" color="white" variant="outline"
-                class="bg-Bg font-bold py-3 px-6" />
+              <UButton block size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold " />
             </div>
           </div>
         </div>
@@ -87,14 +105,14 @@
         }
           ">
           <template #item="{ item }">
-            <div class="px-5 py-16">
+            <div class="px-5 md:px-12 py-16">
               <p class="text-Heading3sm font-bold leading-6 text-gray-900 dark:text-white">
                 {{ pet.name }}'s {{ item.label }}
               </p>
 
               <div v-if="item.key === 'history'" class="space-y-3">
 
-                <p class="mt-5 text-Body1sm font-regular text-darkContText leading-tight">
+                <p class=" mt-5 text-Body1sm font-regular text-darkContText leading-tight">
                   {{ pet.history }}
                 </p>
 
@@ -172,16 +190,35 @@
 
       </div>
       <div class="">
-        <div class="shelter-info bg-[#166DD2]" v-if="shelter">
-          <div class="flex items-center flex-col justify-center gap-4">
-            <div class="">
-              <nuxt-img :src="shelter.image" width="100" height="100" class="rounded-full"></nuxt-img>
+        <div class="shelter-info bg-[#166DD2] pt-24 pb-8 relative" v-if="shelter">
+          <div class="flex items-center flex-col justify-center gap-4 ">
+            <div class="absolute -top-12">
+              <nuxt-img :src="shelter.image" class="rounded-full w-32 h-32 border-8  border-[#A1ABCF]"></nuxt-img>
             </div>
-            <div class="flex flex-col">
-              <h3 class="text-Heading3sm font-bold"> {{ shelter.name }} </h3>
-              <p class="text-Body1sm font-regular">{{ shelter.email ?? 'No email provided' }}</p>
-              <p class="text-Body1sm font-regular">{{ shelter.address ?? 'No address provided' }}</p>
-              <p class="text-Body1sm font-regular">{{ shelter.phone ?? 'No phone provided' }}</p>
+            <div class="flex flex-col gap-3">
+              <h3 class="text-Heading3sm font-bold text-center"> {{ shelter.name }} </h3>
+              <p class="text-Body1sm font-regular flex gap-2  items-center"> <svg xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
+                </svg>
+                {{ shelter.email ?? 'No email provided' }}</p>
+              <p class="text-Body1sm font-regular flex gap-2 items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+
+                {{ shelter.address ?? 'No address provided' }}
+              </p>
+              <p class="text-Body1sm font-regular flex gap-2  items-center"><svg xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                </svg>
+                {{ shelter.phone ?? 'No phone provided' }}</p>
             </div>
           </div>
         </div>
@@ -225,6 +262,8 @@ const PetStore = usePetStore();
 const { pet, shelter, relatedPets } = storeToRefs(PetStore);
 const route = useRoute();
 
+
+
 onMounted(async () => {
   if (route.params.slug) {
     try {
@@ -237,6 +276,12 @@ onMounted(async () => {
     catch (err) {
       console.log(err)
     }
+  }
+  let container2 = document.querySelector("#two");
+  let text2 = document.querySelector("#two span");
+
+  if (container2.clientWidth < text2.clientWidth) {
+    text2.classList.add("animate");
   }
 })
 
@@ -403,6 +448,81 @@ const personalityAdjectivesExplained = [
 
 </script>
 <style scoped>
+.list-slug {
+  @apply capitalize -ml-4 md:p-0 md:m-0 flex items-center gap-2;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    @apply bg-white
+  }
+}
+
+#two {
+  width: 100%;
+
+  overflow: hidden;
+}
+
+.text-container {
+  min-width: 0;
+  font-size: 2rem;
+  color: #708090;
+  white-space: nowrap;
+  overflow: visible;
+  position: relative;
+
+
+  span {
+    display: inline-block;
+  }
+
+  .animate {
+    position: relative;
+    animation: leftright 3s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes leftright {
+
+  0%,
+  20% {
+    transform: translateX(0%);
+    left: 0%;
+  }
+
+  80%,
+  100% {
+    transform: translateX(-100%);
+    left: 100%;
+  }
+}
+
+.fader {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 25px;
+
+  /* &.fader-left {
+    left: 0;
+    background: linear-gradient(to left,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.2));
+  }
+
+  &.fader-right {
+    right: 0;
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0.2));
+  } */
+}
+
 .lds-roller {
   display: inline-block;
   position: relative;
