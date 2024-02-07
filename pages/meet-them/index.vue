@@ -21,7 +21,7 @@ const advancedFiltering = reactive({
   type: '',
   breed: '',
   size: '',
-  age: 0,
+  age: '',
   gender: '',
   personality: '',
   goodWith: '',

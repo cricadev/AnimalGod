@@ -59,6 +59,13 @@ enum FormStatus {
     DENIED
 }
 
+enum Age {
+    BABY
+    YOUNG
+    ADULT
+    SENIOR
+}
+
 // Model for the shelters
 model Shelter {
     id        Int      @id @default(autoincrement())
@@ -97,7 +104,7 @@ model Pet {
     images                 String[] // URLs of uploaded images
     gender                 Gender
     size                   Size // e.g., Small, Medium, Large, etc.
-    age                    Int
+    age                    Age
     breed                  String // e.g., Golden Retriever, Siamese, etc.
     goodWith               GoodWith
     activity               ActivityLevel // e.g., Low, Medium, High, etc.

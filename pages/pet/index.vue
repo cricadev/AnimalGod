@@ -14,8 +14,8 @@
         <FormPetBasicInfo @update-type="fixAndGoBackTo" v-if="step === 4" v-model:gender="pet.gender"
           v-model:size="pet.size" v-model:age="pet.age" v-model:breed="pet.breed" v-model:goodWith="pet.goodWith"
           v-model:activity="pet.activity" :sizeOptions="SizeOptions" :breedOptions="BreedOptions"
-          :good-with-options="GoodWithOptions" :activity-level-options="ActivityLevelOptions" @next="step++"
-          @back="step--" />
+          :good-with-options="GoodWithOptions" :activity-level-options="ActivityLevelOptions" :age-options="ageOptions"
+          @next="step++" @back="step--" />
 
         <FormPetHistory @update-type="fixAndGoBackTo" v-if="step === 5" v-model="pet.history" @next="step++"
           @back="step--" />
@@ -52,13 +52,21 @@ const isEditing = ref(false);
 provide('isEditing', isEditing);
 const route = useRoute();
 const BreedOptions = computed(() => {
+  let breeds;
   if (pet.value.type === 'dog') {
-    return dogBreeds.en
+    breeds = dogBreeds.en;
+  } else {
+    breeds = catBreeds.en;
   }
-  else {
-    return catBreeds.en
+
+  const transformedBreeds = breeds.map(breed => breed.toUpperCase().replaceAll(" ", "_"));
+
+  if (transformedBreeds.length > 0) {
+    transformedBreeds.splice(0, 1, 'MIXED');
   }
-})
+
+  return transformedBreeds;
+});
 
 
 const handleFormSubmition = () => {
@@ -72,7 +80,7 @@ const handleExitForm = () => {
   }, 500);
 }
 const SizeOptions = ['SMALL', 'MEDIUM', 'LARGE'];
-
+const ageOptions = ['BABY', 'YOUNG', 'ADULT', 'SENIOR'];
 const GoodWithOptions = ['CHILDREN', 'DOGS', 'CATS'];
 const ActivityLevelOptions = ['LOW', 'MEDIUM', 'HIGH'];
 const PersonalityAdjectivesOptions = ['AFFECTIONATE',

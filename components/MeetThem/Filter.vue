@@ -194,18 +194,25 @@ const people = [
 const selected = ref(people[0]);
 
 const BreedOptions = computed(() => {
+  let breeds;
   if (selected.value.id === 'dog') {
-    return dogBreeds.en
+    breeds = dogBreeds.en;
+  } else {
+    breeds = catBreeds.en;
   }
-  else {
-    return catBreeds.en
+
+  const transformedBreeds = breeds.map(breed => breed.toUpperCase().replaceAll(" ", "_"));
+
+  if (transformedBreeds.length > 0) {
+    transformedBreeds.splice(0, 1, 'MIXED');
   }
-})
+
+  return transformedBreeds;
+});
 const SizesOptions = [
   'SMALL',
   'MEDIUM',
-  'Large',
-  'Extra Large',
+  'LARGE'
 ];
 const AgesOptions = [
   'Baby', 'Young', 'Adult', 'Senior'
@@ -240,7 +247,7 @@ const advancedFiltering = reactive({
   size: '',
   age: 0,
   gender: '',
-  personality: '',
+  personality: [''],
   goodWith: '',
   activity: '',
 })

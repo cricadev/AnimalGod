@@ -76,10 +76,10 @@ const logout = async () => {
           <div class="">
             <div v-if="!user" class=" w-full h-full flex flex-col  bg-contSecond dark:bg-darkContSecond gap-16">
               <div class="flex justify-center items-center mt-4">
-                <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+                <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'"
                   width="120" height="35"></nuxt-img>
                 <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35"
-                  v-else></nuxt-img>
+                  v-show="colorMode.value !== 'dark'"></nuxt-img>
               </div>
               <div class="flex flex-col justify-center items-center gap-12">
                 <div class="text-center flex flex-col justify-center items-center">
@@ -115,10 +115,10 @@ const logout = async () => {
             <div v-else-if="user?.user_metadata?.isShelter"
               class=" w-full h-full flex flex-col gap-16 bg-contSecond dark:bg-darkContSecond">
               <div class="flex justify-center items-center mt-4">
-                <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+                <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'"
                   width="120" height="35"></nuxt-img>
                 <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35"
-                  v-else></nuxt-img>
+                  v-show="colorMode.value !== 'dark'"></nuxt-img>
               </div>
               <div class="flex flex-col justify-center items-center ">
                 <ul class="flex justify-center items-center flex-col gap-6">
@@ -160,10 +160,10 @@ const logout = async () => {
             </div>
             <div v-else class=" w-full h-full flex flex-col gap-8 bg-contSecond dark:bg-darkContSecond">
               <div class="flex justify-center items-center mt-4">
-                <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
+                <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'"
                   width="120" height="35"></nuxt-img>
                 <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35"
-                  v-else></nuxt-img>
+                  v-show="colorMode.value !== 'dark'"></nuxt-img>
               </div>
               <div class="flex flex-col justify-center items-center gap-12">
                 <ul class="flex justify-center items-center flex-col gap-6">
@@ -220,10 +220,10 @@ const logout = async () => {
     <div class="flex items-center justify-between w-full  h-16" v-show="!isMobile">
       <div class="flex">
         <nuxt-link to="/">
-          <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'"
-            width="100%" height="35" class="p-5"></nuxt-img>
+          <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'" width="100%"
+            height="35" class="p-5"></nuxt-img>
           <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
-            v-else></nuxt-img>
+            v-show="colorMode.value !== 'dark'"></nuxt-img>
         </nuxt-link>
         <ToggleTheme></ToggleTheme>
       </div>

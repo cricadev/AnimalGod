@@ -52,8 +52,12 @@
 
     <div class="relative">
 
-      <input placeholder="Age" class="input-basic-info placeholder-contInactive" type="number" :value="age"
-        @input="updatePet('age', $event.target.value)" min="0">
+      <label class="label-basic-info" v-if="!pet.age">
+        Age
+      </label>
+      <select placeholder="Age" class="input-basic-info" :value="age" @change="updatePet('age', $event.target.value)">
+        <option v-for="age in ageOptions" :key="age" :value="age">{{ age }}</option>
+      </select>
     </div>
 
     <div class="relative">
@@ -136,6 +140,10 @@ const props = defineProps({
     required: true
   },
   activityLevelOptions: {
+    type: Array,
+    required: true
+  },
+  ageOptions: {
     type: Array,
     required: true
   }
