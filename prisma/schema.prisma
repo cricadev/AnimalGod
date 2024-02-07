@@ -69,6 +69,7 @@ enum Age {
 // Model for the shelters
 model Shelter {
     id        Int      @id @default(autoincrement())
+    userId    String   @map("user_id") @db.Uuid
     name      String
     email     String   @unique @default("default@email.com")
     pets      Pet[] // Relation to the pets they have listed
@@ -79,12 +80,16 @@ model Shelter {
     website   String?
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
     // Add other fields like address, contact number, etc.
+    @@index([userId], name: "shelterUserId")
 }
 
 // Model for the clients
 model Client {
-    id           Int           @id @default(autoincrement())
+    id     Int    @id @default(autoincrement())
+    userId String @map("user_id") @db.Uuid
+
     name         String
     email        String        @unique
     appointments Appointment[] // Relation to their set appointments
@@ -93,7 +98,10 @@ model Client {
     image        String?
     createdAt    DateTime      @default(now())
     updatedAt    DateTime      @updatedAt
+
     // You can add other fields specific to clients if necessary
+
+    @@index([userId], name: "clientUserId")
 }
 
 // Model for the pets listed for adoption

@@ -99,6 +99,7 @@ const login = async () => {
 const loginWithGoogle = async (e) => {
   const { data, error } = await supaAuth.signInWithOAuth({
     provider: "google",
+    options: { redirectTo: "http://localhost:3000/confirm" }
   });
   if (error) {
     console.log(error.message);
@@ -113,6 +114,7 @@ const loginWithGoogle = async (e) => {
 const loginWithFB = async (e) => {
   const { data, error } = await supaAuth.signInWithOAuth({
     provider: "facebook",
+    options: { redirectTo: "http://localhost:3000/confirm" }
   });
   if (error) {
     console.log(error);
