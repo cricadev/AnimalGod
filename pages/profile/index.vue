@@ -109,42 +109,26 @@ import countries from 'i18n-iso-countries';
 import en from 'i18n-iso-countries/langs/en.json';
 countries.registerLocale(en);
 const user = useSupabaseUser();
+const fetchResult = ref(null);
+const itemsPets = ref(null);
+const errorPets = ref(null);
+const PendingPets = ref(null);
 
-const itemsPets = ref(null)
-const errorPets = ref(null)
-const PendingPets = ref(null)
-if (user.value?.user_metadata.isShelter) {
-  const { data, error, pending } = useLazyFetch(`/api/shelter`)
+watch(user, async (newUser) => {
+  if (newUser) {
+    if (newUser.user_metadata.isShelter) {
+      fetchResult.value = await useFetch(`/api/shelter`);
+    } else {
+      fetchResult.value = await useFetch(`/api/client`);
+    }
 
-  if (data) {
-    itemsPets.value = data.value
+    if (fetchResult.value) {
+      itemsPets.value = fetchResult.value.data;
+      errorPets.value = fetchResult.value.error;
+      PendingPets.value = fetchResult.value.pending;
+    }
   }
-
-  if (error) {
-    errorPets.value = error.value
-  }
-
-  if (pending) {
-    PendingPets.value = pending.value
-  }
-
-} else {
-  const { data, error, pending } = useLazyFetch(`/api/client`)
-
-  if (data) {
-    itemsPets.value = data.value
-  }
-
-  if (error) {
-    errorPets.value = error.value
-  }
-
-  if (pending) {
-    PendingPets.value = pending.value
-  }
-
-
-}
+}, { immediate: true, deep: true });
 
 const state = reactive({
   currentPrismaUser: reactive({

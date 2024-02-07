@@ -29,7 +29,7 @@ watch(user, async (newUser) => {
       PendingPets.value = fetchResult.value.pending;
     }
   }
-}, { immediate: true });
+}, { immediate: true, deep: true });
 // after every route enter toggle the isOpen boolean to false
 watch(
   () => route.path,
