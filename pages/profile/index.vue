@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <h3 class="text-Heading3sm text-center text-white font-semibold">
+        <h3 class="text-Heading3sm text-center dark:text-white text-black font-semibold">
           {{
             user.user_metadata?.name
           }}
@@ -32,18 +32,18 @@
         <div v-if="!loading">
           <ProfileInputEditableHeading :modelValue="currentPrismaUser?.phone"
             @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
-          <ProfileInputEditableHeading v-if="currentPrismaUser.address" :modelValue="currentPrismaUser?.address"
+          <ProfileInputEditableHeading :modelValue="currentPrismaUser?.address"
             @update:modelValue="value => handleFieldUpdate('address', value)" :address="true" />
-          <ProfileInputEditableHeading v-if="currentPrismaUser.website" :modelValue="currentPrismaUser?.website"
-            :website="true" @update:modelValue="value => handleFieldUpdate('website', value)" />
+          <ProfileInputEditableHeading :modelValue="currentPrismaUser?.website" :website="true"
+            @update:modelValue="value => handleFieldUpdate('website', value)" />
         </div>
         <div v-else>Loading...</div>
       </div>
 
       <div class="px-5">
 
-        <nuxt-link v-if="user?.user_metadata?.isShelter" to="/my-pets"
-          class="registered-pets-card justify-center flex bg-darkContSecond py-5 gap-4 items-center">
+        <nuxt-link v-if="user?.user_metadata?.isShelter" :to="itemsPets?.pets.length ? '/my-pets' : ''"
+          class="registered-pets-card justify-center flex bg-contSecond dark:bg-darkContSecond py-5 gap-4 items-center">
           <UAvatarGroup size="sm" :max="4" :ui="{
             'ring': 'ring-0',
             'wrapper': 'bg-darkContSecond',
@@ -53,14 +53,16 @@
 
           <span>
 
-            Your registered pets
+            {{ itemsPets?.pets.length ? 'Your registered pets' : 'No registered pets yet' }}
 
-            <Icon name="i-mdi-chevron-right" class="text-white" />
+            <Icon name="i-mdi-chevron-right" class="text-black dark:text-white" />
           </span>
 
         </nuxt-link>
-        <nuxt-link v-else to="/my-applications"
-          class="registered-pets-card justify-center flex bg-darkContSecond py-5 gap-4 items-center">
+        <nuxt-link v-else :to="itemsPets?.pets.length ? '/my-applications' : ''"
+          class="registered-pets-card justify-center flex py-5 gap-4 items-center" :class="[
+            itemsPets?.pets.length ? 'bg-contSecond dark:bg-darkContSecond' : 'bg-contInactive'
+          ]">
           <UAvatarGroup size="sm" :max="4" :ui="{
             'ring': 'ring-0',
             'wrapper': 'bg-darkContSecond',
@@ -69,8 +71,8 @@
           </UAvatarGroup>
 
           <span>
-            Your applications
-            <Icon name="i-mdi-chevron-right" class="text-white" />
+            {{ itemsPets?.pets.length ? 'Your applications' : 'No applications yet' }}
+            <Icon name="i-mdi-chevron-right" class=" text-black dark:text-white" />
           </span>
 
 
@@ -173,7 +175,7 @@ const getCurrentUser = async () => {
 
   } else if (!user.value.user_metadata?.isShelter) {
     const { data, error } = await useFetch(`/api/id?email=${user.value.email}`)
-    if (error) {
+    if (error.value) {
       console.error(error.value?.message)
     }
     if (data.value) {

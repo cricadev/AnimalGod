@@ -55,10 +55,10 @@ const logout = async () => {
   <div class="">
     <div class="flex items-center justify-between w-full h-16 " v-show="isMobile">
       <nuxt-link to="/">
-        <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-if="colorMode.preference !== 'light'" width="100%"
+        <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'" width="100%"
           height="35" class="p-5"></nuxt-img>
         <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
-          v-else></nuxt-img>
+          v-show="colorMode.value !== 'dark'"></nuxt-img>
       </nuxt-link>
       <nuxt-link to="/pet" class="bg-darkContThird px-3 py-2 rounded-lg" v-if="user?.user_metadata?.isShelter">
         Register animal</nuxt-link>
@@ -136,14 +136,15 @@ const logout = async () => {
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="user?.user_metadata?.isShelter && itemsPets" class="flex items-center gap-3">
-                    <nuxt-img v-if="itemsPets?.shelter?.image.length" :src="itemsPets?.shelter?.image" width="50"
-                      height="50" class="rounded-sm" />
+                    <nuxt-img v-if="itemsPets?.shelter?.image" :src="itemsPets?.shelter?.image" width="50" height="50"
+                      class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
-                      <h3 class=" leading-none text-Body1sm font-semibold text-darkContText">{{ user?.user_metadata?.name
+                      <h3 class=" leading-none text-Body1sm font-semibold text-black dark:text-darkContText">{{
+                        user?.user_metadata?.name
                       }}
                       </h3>
-                      <span class="text-Captionlg font-light text-darkContText leading-none">
+                      <span class="text-Captionlg font-light text-black dark:text-darkContText leading-none">
                         {{ itemsPets?.pets?.length ?? 0 }} pets
                         has been
                         registered!</span>
@@ -188,14 +189,16 @@ const logout = async () => {
 
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="!user?.user_metadata?.isShelter && itemsPets" class="flex items-center gap-3">
-                    <nuxt-img v-if="itemsPets?.client?.image.length" :src="itemsPets?.client?.image" width="50"
-                      height="50" class="rounded-sm" />
+                    <nuxt-img v-if="itemsPets?.client?.image" :src="itemsPets?.client?.image" width="50" height="50"
+                      class="rounded-sm" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
-                      <h3 class=" text-Body1sm font-semibold text-darkContText">{{ user?.user_metadata?.name }}
+                      <h3 class=" text-Body1sm font-semibold text-black dark:text-darkContText">{{
+                        user?.user_metadata?.name }}
                       </h3>
-                      <span class="text-Captionlg font-light text-darkContText  flex gap-2 items-center">{{
-                        itemsPets?.appointments.length ?? 0 }}
+                      <span
+                        class="text-Captionlg font-light text-black dark:text-darkContText  flex gap-2 items-center">{{
+                          itemsPets?.appointments.length ?? 0 }}
                         adoption requests
                         <div class="bg-red-500 rounded-full w-2 h-2"></div>
                         In process
@@ -270,8 +273,8 @@ const logout = async () => {
             <div class="flex flex-col justify-center items-center gap-6 mr-6">
               <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                  <nuxt-img v-if="itemsPets?.shelter?.image.length" :src="itemsPets?.shelter?.image" width="50"
-                    height="50" class="rounded-sm" />
+                  <nuxt-img v-if="itemsPets?.shelter?.image" :src="itemsPets?.shelter?.image" width="50" height="50"
+                    class="rounded-sm" />
                   <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                 </div>
               </nuxt-link>
@@ -299,7 +302,7 @@ const logout = async () => {
           <div class="flex flex-col justify-center items-center gap-6 mr-6">
             <nuxt-link to="/profile" class="w-full flex items-center justify-between">
               <div class="flex items-center gap-3">
-                <nuxt-img v-if="itemsPets?.client?.image.length" :src="itemsPets?.client?.image" width="50" height="50"
+                <nuxt-img v-if="itemsPets?.client?.image" :src="itemsPets?.client?.image" width="50" height="50"
                   class="rounded-sm" />
                 <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
               </div>
