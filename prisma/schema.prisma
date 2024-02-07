@@ -1,151 +1,145 @@
 datasource db {
-    provider  = "postgresql"
-    url       = env("DATABASE_URL")
-    directUrl = env("DIRECT_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 // ENU,S
 
 enum Gender {
-    MALE
-    FEMALE
+  MALE
+  FEMALE
 }
 
 enum Size {
-    SMALL
-    MEDIUM
-    LARGE
+  SMALL
+  MEDIUM
+  LARGE
 }
 
 enum GoodWith {
-    CHILDREN
-    DOGS
-    CATS
+  CHILDREN
+  DOGS
+  CATS
 }
 
 enum ActivityLevel {
-    LOW
-    MEDIUM
-    HIGH
+  LOW
+  MEDIUM
+  HIGH
 }
 
 enum personalityAdjectives {
-    AFFECTIONATE
-    DOMINANT
-    RELAXED
-    INDEPENDENT
-    DEVOTED
-    CONFIDENT
-    ALOOF
-    COMPLIANT
-    TIMID
-    ENTHUSIASTIC
+  AFFECTIONATE
+  DOMINANT
+  RELAXED
+  INDEPENDENT
+  DEVOTED
+  CONFIDENT
+  ALOOF
+  COMPLIANT
+  TIMID
+  ENTHUSIASTIC
 }
 
 enum liveWith {
-    PARTNER
-    CHILDREN
-    OTHER_PETS
-    ALONE
+  PARTNER
+  CHILDREN
+  OTHER_PETS
+  ALONE
 }
 
 enum FormStatus {
-    IN_PROCESS
-    ACCEPTED
-    DENIED
+  IN_PROCESS
+  ACCEPTED
+  DENIED
 }
 
 enum Age {
-    BABY
-    YOUNG
-    ADULT
-    SENIOR
+  BABY
+  YOUNG
+  ADULT
+  SENIOR
 }
 
 // Model for the shelters
 model Shelter {
-    id        Int      @id @default(autoincrement())
-    userId    String   @map("user_id") @db.Uuid
-    name      String
-    email     String   @unique @default("default@email.com")
-    pets      Pet[] // Relation to the pets they have listed
-    country   String
-    phone     String
-    image     String?
-    address   String?
-    website   String?
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique @default("default@email.com")
+  pets      Pet[] // Relation to the pets they have listed
+  country   String
+  phone     String
+  image     String?
+  address   String?
+  website   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    // Add other fields like address, contact number, etc.
-    @@index([userId], name: "shelterUserId")
+  // Add other fields like address, contact number, etc.
 }
 
 // Model for the clients
 model Client {
-    id     Int    @id @default(autoincrement())
-    userId String @map("user_id") @db.Uuid
+  id           Int           @id @default(autoincrement())
+  name         String
+  email        String        @unique
+  appointments Appointment[] // Relation to their set appointments
+  country      String
+  phone        String
+  image        String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
 
-    name         String
-    email        String        @unique
-    appointments Appointment[] // Relation to their set appointments
-    country      String
-    phone        String
-    image        String?
-    createdAt    DateTime      @default(now())
-    updatedAt    DateTime      @updatedAt
-
-    // You can add other fields specific to clients if necessary
-
-    @@index([userId], name: "clientUserId")
+  // You can add other fields specific to clients if necessary
 }
 
 // Model for the pets listed for adoption
 model Pet {
-    id                     Int                     @id @default(autoincrement())
-    type                   String // e.g., Dog, Cat, etc.
-    name                   String
-    images                 String[] // URLs of uploaded images
-    gender                 Gender
-    size                   Size // e.g., Small, Medium, Large, etc.
-    age                    Age
-    breed                  String // e.g., Golden Retriever, Siamese, etc.
-    goodWith               GoodWith
-    activity               ActivityLevel // e.g., Low, Medium, High, etc.
-    history                String                  @db.VarChar(2000)
-    personality            personalityAdjectives[]
-    personalityDescription String                  @db.VarChar(2000)
-    healthConditions       Json
-    healthDescription      String?                 @db.VarChar(2000)
-    isAdopted              Boolean                 @default(false)
-    shelterId              Int? // Foreign Key relation to Shelter
-    shelter                Shelter?                @relation(fields: [shelterId], references: [id])
-    appointments           Appointment[] // Relation to appointments set for this pet
-    createdAt              DateTime                @default(now())
-    updatedAt              DateTime                @updatedAt
+  id                     Int                     @id @default(autoincrement())
+  type                   String // e.g., Dog, Cat, etc.
+  name                   String
+  images                 String[] // URLs of uploaded images
+  gender                 Gender
+  size                   Size // e.g., Small, Medium, Large, etc.
+  age                    Age
+  breed                  String // e.g., Golden Retriever, Siamese, etc.
+  goodWith               GoodWith
+  activity               ActivityLevel // e.g., Low, Medium, High, etc.
+  history                String                  @db.VarChar(2000)
+  personality            personalityAdjectives[]
+  personalityDescription String                  @db.VarChar(2000)
+  healthConditions       Json
+  healthDescription      String?                 @db.VarChar(2000)
+  isAdopted              Boolean                 @default(false)
+  shelterId              Int? // Foreign Key relation to Shelter
+  shelter                Shelter?                @relation(fields: [shelterId], references: [id])
+  appointments           Appointment[] // Relation to appointments set for this pet
+  createdAt              DateTime                @default(now())
+  updatedAt              DateTime                @updatedAt
 }
 
 // Model for the appointments set by clients for specific pets
 model Appointment {
-    id                  Int        @id @default(autoincrement())
-    liveWith            liveWith[]
-    liveWithDescription String     @db.VarChar(2000)
-    liveIn              Boolean
-    isRenting           Boolean
-    rentAcceptance      Boolean?
-    qAndA               Json
-    qAndADescription    String     @db.VarChar(2000)
-    whyMessage          String     @db.VarChar(2000)
-    clientId            Int // Foreign Key relation to Client
-    client              Client     @relation(fields: [clientId], references: [id])
-    petId               Int // Foreign Key relation to Pet
-    pet                 Pet        @relation(fields: [petId], references: [id])
-    acceptedForm        FormStatus @default(IN_PROCESS)
-    createdAt           DateTime   @default(now())
-    updatedAt           DateTime   @updatedAt
-    // You can add other fields specific to appointment details if necessary
+  id                  Int        @id @default(autoincrement())
+  liveWith            liveWith[]
+  liveWithDescription String     @db.VarChar(2000)
+  liveIn              Boolean
+  isRenting           Boolean
+  rentAcceptance      Boolean?
+  qAndA               Json
+  qAndADescription    String     @db.VarChar(2000)
+  whyMessage          String     @db.VarChar(2000)
+  clientId            Int // Foreign Key relation to Client
+  client              Client     @relation(fields: [clientId], references: [id])
+  petId               Int // Foreign Key relation to Pet
+  pet                 Pet        @relation(fields: [petId], references: [id])
+  acceptedForm        FormStatus @default(IN_PROCESS)
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+  // You can add other fields specific to appointment details if necessary
 }
