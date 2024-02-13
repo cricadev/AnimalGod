@@ -147,8 +147,8 @@ const formStore = useformStore();
 const { supabaseImages } = storeToRefs(formStore);
 const { data: allData, error, pending } = await useLazyFetch<Pet[]>('/api/pets');
 
-if (error) {
-  console.error(error.value)
+if (error.value) {
+  console.error(error.value.message)
 }
 
 const limit = ref(4); // Number of items to display

@@ -2,7 +2,7 @@
   "name": "nuxt-app",
   "private": true,
   "prisma": {
-    "seed": "node prisma/seed.mjs"
+    "seed": "node prisma/seed.ts"
   },
   "scripts": {
     "build": "nuxt build",

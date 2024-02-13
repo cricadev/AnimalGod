@@ -13,7 +13,8 @@
 
     </nuxt-img> -->
     <div v-if="appointmentBasedOnId" class="px-8 flex flex-col gap-2 mb-16  mt-12 justify-center items-center">
-      <nuxt-img :src="appointmentBasedOnId.client.image" class="w-16 rounded-full object-cover h-16">
+      <nuxt-img v-if="appointmentBasedOnId.client.image" :src="appointmentBasedOnId.client.image"
+        class="w-16 rounded-full object-cover h-16">
 
       </nuxt-img>
       <h2 class="text-Heading2sm font-bold leading-none text-center">

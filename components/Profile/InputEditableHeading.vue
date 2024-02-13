@@ -17,11 +17,12 @@
 
 
 
-      <Icon name="i-mdi-pencil" @click="editable = true" class="" />
+      <Icon name="i-mdi-pencil" @click="handleClick()" class="" />
     </h4>
 
-    <form v-else @submit.prevent="updateField">
-      <input type="text" class="mx-16 bg-transparent border-none flex justify-center" v-model="inputValue">
+    <form v-else @submit.prevent="updateField" class=" justify-center">
+      <input type="text" class="mx-auto bg-transparent border-none flex justify-center " v-model="inputValue"
+        ref="inputEdit">
     </form>
   </div>
 </template>
@@ -32,7 +33,22 @@ import countries from 'i18n-iso-countries';
 import en from 'i18n-iso-countries/langs/en.json';
 countries.registerLocale(en);
 const user = useSupabaseUser();
-const emit = defineEmits(['update:modelValue',])
+const inputEdit = ref(null)
+const editable = ref(false)
+
+watch(editable, async (value) => {
+  if (value) {
+    await nextTick()
+    if (inputEdit.value) {
+      inputEdit.value.focus()
+    }
+  }
+})
+
+const emit = defineEmits(['update:modelValue'])
+const handleClick = () => {
+  editable.value = true
+}
 const props = defineProps({
   modelValue: {
     type: String,
@@ -51,7 +67,6 @@ const props = defineProps({
     default: false
   },
 })
-const editable = ref(false)
 const inputValue = ref(props.modelValue) // Initialize inputValue with modelValue
 
 const convertCountryToTel = (country) => {

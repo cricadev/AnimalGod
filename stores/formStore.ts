@@ -177,15 +177,30 @@ export const useformStore = defineStore("formStore", () => {
         if (storageTableName === 'animalgod-files') {
           imagesURL.value = [...imagesURL.value, publicUrl]
           filePaths.value.push(filePath);
+
         }
 
         if (storageTableName === 'avatars') {
           filePaths.value.push(filePath);
+
+          const { data, error } = await supabase.auth.updateUser({
+            data: {
+              image: publicUrl,
+            }
+          })
+          if (error) {
+            console.error('Error updating user image:', error);
+          }
+          else {
+            console.log(data)
+          }
           return publicUrl
         }
+
       } catch (error) {
         console.error('Error uploading file:', error);
       }
+
     }
     pet.images = imagesURL.value;
   };
@@ -208,24 +223,27 @@ export const useformStore = defineStore("formStore", () => {
       const { data, error } = await supabase.storage.from(storageTableName).remove([filePath]);
       if (error) {
         console.error('Error deleting file:', error.message);
-        return;
-      }
 
-      // Update the local state based on the storage table name
-      if (storageTableName === 'animalgod-files') {
-        files.value.splice(index, 1);
-        imagesURL.value.splice(index, 1);
-        filePaths.value = filePaths.value.filter(path => path !== filePath);
-        const imageUrlIndex = pet.images.findIndex(imgurl => imgurl === publicUrl);
-        if (imageUrlIndex !== -1) {
-          pet.images.splice(imageUrlIndex, 1);
+      }
+      else {
+        console.log(data)
+        // Update the local state based on the storage table name
+        if (storageTableName === 'animalgod-files') {
+          files.value.splice(index, 1);
+          imagesURL.value.splice(index, 1);
+          filePaths.value = filePaths.value.filter(path => path !== filePath);
+          const imageUrlIndex = pet.images.findIndex(imgurl => imgurl === publicUrl);
+          if (imageUrlIndex !== -1) {
+            pet.images.splice(imageUrlIndex, 1);
+          }
+        };
+
+        if (storageTableName === 'avatars') {
+          files.value.splice(index, 1);
+          filePaths.value = filePaths.value.filter(path => path !== filePath);
         }
-      };
-
-      if (storageTableName === 'avatars') {
-        files.value.splice(index, 1);
-        filePaths.value = filePaths.value.filter(path => path !== filePath);
       }
+
     } catch (error) {
       console.error('Error deleting file:', error);
     } finally {

@@ -144,6 +144,7 @@ const signup = async () => {
           terms: credentials.terms,
           notifications: credentials.notifications,
           isShelter: credentials.isShelter,
+          image: '',
         },
       },
     });
@@ -154,7 +155,7 @@ const signup = async () => {
 
     return await navigateTo("/");
   } catch (error) {
-    console.log(error);
+    console.error(error);
     errorMessage.value = error.message;
     setTimeout(() => {
       errorMessage.value = "";

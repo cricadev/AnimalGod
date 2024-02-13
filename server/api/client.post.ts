@@ -39,6 +39,7 @@ export default defineEventHandler(async (event) => {
         email: credentials.email,
         country: credentials.country,
         phone: credentials.phone,
+        image: '',
       },
     });
 

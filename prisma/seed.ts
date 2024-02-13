@@ -17,10 +17,10 @@ async function main() {
   const shelter1 = await prisma.shelter.create({
     data: {
       name: "Happy Paws Shelter",
-      email: "happy@paws.com",
+      email: "cricadev@gmail.com",
       country: "US",
       phone: "1234567890",
-      image: "image_url",
+      image: "",
       address: "123 Happy Street",
       website: "www.happypaws.com",
     },
@@ -29,10 +29,10 @@ async function main() {
   const shelter2 = await prisma.shelter.create({
     data: {
       name: "Furry Friends Home",
-      email: "furry@friends.com",
+      email: "animalitos@animalitos.com",
       country: "UK",
       phone: "0987654321",
-      image: "image_url",
+      image: "",
       address: "456 Furry Avenue",
       website: "www.furryfriends.com",
     },
@@ -90,20 +90,20 @@ async function main() {
   const client1 = await prisma.client.create({
     data: {
       name: "John Doe",
-      email: "john@doe.com",
+      email: "cristiancasallas998@gmail.com",
       country: "US",
       phone: "1234567890",
-      image: "image_url",
+      image: "",
     },
   });
 
   const client2 = await prisma.client.create({
     data: {
       name: "Jane Smith",
-      email: "jane@smith.com",
+      email: "notableoso998@gmail.com",
       country: "UK",
       phone: "0987654321",
-      image: "image_url",
+      image: "",
     },
   });
 

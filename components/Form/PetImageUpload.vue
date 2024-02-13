@@ -8,8 +8,8 @@
         <Icon class="h-20 w-20 " name="material-symbols:photo-camera-rounded"></Icon>
         <span>Select from gallery or take a picture</span>
       </div>
-      <input type="file" id="imageInput" @change="(event) => handleFileUpload(event, 'animalgod-files', pet?.name)"
-        multiple accept="image/*">
+      <input class="justify-center  mx-auto " type="file" id="imageInput"
+        @change="(event) => handleFileUpload(event, 'animalgod-files', pet?.name)" multiple accept="image/*">
     </label>
     <div class="selected-images" v-else>
       <div class="image-container" v-for="(img, index) in pet.images" :key="index">

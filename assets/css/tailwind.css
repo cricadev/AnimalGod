@@ -256,9 +256,8 @@ html {
 }
 
 .table-row {
-  @apply flex items-center gap-8;
+  @apply items-center gap-8;
 }
-
 .table-header {
   @apply font-semibold py-4 sticky left-0 bg-contAccent px-5;
 }
@@ -270,7 +269,7 @@ th {
 }
 
 .table-data {
-  @apply border border-[#454545] flex items-center  gap-8;
+  @apply border border-[#454545] items-center gap-8;
 }
 
 .table-data-cell {
@@ -290,4 +289,7 @@ th {
 }
 .header-table {
   @apply font-bold text-center text-Heading2sm my-12;
+}
+td {
+  @apply text-center;
 }

@@ -6,12 +6,12 @@ const userSessionStore = useUserSessionStore();
 const { session } = storeToRefs(userSessionStore);
 
 const user = useSupabaseUser();
-
-watch(user, () => {
+onMounted(() => {
   if (user.value) {
-    session.value = user.value
+    session.value = user.value;
+    console.log(session.value)
   }
-});
+})
 </script>
 <template>
   <div>

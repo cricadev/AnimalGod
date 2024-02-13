@@ -27,14 +27,14 @@
       <table class="table">
         <thead class="table-head">
           <tr class="table-row">
-            <th class="table-header">Applicant</th>
-            <th>State</th>
-            <th>Date</th>
-            <th>Info</th>
+            <th scope="col" class="table-header">Applicant</th>
+            <th scope="col">State</th>
+            <th scope="col">Date</th>
+            <th scope="col">Info</th>
           </tr>
         </thead>
         <tbody class="table-body">
-          <tr class="table-data" v-for="appointment in petBasedOnId?.appointments" :key="appointment.id">
+          <tr scope="row" class="table-data" v-for="appointment in petBasedOnId?.appointments" :key="appointment.id">
             <td class="table-data-cell">
               <div class="">
                 <nuxt-img v-if="appointment.client.image" :src="appointment.client.image"

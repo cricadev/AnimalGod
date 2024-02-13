@@ -16,12 +16,14 @@
       <table class="table">
         <thead class="table-head">
           <tr class="table-row">
-            <th class="table-header">Pet</th>
-            <th>State</th>
-            <th>Date</th>
-            <th>Applicants</th>
-            <th>Info</th>
+            <th>Pet</th>
+            <th scope="col" class="table-header">State</th>
+            <th scope="col">Date</th>
+            <th scope="col" v-if="hasAppointments">Applicants</th>
+            <th scope="col">Info</th>
           </tr>
+
+
         </thead>
         <tbody class="table-body">
           <tr v-for="pet in  data?.pets " :key="pet.id" class="table-data">
@@ -39,21 +41,27 @@
                 <nuxt-link :to="'/applicants/' + pet.id">
                   <nuxt-img v-if="pet.appointments[0].client.image" :src="pet.appointments[0].client.image"
                     class="w-16 h-16 rounded-full"></nuxt-img>
-                  <span class="font-semibold "> {{ pet.appointments[0].client.name }} </span></nuxt-link>
+                  <div class="w-16 h-16 rounded-full flex items-center  justify-center" v-else>
+                    {{ nameToInitials(pet.appointments[0].client.name) }}
+                  </div>
+
+                </nuxt-link>
               </div>
               <div class="flex flex-col gap-2" v-else-if="pet.appointments.length > 1">
-                <UAvatarGroup size="sm" :max="4" :ui="{
+                <UAvatarGroup size="sm" :max="3" :ui="{
                   'ring': 'ring-0',
                   'wrapper': 'bg-darkContSecond',
                 }">
-                  <UAvatar v-for="p in pet.appointments" v-if="p?.client.image" class="override-this-shit"
-                    :src="p?.client.image" :alt="p?.client.name" />
+                  <UAvatar v-for="p in pet.appointments" class="override-this-shit" :src="p?.client.image ?? ''"
+                    :alt="p?.client.name" />
 
-                  <UAvatar v-for="p in pet.appointments" v-else class="override-this-shit" :alt="p?.client.name" />
                 </UAvatarGroup>
                 <div class="">
                   <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>
                 </div>
+              </div>
+              <div class="text-contInactive" v-else>
+                No applicants
               </div>
             </td>
             <td>
@@ -75,7 +83,13 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`;
 }
 
+
 const { data, error, pending } = useLazyFetch(`/api/shelter`)
+const hasAppointments = computed(() => data.value.pets.some(pet => pet.appointments.length > 0));
+
+const nameToInitials = (name) => {
+  return name.split(' ').map(n => n[0]).join('').slice(0, 2);
+}
 </script>
 
 <style></style>
