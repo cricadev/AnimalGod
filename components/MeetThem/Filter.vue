@@ -30,7 +30,7 @@
     </div>
     <div class="desktop" v-else-if="!isMobile">
 
-      <div class="flex flex-wrap gap-x-2.5  gap-y-3 mx-10 justify-center items-center pt-8">
+      <div class="flex flex-wrap gap-x-2.5  gap-y-3 mx-auto  pt-8  max-w-4xl 2xl:max-w-6xl">
 
         <USelectMenu placeholder="Animal" v-model="selected" :options="people" id="select-menu" ref="selectMenu">
 
@@ -215,39 +215,39 @@ const SizesOptions = [
   'LARGE'
 ];
 const AgesOptions = [
-  'Baby', 'Young', 'Adult', 'Senior'
+  'BABY', 'YOUNG', 'ADULT', 'SENIOR'
 ];
 const GenderOptions = [
-  'Male', 'Female'
+  'MALE', 'FEMALE'
 ]
 const PersonalityOptions = [
-  'Affectionate',
-  'Dominant',
-  'Relaxed',
-  'Independent',
-  'Devoted',
-  'Confident',
-  'Aloof',
-  'Compliant',
-  'Timid',
-  'Enthusiastic',
+  'AFFECTIONATE',
+  'DOMINANT',
+  'RELAXED',
+  'INDEPENDENT',
+  'DEVOTED',
+  'CONFIDENT',
+  'ALOOF',
+  'COMPLIANT',
+  'TIMID',
+  'ENTHUSIASTIC',
 ]
 
 const GoodWithOptions = [
-  'Kids', 'Dogs', 'Cats', 'Other'
+  'CHILDREN', 'DOGS', 'CATS',
 ]
 const ActivityLevelOptions = [
-  'Low',
-  'Moderate',
-  'High',
+  'LOW',
+  'MEDIUM',
+  'HIGH',
 ]
 const advancedFiltering = reactive({
-  type: selected.value.id, // Add the animal type to the advancedFiltering object
+  type: 'All', // Add the animal type to the advancedFiltering object
   breed: '',
   size: '',
   age: 0,
   gender: '',
-  personality: [''],
+  personality: [],
   goodWith: '',
   activity: '',
 })

@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
-  const { limit = 100, offset = 0, id, searchQuery, type, breed, size, age, gender, personality, goodWith, activityLevel } = getQuery(event)
+  const { limit = 100, offset = 0, id, searchQuery, type, breed, size, age, gender, personality, goodWith, activity } = getQuery(event)
 
   let pets = await prisma.pet.findMany({
     skip: Number(offset),
@@ -19,9 +19,9 @@ export default defineEventHandler(async (event) => {
         size ? { size: size } : undefined,
         age ? { age: age } : undefined,
         gender ? { gender: gender } : undefined,
-        personality ? { personality: personality } : undefined,
+        personality ? { personality: { in: personality } } : undefined,
         goodWith ? { goodWith: goodWith } : undefined,
-        activityLevel ? { activityLevel: activityLevel } : undefined
+        activity ? { activity: activity } : undefined
       ].filter(Boolean)
     },
   })

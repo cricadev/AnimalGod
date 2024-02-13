@@ -63,17 +63,20 @@
             </div>
             <div class="" v-else>
               <div id="two" class="text-container">
-                <span class="text-Heading3sm font-bold text-center whitespace-nowrap line-clamp-1 text-black">Are you
-                  interested in
+                <span class="text-Heading3sm font-bold text-center whitespace-nowrap line-clamp-1 text-black"> {{
+                  isPetFormFilled ? 'You have already filled the form for ' : 'Are you interested in' }}
                   {{
-                    pet.name }}?</span>
+                    pet.name }}{{ isPetFormFilled ? '!' : '?' }} </span>
                 <div class="fader fader-left"></div>
                 <div class="fader fader-right"></div>
               </div>
             </div>
             <div class="grid md:grid-cols-2 gap-2 mt-4">
-              <UButton size="xl" color="primary" variant="solid" :disabled="!user">
-                <nuxt-link :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
+              <UButton size="xl" color="primary" variant="solid" :disabled="!user || isPetFormFilled">
+                <nuxt-link v-if="!isPetFormFilled" :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
+                <span v-else>
+                  Form filled
+                </span>
               </UButton>
               <UButton size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold " />
             </div>
@@ -235,10 +238,17 @@ import type { Pet, Shelter } from "~/types";
 import { useformStore } from '~/stores/formStore';
 import { useShelterStore } from "~/stores/ShelterStore";
 import { usePetStore } from "~/stores/PetStore";
+import { useUserSessionStore } from '@/stores/UserSessionStore';
+const UserSessionStore = useUserSessionStore();
+const { itemsPets } = storeToRefs(UserSessionStore);
+
 const PetStore = usePetStore();
 const { pet, shelter, relatedPets } = storeToRefs(PetStore);
 const route = useRoute();
 
+const isPetFormFilled = computed(() => {
+  return itemsPets.value.appointments.some((appointment: any) => appointment.petId === pet.value.id)
+})
 
 
 onMounted(async () => {

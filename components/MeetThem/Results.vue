@@ -24,57 +24,67 @@
       {{ error }}
     </div>
 
-    <div class="px-2 md:px-20 lg:px-96" v-else>
-      <div v-if="isMobile && !isTablet" class="grid grid-cols-2 grid-rows-2 h-[50vh] gap-4">
-        <div v-for="animal in myData" :key="animal.name">
-          <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-            :to="`/meet-them/${animal.name}`">
-            <h6
-              class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
-              {{ animal.name }}
-            </h6>
-            <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
-              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
-              width="100%" height="100%"></nuxt-img>
-            <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-              :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
-          </nuxt-link>
+    <div class="px-2 max-w-4xl 2xl:max-w-6xl" v-else>
+      <div class="" v-if="!isLoadingSearch && !isPetSearchInvalid">
+        <div v-if="isMobile && !isTablet" class="grid grid-cols-2 grid-rows-2 h-[50vh] gap-4">
+          <div v-for="animal in myData" :key="animal.name">
+            <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+              :to="`/meet-them/${animal.name}`">
+              <h6
+                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+                {{ animal.name }}
+              </h6>
+              <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
+                class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
+                width="100%" height="100%"></nuxt-img>
+              <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+                :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
+            </nuxt-link>
+          </div>
         </div>
-
+        <div v-if="!isMobile && isTablet" class="grid grid-cols-3 grid-rows-3 h-[50vh] gap-4">
+          <div v-for="animal in myData" :key="animal.name">
+            <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+              :to="`/meet-them/${animal.name}`">
+              <h6
+                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+                {{ animal.name }}
+              </h6>
+              <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
+                class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
+                width="100%" height="100%"></nuxt-img>
+              <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+                :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
+            </nuxt-link>
+          </div>
+        </div>
+        <div v-if="!isMobile && !isTablet" class="grid grid-cols-4 grid-rows-2 h-[50vh] gap-4">
+          <div v-for="animal in myData" :key="animal.name">
+            <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
+              :to="`/meet-them/${animal.name}`">
+              <h6
+                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+                {{ animal.name }}
+              </h6>
+              <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
+                class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
+                width="100%" height="100%"></nuxt-img>
+              <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
+                :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
+            </nuxt-link>
+          </div>
+        </div>
       </div>
-      <div v-if="!isMobile && isTablet" class="grid grid-cols-3 grid-rows-3 h-[50vh] gap-4">
-        <div v-for="animal in myData" :key="animal.name">
-          <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-            :to="`/meet-them/${animal.name}`">
-            <h6
-              class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
-              {{ animal.name }}
-            </h6>
-            <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
-              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
-              width="100%" height="100%"></nuxt-img>
-            <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-              :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
-          </nuxt-link>
-        </div>
 
+      <div v-else-if="isLoadingSearch && !isPetSearchInvalid">
+        <h1>
+          Loading...
+        </h1>
       </div>
-      <div v-if="!isMobile && !isTablet" class="grid grid-cols-4 grid-rows-2 h-[50vh] gap-4">
-        <div v-for="animal in myData" :key="animal.name">
-          <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-            :to="`/meet-them/${animal.name}`">
-            <h6
-              class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
-              {{ animal.name }}
-            </h6>
-            <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
-              class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
-              width="100%" height="100%"></nuxt-img>
-            <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-              :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
-          </nuxt-link>
-        </div>
-
+      <div v-else-if="isPetSearchInvalid && !isLoadingSearch">
+        <h1>
+          No pets found
+        </h1>
       </div>
       <div class=" w-full flex justify-between gap-8 items-center mt-8">
         <button @click="prev(4)">
@@ -183,6 +193,8 @@ watch(() => props.query, async (newVal) => {
 
   }
 })
+const isLoadingSearch = ref(false);
+const isPetSearchInvalid = ref(false);
 watch(() => props.filters, async (newFilters) => {
   // Create a query string from the filters
   if (newFilters) {
@@ -194,11 +206,29 @@ watch(() => props.filters, async (newFilters) => {
 
     console.log(queryParams)
     queryParamsText.value = queryParams;
-    const { data, error } = await useLazyFetch<Pet[]>('/api/pets?' + queryParams);
-    if (data) {
+    const { data, pending, error } = await useLazyFetch<Pet[]>('/api/pets?' + queryParams);
+    if (pending.value) {
+      console.log('pending', pending.value)
+      isLoadingSearch.value = true;
+      isPetSearchInvalid.value = false;
+    }
+    else if (error.value) {
+      console.log('error', error.value)
+      isPetSearchInvalid.value = true
+      isLoadingSearch.value = false;
+    }
+    else if (data.value) {
+      console.log('data', data.value)
+
       allData.value = data.value;
+      isLoadingSearch.value = false;
+      isPetSearchInvalid.value = false;
+      if (data.value.length === 0) {
+        isPetSearchInvalid.value = true
+      }
       console.log(data)
     }
+
   }
 }, { deep: true })
 </script>

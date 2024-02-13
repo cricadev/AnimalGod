@@ -2,16 +2,16 @@
 import { storeToRefs } from "pinia";
 import { useWindowSize } from "@vueuse/core";
 import { useUserSessionStore } from '~/stores/UserSessionStore';
+const UserSessionStore = useUserSessionStore();
 
+const { currentPrismaUser, itemsPets, user } = storeToRefs(UserSessionStore);
 const { height, width } = storeToRefs(useWindowSize());
 const isMobile = computed(() => width.value < 1024);
 
 const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
-const UserSessionStore = useUserSessionStore();
 
-const { currentPrismaUser, itemsPets, user } = storeToRefs(UserSessionStore);
 // after every route enter toggle the isOpen boolean to false
 const routeWatcher = watch(
   () => route.path,
@@ -50,10 +50,11 @@ onUnmounted(() => {
         <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
           v-show="colorMode.value !== 'dark'"></nuxt-img>
       </nuxt-link>
-      <nuxt-link to="/pet" class="bg-darkContThird px-3 lg:px-0 lg:py-0 py-2 rounded-lg"
-        v-if="user?.user_metadata?.isShelter">
-        Register animal</nuxt-link>
+
       <div class="flex place-items-center burguer-menu">
+        <nuxt-link to="/pet" class="bg-darkContThird px-3 lg:px-0 lg:py-0 py-2 rounded-lg mr-5"
+          v-if="user?.user_metadata?.isShelter">
+          Register animal</nuxt-link>
         <ToggleTheme></ToggleTheme>
         <UButton @click="isOpen = true" icon="i-mdi-menu" size="xl" color="primary" square variant="ghost" />
         <USlideover v-model="isOpen" :ui="{
@@ -84,12 +85,7 @@ onUnmounted(() => {
                     <li>
                       <nuxt-link to="/successful-cases" class="nav-title">Succesful cases</nuxt-link>
                     </li>
-                    <li class="nav-title">
-                      <nuxt-link to="/tips">Tips</nuxt-link>
-                    </li>
-                    <!-- <li class="nav-title">
-                      <nuxt-link to="/about-us">About us</nuxt-link>
-                    </li> -->
+
                   </ul>
                 </div>
               </div>
@@ -111,19 +107,7 @@ onUnmounted(() => {
                 <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="120" height="35"
                   v-show="colorMode.value !== 'dark'"></nuxt-img>
               </div>
-              <div class="flex flex-col justify-center items-center ">
-                <ul class="flex justify-center items-center flex-col gap-6">
-                  <li class="nav-title">
-                    <nuxt-link to="/requests">Requests</nuxt-link>
-                  </li>
-                  <li class="nav-title">
-                    <nuxt-link to="/my-pets">My Registered animals</nuxt-link>
-                  </li>
-                  <li class="nav-title">
-                    <nuxt-link to="/aboutus">About us</nuxt-link>
-                  </li>
-                </ul>
-              </div>
+
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="user?.user_metadata?.isShelter" class="flex items-center gap-3">
@@ -167,12 +151,7 @@ onUnmounted(() => {
                   <li>
                     <nuxt-link to="/successful-cases" class="nav-title">Successful cases</nuxt-link>
                   </li>
-                  <li>
-                    <nuxt-link to="/tips" class="nav-title">Tips</nuxt-link>
-                  </li>
-                  <li>
-                    <nuxt-link to="/about-us" class="nav-title">About us</nuxt-link>
-                  </li>
+
                 </ul>
               </div>
 
@@ -229,12 +208,7 @@ onUnmounted(() => {
           <li>
             <nuxt-link to="/successful-cases" class="nav-title">Successful cases</nuxt-link>
           </li>
-          <li>
-            <nuxt-link to="/tips" class="nav-title">Tips</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/about-us" class="nav-title">About us</nuxt-link>
-          </li>
+
           <div class="flex gap-4">
             <nuxt-link to="/signup" class="">
               <UButton size="xl" label="Sign up" color="secondary" variant="solid" block />
@@ -247,15 +221,8 @@ onUnmounted(() => {
       </div>
       <div class="" v-else-if="user?.user_metadata?.isShelter">
         <ul class="flex justify-center items-center gap-12 mr-16">
-          <li>
-            <nuxt-link to="/about-adoption" class="nav-title">Requests</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/meet-them" class="nav-title">Calendar</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/successful-cases" class="nav-title">About us</nuxt-link>
-          </li>
+
+
           <div class="flex gap-4">
             <UButton size="xl" label="Log out" color="darkContThird" variant="solid" class="py-3" inline>
               <nuxt-link to="/pet">
@@ -284,12 +251,7 @@ onUnmounted(() => {
           <li>
             <nuxt-link to="/successful-cases" class="nav-title">Successful cases</nuxt-link>
           </li>
-          <li>
-            <nuxt-link to="/tips" class="nav-title">Tips</nuxt-link>
-          </li>
-          <li>
-            <nuxt-link to="/about-us" class="nav-title">About us</nuxt-link>
-          </li>
+
           <div class="flex flex-col justify-center items-center gap-6 mr-6">
             <nuxt-link to="/profile" class="w-full flex items-center justify-between">
               <div class="flex items-center gap-3" v-if="currentPrismaUser">

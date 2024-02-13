@@ -119,15 +119,6 @@ const { handleFieldUpdate, getCurrentUser } = UserSessionStore;
 const clientStore = useClientStore();
 const { handleFileUpload, deleteImage } = useformStore();
 
-// onMounted(async () => {
-//   if (user.value.user_metadata?.isShelter) {
-//     currentPrismaUser.value = await getCurrentUser();
-//     shelterStore.setShelter(currentPrismaUser.value)
-//   } else if (user.value.user_metadata?.isShelter === false) {
-//     currentPrismaUser.value = await getCurrentUser();
-//     clientStore.setClient(currentPrismaUser.value)
-//   }
-// })
 
 
 
