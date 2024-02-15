@@ -8,15 +8,20 @@
   </div>
 
 
-  <div v-else>
+  <div class="max-w-4xl 2xl:max-w-6xl mx-auto px-8" v-else>
     <!-- <nuxt-img :src="data?.pets.">
 
     </nuxt-img> -->
-    <div v-if="appointmentBasedOnId" class="px-8 flex flex-col gap-2 mb-16  mt-12 justify-center items-center">
-      <nuxt-img v-if="appointmentBasedOnId.client.image" :src="appointmentBasedOnId.client.image"
-        class="w-16 rounded-full object-cover h-16">
+    <div v-if="appointmentBasedOnId" class=" flex flex-col gap-2 mb-16  mt-12 justify-center items-center">
+      <div class="">
+        <nuxt-img v-if="appointmentBasedOnId.client.image" :src="appointmentBasedOnId.client.image"
+          class="w-16 rounded-full object-cover h-16">
+        </nuxt-img>
+        <div class="w-16 rounded-full object-cover h-16" v-else>
+          {{ nameToInitials(appointmentBasedOnId.client?.name) }}
 
-      </nuxt-img>
+        </div>
+      </div>
       <h2 class="text-Heading2sm font-bold leading-none text-center">
         {{ appointmentBasedOnId.client.name }}
       </h2>
@@ -129,6 +134,9 @@ const appointmentBasedOnId = computed(() => {
     client: appointment?.client
   };
 });
+const nameToInitials = (name) => {
+  return name.split(' ').map(n => n[0]).join('').slice(0, 2);
+}
 </script>
 
 <style></style>

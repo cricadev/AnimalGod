@@ -32,7 +32,7 @@
                 {{ pet.breed.toLowerCase().split("_").join(" ") }}
               </span>
               <span class="list-slug  ">
-                {{ pet.age }} years old
+                {{ pet.age.toLowerCase() }} age
               </span>
               <span class="list-slug  ">
                 {{ pet.gender.toLowerCase() }}
@@ -219,7 +219,7 @@
                 class="row-span-full col-span-full object-cover object-center z-0 w-full h-full max-h-full max-w-full"
                 width="100%" height="100%"></nuxt-img>
               <div class="absolute h-[40%] w-full z-10 bottom-0 left-0"
-                :style="`background: linear-gradient(0deg, ${animal.hexColor} 0%, rgba(0, 0, 0, 0) 100%);`"></div>
+                style="background: linear-gradient(0deg, rgba(0,0,0) 0%, rgba(0, 0, 0, 0) 100%);"></div>
             </nuxt-link>
           </div>
         </div>
@@ -241,13 +241,13 @@ import { usePetStore } from "~/stores/PetStore";
 import { useUserSessionStore } from '@/stores/UserSessionStore';
 const UserSessionStore = useUserSessionStore();
 const { itemsPets } = storeToRefs(UserSessionStore);
-
+const ShelterStore = useShelterStore();
 const PetStore = usePetStore();
 const { pet, shelter, relatedPets } = storeToRefs(PetStore);
 const route = useRoute();
 
 const isPetFormFilled = computed(() => {
-  return itemsPets.value.appointments.some((appointment: any) => appointment.petId === pet.value.id)
+  return itemsPets?.value?.appointments?.some((appointment: any) => appointment.petId === pet.value.id)
 })
 
 
@@ -256,7 +256,7 @@ onMounted(async () => {
     try {
       await PetStore.fetchPet(route.params.slug);
       if (pet.value) {
-        PetStore.setShelter(pet.value.shelterId);
+        shelter.value = ShelterStore.findShelterById(pet.value.shelterId);
         await PetStore.fetchRelatedPets();
       }
     }
@@ -273,6 +273,7 @@ onMounted(async () => {
 })
 
 onUnmounted(() => {
+  console.log('unmounted reset pet')
   PetStore.resetPet();
 })
 

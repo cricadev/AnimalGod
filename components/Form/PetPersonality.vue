@@ -6,7 +6,6 @@
 
     <div>
       <div>
-        <label></label>
         <div v-for="adjective in adjectivesOptions" :key="adjective">
 
           <input type="checkbox" :id="adjective" :value="adjective" :checked="personality.includes(adjective)"

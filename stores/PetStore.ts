@@ -1,11 +1,12 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import { Pet, Shelter } from "~/types";
 import { useShelterStore } from "./ShelterStore";
+import { storeToRefs } from "pinia";
 export const usePetStore = defineStore("PetStore", () => {
   const pet = ref<Pet | null>(null);
   const shelter = ref<Shelter | null>(null);
   const relatedPets = ref<Pet[]>([]);
-  const { shelters } = useShelterStore();
+  const { findShelterById } = useShelterStore();
   async function fetchPet(slug: string) {
     const data = await $fetch<Pet>(`/api/${slug}`);
     if (!data) {
@@ -26,12 +27,6 @@ export const usePetStore = defineStore("PetStore", () => {
     }
     relatedPets.value = data;
   }
-
-  function setShelter(shelterId) {
-    shelter.value = shelters.find(shelter => shelter.id === shelterId);
-
-  }
-
   function resetPet() {
     pet.value = null;
     shelter.value = null;
@@ -41,7 +36,6 @@ export const usePetStore = defineStore("PetStore", () => {
   return {
     fetchPet,
     pet,
-    setShelter,
     shelter,
     resetPet,
     relatedPets,

@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 
 export default defineEventHandler(async (event) => {
   const { limit = 100, offset = 0, id, searchQuery, type, breed, size, age, gender, personality, goodWith, activity } = getQuery(event)
+  const personalities = typeof personality === 'string' ? personality.split(',') : undefined;
 
   let pets = await prisma.pet.findMany({
     skip: Number(offset),
@@ -19,7 +20,8 @@ export default defineEventHandler(async (event) => {
         size ? { size: size } : undefined,
         age ? { age: age } : undefined,
         gender ? { gender: gender } : undefined,
-        personality ? { personality: { in: personality } } : undefined,
+        // Check that personalities is not only defined, but also contains at least one non-empty string
+        personalities && personalities.some(p => p) ? { personality: { hasEvery: personalities } } : undefined,
         goodWith ? { goodWith: goodWith } : undefined,
         activity ? { activity: activity } : undefined
       ].filter(Boolean)
