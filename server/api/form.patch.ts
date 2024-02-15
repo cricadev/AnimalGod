@@ -1,7 +1,6 @@
 import { PrismaClient, liveWith } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { id } = getQuery(event);
@@ -10,24 +9,27 @@ export default defineEventHandler(async (event) => {
       email: body.email,
     }
   });
+
+  const updateData: any = {};
+
+  if (body.liveWith) updateData.liveWith = body.liveWith.map((p: string) => liveWith[p.toUpperCase()]);
+  if (body.liveWithDescription) updateData.liveWithDescription = body.liveWithDescription;
+  if (body.liveIn) updateData.liveIn = body.liveIn === 'house';
+  if (body.isRenting) updateData.isRenting = body.isRenting;
+  if (body.rentAcceptance) updateData.rentAcceptance = body.rentAcceptance;
+  if (body.qAndA) updateData.qAndA = body.qAndA;
+  if (body.qAndADescription) updateData.qAndADescription = body.qAndADescription;
+  if (body.whyMessage) updateData.whyMessage = body.whyMessage;
+  if (client?.id) updateData.clientId = client.id;
+  if (body.createdAt) updateData.createdAt = body.createdAt;
+  if (body.updatedAt) updateData.updatedAt = body.updatedAt;
+  if (body.acceptedForm) updateData.acceptedForm = body.acceptedForm;
+
   const res = await prisma.appointment.update({
     where: {
       id: Number(id),
     },
-    data: {
-      liveWith: body.liveWith.map((p: string) => liveWith[p.toUpperCase()]),
-      liveWithDescription: body.liveWithDescription,
-      liveIn: body.liveIn === 'house' ? true : false,
-      isRenting: body.isRenting,
-      rentAcceptance: body.rentAcceptance,
-      qAndA: body.qAndA,
-      qAndADescription: body.qAndADescription,
-      whyMessage: body.whyMessage,
-      clientId: client?.id,
-      petId: Number(id),
-      createdAt: body.createdAt,
-      updatedAt: body.updatedAt,
-    },
+    data: updateData,
   });
 
   return {

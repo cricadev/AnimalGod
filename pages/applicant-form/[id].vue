@@ -32,9 +32,17 @@
         {{ appointmentBasedOnId.client.email }}
       </span>
       <div class="flex gap-3">
-        <UButton color="primary" label="Approve"></UButton>
-        <UButton color="secondary" label="Deny"></UButton>
+        <UButton :loading="loading"
+          :icon="appointmentStatus === 'ACCEPTED' ? 'i-material-symbols-check-small-rounded' : ''" color="primary"
+          :label="appointmentStatus === 'ACCEPTED' ? 'Approved' : 'Approve'" @click="approveAppointment()"></UButton>
+
+        <UButton :loading="loading" :icon="appointmentStatus === 'DENIED' ? 'i-material-symbols-cancel-outline' : ''"
+          color="secondary" :label="appointmentStatus === 'DENIED' ? 'Denied' : 'Deny'" @click="denyAppointment()">
+        </UButton>
+
       </div>
+      <span v-if="appointmentStatus === 'ACCEPTED'">contact with the applicant using the information above</span>
+      <span v-if="appointmentStatus === 'DENIED'">You have denied the applicant </span>
     </div>
     <div class="" v-if="appointmentBasedOnId">
       <h3 class="text-Heading3sm
@@ -112,7 +120,9 @@ const formatDate = (dateString) => {
   const year = date.getFullYear().toString().substr(-2);
   return `${day}/${month}/${year}`;
 }
-
+const user = useSupabaseUser();
+const loading = ref(false)
+const appointmentStatus = ref('IN_PROCESS');
 const { data, error, pending } = useLazyFetch(`/api/shelter`)
 const petsApplicants = computed(() => {
   return data.value?.pets.filter(pet => pet.appointments && pet.appointments.length > 0)
@@ -129,6 +139,12 @@ const appointmentBasedOnId = computed(() => {
       break;
     }
   }
+
+  // Assign the value of appointment.acceptedForm to appointmentStatus
+  if (appointment?.acceptedForm) {
+    appointmentStatus.value = appointment.acceptedForm;
+  }
+
   return {
     ...appointment,
     client: appointment?.client
@@ -136,6 +152,56 @@ const appointmentBasedOnId = computed(() => {
 });
 const nameToInitials = (name) => {
   return name.split(' ').map(n => n[0]).join('').slice(0, 2);
+}
+const approveAppointment = async () => {
+  console.log('approve')
+  console.log(route.params.id)
+  loading.value = true
+  try {
+    // First, try to create the client
+    const data = await $fetch(`/api/form?id=${route.params.id}`, {
+      method: 'PATCH',
+      body: { acceptedForm: 'ACCEPTED', email: user.value?.email }
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+    console.log(data)
+
+    loading.value = false
+    appointmentStatus.value = 'ACCEPTED'
+
+
+
+
+  }
+  catch (error) {
+    console.log(error);
+
+  }
+}
+const denyAppointment = async () => {
+  console.log('deny')
+  loading.value = true
+  try {
+    // First, try to create the client
+    const data = await $fetch(`/api/form?id=${route.params.id}`, {
+      method: 'PATCH',
+      body: { acceptedForm: 'DENIED', email: user.value?.email }
+    });
+    if (!data) {
+      throw new Error('Error creating client')
+    }
+    console.log(data)
+    loading.value = false
+    appointmentStatus.value = 'DENIED'
+
+
+  }
+  catch (error) {
+    console.log(error);
+
+  }
 }
 </script>
 

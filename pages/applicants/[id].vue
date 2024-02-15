@@ -23,7 +23,7 @@
         Applicants ({{ petBasedOnId?.appointments.length }})
       </span>
     </div>
-    <div class="overflow-scroll">
+    <div class="overflow-x-auto  px-2 max-w-4xl 2xl:max-w-6xl mx-auto">
       <table class="table">
         <thead class="table-head">
           <tr class="table-row">

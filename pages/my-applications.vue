@@ -12,7 +12,7 @@
     <div class="">
       <h2 class="header-table">Your applications</h2>
     </div>
-    <div class="overflow-scroll rounded-lg">
+    <div class="overflow-x-auto  px-2 max-w-4xl 2xl:max-w-6xl mx-auto rounded-lg">
       <table class="table rounded-lg">
         <thead class="table-head ">
           <tr class="table-row ">
@@ -37,7 +37,7 @@
             }}</td>
             <td>{{ formatDate(pet.appointmentCreatedAt) }}</td>
             <td>
-              <nuxt-img :src="pet.shelterImage" class="w-16 h-16 rounded-full"></nuxt-img>
+              <nuxt-img :src="pet.shelterImage" class="mx-auto w-16 h-16 rounded-full"></nuxt-img>
               <span class="font-semibold "> {{ pet.shelterName }} </span>
             </td>
             <td>

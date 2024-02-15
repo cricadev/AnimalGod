@@ -164,7 +164,7 @@ import { storeToRefs } from "pinia";
 import type { Pet } from "~/types";
 import { useWindowSize } from "@vueuse/core";
 
-const { height, width } = storeToRefs(useWindowSize());
+const { height, width } = useWindowSize();
 
 const isMobile = computed(() => width.value < 768);
 const isTablet = computed(() => width.value < 1024 && width.value >= 768);
