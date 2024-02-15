@@ -41,112 +41,49 @@
           </UButton>
         </USelectMenu>
         <USelectMenu searchable searchable-placeholder="Search a breed..." placeholder="Breed" :options="BreedOptions"
-          trailing v-model="advancedFiltering.breed" class="justify-center" :ui="{
-            'color': {
-              'white': {
-                'outline': 'shadow-xl shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-              },
-            },
-            'padding': {
-              'lg': 'py-2 px-5'
-            },
-          }
-            " size="lg" color="white" variant="outline">
+          trailing v-model="advancedFiltering.breed" class="justify-center" size="lg" color="white" variant="outline">
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />
           </template>
         </USelectMenu>
-        <USelectMenu :ui="{
-          'color': {
-            'white': {
-              'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-            },
-          }, 'padding': {
-            'lg': 'py-2 px-6'
-          }
-        }
-          " size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a size...  "
+        <USelectMenu size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a size...  "
           placeholder="Size" :options="SizesOptions" v-model="advancedFiltering.size">
 
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />
           </template>
         </USelectMenu>
-        <USelectMenu :ui="{
-          'color': {
-            'white': {
-              'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-            },
-          }, 'padding': {
-            'lg': 'py-2 px-5'
-          }
-        }
-          " size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a age..."
+        <USelectMenu size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a age..."
           placeholder="Age" :options="AgesOptions" v-model="advancedFiltering.age">
 
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />
           </template>
         </USelectMenu>
-        <USelectMenu :ui="{
-          'color': {
-            'white': {
-              'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-            },
-          }, 'padding': {
-            'lg': 'py-2 px-5'
-          }
-        }
-          " size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a gender..."
+        <USelectMenu size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a gender..."
           placeholder="Gender" :options="GenderOptions" v-model="advancedFiltering.gender">
 
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />
           </template>
         </USelectMenu>
-        <USelectMenu :ui="{
-          'color': {
-            'white': {
-              'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-            },
-          }, 'padding': {
-            'lg': 'py-2 px-5'
-          }
-        }
-          " size="lg" color="white" variant="outline" placeholder="Personality" :multiple="true"
+        <USelectMenu size="lg" color="white" variant="outline" placeholder="Personality" :multiple="true"
           :options="PersonalityOptions" v-model="advancedFiltering.personality">
 
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />
           </template>
         </USelectMenu>
-        <USelectMenu :ui="{
-          'color': {
-            'white': {
-              'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-            },
-          }, 'padding': {
-            'lg': 'py-2 px-5'
-          }
-        }
-          " size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a good with..."
+        <USelectMenu size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a good with..."
           placeholder="Good with" :options="GoodWithOptions" v-model="advancedFiltering.goodWith">
 
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />
           </template>
         </USelectMenu>
-        <USelectMenu :ui="{
-          'color': {
-            'white': {
-              'outline': ' shadow-xl bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
-            },
-          }, 'padding': {
-            'lg': 'py-2 px-5'
-          }
-        }
-          " size="lg" color="white" variant="outline" searchable searchable-placeholder="Search a activity level..."
-          placeholder="Activity level" :options="ActivityLevelOptions" v-model="advancedFiltering.activity">
+        <USelectMenu size="lg" color="white" variant="outline" searchable
+          searchable-placeholder="Search a activity level..." placeholder="Activity level" :options="ActivityLevelOptions"
+          v-model="advancedFiltering.activity">
 
           <template #trailing>
             <UIcon name="i-heroicons-chevron-down" />

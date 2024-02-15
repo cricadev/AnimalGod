@@ -135,6 +135,18 @@ export default defineAppConfig({
         outline:
           'border-0 bg-contSecond dark:bg-darkContSecond text-darkBg dark:text-contInactive rounded-l-md rounded-r-none shadow-sm   placeholder:text-contInactive dark:placeholder:text-contInactive border-2 border-contAccent dark:border-contAccent',
       }
+    },
+    select: {
+
+      color: {
+        white: {
+          outline: ' shadow-md shadow-contSecond dark:shadow-darkContSecond bg-white dark:bg-darkContSecond text-gray-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-gray-700 focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400'
+        },
+      },
+      padding: {
+        'lg': 'py-2 px-5'
+      },
+
     }
   },
 });
