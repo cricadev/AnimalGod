@@ -31,10 +31,10 @@
               <span class="table-data-cell-name">{{ pet.petName }}</span>
               <nuxt-link class="table-data-cell-link" :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
             </td>
-            <td>{{ pet.appointmentState === 'IN_PROCESS' ? 'In process' :
-              pet.appointmentState === 'ACCEPTED' ? 'Accepted' :
-                pet.appointmentState === 'DENIED' ? 'Denied' : 'Canceled'
-            }}</td>
+            <td v-html="pet.appointmentState === 'IN_PROCESS' ? 'In process' :
+              pet.appointmentState === 'ACCEPTED' ? 'Approved <br>the shelter will contact you soon' :
+                pet.appointmentState === 'DENIED' ? 'Denied <br>sorry try with another animal' : ''">
+            </td>
             <td>{{ formatDate(pet.appointmentCreatedAt) }}</td>
             <td>
               <nuxt-img :src="pet.shelterImage" class="mx-auto w-16 h-16 rounded-full"></nuxt-img>

@@ -50,7 +50,7 @@
               <div class="flex flex-col gap-2" v-else-if="pet.appointments.length > 1">
                 <UAvatarGroup size="sm" :max="3" :ui="{
                   'ring': 'ring-0',
-                  'wrapper': 'bg-darkContSecond',
+                  'wrapper': 'dark:bg-darkContSecond bg-contSecond',
                 }">
                   <UAvatar v-for="p in pet.appointments" class="override-this-shit" :src="p?.client.image ?? ''"
                     :alt="p?.client.name" />

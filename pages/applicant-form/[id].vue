@@ -34,10 +34,12 @@
       <div class="flex gap-3">
         <UButton :loading="loading"
           :icon="appointmentStatus === 'ACCEPTED' ? 'i-material-symbols-check-small-rounded' : ''" color="primary"
-          :label="appointmentStatus === 'ACCEPTED' ? 'Approved' : 'Approve'" @click="approveAppointment()"></UButton>
+          :label="appointmentStatus === 'ACCEPTED' ? 'Approved' : 'Approve'" @click="approveAppointment()"
+          :disabled="appointmentStatus === 'ACCEPTED'"></UButton>
 
         <UButton :loading="loading" :icon="appointmentStatus === 'DENIED' ? 'i-material-symbols-cancel-outline' : ''"
-          color="secondary" :label="appointmentStatus === 'DENIED' ? 'Denied' : 'Deny'" @click="denyAppointment()">
+          color="secondary" :label="appointmentStatus === 'DENIED' ? 'Denied' : 'Deny'" @click="denyAppointment()"
+          :disabled="appointmentStatus === 'DENIED'">
         </UButton>
 
       </div>

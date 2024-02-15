@@ -273,7 +273,7 @@ th {
 }
 
 .table-data-cell {
-  @apply flex flex-col items-center text-center gap-2 py-4 px-4 sticky left-0 bg-darkContSecond;
+  @apply flex flex-col items-center text-center gap-2 py-4 px-4 sticky left-0  dark:bg-darkContSecond bg-contSecond;
 }
 
 .table-data-cell-img {
@@ -291,5 +291,5 @@ th {
   @apply font-bold text-center text-Heading2sm my-12;
 }
 td {
-  @apply text-center;
+  @apply text-center dark:bg-darkContSecond bg-contSecond;
 }

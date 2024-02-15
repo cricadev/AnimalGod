@@ -46,7 +46,7 @@
           class="registered-pets-card justify-center flex bg-contSecond dark:bg-darkContSecond py-5 gap-4 items-center">
           <UAvatarGroup size="sm" :max="4" :ui="{
             'ring': 'ring-0',
-            'wrapper': 'bg-darkContSecond',
+            'wrapper': 'bg-contSecond dark:bg-darkContSecond',
           }">
             <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
           </UAvatarGroup>
@@ -65,7 +65,7 @@
           ]">
           <UAvatarGroup size="sm" :max="4" :ui="{
             'ring': 'ring-0',
-            'wrapper': 'bg-darkContSecond',
+            'wrapper': 'dark:bg-darkContSecond bg-contSecond',
           }">
             <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
           </UAvatarGroup>
