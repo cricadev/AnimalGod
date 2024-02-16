@@ -1,7 +1,7 @@
 <template>
   <div v-if="pending">
+    <Loader />
 
-    loading...
   </div>
   <div v-else-if="error">
     {{ error }}

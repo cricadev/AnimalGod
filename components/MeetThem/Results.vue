@@ -14,10 +14,9 @@
       </p>
     </div>
 
-    <div class="" v-if="pending">
-      <h1>
-        Loading...
-      </h1>
+    <div v-if="pending">
+      <Loader />
+
     </div>
     <div class="" v-else-if="error || !allData">
       There's an error in the API CALL
@@ -47,16 +46,14 @@
       </div>
 
       <div v-else-if="isLoadingSearch && !isPetSearchInvalid">
-        <h1>
-          Loading...
-        </h1>
+        <Loader />
       </div>
       <div v-else-if="isPetSearchInvalid && !isLoadingSearch">
         <h1>
           No pets found
         </h1>
       </div>
-      <div class=" w-full flex justify-between gap-8 items-center mt-8">
+      <div class=" w-full flex justify-between gap-8 items-center pb-12">
         <button @click="prev(4)">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="w-6 h-6">

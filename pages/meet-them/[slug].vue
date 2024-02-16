@@ -4,14 +4,15 @@
 
     <div v-if="pet" class="h-full">
 
-      <div class="h-auto  px-16 md:px-40 bg-darkContSecond grid relative place-items-center grid-rows-6 grid-cols-5">
+      <div
+        class="h-auto  px-16 md:px-40 dark:bg-darkContSecond bg-contSecond grid relative place-items-center grid-rows-6 grid-cols-5">
         <h2 class="col-start-1 col-end-6 row-start-1 row-end-2 text-Heading1sm font-bold capitalize text-center">
           {{ pet?.name ?? "No name" }}
         </h2>
         <Carousel ref="myCarousel"
-          class="col-span-5 row-span-6  self-center w-full h-full  overflow-hidden rounded-xl shadow-xl place-items-center"
+          class="col-span-5 row-span-6  self-center w-full h-full  overflow-hidden rounded-xl  place-items-center"
           :wrap-around="true" snap-align="center" :touch-drag="false">
-          <Slide class="overflow-hidden rounded-xl h-full w-full shadow-xl relative self-center"
+          <Slide class="overflow-hidden rounded-xl h-full w-full  relative self-center"
             v-for="(img, index) in  pet?.images ">
             <nuxt-img :src="img" :key="index" class=" z-0 h-full max-h-[34rem] rounded-lg">
             </nuxt-img>
@@ -27,7 +28,7 @@
         <div class="grid md:grid-cols-2 gap-4 mt-6 ">
           <div class=" w-full  basic-info   rounded-lg   md:grid md:place-items-center    ">
             <div
-              class="list-disc list-inside grid grid-cols-2 lg:grid-cols-3 place-items-start  w-full text-sm gap-2   md:gap-5  bg-contAccent h-full rounded-lg px-5 py-4">
+              class="list-disc list-inside grid grid-cols-2 lg:grid-cols-3 place-items-start  w-full text-sm gap-2   md:gap-5  bg-contAccent text-Bg  h-full rounded-lg px-5 py-4">
               <span class="list-slug ">
                 {{ pet.breed.toLowerCase().split("_").join(" ") }}
               </span>
@@ -96,7 +97,7 @@
               },
               tab: {
                 base: 'relative inline-flex items-center justify-center flex-shrink-0 w-full ui-focus-visible:outline-0 ui-focus-visible:ring-2 ui-focus-visible:ring-primary-500 dark:ui-focus-visible:ring-primary-400 ui-not-focus-visible:outline-none focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 transition-colors duration-200 ease-out'
-                , background: 'bg-darkBg', active: 'text-gray-900 dark:text-white', inactive: 'text-gray-500 dark:text-gray-400',
+                , background: 'bg-Bg dark:bg-darkBg', active: 'text-gray-900 dark:text-white', inactive: 'text-gray-500 dark:text-gray-400',
                 height: 'h-8', padding: 'px-3', size: 'text-sm', font: 'font-medium', rounded: 'rounded-md', shadow: ''
               },
             },
@@ -108,7 +109,7 @@
                   {{ pet.name }}'s {{ item.label }}
                 </p>
                 <div v-if="item.key === 'history'" class="space-y-3">
-                  <p class=" mt-5 text-Body1sm font-regular text-darkContText leading-tight">
+                  <p class=" mt-5 text-Body1sm font-regular  dark:text-darkContText leading-tight">
                     {{ pet.history }}
                   </p>
                 </div>
@@ -120,10 +121,10 @@
                     <li class="h-full w-full" v-for="  adjective   in   pet.personality  " :key="adjective">
                       <div v-for="  explainedAdjective   in   personalityAdjectivesExplained  "
                         :key="explainedAdjective.label">
-                        <div class="grid gap-4 rounded-lg place-items-center bg-darkContSecond p-4"
+                        <div class="grid gap-4 rounded-lg place-items-center dark:bg-darkContSecond bg-contSecond p-4"
                           v-if="adjective.toUpperCase() === explainedAdjective.label.toUpperCase()">
                           <div
-                            class="col-start-1 col-end-2 icon w-24 h-24 rounded-lg bg-contAccent grid place-items-center ">
+                            class="col-start-1 col-end-2 icon w-24 h-24 rounded-lg bg-contAccent grid place-items-center text-darkContText ">
                             <Icon :name="explainedAdjective.icon.replace('-', ':')" class="w-full h-full p-8"></Icon>
                           </div>
                           <div class="flex flex-col col-start-2 col-end-4 text-cap">
@@ -153,12 +154,12 @@
                     <li v-for=" ( adjective, index )  in   pet.healthConditions  " :key="adjective">
                       <div>
                         <div class="flex gap-4" v-if="adjective.answer === 'Yes'">
-                          <Icon size="20" name="mdi:check" class="bg-contAccent text-black rounded-full p-[2px]">
+                          <Icon size="20" name="mdi:check" class="bg-contAccent text-white rounded-full p-[2px]">
                           </Icon>
                           {{ HealthConditionOptions[index].responseIfYes }}
                         </div>
                         <div class="flex gap-4" v-else>
-                          <Icon size="20" name="mdi:window-close" class="bg-contAccent text-black rounded-full">
+                          <Icon size="20" name="mdi:window-close" class="bg-contAccent text-white rounded-full">
                           </Icon>
                           {{ HealthConditionOptions[index].responseIfNo }}
                         </div>
@@ -171,7 +172,7 @@
           </UTabs>
         </div>
       </div>
-      <div class="shelter-info bg-[#166DD2] pt-24 pb-8 relative" v-if="shelter">
+      <div class="shelter-info bg-[#166DD2] pt-24 pb-8 relative text-white" v-if="shelter">
         <div class="flex items-center flex-col justify-center gap-4 ">
           <div class="absolute -top-12">
             <nuxt-img :src="shelter.image" class="rounded-full w-32 h-32 border-8  border-[#A1ABCF]"></nuxt-img>
@@ -228,6 +229,10 @@
 
         </div>
       </div>
+    </div>
+    <div class="" v-else>
+      <Loader />
+
     </div>
   </div>
 </template>

@@ -89,7 +89,7 @@ const shelterSlides = [
   <div class="w-full h-full md:p-10 lg:p-16 2xl:px-64 2xl:py-16 px-5">
     <Carousel :items-to-show="1" :wrap-around="true" class="">
       <Slide
-        class="h-full p-8 lg:p-16 mx-4 px-4 dark:bg-contAccent bg-contAccent w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid"
+        class="h-full p-8 lg:p-16 mx-4 px-4 dark:bg-contAccent bg-contAccent w-full relative overflow-hidden flex flex-col gap-4 rounded-lg text-darkContText md:grid-testimonials md:grid md:gap-12"
         v-for="slide in user?.user_metadata?.isShelter
           ? shelterSlides
           : slidesResources" :key="slide.content">

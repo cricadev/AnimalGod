@@ -2,7 +2,7 @@
   <div class="flex relative bottom-8 z-50 w-full justify-center">
 
     <input type="text" :value="modelValue" @input="updateSearchQuery($event.target.value)"
-      class="bg-darkContSecond border-blue-500 border-2 outline-">
+      class="bg-contSecond dark:bg-darkContSecond border-blue-500 border-2 outline-">
   </div>
 </template>
 <script setup>

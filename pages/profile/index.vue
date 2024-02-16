@@ -37,7 +37,9 @@
           <ProfileInputEditableHeading :modelValue="currentPrismaUser?.website" :website="true"
             @update:modelValue="value => handleFieldUpdate('website', value)" />
         </div>
-        <div v-else>Loading...</div>
+        <div v-else>
+          <Loader />
+        </div>
       </div>
 
       <div class="px-5">
