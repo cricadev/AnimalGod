@@ -122,7 +122,7 @@ const clientStore = useClientStore();
 const { handleFileUpload, deleteImage } = useformStore();
 
 
-
+console.log(itemsPets.value)
 
 const publicUrl = currentPrismaUser.value?.image ? ref(currentPrismaUser.value?.image) : ref(null)
 const handleImageDelete = async () => {

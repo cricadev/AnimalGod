@@ -26,6 +26,11 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
   const state = reactive({
     currentPrismaUser: reactive({
+      id: "",
+      name: "",
+      email: "",
+      address: "",
+      website: "",
       image: "",
       phone: "",
     }),
