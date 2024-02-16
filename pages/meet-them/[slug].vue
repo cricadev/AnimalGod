@@ -74,12 +74,15 @@
             </div>
             <div class="grid md:grid-cols-2 gap-2 mt-4">
               <UButton size="xl" color="primary" variant="solid" :disabled="!user || isPetFormFilled">
-                <nuxt-link v-if="!isPetFormFilled" :to="'/form?id=' + pet.id">Prerequisites form</nuxt-link>
+                <nuxt-link v-if="!isPetFormFilled" class="w-full h-full" :to="'/form?id=' + pet.id">Prerequisites
+                  form</nuxt-link>
                 <span v-else>
                   Form filled
                 </span>
               </UButton>
-              <UButton size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold " />
+              <UButton size="xl" label="Prerequisites" color="white" variant="outline" class="bg-Bg font-bold ">
+                <nuxt-link class="w-full h-full" to="/about-adoption">About Adoption</nuxt-link>
+              </UButton>
             </div>
           </div>
         </div>
