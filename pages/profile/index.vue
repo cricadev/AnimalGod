@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="max-w-4xl 2xl:max-w-6xl mx-auto">
     <div class="flex flex-col justify-between h-[90dvh]" v-if="user">
       <div class="">
         <div class="user-image-upload flex justify-center items-center">

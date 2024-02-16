@@ -4,10 +4,10 @@
       <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4"> {{ query }} {{ queryParamsText
       }}</span>
       <span class="text-Captionlg font-semibold font-Inter text-contInactive mb-4">{{ allData?.length }} results</span>
-      <h4 class="text-Heading4sm font-bold font-Inter mb-1">
+      <h4 class="text-Heading4sm  lg:text-Heading3lg font-bold font-Inter mb-1">
         Black cats are less likely to be adopted
       </h4>
-      <p class="text-Footer font-regular text-contInactive leading-none mx-8">
+      <p class="text-Footer font-regular text-contInactive leading-none mx-8 lg:text-sm">
         In a study of shelters in Colorado, solid black cats took an average of
         26.55 days to be adopted compared to 20.64 days for their non-black
         counterparts.

@@ -1,10 +1,11 @@
 <template>
-  <div class="h-screen w-screen bg-contAccent py-12 px-8">
+  <div class="h-screen w-screen bg-contAccent py-12 px-8 lg:flex lg:items-center">
     <nuxt-img provider="cloudinary" src="/circleHero_ybk8m3.png" width="100%" height="100%"
       class="absolute top-12 left-0 z-[2]"></nuxt-img>
     <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
       class="absolute top-20 left-0 z-1"></nuxt-img>
-    <div class="flex flex-col gap-4 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-8 px-8 relative z-10">
+    <div
+      class="grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10 max-w-4xl lg:h-[80%]   mx-auto">
       <div class="titles row-start-1 row-end-2 flex flex-col gap-2">
         <h1 class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold">
           Sign up
@@ -71,7 +72,7 @@
       <div class="row-start-5 row-end-7 w-full text-center justify-center flex flex-col">
         <div class="flex items-center my-4 justify-center">
           <div class="flex-1 h-px bg-[#5C6D82]"></div>
-          <div class="mx-4 font-bold text-[#5C6D82] text-Heading6lg">or</div>
+          <div class="mx-4 font-bold text-[#5C6D82] text-Heading6lg">or NOT RECOMMENDED</div>
           <div class="flex-1 h-px bg-[#5C6D82]"></div>
         </div>
         <!-- PROVIDER LOGIN -->
