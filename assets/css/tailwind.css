@@ -20,10 +20,10 @@ html {
   /* Navigation */
   --vc-nav-width: 30px;
   --vc-nav-height: 30px;
-  --vc-nav-border-radius: 0;
+  --vc-nav-border-radius: 50%;
   --vc-nav-color: var(--vc-clr-primary);
   --vc-nav-color-hover: var(--vc-clr-secondary);
-  --vc-nav-background: transparent;
+  --vc-nav-background: #7eb0df;
 
   /* Pagination */
   --vc-pgn-width: 12px;

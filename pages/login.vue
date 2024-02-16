@@ -5,7 +5,7 @@
     <nuxt-img provider="cloudinary" src="/circleHeroBlue_j0v27w.png" width="100%" height="100%"
       class="absolute top-20 left-0 z-1  lg:hidden"></nuxt-img>
     <div
-      class="grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10 max-w-4xl lg:h-[80%]   mx-auto">
+      class="grid grid-rows-6 grid-cols-1 bg-Bg dark:bg-darkBg w-full h-full py-12 px-8 relative z-10 max-w-4xl lg:h-[80%] overflow-y-auto   mx-auto">
       <div class="titles row-start-1 row-end-2">
         <h1 class="dark:text-Bg text-darkBg text-Heading1sm font-extrabold">
           Log in

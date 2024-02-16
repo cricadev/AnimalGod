@@ -43,16 +43,15 @@
         </div>
         <div class="flex gap-4 justify-center items-center">
           <div class="input-container">
-            <select class="w-full" required name="country" id="country" v-model="credentials.country"
-              autocomplete="country">
-              <option value=""></option>
-              <option value="usa">USA</option>
-              <option value="colombia">Colombia</option>
-              <option value="peru">Peru</option>
-              >
-            </select>
-            <label for="country" class="label">Country</label>
-            <div class="underline"></div>
+            <div class="input-container">
+              <select class="w-full" required name="country" id="country" v-model="credentials.country"
+                autocomplete="country">
+                <option value=""></option>
+                <option v-for="country in countries" :key="country" :value="country">{{ country }}</option>
+              </select>
+              <label for="country" class="label">Country</label>
+              <div class="underline"></div>
+            </div>
           </div>
 
           <div class="input-container">
@@ -105,6 +104,9 @@
   </div>
 </template>
 <script setup>
+import countryCodes from 'country-codes-list';
+
+const countries = Object.values(countryCodes.customList('countryNameEn', '{countryNameEn}'));
 
 definePageMeta({
   layout: "authenticated",

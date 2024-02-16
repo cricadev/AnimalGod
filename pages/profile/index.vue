@@ -32,10 +32,10 @@
         <div v-if="!loading">
           <ProfileInputEditableHeading :modelValue="currentPrismaUser?.phone"
             @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
-          <ProfileInputEditableHeading :modelValue="currentPrismaUser?.address"
+          <ProfileInputEditableHeading v-if="user?.user_metadata?.isShelter" :modelValue="currentPrismaUser?.address"
             @update:modelValue="value => handleFieldUpdate('address', value)" :address="true" />
-          <ProfileInputEditableHeading :modelValue="currentPrismaUser?.website" :website="true"
-            @update:modelValue="value => handleFieldUpdate('website', value)" />
+          <ProfileInputEditableHeading v-if="user?.user_metadata?.isShelter" :modelValue="currentPrismaUser?.website"
+            :website="true" @update:modelValue="value => handleFieldUpdate('website', value)" />
         </div>
         <div v-else>
           <Loader />

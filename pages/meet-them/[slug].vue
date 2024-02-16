@@ -11,7 +11,7 @@
         </h2>
         <Carousel ref="myCarousel"
           class="col-span-5 row-span-6  self-center w-full h-full  overflow-hidden rounded-xl  place-items-center"
-          :wrap-around="true" snap-align="center" :touch-drag="false">
+          :wrap-around="true" snap-align="center" :touch-drag="true" :mouse-drag="true">
           <Slide class="overflow-hidden rounded-xl h-full w-full  relative self-center"
             v-for="(img, index) in  pet?.images ">
             <nuxt-img :src="img" :key="index" class=" z-0 h-full max-h-[34rem] rounded-lg">
@@ -19,7 +19,7 @@
           </Slide>
           <template #addons>
             <Pagination class="pt-4" style="padding-bottom: 0;" />
-            <Navigation class=" " />
+            <Navigation class="" />
           </template>
         </Carousel>
       </div>

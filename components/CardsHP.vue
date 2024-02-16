@@ -211,7 +211,7 @@ const boxes = [
           <nuxt-img provider="cloudinary" :src="animalCard.figure2"
             :class="[animalCard.classFigure2, 'card__figure']"></nuxt-img>
           <nuxt-img provider="cloudinary" :src="animalCard.figure1" :class="[animalCard.classFigure1, 'card__figure']"
-            carousel sizes=" "></nuxt-img>
+            sizes=" "></nuxt-img>
           <nuxt-img v-if="animalCard.figure3" provider="cloudinary" :src="animalCard.figure3"
             :class="[animalCard.classFigure3, 'card__figure']"></nuxt-img>
         </div>
