@@ -25,8 +25,8 @@
         <FormPetHealth @update-type="fixAndGoBackTo" v-if="step === 7" v-model:healthConditions="pet.healthConditions"
           v-model:healthDescription="pet.healthDescription" :healthOptions="HealthConditionOptions" @next="step++"
           @back="step--" />
-        <FormPetReview @update-pet="handlePetUpdate" @edit-type="goToAndFix" v-if="step === 8" :pet="pet" @back="step--"
-          @submit="handlePetRegister" />
+        <FormPetReview :loading="loading" @update-pet="handlePetUpdate" @edit-type="goToAndFix" v-if="step === 8"
+          :pet="pet" @back="step--" @submit="handlePetRegister" />
 
         <FormExitFormScreen @exit-form="handleExitForm" v-if="step === 9" />
 
@@ -44,7 +44,7 @@ import { dogBreeds, catBreeds } from 'pet-breed-names';
 
 const formStore = useformStore();
 const { pet } = storeToRefs(formStore);
-
+const loading = ref(false);
 onUnmounted(() => {
   formStore.resetPet();
 })
@@ -150,6 +150,7 @@ const user = useSupabaseUser();
 
 
 const handlePetRegister = async () => {
+  loading.value = true;
   try {
     // First, try to create the client
     const data = await $fetch('/api/pet', {
@@ -161,15 +162,19 @@ const handlePetRegister = async () => {
     }
     console.log(data)
 
+    loading.value = false;
     step.value++;
 
   }
   catch (error) {
     console.log(error);
+    loading.value = false;
+
   }
 }
 
 const handlePetUpdate = async () => {
+  loading.value = true;
   try {
     // First, try to create the client
     const data = await $fetch(`/api/pet?id=${route.query.id}`, {
@@ -180,12 +185,15 @@ const handlePetUpdate = async () => {
       throw new Error('Error creating client')
     }
     console.log(data)
+    loading.value = false;
 
     step.value++;
 
   }
   catch (error) {
     console.log(error);
+    loading.value = false;
+
   }
 }
 

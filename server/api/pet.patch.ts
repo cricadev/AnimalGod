@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
       images: body.images,
       gender: body.gender.toUpperCase(),
       size: body.size.toUpperCase(),
-      age: Number(body.age),
+      age: body.age,
       breed: body.breed.toUpperCase().replace(/\s/g, '_'),
       goodWith: body.goodWith.toUpperCase(),
       activity: body.activity.toUpperCase(),

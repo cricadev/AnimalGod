@@ -21,8 +21,8 @@
         <FormPetHistory @update-type="fixAndGoBackTo(6)" :shelter="false" v-if="step === 5" v-model="form.whyMessage"
           @next="step++" @back="step--" />
 
-        <FormPetReview @update-pet="handlePetUpdate" :shelter="false" @edit-type="goToAndFix" v-if="step === 6"
-          :pet="form" @back="step--" @submit="handlePetRegister" />
+        <FormPetReview :loading="loading" @update-pet="handlePetUpdate" :shelter="false" @edit-type="goToAndFix"
+          v-if="step === 6" :pet="form" @back="step--" @submit="handlePetRegister" />
         <FormExitFormScreen :shelter="false" @exit-form="handleExitForm" v-if="step === 7" />
 
       </TransitionGroup>
@@ -42,7 +42,7 @@ onUnmounted(() => {
 const isEditing = ref(false);
 provide('isEditing', isEditing);
 const route = useRoute()
-
+const loading = ref(false)
 const qAndAOptions = [{
   label: 'Do you have enough time to spend with your pet?',
   value: 'Vaccinated',
@@ -92,6 +92,7 @@ const user = useSupabaseUser();
 
 const liveWithOptions = ['PARTNER', 'CHILDREN', 'OTHER_PETS', 'ALONE'];
 const handlePetRegister = async () => {
+  loading.value = true;
   try {
     // First, try to create the client
     const data = await $fetch('/api/form?id=' + route.query.id, {
@@ -102,16 +103,18 @@ const handlePetRegister = async () => {
       throw new Error('Error creating client')
     }
     console.log(data)
-
+    loading.value = false;
     step.value++;
 
   }
   catch (error) {
     console.log(error);
+    loading.value = false;
   }
 }
 
 const handlePetUpdate = async () => {
+  loading.value = true;
   try {
     // First, try to create the client
     const data = await $fetch(`/api/form?id=${route.query.id}`, {
@@ -122,12 +125,14 @@ const handlePetUpdate = async () => {
       throw new Error('Error creating client')
     }
     console.log(data)
-
+    loading.value = false;
     step.value++;
 
   }
   catch (error) {
     console.log(error);
+    loading.value = false;
+
   }
 }
 

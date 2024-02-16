@@ -206,10 +206,11 @@
     </div>
 
     <div class="submit-button flex justify-end">
-      <UButton v-if="!shelter || !route.query.id" class="py-3 px-4" icon="i-mdi-check" trailing
+      <UButton :loading="loading" v-if="!shelter || !route.query.id" class="py-3 px-4" icon="i-mdi-check" trailing
         @click="emit('submit', pet)">Confirm
         and Register</UButton>
-      <UButton v-else class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('update-pet', pet)">Confirm and Update
+      <UButton :loading="loading" v-else class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('update-pet', pet)">
+        Confirm and Update
       </UButton>
     </div>
   </div>
@@ -274,9 +275,6 @@ const qAndAResponses = [
 
 ]
 
-const isObject = (value) => {
-  return value && typeof value === 'object' && value.constructor === Object;
-}
 defineProps({
   pet: {
     type: Object,
@@ -285,27 +283,14 @@ defineProps({
   shelter: {
     type: Boolean,
     default: true
+  },
+  loading: {
+    type: Boolean,
+    default: false
   }
 })
 const emit = defineEmits(['submit', 'edit-type', 'update-pet'])
 
-const stepIndex = (key) => {
-  const steps = ['type', 'name', 'images', 'gender', 'size', 'age', 'breed', 'goodWith', 'activity', 'history', 'personality', 'personalityDescription', 'healthConditions', 'healthDescription'];
-  return steps.indexOf(key) + 1;
-}
-
-const formatLabel = (key) => {
-  return key.split(/(?=[A-Z])/).join(' ').toUpperCase();
-}
-
-const deleteImage = (index) => {
-  const images = [...pet.value.images ?? []];
-  images.splice(index, 1);
-  emit('editType', {
-    key: 'images',
-    value: images
-  })
-}
 </script>
 <style scoped>
 .item {
