@@ -12,6 +12,23 @@ onMounted(() => {
     console.log(session.value)
   }
 })
+useHead({
+
+  link: [{ rel: "icon", type: "image/png", sizes: "16x16", href: "/icons-16.png" },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "32x32",
+    href: "/icons-32.png",
+  },
+  {
+    rel: "icon",
+    type: "image/png",
+    sizes: "96x96",
+    href: "/icons-96.png",
+  },
+  ],
+});
 </script>
 <template>
   <div>

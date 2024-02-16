@@ -112,7 +112,7 @@ onUnmounted(() => {
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="user?.user_metadata?.isShelter" class="flex items-center gap-3">
                     <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" width="50" height="50"
-                      class="rounded-sm" />
+                      class="rounded-sm object-cover" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
                       <h3 class=" leading-none text-Body1sm font-semibold text-black dark:text-darkContText">{{
@@ -160,7 +160,7 @@ onUnmounted(() => {
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="!user?.user_metadata?.isShelter" class="flex items-center gap-3">
                     <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" width="50" height="50"
-                      class="rounded-sm" />
+                      class="rounded-sm object-cover" />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
                       <h3 class=" text-Body1sm font-semibold text-black dark:text-darkContText">{{
