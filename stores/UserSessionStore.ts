@@ -68,10 +68,12 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
   }
 
+  onMounted(() => {
+    if (user.value) {
+      getCurrentUser()
+    }
+  })
 
-  if (user.value?.user_metadata) {
-    getCurrentUser()
-  }
 
   const handleFieldUpdate = async (field, newValue) => {
     try {

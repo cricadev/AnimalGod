@@ -29,7 +29,7 @@
           class="grid grid-cols-2 grid-rows-2 md:grid-cols-3 md:grid-rows-3 lg:grid-rows-2 lg:grid-cols-4 h-[50vh] gap-4">
           <div v-for="animal in myData" :key="animal.name">
             <nuxt-link class="grid relative w-full h-full overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-              :to="`/meet-them/${animal.name}`">
+              :to="`/meet-them/${animal.id}`">
               <h6
                 class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
                 {{ animal.name }}
