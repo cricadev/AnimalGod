@@ -233,8 +233,13 @@
         </div>
       </div>
     </div>
-    <div class="" v-else>
+    <div class="" v-else-if="!errorPet && !pet">
       <Loader />
+
+    </div>
+    <div class="flex items-center justify-center h-[80vh] flex-col gap-4" v-else>
+      <h1 class="text-Heading1sm font-bold text-center">Pet not found</h1>
+      <nuxt-link to="/meet-them" class="text-contAccent font-bold">Go back to meet them</nuxt-link>
 
     </div>
   </div>
@@ -253,12 +258,21 @@ const ShelterStore = useShelterStore();
 const PetStore = usePetStore();
 const { pet, shelter, relatedPets } = storeToRefs(PetStore);
 const route = useRoute();
-
+const errorPet = ref(false);
 const isPetFormFilled = computed(() => {
   return itemsPets?.value?.appointments?.some((appointment: any) => appointment.petId === pet.value.id)
 })
 
-
+useHead({
+  title: pet.value?.name,
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: pet.value?.history,
+    },
+  ],
+})
 onMounted(async () => {
   if (route.params.slug) {
     try {
@@ -270,6 +284,7 @@ onMounted(async () => {
     }
     catch (err) {
       console.log(err)
+      errorPet.value = true;
     }
   }
   let container2 = document.querySelector("#two");
