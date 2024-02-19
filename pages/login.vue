@@ -42,29 +42,9 @@
         </div>
       </form>
 
-      <!-- SEPARATOR OR -->
-      <div class="row-start-5 row-end-7 w-full text-center justify-center flex flex-col">
-        <div class="flex items-center my-4 justify-center">
-          <div class="flex-1 h-px bg-[#5C6D82]"></div>
-          <div class="mx-4 font-bold text-[#5C6D82] text-Heading6lg">or NOT RECOMMENDED</div>
-          <div class="flex-1 h-px bg-[#5C6D82]"></div>
-        </div>
-        <!-- PROVIDER LOGIN -->
-        <div class="flex flex-col gap-2">
-          <form @submit.prevent="loginWithGoogle">
-            <UButton icon="i-logos-google-icon" size="providers" type="submit" color="secondary" variant="outline"
-              label="Continue with Google" :trailing="false" id="google" block />
-          </form>
-          <form @submit.prevent="loginWithFB">
-            <UButton icon="i-logos-facebook" size="providers" color="secondary" variant="outline"
-              label="Continue with Facebook" :trailing="false" type="submit" id="facebook" block />
-          </form>
-        </div>
-        <nuxt-link to="/signup" class="text-contInactive mt-4 text-Heading6sm">
-          Not a member?
-          <strong class="text-contAccent">Sign up</strong>
-        </nuxt-link>
-      </div>
+      <SignupProviderLogin :is-login="true" />
+
+
     </div>
   </div>
 </template>
