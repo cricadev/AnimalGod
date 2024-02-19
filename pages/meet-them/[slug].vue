@@ -263,16 +263,7 @@ const isPetFormFilled = computed(() => {
   return itemsPets?.value?.appointments?.some((appointment: any) => appointment.petId === pet.value.id)
 })
 
-useHead({
-  title: pet.value?.name,
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: pet.value?.history,
-    },
-  ],
-})
+
 onMounted(async () => {
   if (route.params.slug) {
     try {
@@ -280,11 +271,22 @@ onMounted(async () => {
       if (pet.value) {
         shelter.value = ShelterStore.findShelterById(pet.value.shelterId);
         await PetStore.fetchRelatedPets();
+        useHead({
+          title: pet.value?.name,
+          meta: [
+            {
+              hid: 'description',
+              name: 'description',
+              content: pet.value?.history,
+            },
+          ],
+        })
       }
     }
     catch (err) {
       console.log(err)
       errorPet.value = true;
+
     }
   }
   let container2 = document.querySelector("#two");
@@ -293,6 +295,7 @@ onMounted(async () => {
   if (container2?.clientWidth < text2?.clientWidth) {
     text2.classList.add("animate");
   }
+
 })
 
 onUnmounted(() => {
