@@ -7,7 +7,7 @@ const UserSessionStore = useUserSessionStore();
 const { currentPrismaUser, itemsPets, user } = storeToRefs(UserSessionStore);
 const { height, width } = storeToRefs(useWindowSize());
 const isMobile = computed(() => width.value < 1024);
-
+const isLayoutAuth = computed(() => route.fullPath.includes('login') || route.fullPath.includes('signup') || route.fullPath.includes('forgot-password'));
 const isOpen = ref(false);
 const colorMode = useColorMode();
 const route = useRoute();
@@ -42,7 +42,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="">
+  <div class="" v-if="!isLayoutAuth">
     <div class="flex items-center justify-between w-full h-16 " v-show="isMobile">
       <nuxt-link to="/">
         <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'" width="100%"
@@ -264,6 +264,16 @@ onUnmounted(() => {
         </ul>
       </div>
     </div>
+  </div>
+  <div class="flex fixed top-0 left-0 w-full bg-Bg dark:bg-darkBg " v-else>
+    <nuxt-link to="/">
+      <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'" width="100%"
+        height="35" class="p-5"></nuxt-img>
+      <nuxt-img provider="cloudinary" src="/dark-animal_god_cloaku.png" width="100%" height="35" class="p-5"
+        v-show="colorMode.value !== 'dark'"></nuxt-img>
+    </nuxt-link>
+    <ToggleTheme></ToggleTheme>
+
   </div>
 </template>
 <style lang="scss" scoped>

@@ -6,7 +6,7 @@
     <div class="flex text-Heading6sm font-bold justify-between gap-4">
       <h6 v-if="!login">Create an account</h6>
 
-      <nuxt-link class="text-contAccent text-Heading6sm font-semibold tracking-wide"
+      <nuxt-link v-if="!login" class="text-contAccent text-Heading6sm font-semibold tracking-wide"
         :to="!shelter ? '/signup-shelter' : '/signup'">
         {{ !shelter ? "Sign up as shelter" : "Sign up as client" }}
       </nuxt-link>
