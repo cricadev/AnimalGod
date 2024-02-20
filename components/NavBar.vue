@@ -265,7 +265,7 @@ onUnmounted(() => {
       </div>
     </div>
   </div>
-  <div class="flex fixed top-0 left-0 w-full bg-Bg dark:bg-darkBg " v-else>
+  <div class="z-10 flex fixed top-0 left-0 w-full bg-Bg dark:bg-darkBg " v-else>
     <nuxt-link to="/">
       <nuxt-img provider="cloudinary" src="/animal_god_olvlho.png" v-show="colorMode.value !== 'light'" width="100%"
         height="35" class="p-5"></nuxt-img>
