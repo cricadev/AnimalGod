@@ -44,26 +44,27 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
   const getCurrentUser = async () => {
     if (user.value.user_metadata?.isShelter) {
-      const { data, error } = await useFetch(`/api/id?email=${user.value.email}&isShelter=true`)
-      if (error.value) {
-        console.error(error.value?.message)
+      const data = await $fetch(`/api/id?email=${user.value.email}&isShelter=true`)
+      if (!data) {
+        throw new Error('Error getting user')
       }
-      console.log(data.value)
-      if (data.value) {
-        currentPrismaUser.value = data.value
-        loading.value = false
-      }
+
+      console.log(data)
+      currentPrismaUser.value = data
+      loading.value = false
+
 
 
     } else if (!user.value.user_metadata?.isShelter) {
-      const { data, error } = await useFetch(`/api/id?email=${user.value.email}`)
-      if (error.value) {
-        console.error(error.value?.message)
+      const data = await $fetch(`/api/id?email=${user.value.email}`)
+      if (!data) {
+        throw new Error('Error getting user')
       }
-      if (data.value) {
-        currentPrismaUser.value = data.value
-        loading.value = false
-      }
+
+      console.log(data)
+      currentPrismaUser.value = data
+      loading.value = false
+
     }
 
   }
