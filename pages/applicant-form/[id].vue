@@ -14,7 +14,7 @@
     </nuxt-img> -->
     <div v-if="appointmentBasedOnId" class=" flex flex-col gap-2 mb-16  mt-12 justify-center items-center">
       <div class="">
-        <nuxt-img v-if="appointmentBasedOnId.client.image" :src="appointmentBasedOnId.client.image"
+        <nuxt-img v-if="appointmentBasedOnId?.client?.image" :src="appointmentBasedOnId.client.image"
           class="w-16 rounded-full object-cover h-16">
         </nuxt-img>
         <div class="w-16 rounded-full object-cover h-16" v-else>

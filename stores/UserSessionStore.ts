@@ -8,7 +8,7 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
   const errorPets = ref(null);
   const PendingPets = ref(null);
 
-  const userWatcher = watch(user, async (newUser) => {
+  const fetchUserData = async (newUser) => {
     if (newUser) {
       if (newUser.user_metadata.isShelter) {
         fetchResult.value = await useFetch(`/api/shelter`);
@@ -22,7 +22,13 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
         PendingPets.value = fetchResult.value.pending;
       }
     }
-  }, { immediate: true, deep: true });
+  };
+  const userWatcher = watch(user, fetchUserData, { immediate: true, deep: true });
+
+  onMounted(() => {
+    // Call fetchUserData directly when the store is defined
+    fetchUserData(user.value);
+  })
 
   const state = reactive({
     currentPrismaUser: reactive({

@@ -27,7 +27,7 @@
           <tr class="table-data" v-for="pet in data?.tableData" :key="pet.id">
             <td class="table-data-cell">
 
-              <nuxt-img :src="pet.petImages[0]" class="table-data-cell-img"></nuxt-img>
+              <nuxt-img v-if="pet.petImages[0]" :src="pet.petImages[0]" class="table-data-cell-img"></nuxt-img>
               <span class="table-data-cell-name">{{ pet.petName }}</span>
               <nuxt-link class="table-data-cell-link" :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
             </td>
@@ -37,7 +37,7 @@
             </td>
             <td>{{ formatDate(pet.appointmentCreatedAt) }}</td>
             <td>
-              <nuxt-img :src="pet.shelterImage" class="mx-auto w-16 h-16 rounded-full"></nuxt-img>
+              <nuxt-img v-if="pet.shelterImage" :src="pet.shelterImage" class="mx-auto w-16 h-16 rounded-full"></nuxt-img>
               <span class="font-semibold "> {{ pet.shelterName }} </span>
             </td>
             <td>
