@@ -9,7 +9,6 @@
       <SignupFormField type="email" v-model="credentials.email" />
       <SignupFormField type="password" v-model="credentials.password" />
       <UCheckbox label="Remember this password next time" />
-      <div class="bg-transparent rounded-md shadow-sm w-full h-8 absolute -top-4 text-Bg"></div>
       <div class="flex flex-col mt-8">
         <UButton type="submit" size="providers" label="Log in" color="primary" variant="solid" />
         <nuxt-link class="text-right font-bold text-Heading6sm text-contInactive mt-2" to="/forgot-password">Forgot

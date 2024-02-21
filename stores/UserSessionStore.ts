@@ -69,9 +69,9 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
   }
 
-  onMounted(() => {
-    if (user.value) {
-      getCurrentUser()
+  watch(user, async (newUser) => {
+    if (newUser) {
+      await getCurrentUser()
     }
   })
 

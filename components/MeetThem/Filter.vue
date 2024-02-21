@@ -9,7 +9,7 @@
       </USelectMenu>
       <UButton size="xl" label="Filter by" color="secondary" variant="solid" trailingIcon="i-mdi-menu-down"
         @click="appear = true" />
-      <div class="appear-menu w-full absolute top-0 text-center" v-show="appear">
+      <div class="appear-menu w-full z-50 absolute top-0 text-center" v-show="appear">
         <UButton size="xl" label="Filter by" color="secondary" variant="solid" trailingIcon="i-mdi-menu-down"
           @click="sendFilters" block />
         <USelectMenu searchable searchable-placeholder="Search a breed..." placeholder="Breed" :options="BreedOptions"

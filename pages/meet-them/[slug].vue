@@ -216,7 +216,7 @@
             <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
               :to="`/meet-them/${animal.name}`">
               <h6
-                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-50 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-30 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
                 {{ animal.name }}
               </h6>
               <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
