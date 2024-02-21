@@ -29,7 +29,7 @@
 
               <nuxt-img v-if="pet.petImages[0]" :src="pet.petImages[0]" class="table-data-cell-img"></nuxt-img>
               <span class="table-data-cell-name">{{ pet.petName }}</span>
-              <nuxt-link class="table-data-cell-link" :to="'/meet-them/' + pet?.petName">See profile</nuxt-link>
+              <nuxt-link class="table-data-cell-link" :to="'/meet-them/' + pet.petId">See profile</nuxt-link>
             </td>
             <td v-html="pet.appointmentState === 'IN_PROCESS' ? 'In process' :
               pet.appointmentState === 'ACCEPTED' ? 'Approved <br>the shelter will contact you soon' :

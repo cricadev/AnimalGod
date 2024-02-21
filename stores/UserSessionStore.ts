@@ -5,22 +5,28 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
   const session = ref(null);
   const fetchResult = ref(null);
   const itemsPets = ref(null);
-  const errorPets = ref(null);
-  const PendingPets = ref(null);
+  const loadingPets = ref(false);
 
   const fetchUserData = async (newUser) => {
     if (newUser) {
       if (newUser.user_metadata.isShelter) {
-        fetchResult.value = await useFetch(`/api/shelter`);
+        loadingPets.value = true
+
+        fetchResult.value = await $fetch(`/api/shelter`);
+
       } else {
-        fetchResult.value = await useFetch(`/api/client`);
+        loadingPets.value = true
+
+        fetchResult.value = await $fetch(`/api/client`);
+
       }
 
-      if (fetchResult.value) {
-        itemsPets.value = fetchResult.value.data;
-        errorPets.value = fetchResult.value.error;
-        PendingPets.value = fetchResult.value.pending;
+      if (!fetchResult.value) {
+        throw new Error('Error creating client')
       }
+      itemsPets.value = fetchResult.value
+      loadingPets.value = false
+
     }
   };
   const userWatcher = watch(user, fetchUserData, { immediate: true, deep: true });
@@ -113,7 +119,7 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
 
   });
-  return { session, currentPrismaUser, handleFieldUpdate, itemsPets, user, getCurrentUser }
+  return { session, currentPrismaUser, handleFieldUpdate, itemsPets, loadingPets, user, getCurrentUser, fetchUserData, }
 });
 if (import.meta.hot) {
   import.meta.hot.accept(

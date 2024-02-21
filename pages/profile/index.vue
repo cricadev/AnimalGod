@@ -44,41 +44,39 @@
 
       <div class="px-5">
 
-        <nuxt-link v-if="user?.user_metadata?.isShelter" :to="itemsPets?.pets.length ? '/my-pets' : ''"
-          class="registered-pets-card justify-center flex bg-contSecond dark:bg-darkContSecond py-5 gap-4 items-center">
-          <UAvatarGroup size="sm" :max="4" :ui="{
-            'ring': 'ring-0',
-            'wrapper': 'bg-contSecond dark:bg-darkContSecond',
-          }">
-            <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
-          </UAvatarGroup>
-
-          <span>
-
-            {{ itemsPets?.pets.length ? 'Your registered pets' : 'No registered pets yet' }}
-
-            <Icon name="i-mdi-chevron-right" class="text-black dark:text-white" />
-          </span>
-
-        </nuxt-link>
-        <nuxt-link v-else :to="itemsPets?.pets.length ? '/my-applications' : ''"
-          class="registered-pets-card justify-center flex py-5 gap-4 items-center" :class="[
-            itemsPets?.pets.length ? 'bg-contSecond dark:bg-darkContSecond' : 'bg-contInactive'
-          ]">
-          <UAvatarGroup size="sm" :max="4" :ui="{
-            'ring': 'ring-0',
-            'wrapper': 'dark:bg-darkContSecond bg-contSecond',
-          }">
-            <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
-          </UAvatarGroup>
-
-          <span>
-            {{ itemsPets?.pets.length ? 'Your applications' : 'No applications yet' }}
-            <Icon name="i-mdi-chevron-right" class=" text-black dark:text-white" />
-          </span>
-
-
-        </nuxt-link>
+        <div class="" v-if="!loadingPets">
+          <nuxt-link v-if="user?.user_metadata?.isShelter" :to="itemsPets?.pets.length ? '/my-pets' : ''"
+            class="registered-pets-card justify-center flex bg-contSecond dark:bg-darkContSecond py-5 gap-4 items-center">
+            <UAvatarGroup size="sm" :max="4" :ui="{
+              'ring': 'ring-0',
+              'wrapper': 'bg-contSecond dark:bg-darkContSecond',
+            }">
+              <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
+            </UAvatarGroup>
+            <span>
+              {{ itemsPets?.pets.length ? 'Your registered pets' : 'No registered pets yet' }}
+              <Icon name="i-mdi-chevron-right" class="text-black dark:text-white" />
+            </span>
+          </nuxt-link>
+          <nuxt-link v-else :to="itemsPets?.pets.length ? '/my-applications' : ''"
+            class="registered-pets-card justify-center flex py-5 gap-4 items-center" :class="[
+              itemsPets?.pets.length ? 'bg-contSecond dark:bg-darkContSecond' : 'bg-contInactive'
+            ]">
+            <UAvatarGroup size="sm" :max="4" :ui="{
+              'ring': 'ring-0',
+              'wrapper': 'dark:bg-darkContSecond bg-contSecond',
+            }">
+              <UAvatar class="override-this-shit" :src="pet.images[0]" :alt="pet?.name" v-for="pet in itemsPets?.pets" />
+            </UAvatarGroup>
+            <span>
+              {{ itemsPets?.pets.length ? 'Your applications' : 'No applications yet' }}
+              <Icon name="i-mdi-chevron-right" class=" text-black dark:text-white" />
+            </span>
+          </nuxt-link>
+        </div>
+        <div class="" v-else>
+          <Loader />
+        </div>
         <div class="t&c-buttons gap-1 flex flex-col mt-5">
 
           <UButton size="xl" label="Permissions" color="secondary" variant="solid" block class=" py-3"
@@ -111,12 +109,15 @@ countries.registerLocale(en);
 
 const UserSessionStore = useUserSessionStore();
 
-const { currentPrismaUser, itemsPets, user } = storeToRefs(UserSessionStore);
-const { handleFieldUpdate, getCurrentUser } = UserSessionStore;
+const { currentPrismaUser, itemsPets, loadingPets, user } = storeToRefs(UserSessionStore);
+const { handleFieldUpdate, getCurrentUser, fetchUserData } = UserSessionStore;
 
 
+onMounted(() => {
+  fetchUserData(user.value)
 
-
+})
+console.log(loadingPets.value)
 
 const clientStore = useClientStore();
 const { handleFileUpload, deleteImage } = useformStore();
