@@ -31,7 +31,7 @@
             <td class="table-data-cell">
               <nuxt-img v-if="pet.images[0]" :src="pet.images[0]" class="table-data-cell-img"></nuxt-img>
               <span class="table-data-cell-name"> {{ pet.name }}</span>
-              <nuxt-link :to="'/meet-them/' + pet?.name" class="table-data-cell-link">See
+              <nuxt-link :to="'/meet-them/' + pet?.id" class="table-data-cell-link">See
                 profile</nuxt-link>
             </td>
             <td>{{ pet.isAdopted ? 'Adopted' : 'Registered'
