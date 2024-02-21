@@ -31,10 +31,6 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
   };
   const userWatcher = watch(user, fetchUserData, { immediate: true, deep: true });
 
-  onMounted(() => {
-    // Call fetchUserData directly when the store is defined
-    fetchUserData(user.value);
-  })
 
   const state = reactive({
     currentPrismaUser: reactive({
@@ -84,6 +80,7 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
   watch(user, async (newUser) => {
     if (newUser) {
       await getCurrentUser()
+      fetchUserData(user.value);
     }
   })
 

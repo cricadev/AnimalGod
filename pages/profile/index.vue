@@ -115,6 +115,7 @@ const { handleFieldUpdate, getCurrentUser, fetchUserData } = UserSessionStore;
 
 onMounted(() => {
   fetchUserData(user.value)
+  getCurrentUser();
 
 })
 console.log(loadingPets.value)
