@@ -214,7 +214,7 @@
         <div class="flex w-full items-center justify-center gap-5">
           <div class="" v-for="( animal, index ) in  relatedPets ">
             <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
-              :to="`/meet-them/${animal.name}`">
+              :to="`/meet-them/${animal.id}`">
               <h6
                 class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-30 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
                 {{ animal.name }}
@@ -228,7 +228,11 @@
           </div>
         </div>
         <div class="flex items-center justify-center gap-4">
-          <UButton size="xl" label="Meet Them" color="primary" class="py-3 px-6" variant="solid" />
+
+          <UButton size="xl" color="primary" class="py-3 px-6" variant="solid">
+
+            <nuxt-link to="/meet-them" class="text-white font-bold w-full h-full">Meet Them</nuxt-link>
+          </UButton>
 
         </div>
       </div>
