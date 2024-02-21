@@ -149,7 +149,7 @@ export default defineAppConfig({
 
     },
     avatarGroup: {
-      wrapper: "justify-center",
+      wrapper: "justify-center space-x-1",
 
     },
   }
