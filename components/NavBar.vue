@@ -111,8 +111,8 @@ onUnmounted(() => {
               <div class="flex flex-col justify-center items-center gap-6 w-full absolute bottom-4 px-3">
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="user?.user_metadata?.isShelter" class="flex items-center gap-3">
-                    <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" width="50" height="50"
-                      class="rounded-sm object-cover" />
+                    <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
+                      " />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
                       <h3 class=" leading-none text-Body1sm font-semibold text-black dark:text-darkContText">{{
@@ -159,8 +159,8 @@ onUnmounted(() => {
 
                 <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                   <div v-if="!user?.user_metadata?.isShelter" class="flex items-center gap-3">
-                    <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" width="50" height="50"
-                      class="rounded-sm object-cover" />
+                    <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
+                      " />
                     <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                     <div class="">
                       <h3 class=" text-Body1sm font-semibold text-black dark:text-darkContText">{{
@@ -231,8 +231,8 @@ onUnmounted(() => {
             <div class="flex flex-col justify-center items-center gap-6 mr-6">
               <nuxt-link to="/profile" class="w-full flex items-center justify-between">
                 <div class="flex items-center gap-3" v-if="currentPrismaUser">
-                  <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" width="50" height="50"
-                    class="rounded-sm" />
+                  <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
+                      " />
                   <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
                 </div>
               </nuxt-link>
@@ -255,8 +255,8 @@ onUnmounted(() => {
           <div class="flex flex-col justify-center items-center gap-6 mr-6">
             <nuxt-link to="/profile" class="w-full flex items-center justify-between">
               <div class="flex items-center gap-3" v-if="currentPrismaUser">
-                <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" width="50" height="50"
-                  class="rounded-sm" />
+                <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
+                      " />
                 <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
               </div>
             </nuxt-link>

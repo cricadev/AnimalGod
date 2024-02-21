@@ -277,6 +277,7 @@ onMounted(async () => {
         await PetStore.fetchRelatedPets();
         useHead({
           title: pet.value?.name,
+          titleTemplate: '%s | AnimalGod',
           meta: [
             {
               hid: 'description',

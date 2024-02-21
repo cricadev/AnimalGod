@@ -147,6 +147,11 @@ export default defineAppConfig({
         'lg': 'py-2 px-5'
       },
 
-    }
-  },
-});
+    },
+    avatarGroup: {
+      wrapper: "justify-center",
+
+    },
+  }
+},
+);
