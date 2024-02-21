@@ -113,7 +113,7 @@ onUnmounted(() => {
                   <div v-if="user?.user_metadata?.isShelter" class="flex items-center gap-3">
                     <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
                       " />
-                    <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
+                    <Icon name="i-mdi-account" class="w-10 h-10 rounded-full" v-else />
                     <div class="">
                       <h3 class=" leading-none text-Body1sm font-semibold text-black dark:text-darkContText">{{
                         user?.user_metadata?.name
@@ -161,7 +161,7 @@ onUnmounted(() => {
                   <div v-if="!user?.user_metadata?.isShelter" class="flex items-center gap-3">
                     <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
                       " />
-                    <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
+                    <Icon name="i-mdi-account" class="w-10 h-10 rounded-full" v-else />
                     <div class="">
                       <h3 class=" text-Body1sm font-semibold text-black dark:text-darkContText">{{
                         user?.user_metadata?.name }}
@@ -233,7 +233,7 @@ onUnmounted(() => {
                 <div class="flex items-center gap-3" v-if="currentPrismaUser">
                   <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
                       " />
-                  <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
+                  <Icon name="i-mdi-account" class="w-10 h-10 rounded-full" v-else />
                 </div>
               </nuxt-link>
             </div>
@@ -257,7 +257,7 @@ onUnmounted(() => {
               <div class="flex items-center gap-3" v-if="currentPrismaUser">
                 <nuxt-img v-if="currentPrismaUser.image" :src="currentPrismaUser.image" class="rounded-full object-cover w-10 h-10 
                       " />
-                <Icon name="i-mdi-account" class="w-16 h-16 rounded-full" v-else />
+                <Icon name="i-mdi-account" class="w-10 h-10 rounded-full" v-else />
               </div>
             </nuxt-link>
           </div>
