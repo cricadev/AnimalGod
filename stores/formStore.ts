@@ -1,7 +1,8 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 import type { Pet, Appointment } from "~/types";
-
+import { useUserSessionStore } from "./UserSessionStore";
 export const useformStore = defineStore("formStore", () => {
+  const { getCurrentUser } = useUserSessionStore();
   const upload = ref(false)
   const HealthConditionOptions = [{
     label: 'Is the pet fully vaccinated?',
@@ -238,10 +239,13 @@ export const useformStore = defineStore("formStore", () => {
           }
         };
 
+
         if (storageTableName === 'avatars') {
           files.value.splice(index, 1);
           filePaths.value = filePaths.value.filter(path => path !== filePath);
+
         }
+        getCurrentUser()
       }
 
     } catch (error) {

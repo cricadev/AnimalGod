@@ -126,10 +126,10 @@ const { handleFileUpload, deleteImage } = useformStore();
 
 console.log(itemsPets.value)
 
-const publicUrl = currentPrismaUser.value?.image ? ref(currentPrismaUser.value?.image) : ref(null)
+const publicUrl = currentPrismaUser.value?.image;
 const handleImageDelete = async () => {
 
-  await deleteImage(0, 'avatars', user.value.user_metadata?.name, publicUrl.value)
+  deleteImage(0, 'avatars', user.value.user_metadata?.name, publicUrl)
 
   try {
     console.log(currentPrismaUser.value.id, publicUrl.value)

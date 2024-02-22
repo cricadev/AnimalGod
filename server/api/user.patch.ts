@@ -11,9 +11,8 @@ export default defineEventHandler(async (event) => {
   if (body.name) updateData.name = body.name;
   if (body.address) updateData.address = body.address;
   if (body.website) updateData.website = body.website;
-  if (body.image) updateData.image = body.image;
+  if (body.image !== undefined) updateData.image = body.image; // Allow empty string
   if (body.phone) updateData.phone = body.phone;
-
 
   if (body.isShelter) {
     const shelter = await prisma.shelter.update({
