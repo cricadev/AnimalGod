@@ -3,8 +3,18 @@
     <Loader />
 
   </div>
-  <div v-else-if="error">
-    {{ error }}
+  <div v-else-if="error || !petBasedOnId">
+
+    <div class="flex flex-col items-center justify-center gap-4 h-full py-16">
+      <Icon name="i-mdi-paw" class="text-9xl text-contInactive" />
+      <h2 class="text-Heading2sm font-bold leading-none">
+        No applicants yet
+      </h2>
+      <span class="leading-none text-Captionlg text-contInactive font-semibold">
+        When someone applies to adopt this pet, you will see their information here
+      </span>
+      <nuxt-link to="/my-pets" class="text-primary">Go back to my pets</nuxt-link>
+    </div>
   </div>
 
 

@@ -17,7 +17,7 @@
             <nuxt-img :src="img" :key="index" class=" z-0 h-full max-h-[34rem] rounded-lg">
             </nuxt-img>
           </Slide>
-          <template #addons>
+          <template #addons v-if="pet.images.length > 1">
             <Pagination class="pt-4" style="padding-bottom: 0;" />
             <Navigation class="" />
           </template>
@@ -49,7 +49,23 @@
               </span>
             </div>
           </div>
-          <div class="w-full rounded-lg are-you-interest bg-darkContThird   p-4 text-black  ">
+          <div class="w-full rounded-lg are-you-interest bg-darkContThird   p-4 text-black " v-if="isPetFromCurrentUser">
+            <div id="two" class="text-container">
+              <span class="text-Heading3sm font-bold text-center whitespace-nowrap line-clamp-1 text-black">You are the
+                owner of {{ pet.name }} </span>
+              <div class="fader fader-left"></div>
+              <div class="fader fader-right"></div>
+            </div>
+            <div class="grid md:grid-cols-2 gap-2 mt-4">
+              <UButton size="xl" color="primary" variant="solid">
+                <nuxt-link :to="`/pet?id=${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>
+              </UButton>
+              <UButton size="xl" color="white" variant="solid">
+                <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>
+              </UButton>
+            </div>
+          </div>
+          <div class="w-full rounded-lg are-you-interest bg-darkContThird   p-4 text-black  " v-else>
             <div class="" v-if="!user">
               <div id="two" class="text-container">
                 <span class="text-Heading3sm font-bold text-black text-center whitespace-nowrap line-clamp-1">Are you
@@ -212,11 +228,11 @@
       <div class="flex flex-col pet-available-cta px-5 gap-8 my-32" v-if="relatedPets.length">
         <h3 class="text-Heading3sm font-bold text-center mt:">Pet available for adoption</h3>
         <div class="flex w-full items-center justify-center gap-5">
-          <div class="" v-for="( animal, index ) in  relatedPets ">
+          <div class="" :key="animal.id" v-for="( animal, index ) in  relatedPets ">
             <nuxt-link class="grid relative w-32 h-32 overflow-hidden rounded-xl shadow-xl grid-cols-3 grid-rows-3"
               :to="`/meet-them/${animal.id}`">
               <h6
-                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-30 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond">
+                class="row-start-3 row-end-4 col-start-1 col-end-4 capitalize z-30 text-Heading6lg font-bold font-Inter tracking-widest relative place-self-center text-contSecond text-center">
                 {{ animal.name }}
               </h6>
               <nuxt-img v-if="animal.images.length > 0" :src="animal.images[0]"
@@ -257,7 +273,8 @@ import { useShelterStore } from "~/stores/ShelterStore";
 import { usePetStore } from "~/stores/PetStore";
 import { useUserSessionStore } from '@/stores/UserSessionStore';
 const UserSessionStore = useUserSessionStore();
-const { itemsPets } = storeToRefs(UserSessionStore);
+const { itemsPets, currentPrismaUser } = storeToRefs(UserSessionStore);
+const { fetchUserData, getCurrentUser } = UserSessionStore;
 const ShelterStore = useShelterStore();
 const PetStore = usePetStore();
 const { pet, shelter, relatedPets } = storeToRefs(PetStore);
@@ -266,9 +283,13 @@ const errorPet = ref(false);
 const isPetFormFilled = computed(() => {
   return itemsPets?.value?.appointments?.some((appointment: any) => appointment.petId === pet.value.id)
 })
-
+const isPetFromCurrentUser = computed(() => {
+  return Number(currentPrismaUser?.value?.id) === pet.value?.shelterId
+})
 
 onMounted(async () => {
+  fetchUserData(user.value);
+  getCurrentUser();
   if (route.params.slug) {
     try {
       await PetStore.fetchPet(route.params.slug);
