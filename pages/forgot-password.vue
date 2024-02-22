@@ -32,7 +32,7 @@ const forgotPassword = async () => {
   const { error, data } = await supaAuth.resetPasswordForEmail(
     credentials.email,
     {
-      redirectTo: "http://localhost:3000/profile/update",
+      redirectTo: "https://animalgod.cricadev.com/profile/update",
     }
   );
   if (error) {
