@@ -203,7 +203,7 @@ export const useformStore = defineStore("formStore", () => {
       }
 
     }
-    pet.images = imagesURL.value;
+    pet.images = [...pet.images, ...imagesURL.value];
   };
   const isDeleting = ref(false)
   const deleteImage = async (index: number, storageTableName: string, entityName: string, publicUrl: string) => {
