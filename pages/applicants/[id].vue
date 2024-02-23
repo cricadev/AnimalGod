@@ -69,6 +69,17 @@
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title: "Applicants",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "This is where you can see the applicants for your pets and the status of their applications.",
+    },
+  ],
+});
 const route = useRoute()
 const formatDate = (dateString) => {
   const date = new Date(dateString);

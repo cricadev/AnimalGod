@@ -17,6 +17,17 @@
 </template>
 
 <script setup>
+useHead({
+  title: "Forgot Password?",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "Recover your password to access your profile, applications and more.",
+    },
+  ],
+});
 definePageMeta({
   layout: "autho",
 

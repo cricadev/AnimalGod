@@ -16,6 +16,17 @@
   </div>
 </template>
 <script setup>
+useHead({
+  title: "Meet Them",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "This is where you can see the pets available for adoption.",
+    },
+  ],
+});
 const searchQuery = ref('');
 const advancedFiltering = reactive({
   type: '',

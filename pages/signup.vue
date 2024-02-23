@@ -23,6 +23,17 @@
   </SignupFormGroup>
 </template>
 <script setup>
+useHead({
+  title: "Sign up",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "Sign up to create an account and access your profile, applications and more.",
+    },
+  ],
+});
 definePageMeta({
   layout: "autho",
   middleware: 'unauthenticated'

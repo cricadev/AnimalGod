@@ -3,7 +3,8 @@ import { useWindowSize } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 
 useHead({
-  title: "AnimalGod",
+  title: "Home",
+  titleTemplate: '%s | AnimalGod',
   meta: [
     {
       name: "description",

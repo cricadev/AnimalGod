@@ -20,6 +20,17 @@
 </template>
 
 <script setup>
+useHead({
+  title: "Update Password",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "Update your password to access your profile, applications and more.",
+    },
+  ],
+});
 definePageMeta({
   layout: "autho",
 });

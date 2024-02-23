@@ -128,7 +128,17 @@
 <script setup lang="ts">
 import { storeToRefs } from "pinia";
 import { useWindowSize } from "@vueuse/core";
-
+useHead({
+  title: "About Adoption",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "Everything you need to know about adoption. Do's and Dont's, pets available for adoption and more.",
+    },
+  ],
+});
 const { height, width } = storeToRefs(useWindowSize());
 const isMobile = computed(() => width.value < 768);
 

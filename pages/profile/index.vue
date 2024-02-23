@@ -111,7 +111,17 @@ const UserSessionStore = useUserSessionStore();
 
 const { currentPrismaUser, itemsPets, loadingPets, user } = storeToRefs(UserSessionStore);
 const { handleFieldUpdate, getCurrentUser, fetchUserData } = UserSessionStore;
-
+useHead({
+  title: "Profile",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "This is where you can edit your profile, see your pets and applications.",
+    },
+  ],
+});
 
 onMounted(() => {
   fetchUserData(user.value)

@@ -113,6 +113,17 @@
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title: "Applicant Form",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "This is where you can see the applicant form and approve or deny the application.",
+    },
+  ],
+});
 const clientRef = ref(null)
 const route = useRoute()
 const formatDate = (dateString) => {

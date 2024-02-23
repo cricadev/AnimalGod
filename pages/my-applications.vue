@@ -60,6 +60,17 @@
 </template>
 
 <script lang="ts" setup>
+useHead({
+  title: "My Applications",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "Here you can see the status of your applications to adopt a pet.",
+    },
+  ],
+});
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, '0');

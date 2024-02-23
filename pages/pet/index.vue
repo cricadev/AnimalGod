@@ -41,7 +41,17 @@ import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
 import { dogBreeds, catBreeds } from 'pet-breed-names';
 
-
+useHead({
+  title: "Pet register form",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "This is where you can register a pet for adoption.",
+    },
+  ],
+});
 const formStore = useformStore();
 const { pet } = storeToRefs(formStore);
 const loading = ref(false);

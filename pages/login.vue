@@ -21,6 +21,17 @@
 </template>
 
 <script setup>
+useHead({
+  title: "Log in",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "Log in to your account to access your profile, applications and more."
+    },
+  ],
+});
 definePageMeta({
   layout: "autho",
   middleware: 'unauthenticated'

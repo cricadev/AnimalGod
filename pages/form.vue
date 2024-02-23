@@ -31,6 +31,17 @@
   </div>
 </template>
 <script lang="ts" setup>
+useHead({
+  title: "Application Form Register",
+  titleTemplate: '%s | AnimalGod',
+  meta: [
+    {
+      name: "description",
+      content:
+        "This is where you can register to adopt a pet.",
+    },
+  ],
+});
 import { storeToRefs } from 'pinia';
 import { useformStore } from '~/stores/formStore';
 import { useRefHistory } from '@vueuse/core'
