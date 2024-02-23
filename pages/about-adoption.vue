@@ -126,7 +126,6 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from "pinia";
 import { useWindowSize } from "@vueuse/core";
 useHead({
   title: "About Adoption",
@@ -139,7 +138,10 @@ useHead({
     },
   ],
 });
-const { height, width } = storeToRefs(useWindowSize());
+definePageMeta({
+  middleware: 'is-shelter'
+})
+const { height, width } = useWindowSize()
 const isMobile = computed(() => width.value < 768);
 
 </script>

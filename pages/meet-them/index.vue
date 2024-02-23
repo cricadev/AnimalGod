@@ -23,10 +23,13 @@ useHead({
     {
       name: "description",
       content:
-        "This is where you can see the pets available for adoption.",
+        "This is where you ",
     },
   ],
 });
+definePageMeta({
+  middleware: 'is-shelter'
+})
 const searchQuery = ref('');
 const advancedFiltering = reactive({
   type: '',

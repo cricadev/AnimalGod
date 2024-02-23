@@ -16,6 +16,9 @@ useHead({
     },
   ],
 });
+definePageMeta({
+  middleware: 'is-shelter'
+})
 </script>
 
 <style lang="scss" scoped></style>

@@ -146,14 +146,20 @@ const disableNext = computed(() => offset.value + limit.value >= allData.value.l
 watch(() => props.query, async (newVal) => {
   if (newVal) {
     console.log(newVal)
+    isLoadingSearch.value = true;
+
     const { data, error } = await useLazyFetch<Pet[]>('/api/pets?searchQuery=' + newVal);
     if (data) {
       allData.value = data.value;
+      isLoadingSearch.value = false;
       console.log(data)
     }
   } else {
+    isLoadingSearch.value = true;
+
     const { data, error } = await useLazyFetch<Pet[]>('/api/pets');
     if (data) {
+      isLoadingSearch.value = false;
       allData.value = data.value;
       console.log(data)
     }

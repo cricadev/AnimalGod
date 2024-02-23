@@ -14,7 +14,7 @@
           :wrap-around="true" snap-align="center" :touch-drag="true" :mouse-drag="true">
           <Slide class="overflow-hidden rounded-xl h-full w-full  relative self-center"
             v-for="(img, index) in  pet?.images ">
-            <nuxt-img :src="img" :key="index" class=" z-0 h-full max-h-[34rem] rounded-lg">
+            <nuxt-img v-if="img" :src="img" :key="index" class=" z-0 h-full max-h-[34rem] rounded-lg">
             </nuxt-img>
           </Slide>
           <template #addons v-if="pet.images.length > 1">
@@ -279,6 +279,8 @@ const ShelterStore = useShelterStore();
 const PetStore = usePetStore();
 const { pet, shelter, relatedPets } = storeToRefs(PetStore);
 const route = useRoute();
+const router = useRouter();
+
 const errorPet = ref(false);
 const isPetFormFilled = computed(() => {
   return itemsPets?.value?.appointments?.some((appointment: any) => appointment.petId === pet.value.id)
@@ -296,6 +298,7 @@ onMounted(async () => {
       if (pet.value) {
         shelter.value = ShelterStore.findShelterById(pet.value.shelterId);
         await PetStore.fetchRelatedPets();
+
         useHead({
           title: pet.value?.name,
           titleTemplate: '%s | AnimalGod',
@@ -307,6 +310,11 @@ onMounted(async () => {
             },
           ],
         })
+        if (user.value?.user_metadata.isShelter && !isPetFromCurrentUser.value) {
+          // If not, redirect to another page
+          router.push('/');
+          return;
+        }
       }
     }
     catch (err) {

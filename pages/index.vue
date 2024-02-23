@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useWindowSize } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
 
 useHead({
   title: "Home",
@@ -14,7 +13,6 @@ useHead({
   ],
 });
 const user = useSupabaseUser();
-
 
 const { height, width } = useWindowSize();
 const isMobile = computed(() => width.value < 768);
