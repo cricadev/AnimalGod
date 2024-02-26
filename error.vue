@@ -18,9 +18,13 @@
   </nuxt-layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-const error = useError();
+import type { NuxtError } from '#app'
+
+const props = defineProps({
+  error: Object as () => NuxtError
+})
 
 
 </script>

@@ -99,7 +99,6 @@ export default defineEventHandler(async (event) => {
       client, appointments, pets, tableData
     }
   } catch (error) {
-    console.error(error)
     throw error
   }
 })

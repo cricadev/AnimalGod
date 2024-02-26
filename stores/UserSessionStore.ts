@@ -8,26 +8,36 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
   const loadingPets = ref(false);
 
   const fetchUserData = async (newUser) => {
-    if (newUser) {
-      if (newUser.user_metadata.isShelter) {
-        loadingPets.value = true
+    try {
+      if (newUser) {
+        if (newUser.user_metadata.isShelter) {
+          loadingPets.value = true
 
-        fetchResult.value = await $fetch(`/api/shelter`);
+          fetchResult.value = await $fetch(`/api/shelter`);
 
-      } else {
-        loadingPets.value = true
+        } else {
+          loadingPets.value = true
 
-        fetchResult.value = await $fetch(`/api/client`);
+          fetchResult.value = await $fetch(`/api/client`);
+
+        }
+
+        if (!fetchResult.value) {
+          throw new Error('Error creating client')
+        }
+        itemsPets.value = fetchResult.value
+        loadingPets.value = false
 
       }
-
-      if (!fetchResult.value) {
-        throw new Error('Error creating client')
-      }
-      itemsPets.value = fetchResult.value
-      loadingPets.value = false
-
+    } catch (error) {
+      throw createError({
+        fatal: true,
+        statusCode: 500,
+        statusMessage: 'Error fetching user data'
+      });
     }
+
+
   };
   const userWatcher = watch(user, fetchUserData, { immediate: true, deep: true });
 
@@ -51,36 +61,53 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
 
   const getCurrentUser = async () => {
-    if (user.value.user_metadata?.isShelter) {
-      const data = await $fetch(`/api/id?email=${user.value.email}&isShelter=true`)
-      if (!data) {
-        throw new Error('Error getting user')
+    try {
+      if (user.value.user_metadata?.isShelter) {
+        const data = await $fetch(`/api/id?email=${user.value.email}&isShelter=true`)
+        if (!data) {
+          throw new Error('Error getting user')
+        }
+
+        console.log(data)
+        currentPrismaUser.value = data
+        loading.value = false
+
+
+
+      } else if (!user.value.user_metadata?.isShelter) {
+        const data = await $fetch(`/api/id?email=${user.value.email}`)
+        if (!data) {
+          throw new Error('Error getting user')
+        }
+
+        console.log(data)
+        currentPrismaUser.value = data
+        loading.value = false
+
       }
 
-      console.log(data)
-      currentPrismaUser.value = data
-      loading.value = false
-
-
-
-    } else if (!user.value.user_metadata?.isShelter) {
-      const data = await $fetch(`/api/id?email=${user.value.email}`)
-      if (!data) {
-        throw new Error('Error getting user')
-      }
-
-      console.log(data)
-      currentPrismaUser.value = data
-      loading.value = false
-
+    } catch (error) {
+      throw createError({
+        fatal: true,
+        statusCode: 500,
+        statusMessage: 'Error getting current user'
+      });
     }
 
   }
 
   watch(user, async (newUser) => {
-    if (newUser) {
-      await getCurrentUser()
-      fetchUserData(user.value);
+    try {
+      if (newUser) {
+        await getCurrentUser()
+        fetchUserData(user.value);
+      }
+    } catch (error) {
+      throw createError({
+        fatal: true,
+        statusCode: 500,
+        statusMessage: 'Error watching user'
+      });
     }
   })
 
@@ -107,7 +134,11 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
       await getCurrentUser()
     }
     catch (error) {
-      console.log(error);
+      throw createError({
+        fatal: true,
+        statusCode: 500,
+        statusMessage: 'Error updating field'
+      });
     }
   }
   onUnmounted(() => {
