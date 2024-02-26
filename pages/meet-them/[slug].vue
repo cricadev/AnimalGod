@@ -191,10 +191,12 @@
           </UTabs>
         </div>
       </div>
-      <div class="shelter-info bg-[#166DD2] pt-24 pb-8 relative text-white" v-if="shelter">
+      <div class="shelter-info bg-[#166DD2] mt-16 pt-24 pb-8 relative text-white" v-if="shelter">
         <div class="flex items-center flex-col justify-center gap-4 ">
           <div class="absolute -top-12">
-            <nuxt-img :src="shelter.image" class="rounded-full w-32 h-32 border-8  border-[#A1ABCF]"></nuxt-img>
+            <nuxt-img v-if="shelter.image" :src="shelter.image"
+              class="rounded-full w-32 h-32 border-8 object-cover border-[#A1ABCF]"></nuxt-img>
+
           </div>
           <div class="flex flex-col gap-3">
             <h3 class="text-Heading3sm font-bold text-center"> {{ shelter.name }} </h3>

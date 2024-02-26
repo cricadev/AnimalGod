@@ -46,7 +46,7 @@
         <tbody class="table-body">
           <tr scope="row" class="table-data" v-for="appointment in petBasedOnId?.appointments" :key="appointment.id">
             <td class="table-data-cell">
-              <div class="">
+              <div class="flex items-center justify-center flex-col gap-2">
                 <nuxt-img v-if="appointment.client.image" :src="appointment.client.image"
                   class="w-16 h-16 rounded-full"></nuxt-img>
                 <Icon v-else name="i-mdi-account" class="w-16 h-16 rounded-full" />
@@ -54,12 +54,19 @@
                 <span class="font-semibold "> {{ appointment.client.name }} </span>
               </div>
             </td>
-            <td>
-              {{ appointment.acceptedForm }}
+            <td :class="[
+              appointment.acceptedForm === 'IN_PROCESS' ? 'text-yellow-300' :
+                appointment.acceptedForm === 'ACCEPTED' ? 'text-green-500' :
+                  appointment.acceptedForm === 'DENIED' ? 'text-red-500' : ''
+
+            ]" v-html="appointment.acceptedForm === 'IN_PROCESS' ? 'In process' :
+  appointment.acceptedForm === 'ACCEPTED' ? 'Approved <br>the shelter will contact you soon' :
+    appointment.acceptedForm === 'DENIED' ? 'Denied' : ''">
             </td>
             <td>{{ formatDate(appointment.createdAt) }}</td>
             <td>
-              <nuxt-link :to="`/applicant-form/${appointment.id}`">See Form Answers</nuxt-link>
+              <nuxt-link :to="`/applicant-form/${appointment.id}`" class="table-data-cell-link">See Form
+                Answers</nuxt-link>
             </td>
           </tr>
         </tbody>

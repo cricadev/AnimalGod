@@ -39,7 +39,7 @@
             <td>{{ formatDate(pet.createdAt) }}</td>
             <td>
               <div class="" v-if="pet.appointments.length === 1">
-                <nuxt-link :to="'/applicants/' + pet.id">
+                <nuxt-link class="table-data-cell-link" :to="'/applicants/' + pet.id">
                   <nuxt-img v-if="pet.appointments[0].client.image" :src="pet.appointments[0].client.image"
                     class="w-16 h-16 rounded-full"></nuxt-img>
                   <div class="w-16 h-16 rounded-full flex items-center  justify-center" v-else>
@@ -58,7 +58,7 @@
 
                 </UAvatarGroup>
                 <div class="">
-                  <nuxt-link :to="'/applicants/' + pet.id">See Applicants</nuxt-link>
+                  <nuxt-link :to="'/applicants/' + pet.id" class="table-data-cell-link">See Applicants</nuxt-link>
                 </div>
               </div>
               <div class="text-contInactive" v-else>
@@ -66,7 +66,7 @@
               </div>
             </td>
             <td>
-              <nuxt-link :to="`/pet?id=${pet.id}`">Edit {{ pet.name }} Profile</nuxt-link>
+              <nuxt-link :to="`/pet?id=${pet.id}`" class="table-data-cell-link">Edit {{ pet.name }} Profile</nuxt-link>
             </td>
           </tr>
         </tbody>

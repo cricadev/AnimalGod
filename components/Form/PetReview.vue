@@ -207,8 +207,11 @@
 
     <div class="submit-button flex justify-end">
       <UButton :loading="loading" v-if="!shelter || !route.query.id" class="py-3 px-4" icon="i-mdi-check" trailing
-        @click="emit('submit', pet)">Confirm
-        and Register</UButton>
+        @click="emit('submit', pet)">
+        {{
+          shelter ? 'Confirm and Register' : 'Confirm and Apply'
+        }}
+      </UButton>
       <UButton :loading="loading" v-else class="py-3 px-4" icon="i-mdi-check" trailing @click="emit('update-pet', pet)">
         Confirm and Update
       </UButton>
