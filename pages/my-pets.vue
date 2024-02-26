@@ -96,7 +96,12 @@ const formatDate = (dateString) => {
 
 
 const { data, error, pending } = useLazyFetch(`/api/shelter`)
-
+if (error.value) {
+  throw createError({
+    statusCode: 500,
+    statusMessage: 'Something went wrong with the server, go home and try again.'
+  })
+}
 const nameToInitials = (name) => {
   return name.split(' ').map(n => n[0]).join('').slice(0, 2);
 }

@@ -137,6 +137,12 @@ const user = useSupabaseUser();
 const loading = ref(false)
 const appointmentStatus = ref('IN_PROCESS');
 const { data, error, pending } = useLazyFetch(`/api/shelter`)
+if (error.value) {
+  throw createError({
+    statusCode: 500,
+    statusMessage: 'Something went wrong with the server, go home and try again.'
+  })
+}
 const petsApplicants = computed(() => {
   return data.value?.pets.filter(pet => pet.appointments && pet.appointments.length > 0)
     .map(pet => ({
