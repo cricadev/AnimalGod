@@ -11,7 +11,10 @@ export default defineEventHandler(async (event) => {
   try {
     user = await serverSupabaseUser(event)
   } catch (err) {
-    console.error(err)
+    throw createError({
+      statusCode: 404,
+      statusMessage: 'No User Found try going back to home'
+    })
   }
 
   let client;
@@ -38,23 +41,37 @@ export default defineEventHandler(async (event) => {
       throw error;
     }
   }
-  // Get the pets associated with the client
-  let appointments = await prisma.appointment.findMany({
-    skip: Number(offset),
-    take: Number(limit),
-    orderBy: { id: 'desc' },
-    where: { clientId: client.id },
-    include: { client: true }
-  })
+
+  let appointments;
+  try {
+    // Get the pets associated with the client
+    appointments = await prisma.appointment.findMany({
+      skip: Number(offset),
+      take: Number(limit),
+      orderBy: { id: 'desc' },
+      where: { clientId: client.id },
+      include: { client: true }
+    })
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 
   // Get the pet IDs from the appointments
   let petIds = appointments.map(appointment => appointment.petId);
 
-  // Find pets with the pet IDs
-  let pets = await prisma.pet.findMany({
-    where: { id: { in: petIds } },
-    include: { shelter: true }
-  })
+  let pets;
+  try {
+    // Find pets with the pet IDs
+    pets = await prisma.pet.findMany({
+      where: { id: { in: petIds } },
+      include: { shelter: true }
+    })
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+
   const tableData = appointments.map(appointment => {
     // Find the pet associated with the appointment
     const pet = pets.find(pet => pet.id === appointment.petId);
@@ -78,5 +95,4 @@ export default defineEventHandler(async (event) => {
   return {
     client, appointments, pets, tableData
   }
-
 })
