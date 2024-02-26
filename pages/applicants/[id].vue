@@ -60,7 +60,7 @@
                   appointment.acceptedForm === 'DENIED' ? 'text-red-500' : ''
 
             ]" v-html="appointment.acceptedForm === 'IN_PROCESS' ? 'In process' :
-  appointment.acceptedForm === 'ACCEPTED' ? 'Approved <br>the shelter will contact you soon' :
+  appointment.acceptedForm === 'ACCEPTED' ? 'Approved' :
     appointment.acceptedForm === 'DENIED' ? 'Denied' : ''">
             </td>
             <td>{{ formatDate(appointment.createdAt) }}</td>
