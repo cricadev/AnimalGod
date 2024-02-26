@@ -164,13 +164,13 @@ const handleImageDelete = async () => {
 
 
 }
-const NameWithNoSpaces = computed(() => {
-  return user.value.user_metadata?.name.split(' ').join('_')
+const NameWithNoSpacesOrSpecialChars = computed(() => {
+  return user.value.user_metadata?.name.replace(/[^a-zA-Z0-9]/g, '');
 
 })
 const handleUpload = async (event) => {
 
-  const publicUrl = await handleFileUpload(event, 'avatars', NameWithNoSpaces.value)
+  const publicUrl = await handleFileUpload(event, 'avatars', NameWithNoSpacesOrSpecialChars.value)
   console.log(publicUrl)
 
   try {
