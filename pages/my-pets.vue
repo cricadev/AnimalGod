@@ -20,7 +20,7 @@
             <th>Pet</th>
             <th scope="col" class="table-header">State</th>
             <th scope="col">Date</th>
-            <th scope="col" v-if="hasAppointments">Applicants</th>
+            <th scope="col">Applicants</th>
             <th scope="col">Info</th>
           </tr>
 
@@ -96,7 +96,6 @@ const formatDate = (dateString) => {
 
 
 const { data, error, pending } = useLazyFetch(`/api/shelter`)
-const hasAppointments = computed(() => data.value.pets.some(pet => pet.appointments.length > 0));
 
 const nameToInitials = (name) => {
   return name.split(' ').map(n => n[0]).join('').slice(0, 2);
