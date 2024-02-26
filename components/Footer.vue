@@ -4,7 +4,7 @@ const colorMode = useColorMode();
 
 <template>
   <div
-    class=" h-screen bg-Bg dark:bg-darkContSecond w-full grid grid-cols-3 grid-rows-6 px-5 md:px-16 place-items-center md:grid-rows-2 md:h-full md:pt-64 md:pb-8 md:gap-y-64 md:gap-x-16 lg:grid-cols-5 lg:grid-rows-1 ">
+    class="mt-8 lg:mt-16 2xl:mt-24 h-screen bg-Bg dark:bg-darkContSecond w-full grid grid-cols-3 grid-rows-6 px-5 md:px-16 place-items-center md:grid-rows-2 md:h-full md:pt-64 md:pb-8 md:gap-y-64 md:gap-x-16 lg:grid-cols-5 lg:grid-rows-1 ">
     <div
       class="flex flex-col items-center justify-center gap-9 col-start-1 col-end-4 row-start-1 row-end-3 md:col-end-2 md:row-end-2">
       <nuxt-img v-if="colorMode.preference !== 'light'" provider="cloudinary" src="/animal_god_olvlho.png" height="50"
