@@ -95,7 +95,7 @@ const formatDate = (dateString) => {
 }
 
 
-const { data, error, pending } = useLazyFetch(`/api/shelter`)
+const { data, error, pending } = await useLazyFetch(`/api/shelter`)
 if (error.value) {
   throw createError({
     statusCode: 500,

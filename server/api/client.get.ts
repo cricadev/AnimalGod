@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
     user = await serverSupabaseUser(event)
   } catch (err) {
     throw createError({
+      fatal: true,
       statusCode: 404,
       statusMessage: 'No User Found try going back to home'
     })
@@ -34,6 +35,7 @@ export default defineEventHandler(async (event) => {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
       // Throw an error created with createError
       throw createError({
+        fatal: true,
         statusCode: 404,
         statusMessage: 'No client found with this ID'
       })

@@ -84,9 +84,10 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`;
 }
 
-const { data, error, pending } = useLazyFetch(`/api/client`)
+const { data, error, pending } = await useLazyFetch(`/api/client`)
 if (error.value) {
   throw createError({
+    fatal: true,
     statusCode: 500,
     statusMessage: 'Something went wrong with the server, go home and try again.'
   })
