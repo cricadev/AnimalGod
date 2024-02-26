@@ -6,15 +6,22 @@
     </FormPreHeaderStep>
 
 
-    <div v-for="(condition, index) in healthOptions" :key="condition.value">
+    <div class="flex justify-between" v-for="(condition, index) in healthOptions" :key="condition.value">
       <label> {{ condition.label }} </label>
-      <input type="radio" :id="`${condition.value}-yes`" :name="condition.value" :value="healthConditions[index].answer"
-        :checked="healthConditions[index].answer == 'Yes'" value="Yes"
-        @change="updatePet('healthConditions', 'Yes', index)">
-      <label :for="`${condition.value}-yes`">Yes</label>
-      <input type="radio" :id="`${condition.value}-no`" :name="condition.value" :value="healthConditions[index].answer"
-        :checked="healthConditions[index].answer == 'No'" value="No" @change="updatePet('healthConditions', 'No', index)">
-      <label :for="`${condition.value}-no`">No</label> -
+      <div class="pl-2 flex items-center gap-3 justify-center">
+        <div class=" flex items-center gap-1">
+          <input type="radio" :id="`${condition.value}-yes`" :name="condition.value"
+            :value="healthConditions[index].answer" :checked="healthConditions[index].answer == 'Yes'" value="Yes"
+            @change="updatePet('healthConditions', 'Yes', index)">
+          <label :for="`${condition.value}-yes`">Yes</label>
+        </div>
+        <div class=" flex items-center gap-1">
+          <input type="radio" :id="`${condition.value}-no`" :name="condition.value"
+            :value="healthConditions[index].answer" :checked="healthConditions[index].answer == 'No'" value="No"
+            @change="updatePet('healthConditions', 'No', index)">
+          <label :for="`${condition.value}-no`">No</label>
+        </div>
+      </div>
     </div>
     <div class="relative flex gap-8 flex-col">
 

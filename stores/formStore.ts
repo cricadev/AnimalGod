@@ -209,16 +209,8 @@ export const useformStore = defineStore("formStore", () => {
   const deleteImage = async (index: number, storageTableName: string, entityName: string, publicUrl: string) => {
     isDeleting.value = true;
     try {
-      let filePath;
-      if (storageTableName === 'avatars') {
-        const imageName = publicUrl.substring(publicUrl.lastIndexOf('/') + 1);
-        filePath = 'avatars/' + imageName;
-      } else {
-        // Extract the name of the image from the public URL
-        const imageName = publicUrl.substring(publicUrl.lastIndexOf('/') + 1);
-        filePath = storageTableName + '/' + imageName;
-      }
-      console.log(filePath, 'filePath')
+      let filePath: string = storageTableName === 'avatars' ? 'avatars/' + publicUrl.split('/').pop() : 'animalgod-files/' + publicUrl.split('/').pop();
+      console.log(filePath)
 
       // Delete the file
       const { data, error } = await supabase.storage.from(storageTableName).remove([filePath]);
@@ -227,7 +219,7 @@ export const useformStore = defineStore("formStore", () => {
 
       }
       else {
-        console.log(data)
+        console.log(data, storageTableName, 'data', filePath, 'filePath', publicUrl, 'publicUrl', entityName, 'entityName')
         // Update the local state based on the storage table name
         if (storageTableName === 'animalgod-files') {
           files.value.splice(index, 1);

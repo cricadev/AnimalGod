@@ -136,13 +136,13 @@ const { handleFileUpload, deleteImage } = useformStore();
 
 console.log(itemsPets.value)
 
-const publicUrl = ref(currentPrismaUser.value?.image)
+
 const handleImageDelete = async () => {
 
-  await deleteImage(0, 'avatars', user.value.user_metadata?.name, publicUrl.value)
+  await deleteImage(0, 'avatars', user.value.user_metadata?.name, currentPrismaUser.value.image)
 
   try {
-    console.log(currentPrismaUser.value.id, publicUrl.value)
+    console.log(currentPrismaUser.value.id, currentPrismaUser.value.image)
     // First, try to create the client
     const data = await $fetch('/api/user', {
       method: 'PATCH',
@@ -164,12 +164,14 @@ const handleImageDelete = async () => {
 
 
 }
+const NameWithNoSpaces = computed(() => {
+  return user.value.user_metadata?.name.split(' ').join('_')
 
-
+})
 const handleUpload = async (event) => {
 
-  publicUrl.value = await handleFileUpload(event, 'avatars', user.value.user_metadata?.name)
-  console.log(publicUrl.value)
+  const publicUrl = await handleFileUpload(event, 'avatars', NameWithNoSpaces.value)
+  console.log(publicUrl)
 
   try {
     // First, try to create the client
@@ -178,7 +180,7 @@ const handleUpload = async (event) => {
       body: {
         isShelter: user.value.user_metadata?.isShelter,
         id: currentPrismaUser.value.id,
-        image: publicUrl.value,
+        image: publicUrl,
       }
     });
     if (!data) {

@@ -10,7 +10,7 @@
 
           <input type="checkbox" :id="adjective" :value="adjective" :checked="personality.includes(adjective)"
             @change="updatePet('personality', $event.target.value)">
-          <label :for="adjective">{{ adjective }}</label>
+          <label :for="adjective" class="pl-2 lowercase">{{ adjective }}</label>
         </div>
       </div>
 
