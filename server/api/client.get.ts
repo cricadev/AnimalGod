@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { serverSupabaseUser } from '#supabase/server'
 
 const prisma = new PrismaClient();
@@ -6,30 +6,37 @@ const prisma = new PrismaClient();
 export default defineEventHandler(async (event) => {
   const { limit = 4, offset = 0, clientId } = getQuery(event)
 
-  8
   // Get the authenticated user
   var user = null
   try {
     user = await serverSupabaseUser(event)
   } catch (err) {
     console.error(err)
-
   }
+
   let client;
-  if (user) {
-    // If the user is authenticated, find the client by the user's email
-    client = await prisma.client.findUniqueOrThrow({
-      where: { email: user.email },
-    });
-  } else {
-    // If the user is not authenticated, find the client by its ID
-    client = await prisma.client.findUniqueOrThrow({
-      where: { id: Number(clientId) },
-    });
-  }
-
-  if (!client) {
-    throw new Error('No client found with this ID');
+  try {
+    if (user) {
+      // If the user is authenticated, find the client by the user's email
+      client = await prisma.client.findUnique({
+        where: { email: user.email },
+      });
+    } else {
+      // If the user is not authenticated, find the client by its ID
+      client = await prisma.client.findUnique({
+        where: { id: Number(clientId) },
+      });
+    }
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      // Throw an error created with createError
+      throw createError({
+        statusCode: 404,
+        statusMessage: 'No client found with this ID'
+      })
+    } else {
+      throw error;
+    }
   }
   // Get the pets associated with the client
   let appointments = await prisma.appointment.findMany({
