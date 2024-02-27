@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-4xl 2xl:max-w-6xl mx-auto">
     <div class="flex flex-col justify-between h-[90dvh]" v-if="user">
-      <div class="">
+      <div class="" v-if="!loading">
         <div class="user-image-upload flex justify-center items-center">
           <div class="relative" v-if="currentPrismaUser">
             <div class="" v-if="!currentPrismaUser.image">
@@ -29,7 +29,7 @@
           }}
           <Icon :name="convertCountryToIcon(user.user_metadata?.country)" class="" />
         </h3>
-        <div v-if="!loading">
+        <div>
           <ProfileInputEditableHeading :modelValue="currentPrismaUser?.phone"
             @update:modelValue="value => handleFieldUpdate('phone', value)" :phone="true" />
           <ProfileInputEditableHeading v-if="user?.user_metadata?.isShelter" :modelValue="currentPrismaUser?.address"
@@ -37,10 +37,12 @@
           <ProfileInputEditableHeading v-if="user?.user_metadata?.isShelter" :modelValue="currentPrismaUser?.website"
             :website="true" @update:modelValue="value => handleFieldUpdate('website', value)" />
         </div>
-        <div v-else>
-          <Loader />
-        </div>
+
       </div>
+      <div v-else>
+        <Loader :profile="true" />
+      </div>
+
 
       <div class="px-5">
 
@@ -108,8 +110,7 @@ import { storeToRefs } from 'pinia';
 countries.registerLocale(en);
 
 const UserSessionStore = useUserSessionStore();
-
-const { currentPrismaUser, itemsPets, loadingPets, user } = storeToRefs(UserSessionStore);
+const { currentPrismaUser, itemsPets, loadingPets, user, loading } = storeToRefs(UserSessionStore);
 const { handleFieldUpdate, getCurrentUser, fetchUserData } = UserSessionStore;
 useHead({
   title: "Profile",

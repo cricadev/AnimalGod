@@ -39,7 +39,7 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
 
   };
-  const userWatcher = watch(user, fetchUserData, { immediate: true, deep: true });
+  const userWatcher = watch(user, fetchUserData, { deep: true });
 
 
   const state = reactive({
@@ -61,6 +61,7 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
 
   const getCurrentUser = async () => {
+    loading.value = true
     try {
       if (user.value.user_metadata?.isShelter) {
         const data = await $fetch(`/api/id?email=${user.value.email}&isShelter=true`)
@@ -147,7 +148,7 @@ export const useUserSessionStore = defineStore("UserSessionStore", () => {
 
 
   });
-  return { session, currentPrismaUser, handleFieldUpdate, itemsPets, loadingPets, user, getCurrentUser, fetchUserData, }
+  return { session, currentPrismaUser, handleFieldUpdate, itemsPets, loadingPets, user, getCurrentUser, fetchUserData, loading }
 });
 if (import.meta.hot) {
   import.meta.hot.accept(

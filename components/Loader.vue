@@ -1,5 +1,10 @@
+<script setup lang="ts">
+defineProps({
+  profile: Boolean,
+});
+</script>
 <template>
-  <div class="h-[40vh] flex justify-center items-center ">
+  <div class="h-[40vh] flex justify-center items-center " v-if="!profile">
     <div class="lds-heart">
       <div></div>
     </div>
@@ -8,8 +13,39 @@
       <div></div>
     </div>
   </div>
+  <div class="h-[20vh] flex justify-center items-center " v-else>
+    <div class="lds-dual-ring"></div>
+  </div>
 </template>
 <style>
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .lds-heart {
   display: inline-block;
   position: relative;

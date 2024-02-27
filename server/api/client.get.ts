@@ -12,11 +12,7 @@ export default defineEventHandler(async (event) => {
     try {
       user = await serverSupabaseUser(event)
     } catch (err) {
-      throw createError({
-        fatal: true,
-        statusCode: 404,
-        statusMessage: 'No User Found try going back to home'
-      })
+      throw err
     }
 
     let client;
